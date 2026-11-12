@@ -14,9 +14,9 @@ follows their method closely.
 ## Route
 
 - **stickman-kino installed** (its skill `stickman-kino:stickman-kino` or `stickman-kino` is in this host's list,
-  from the Toolbox catalog (Creative Studio: `skills/workflow-orchestrator/references/extensions.md`)): say in one line
+  from the Toolbox catalog ([installing a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))): say in one line
   that Studio uses it to build the film, read its skill and follow it for the build step only (installed catalog
-  entries (Creative Studio: `skills/pipeline-core/references/companion-routing.md`)). It draws rigged figures
+  entries ([using a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))). It draws rigged figures
   with ready poses, props, charts, captions, voice, music and effects locally in HyperFrames, with no video model or
   API key. Studio keeps the brief, script, copy locks, board plan and review, and passes the rules below as the
   direction.

@@ -14,9 +14,9 @@ Credit both when a piece follows this method closely.
 ## Route
 
 - **pixelfx installed** (its skill `pixelfx:pixelfx` or `pixelfx` is in this host's list, from the
-  Toolbox catalog (Creative Studio: `skills/workflow-orchestrator/references/extensions.md`)): say in one line that
+  Toolbox catalog ([installing a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))): say in one line that
   Studio uses it for the effect, read its skill and follow it for that step only (installed catalog
-  entries (Creative Studio: `skills/pipeline-core/references/companion-routing.md`)). Start from its 244 ready
+  entries ([using a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))). Start from its 244 ready
   effects (recolor with a palette, change the seed, mirror) before drafting a new one. Studio keeps the brief, the
   plan and the review.
 - **Not installed:** when a pixel effect is central to the piece, offer the entry once in the user's terms (ready

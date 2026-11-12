@@ -738,5 +738,5 @@
       "observed": "2026-10-20: container tests on synthetic audio and a 16.7 s film; LUFS, LRA and true peak agreed with the earshot extension to a few tenths; no host run recorded"
     }
   ],
-  "note": "Motion subset of Creative Studio capability card at the FrameMotion split (2026-11-12); caption-studio rows describe FrameMotion copy of captions.py."
+  "note": "FrameMotion capability card; caption-studio rows describe FrameMotion's own copy of captions.py."
 }

@@ -2,7 +2,7 @@
 
 Motion graphics from code for **Claude, Codex and ChatGPT Work**, maintained by FrameCore Works. FrameMotion turns an idea into a storyboard, builds the film in code (HyperFrames, canvas, GSAP or Remotion), renders the MP4 and checks it frame by frame, with designed sound when wanted.
 
-**Current plugin version: 0.1.0.** FrameMotion is the former Motion Graphics module of [FrameCore Works Creative Studio](https://github.com/FrameCoreWorks/framecore-works-creative-studio), moved into its own plugin. It works on its own, with a short brief of its own, and as Studio's motion companion: then Studio keeps the brief, idea, copy locks, board approval and delivery, and FrameMotion does the motion plan, build, render and frame QA. Both talk through the shared `framecore-task-result/1` contract also used by Toolbox and Open Assets.
+**Current plugin version: 0.1.1.** FrameMotion is a complete standalone plugin: it needs no other plugin, starts with its own short brief and takes a film from the idea to the delivered MP4. It also works as the motion companion of [FrameCore Works Creative Studio](https://github.com/FrameCoreWorks/framecore-works-creative-studio) when both are installed: then Studio keeps the brief, idea, copy locks, board approval and delivery, and FrameMotion does the motion plan, build, render and frame QA. Both talk through the shared `framecore-task-result/1` contract also used by Toolbox and Open Assets.
 
 ## Watch it
 
@@ -15,7 +15,7 @@ From a chat to a finished reel: a client asks for a motion reel, the creator ask
 | [![A written brief becomes four storyboard sketches, then the first one turns into the finished ad](assets/demo/brief-to-film.gif)](assets/demo/brief-to-film.mp4) | [![A sheet holding a brief is cut, folds itself into a printed box and unfolds into the FrameCore Works logo](assets/demo/paper-box.gif)](assets/demo/paper-box.mp4) | [![A bar chart grows and its tallest bar lies down and becomes the owner's name title](assets/demo/chart-to-title.gif)](assets/demo/chart-to-title.mp4) |
 | A note becomes a storyboard, and the storyboard becomes the ad. | A brief on paper folds into a box and unfolds into the logo. | The tallest bar of a chart becomes the owner's name title. |
 
-All of these were made with the motion route that is now FrameMotion, when it was still Creative Studio's Motion Graphics module ([how they were made](assets/demo/README.md)).
+All of these were made with FrameMotion's motion route ([how they were made](assets/demo/README.md)).
 
 ## Start here
 

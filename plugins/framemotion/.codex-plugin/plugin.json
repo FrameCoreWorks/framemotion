@@ -13,7 +13,7 @@
     ]
   },
   "name": "framemotion",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Motion graphics from code: idea, storyboard, build, render and frame QA of finished MP4 films, standalone or as Creative Studio's motion companion.",
   "author": {
     "name": "FrameCore Works"
@@ -27,5 +27,10 @@
     "remotion"
   ],
   "license": "Apache-2.0",
-  "skills": "./skills"
+  "skills": "./skills",
+  "extensions": {
+    "com.openai": {
+      "onboardingSkill": "./skills/framemotion/SKILL.md"
+    }
+  }
 }

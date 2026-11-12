@@ -58,6 +58,10 @@ The package is large (about 12 MB, 470 files), mostly the bundled engines and st
 
 In the installed plugin, the skill decides the route from the host: no code execution (storyboard and motion contract only), code execution (Python renderer), or a shell (HyperFrames, canvas, GSAP, Remotion). Ask it: "What can FrameMotion render here?" It probes `python3`, `ffmpeg`, `node` and a browser and names the route; installing an engine package needs the user's yes.
 
+## First setup
+
+Right after the first check, in the same conversation, the skill runs its [first setup](plugins/framemotion/skills/framemotion/references/first-setup.md): it asks once, as one numbered list, whether to add the FrameCore Works Toolbox plugins that extend FrameMotion (Earshot and reel style packs inside Toolbox, GSAP and three.js knowledge, art-style and transition methods, ready launch-film pipelines). Only the picked numbers are installed, through this host's plugin manager; FrameMotion works fully without any of them. Later the user can say "Configure FrameMotion". With Creative Studio running its own setup, Studio's list covers these plugins and FrameMotion does not ask again.
+
 ## With Creative Studio
 
 Studio 1.178.0 and newer routes motion graphics to FrameMotion and no longer carries the module itself. Install FrameMotion beside Studio from either marketplace; Studio's installation guides add it in the companion setup.

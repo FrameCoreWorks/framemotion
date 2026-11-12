@@ -1,6 +1,6 @@
 # README demo clips
 
-The clips shown in the [repository README](../../README.md#watch-it), plus three earlier renderer examples. They moved here from Creative Studio's README on 2026-11-12 together with the motion module (owner request). They are repository presentation files, outside the plugin package, and are not installed with FrameMotion.
+The clips shown in the [repository README](../../README.md#watch-it), plus three earlier renderer examples. They are repository presentation files, outside the plugin package, and are not installed with FrameMotion.
 
 ## Renderer examples
 

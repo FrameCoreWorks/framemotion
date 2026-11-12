@@ -1,4 +1,4 @@
-<!-- Remotion route of FrameMotion, formerly the Creative Studio skill remotion-video-production. Loaded from SKILL.md; not a separate skill. -->
+<!-- Remotion route of FrameMotion. Loaded from SKILL.md; not a separate skill. -->
 # Remotion Video
 
 Before building, search this host's whole skill list, not only FrameCore names, for an installed Toolbox catalog entry that fits the step (for example `huashu-art-motion` for animation in an art style, `animate` for an explainer, `motion-designer` for an app launch film, also as a private ChatGPT Work plugin); when one is listed, say in one line that Studio uses it for that step, read its skill and follow it, keeping the brief and review here (installed catalog entries (Creative Studio: `skills/pipeline-core/references/companion-routing.md`)).

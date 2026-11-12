@@ -1,5 +1,4 @@
-"""The bundled captions copy and the motion sync tool import subtitles into a contract identically.
-Moved from Creative Studio's captions_test.py with the motion module (Studio 1.178.0)."""
+"""The bundled captions copy and the motion sync tool import subtitles into a contract identically."""
 import importlib.util
 import json
 import pathlib
