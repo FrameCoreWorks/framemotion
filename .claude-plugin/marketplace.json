@@ -1,0 +1,18 @@
+{
+  "name": "framemotion",
+  "owner": {
+    "name": "FrameCore Works",
+    "url": "https://github.com/FrameCoreWorks"
+  },
+  "description": "Standalone FrameMotion marketplace. Creative Studio is optional.",
+  "plugins": [
+    {
+      "name": "framemotion",
+      "displayName": "FrameMotion",
+      "source": "./plugins/framemotion",
+      "description": "Motion graphics from code: idea, storyboard, build, render and frame QA of finished MP4 films, standalone or as Creative Studio's motion companion.",
+      "version": "0.1.0",
+      "category": "productivity"
+    }
+  ]
+}

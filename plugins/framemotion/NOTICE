@@ -1,0 +1,41 @@
+FrameMotion
+Copyright 2026 FrameCore Works
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+FrameMotion 0.1.0 is the Motion Graphics module of FrameCore Works Creative Studio 1.177.0
+(skills hyperframes-workflow and remotion-video-production, FrameCoreWorks/framecore-works-creative-studio,
+main 9841769d), moved into its own plugin by the owner's decision of 2026-11-12. The motion workshop under
+skills/framemotion/references/workshop/ is original FrameCore Works knowledge from the FrameCore Works Motion
+project, rewritten in English. skills/framemotion/assets/captions/captions.py is a copy of Creative Studio's
+Caption Studio script with one added render-path candidate (see its README).
+
+Third-party components (each integrations/<name>/ folder keeps the upstream licence text and, where bundled,
+a source-manifest.json with the pinned commit):
+
+- cth9191/animate 0.4.0, commit 7e5eb56feb2dd573f890e1b7b34748af43d58263, Copyright (c) 2026 cth9191, MIT.
+  Bundled as skills/framemotion/assets/animate-engine/. See integrations/animate/.
+- wheresryan22/anatomy, commit e9488296a44211c42701ff71705b7901470ec78f, Copyright (c) 2026 Ryan, MIT.
+  Bundled as skills/framemotion/assets/anatomy-engine/. See integrations/anatomy/.
+- kaventro/motion-designer, commit 7d0b8bb78ddd2c91c57db9d1e83fcf711304bdb8, Copyright (c) 2026 kaventro, MIT.
+  See integrations/kaventro-motion-designer/.
+- aievolutionpl/motion-designer-studio, commit 7c215ed50355ca6ad592a3a4ed88e2ef49bb4bb3, Copyright (c) 2026
+  Tabasco Creatives / AI Evolution Labs, MIT. See integrations/motion-designer-studio/ and its THIRD_PARTY_NOTICES.md.
+- gongnyang/awesome-ai-motion, commit 1e3c249073c61b42ceb556d7800f628d565d9312, Copyright (c) 2026 gongnyang, MIT:
+  English card text only, in skills/framemotion/assets/technique-atlas/ (its README.md carries the licence text).
+- heygen-com/hyperframes, commit 86521b94f592bcf0ca86aba63068893cf658af16, Apache-2.0: registry block names only,
+  listed in the technique atlas; no HyperFrames code is bundled.
+- Fonts in skills/framemotion/assets/fonts/ (Anton, Archivo, Bricolage Grotesque, Fraunces, Inter, Source Serif 4):
+  SIL Open Font License 1.1; each family folder keeps its OFL.txt with the copyright notice.
+- Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:
+  the page-chrome review idea only, restated in skills/framemotion/SKILL.md; no code, media or text is copied.
+- alchaincyf/huashu-art-motion 1.2.0, commit 8a0d7d72ca65fcce6f8ba82c4a6c8dfe35b8422c, Copyright (c) 2026 alchaincyf,
+  MIT: the reference breakdown script adapted in skills/framemotion/assets/reference-breakdown/breakdown.py (licence in
+  LICENSE.upstream there) and its direction method restated in references/art-and-explainer-motion-direction.md.
+- iso-glow (https://isoglow.dev/, archive SHA-256 6c88dba1424bada2ee651a1b273095f9a13b82dd9362f9bc873600b5bff6b0a1),
+  Copyright (c) 2026 April Zhu, built on iso-figure, Copyright (c) 2026 Tolga Cohce, MIT: adapted in
+  skills/framemotion/assets/iso-glow/ (licence in LICENSE.upstream there).
+- lucasmarkes/hairline 0.5.1, commit 37d2e78dcb333ab30c3338e28ed4a690364ea014, Copyright (c) 2026 Lucas Marques, MIT:
+  rules restated and rebuilt in skills/framemotion/assets/hairline/ (licence in LICENSE.upstream there and
+  integrations/hairline/LICENSE).
+- nexu-io/open-design, Leonxlnx/earshot, rea and awesome-opus-videos: adapted ideas and records; provenance in
+  integrations/open-design/, integrations/earshot/, integrations/rea/ and integrations/awesome-opus-videos/.

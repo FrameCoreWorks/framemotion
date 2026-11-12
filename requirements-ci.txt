@@ -1,0 +1,4 @@
+# Test-only dependencies for CI: the Python renderer, motion, sound and font tests. Not a plugin dependency.
+numpy==2.5.3
+Pillow==13.0.0
+fonttools==4.66.1

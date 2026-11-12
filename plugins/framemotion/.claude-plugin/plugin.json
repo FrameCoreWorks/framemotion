@@ -1,0 +1,19 @@
+{
+  "name": "framemotion",
+  "version": "0.1.0",
+  "description": "Motion graphics from code: idea, storyboard, build, render and frame QA of finished MP4 films, standalone or as Creative Studio's motion companion.",
+  "author": {
+    "name": "FrameCore Works"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "motion-graphics",
+    "video",
+    "animation",
+    "kinetic-typography",
+    "hyperframes",
+    "remotion"
+  ],
+  "displayName": "FrameMotion",
+  "repository": "https://github.com/FrameCoreWorks/framemotion"
+}

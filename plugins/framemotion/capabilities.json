@@ -1,0 +1,44 @@
+{
+  "schema": "framecore-capabilities/1",
+  "plugin": {
+    "name": "framemotion",
+    "version": "0.1.0"
+  },
+  "entry_skill": "skills/framemotion/SKILL.md",
+  "contract_versions": [
+    "1"
+  ],
+  "contract_schema": {
+    "path": "contracts/framecore-task.schema.json",
+    "sha256": "e7cc0f4e612395768e8c8c6cf2a033a555bc69b4c8ea5ca45c4db019a342897a"
+  },
+  "capabilities": [
+    {
+      "id": "framemotion",
+      "kind": "built-in",
+      "launcher": "skills/framemotion/SKILL.md",
+      "operations": [
+        "brief",
+        "storyboard",
+        "build",
+        "render",
+        "review",
+        "sound"
+      ],
+      "consent_required": [
+        "install of pinned npm packages for a render route",
+        "generative assets or paid services"
+      ],
+      "requirements": {
+        "no_code": "storyboard and motion contract only, watched in the motion player",
+        "code_execution": "Python 3.10+ with Pillow and FFmpeg for the Python renderer",
+        "shell": "Node.js 20+, FFmpeg and Chrome or Chromium for HyperFrames, canvas, GSAP and Remotion routes",
+        "api_keys": "none"
+      },
+      "network": {
+        "default": "none",
+        "optional": "npm registry for pinned engine packages, only after the user agrees"
+      }
+    }
+  ]
+}

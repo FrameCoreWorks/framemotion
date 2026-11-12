@@ -1,0 +1,35 @@
+name: Validate plugin
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0 (Node 24)
+        with:
+          persist-credentials: false
+      - name: Claude plugin and marketplace manifests validate (Claude Code CLI, no account needed)
+        run: |
+          npm install -g @anthropic-ai/claude-code@2.1.296
+          claude plugin validate plugins/framemotion --strict
+          claude plugin validate . --strict
+      - name: Install ffmpeg, numpy and Pillow for the media tests
+        timeout-minutes: 30
+        run: |
+          sudo apt-get update -q -o Acquire::Retries=3
+          sudo apt-get install -y -q --no-install-recommends -o Acquire::Retries=3 ffmpeg
+          python3 -m pip install --no-deps --only-binary :all: -r requirements-ci.txt
+      - name: Source, tests and package
+        env:
+          PYTHONDONTWRITEBYTECODE: "1"
+        run: |
+          if command -v google-chrome >/dev/null; then export MOTION_REVIEW_BROWSER="$(command -v google-chrome)"; fi
+          python3 tools/check.py

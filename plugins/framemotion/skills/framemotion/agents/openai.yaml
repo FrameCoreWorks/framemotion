@@ -1,0 +1,7 @@
+interface:
+  display_name: "FrameMotion"
+  short_description: "Plan, build, render and check motion graphics"
+  default_prompt: "Use $framemotion to plan this coded video from idea and storyboard through build, render and frame QA."
+
+policy:
+  allow_implicit_invocation: true

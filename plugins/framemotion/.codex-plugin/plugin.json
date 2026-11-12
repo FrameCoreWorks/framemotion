@@ -1,0 +1,31 @@
+{
+  "interface": {
+    "displayName": "FrameMotion",
+    "shortDescription": "Motion graphics from code",
+    "longDescription": "Plan, build and render motion graphics from code: kinetic type, titles and logos, explainers, product and app films, data animation. Includes a motion workshop with default values and a decision table, frame-by-frame QA and designed sound. Works standalone or as FrameCore Works Creative Studio's motion companion. Rendering needs code execution with Node.js, FFmpeg and a browser, or a shell.",
+    "developerName": "FrameCore Works",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Make a 15-second vertical reel for my product.",
+      "Animate my logo with a short title sequence.",
+      "Check the frames of this motion film before delivery."
+    ]
+  },
+  "name": "framemotion",
+  "version": "0.1.0",
+  "description": "Motion graphics from code: idea, storyboard, build, render and frame QA of finished MP4 films, standalone or as Creative Studio's motion companion.",
+  "author": {
+    "name": "FrameCore Works"
+  },
+  "keywords": [
+    "motion-graphics",
+    "video",
+    "animation",
+    "kinetic-typography",
+    "hyperframes",
+    "remotion"
+  ],
+  "license": "Apache-2.0",
+  "skills": "./skills"
+}
