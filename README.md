@@ -4,6 +4,19 @@ Motion graphics from code for **Claude, Codex and ChatGPT Work**, maintained by 
 
 **Current plugin version: 0.1.0.** FrameMotion is the former Motion Graphics module of [FrameCore Works Creative Studio](https://github.com/FrameCoreWorks/framecore-works-creative-studio), moved into its own plugin. It works on its own, with a short brief of its own, and as Studio's motion companion: then Studio keeps the brief, idea, copy locks, board approval and delivery, and FrameMotion does the motion plan, build, render and frame QA. Both talk through the shared `framecore-task-result/1` contract also used by Toolbox and Open Assets.
 
+## Watch it
+
+[![A new café client writes to FrameCore Works on a phone, the creator asks about the mood and sends a finished motion reel that bursts out of its chat bubble](assets/demo/client-chat.gif)](assets/demo/client-chat.mp4)
+
+From a chat to a finished reel: a client asks for a motion reel, the creator asks about the mood, and the reel plays out of its bubble.
+
+| From a brief to a film | Vertical reel | Data and a name title |
+|---|---|---|
+| [![A written brief becomes four storyboard sketches, then the first one turns into the finished ad](assets/demo/brief-to-film.gif)](assets/demo/brief-to-film.mp4) | [![A sheet holding a brief is cut, folds itself into a printed box and unfolds into the FrameCore Works logo](assets/demo/paper-box.gif)](assets/demo/paper-box.mp4) | [![A bar chart grows and its tallest bar lies down and becomes the owner's name title](assets/demo/chart-to-title.gif)](assets/demo/chart-to-title.mp4) |
+| A note becomes a storyboard, and the storyboard becomes the ad. | A brief on paper folds into a box and unfolds into the logo. | The tallest bar of a chart becomes the owner's name title. |
+
+All of these were made with the motion route that is now FrameMotion, when it was still Creative Studio's Motion Graphics module ([how they were made](assets/demo/README.md)).
+
 ## Start here
 
 - [Installation](INSTALL.md) for Claude Code, the Claude apps, Codex and ChatGPT Work
