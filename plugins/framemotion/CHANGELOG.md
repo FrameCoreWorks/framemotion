@@ -6,6 +6,7 @@
 - First setup (owner decision 2026-11-12): after installation, or on "Configure FrameMotion", a route check and one numbered question offering the FrameCore Works Toolbox plugins that extend FrameMotion; only picked items are installed. The manifests name the skill as the onboarding skill.
 - Toolbox links work without Creative Studio: skill names by host, install routes for Toolbox and its entries, Earshot through Toolbox, and rows for the four built-in reel style packs and `pinterest-references` (checked against Toolbox 1.14.0).
 - Data-led motion and revision-bound feedback is now a FrameMotion reference instead of a link into Creative Studio.
+- Two workshop pages from the FrameCore Works Motion knowledge that was not in 0.1.0: [process and render](skills/framemotion/references/workshop/process-and-render.md) (order of work with three pitches and a frame-sheet gate, partial render, self-check list, independent reviewer, lesson log, composition details, render lessons including the GPU check and macOS Chromium with Metal, what did not work) and [delivery, web motion and hooks](skills/framemotion/references/workshop/delivery-web-and-hooks.md) (loudness norms, export settings, web motion and handoff, hooks, readability, current APIs).
 
 ## 0.1.0 (2026-11-12)
 

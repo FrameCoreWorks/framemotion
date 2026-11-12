@@ -5,7 +5,7 @@ The workshop is FrameMotion's working knowledge for planning and judging a film:
 ## How to use it
 
 1. Read the [decision table](decisions.md) before choosing transitions, cuts, glow, particles, shake, overshoot, sound or the engine. It is the router: a default, and when something else is allowed.
-2. Plan motion with [motion](motion.md), choose techniques from [techniques](techniques.md), set the look with [look](look.md), set type with [typography](typography.md), and use [editing](editing.md) for voice-over, footage, music cut to length, captions or 15/30/60-second versions. Realistic objects and materials: [3D and Blender](3d.md).
+2. Run the film in the order, self-check and render practice of [process and render](process-and-render.md) (frame sheet before any MP4, partial render on revisions, independent reviewer, GPU check). For loudness, export, web motion, hooks and text readability use [delivery, web motion and hooks](delivery-web-and-hooks.md). Plan motion with [motion](motion.md), choose techniques from [techniques](techniques.md), set the look with [look](look.md), set type with [typography](typography.md), and use [editing](editing.md) for voice-over, footage, music cut to length, captions or 15/30/60-second versions. Realistic objects and materials: [3D and Blender](3d.md).
 3. Every exception to a default is written in the film's plan with its reason (what on screen causes it). The user's brief and brand always win over the workshop.
 
 ## The open-workshop rule
