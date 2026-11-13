@@ -2,7 +2,7 @@
 
 Motion graphics from code for **Claude, Codex and ChatGPT Work**, maintained by FrameCore Works. FrameMotion turns an idea into a storyboard, builds the film in code (HyperFrames, canvas, GSAP or Remotion), renders the MP4 and checks it frame by frame, with designed sound when wanted.
 
-**Current plugin version: 0.1.2.** FrameMotion is a complete standalone plugin: it needs no other plugin, starts with its own short brief and takes a film from the idea to the delivered MP4. It also works as the motion companion of [FrameCore Works Creative Studio](https://github.com/FrameCoreWorks/framecore-works-creative-studio) when both are installed: then Studio keeps the brief, idea, copy locks, board approval and delivery, and FrameMotion does the motion plan, build, render and frame QA. Both talk through the shared `framecore-task-result/1` contract also used by Toolbox and Open Assets.
+**Current plugin version: 0.1.3.** FrameMotion is a complete standalone plugin: it needs no other plugin, starts with its own short brief and takes a film from the idea to the delivered MP4. It also works as the motion companion of [FrameCore Works Creative Studio](https://github.com/FrameCoreWorks/framecore-works-creative-studio) when both are installed: then Studio keeps the brief, idea, copy locks, board approval and delivery, and FrameMotion does the motion plan, build, render and frame QA. Both talk through the shared `framecore-task-result/1` contract also used by Toolbox and Open Assets.
 
 ## Watch it
 

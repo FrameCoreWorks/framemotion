@@ -4,6 +4,7 @@ The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/frame
 
 ## 2026-11-13
 
+- FrameMotion 0.1.3: text-cut check on the contact sheet, preview sound measured on the encoded MP4.
 - FrameMotion 0.1.2: reel workflow, sound for reels, own runtime setup, links to FrameCut, first setup with the other FrameCore Works plugins; the repository check prints failing test output.
 
 ## 2026-11-12

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.3 (2026-11-13)
+
+- **Reel workflow checks from the owner's end-to-end test**: the contact sheet adds a frame from the middle of every text entrance and exit and is checked at full size for letters cut by the frame edge; the 540p preview's sound is measured on the encoded MP4 (AAC raised a −1.5 dBTP WAV to −0.8 dBTP), through `sound.py deliver` or `listen.py`, and must already meet the delivery level.
+
 ## 0.1.2 (2026-11-13)
 
 - **Reel workflow** (owner decision 2026-11-13): every reel follows [plan, contact sheet, 540p preview, full render](skills/framemotion/references/reel-workflow.md); the plan and the contact sheet are approved before anything renders, corrections to the preview re-render only the changed part, and the full render follows the accepted preview.

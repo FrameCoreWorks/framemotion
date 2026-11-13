@@ -13,7 +13,7 @@
     ]
   },
   "name": "framemotion",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Motion graphics from code: idea, storyboard, build, render and frame QA of finished MP4 films, standalone or as Creative Studio's motion companion.",
   "author": {
     "name": "FrameCore Works"
