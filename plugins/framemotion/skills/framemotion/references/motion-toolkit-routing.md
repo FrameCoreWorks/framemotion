@@ -54,6 +54,7 @@ FrameCore Works Toolbox lists reviewed third-party motion tools. FrameMotion kee
 | Explainers and histories in illustrated looks (cut paper, ink, riso, sketchbook) | [Animate engine](animate-engine.md) in FrameMotion | `animate` | the upstream engine with seven styles and check-ins |
 | Cut-paper explainer reel from a link | Animate engine's paper look | `papercut-explainer` | a ready cut-paper style with its own nine-stage pipeline |
 | Painter or tradition looks, Vox, Kurzgesagt, 3Blue1Brown grammars | [art-style and explainer direction](art-and-explainer-motion-direction.md) | `huashu-art-motion` | 36 art styles and 9 explainer grammars with shot-list checks |
+| Rebuild the technique of a supplied reference video | [reference breakdown](../assets/reference-breakdown/README.md) | `rea-video` | a shot-by-shot account of how each picture, title, sound and cut was made |
 | Math, formulas, graphs, geometry | [Manim bridge](motion-toolkit-runtime-cards.md#manim-local-clip-bridge) | `manim-skill` | exact LaTeX and Manim scenes |
 | Stick figures, faceless explainers | [stickman explainer craft](stickman-explainer-craft.md) | `stickman-kino` | a ready rig with 58 poses and about 190 props on HyperFrames |
 | Technical product as an isometric figure | [Anatomy engine](../assets/anatomy-engine/README.md) | `anatomy` | the upstream skill for detailed interactive figures |

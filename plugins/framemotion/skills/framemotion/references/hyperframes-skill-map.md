@@ -28,8 +28,8 @@ HyperFrames 0.9.0 (2026-11-02) folded 22 skills into the nine above. An older in
 | `motion-graphics`, `general-video`, `faceless-explainer` | `hyperframes` (types `explainer`, `vertical`, `data`) |
 | `product-launch-video`, `pr-to-video` | `hyperframes` (type `launch`); Studio's [product films](product-films.md) |
 | `music-to-video` | `hyperframes` (type `music`) with `hyperframes beats`; Studio's [motion sync](../assets/motion-sync/README.md) |
-| `embedded-captions` | `hyperframes` (`captions` reference) and caption blocks in the registry; Studio's caption formats (Creative Studio: `skills/caption-studio/references/talking-head-caption-formats.md`) |
-| `talking-head-recut` | `hyperframes` (`overlays` reference); FrameCut's moment roles and clips (Creative Studio: `skills/opencut-video-studio/references/moment-roles-and-clips.md`) |
+| `embedded-captions` | `hyperframes` (`captions` reference) and caption blocks in the registry; FrameCut's caption formats (FrameCut: `skills/framecut/references/talking-head-caption-formats.md`) |
+| `talking-head-recut` | `hyperframes` (`overlays` reference); FrameCut's moment roles and clips (FrameCut: `skills/framecut/references/moment-roles-and-clips.md`) |
 
 ## Telemetry
 

@@ -84,7 +84,7 @@ not someone's identity. Any channel the user points to is a reference to learn f
 ## Captions and checks
 
 - Captions are one line: break at meaning and real speech pauses, never by word count and never by shrinking the
-  text. Follow caption-studio (Creative Studio: `skills/caption-studio/SKILL.md`) for safe areas and check the encoded frames.
+  text. Follow FrameCut's captions guide (FrameCut: `skills/framecut/captions/CAPTIONS.md`) for safe areas and check the encoded frames.
 - Before delivery look at frames from the whole timeline (contact sheet), check that figures stand on the ground,
   nothing leaves the frame, every shot has visible motion and every caption is readable, then watch the render.
   Report what was checked and what is NOT_RUN.

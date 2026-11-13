@@ -80,7 +80,10 @@ def main():
                     require(False, f'Old Studio skill path {old} in {name}')
     print(f'Source: {len(files)} files, version {version}', flush=True)
     for test in sorted((PLUGIN / 'tests').glob('*_test.py')):
-        subprocess.run([sys.executable, str(test)], cwd=PLUGIN, check=True, capture_output=True)
+        run = subprocess.run([sys.executable, str(test)], cwd=PLUGIN, capture_output=True, text=True)
+        if run.returncode != 0:
+            print((run.stdout + run.stderr)[-4000:])
+            run.check_returncode()
         print(f'PASS {test.name}', flush=True)
     if not fast:
         subprocess.run(['node', '--test', *sorted(str(p) for p in (PLUGIN / 'tests').glob('*.test.mjs'))], cwd=PLUGIN, check=True)

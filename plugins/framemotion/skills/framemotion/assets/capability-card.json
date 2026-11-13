@@ -382,7 +382,7 @@
     {
       "id": "captions",
       "executed_by": "studio",
-      "owner": "caption-studio",
+      "owner": "framemotion",
       "does": "Checks SRT and WebVTT against subtitle, social-caption or on-screen text limits, converts between them, builds cues from timed words or segments and imports them into a motion contract",
       "tools": [
         "skills/framemotion/assets/captions/captions.py"
@@ -402,7 +402,7 @@
     {
       "id": "caption_burn_in",
       "executed_by": "studio",
-      "owner": "caption-studio",
+      "owner": "framemotion",
       "does": "Burns captions into a supplied video in the motion renderer's caption style and copies the source audio unchanged",
       "tools": [
         "skills/framemotion/assets/captions/captions.py",
@@ -738,5 +738,5 @@
       "observed": "2026-10-20: container tests on synthetic audio and a 16.7 s film; LUFS, LRA and true peak agreed with the earshot extension to a few tenths; no host run recorded"
     }
   ],
-  "note": "FrameMotion capability card; caption-studio rows describe FrameMotion's own copy of captions.py."
+  "note": "FrameMotion capability card; the captions rows describe FrameMotion's own copy of captions.py."
 }

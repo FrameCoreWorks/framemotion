@@ -10,7 +10,7 @@ Offer HyperFrames once, as an engine, when all of these hold:
 - the host has Node.js 22 or newer, FFmpeg, a Chrome or Chromium and the npm registry: a shell (Codex, Claude Code or a local project) or the ChatGPT Work sandbox, where the owner had the CLI installed on request and rendered a test on 2026-10-14 (for that session only); ordinary ChatGPT's code execution is not such a host unless a check shows otherwise;
 - the brief benefits from what it adds: a promo or launch film built from a website or product URL with its own assets, a longer narrated or multi-scene video, word-level captions on footage, or a music-driven edit.
 
-Otherwise keep the bundled route: the Python renderer, the motion player, [sound design](motion-sound-design.md) and the captions tool (Creative Studio: `skills/caption-studio/assets/captions/README.md`). Choosing area `8` never selects HyperFrames by itself; a recommendation names the reason.
+Otherwise keep the bundled route: the Python renderer, the motion player, [sound design](motion-sound-design.md) and the captions tool (FrameMotion's [captions copy](../assets/captions/README.md); FrameCut: `skills/framecut/assets/captions/README.md`). Choosing area `8` never selects HyperFrames by itself; a recommendation names the reason.
 
 ## Installing it
 
@@ -22,7 +22,7 @@ On Codex and Claude Code, HyperFrames belongs to Studio's one required set of to
 
 Never install into the plugin directory, and never overwrite an existing project's lockfiles to match a HyperFrames version; report the conflict.
 
-The environment check (Creative Studio: `skills/workflow-orchestrator/assets/environment-check/README.md`) shows whether HyperFrames' CLI or skills are present and whether Node.js, FFmpeg and Chrome meet its needs; its final check at installation fails on Codex and Claude Code until they are.
+FrameMotion's [runtime setup](first-setup.md#runtimes) (with Creative Studio also its environment check, Creative Studio: `skills/workflow-orchestrator/assets/environment-check/README.md`) shows whether HyperFrames' CLI or skills are present and whether Node.js, FFmpeg and Chrome meet its needs; Studio's final check at installation fails on Codex and Claude Code until they are.
 
 ## Who decides what
 

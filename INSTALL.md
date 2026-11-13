@@ -26,7 +26,7 @@ The request is the installation consent. The assistant follows the section for i
 /plugin install framemotion@framemotion
 ```
 
-The marketplace is named `framemotion` and holds exactly this plugin. When Creative Studio's marketplace (`framecore-works`) also lists FrameMotion, install it from one marketplace only; two installed copies both stay enabled, so remove one with `claude plugin uninstall`. A new session lists the skill as `framemotion:framemotion`.
+The marketplace is named `framemotion` and holds exactly this plugin; it is FrameMotion's only marketplace. Creative Studio (from 1.180.0) installs FrameMotion from this marketplace as a dependency, so add it before installing Studio. An older `framemotion@framecore-works` copy shows `failed to load` after Studio's update: remove it with `claude plugin uninstall framemotion@framecore-works` and install `framemotion@framemotion`. A new session lists the skill as `framemotion:framemotion`.
 
 ## Claude apps (claude.ai, desktop)
 

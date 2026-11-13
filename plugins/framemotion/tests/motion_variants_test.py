@@ -161,7 +161,7 @@ class RuntimeMap(unittest.TestCase):
             self.assertIn(cap, card)
             hosts = [h for h, cell in zip(('none', 'code_execution', 'shell'), cells[2:5]) if cell.strip() == 'yes']
             self.assertEqual(hosts, [h for h in ('none', 'code_execution', 'shell') if h in card[cap]['hosts']], cap)
-        motion = {i for i, c in card.items() if c['owner'] in ('framemotion', 'caption-studio')}
+        motion = {i for i, c in card.items() if c['owner'] in ('framemotion',)}
         self.assertEqual(listed, motion)
 
 

@@ -10,7 +10,7 @@ Use the profiles of the [capability card](../assets/capability-card.json) and ch
 - **Code execution:** Python in a sandbox (ordinary ChatGPT, ChatGPT Work, Claude apps with code execution). Pillow, numpy, ffmpeg, Node and a browser are checked by running them. ChatGPT Work's sandbox had Node.js, FFmpeg, Chromium and the npm registry (owner test 2026-10-14), so the rows below marked yes for code execution that need Node and a browser run there too.
 - **Shell:** a local shell (Codex, Claude Code, a local project) with Python, usually Node.js and sometimes a local Chrome or Chromium and FFmpeg.
 
-The environment check (Creative Studio: `skills/workflow-orchestrator/assets/environment-check/README.md`) reports each tool's status per host and installs what is missing when the user allows it.
+FrameMotion's [runtime setup](first-setup.md#runtimes) installs the starters and engines a route needs when the user allows it; with Creative Studio, its environment check (Creative Studio: `skills/workflow-orchestrator/assets/environment-check/README.md`) also reports each tool's status per host.
 
 ## 2. Read down the column
 
@@ -63,4 +63,4 @@ The [brief index](../assets/motion-prompt-library/brief-index.json) tags each br
 
 ## FrameCut composition bridge
 
-FrameCut (Creative Studio: `skills/opencut-video-studio/assets/framecut/README.md`) executes cuts, timed layers, captions and audio with Python/FFmpeg. Motion stays authored here: consume its local-time request, render the composition and return media plus motion-score hash. The bridge probes FFmpeg, validates source hashes and renders one final timeline. No browser means existing rendered motion can still be composited; newly coded browser motion requires the actual runtime. Optional engines remain optional, and no private hosted adapter is required.
+FrameCut (FrameCut: `skills/framecut/assets/framecut/README.md`) executes cuts, timed layers, captions and audio with Python/FFmpeg. Motion stays authored here: consume its local-time request, render the composition and return media plus motion-score hash. The bridge probes FFmpeg, validates source hashes and renders one final timeline. No browser means existing rendered motion can still be composited; newly coded browser motion requires the actual runtime. Optional engines remain optional, and no private hosted adapter is required.

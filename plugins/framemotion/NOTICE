@@ -7,7 +7,7 @@ FrameMotion 0.1.0 is the Motion Graphics module of FrameCore Works Creative Stud
 main 9841769d), moved into its own plugin by the owner's decision of 2026-11-12. The motion workshop under
 skills/framemotion/references/workshop/ is original FrameCore Works knowledge from the FrameCore Works Motion
 project, rewritten in English. skills/framemotion/assets/captions/captions.py is a copy of Creative Studio's
-Caption Studio script with one added render-path candidate (see its README).
+FrameCut captions script with one added render-path candidate (see its README).
 
 Third-party components (each integrations/<name>/ folder keeps the upstream licence text and, where bundled,
 a source-manifest.json with the pinned commit):

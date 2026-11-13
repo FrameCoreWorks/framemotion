@@ -18,10 +18,10 @@ For kinetic type, interface and product films, data animation and brand motion, 
 
 ## Where it runs
 
-Codex and Claude Code, or any local project with a shell: Node.js 18 or newer, FFmpeg, and the Studio workspace copy of the engine with its pinned browser driver (Playwright 1.56.1) and a Chromium for it. The environment check (Creative Studio: `skills/workflow-orchestrator/assets/environment-check/README.md`) lists it as `animate_engine` and prints the install commands:
+Codex and Claude Code, or any local project with a shell: Node.js 18 or newer, FFmpeg, and the workspace copy of the engine with its pinned browser driver (Playwright 1.56.1) and a Chromium for it. FrameMotion's [runtime setup](first-setup.md#runtimes) installs it (with Creative Studio, its environment check also lists it as `animate_engine`):
 
 ```sh
-ENGINE="$HOME/.framecore-studio/workspace/animate-engine"   # after the environment check's install step
+ENGINE="$HOME/.framecore-studio/workspace/animate-engine"   # after the runtime setup
 STUDIO_EXPORT="/path/to/plugin/skills/framemotion/assets/animate-export/export.mjs"   # resolve from the installed FrameMotion package
 node "$ENGINE/tools/build.mjs" pieces/<name>
 node "$ENGINE/tools/still.mjs" pieces/<name> 2.25,9.75 look.png --scale 0.5

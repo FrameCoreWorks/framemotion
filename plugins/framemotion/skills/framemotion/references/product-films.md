@@ -16,7 +16,7 @@ A product film shows a real product working: its screens inside a phone or a win
 3. **The biggest result on the reveal** (on the drop when there is music), then a pull-back.
 4. **End card:** name, one line in the product's voice, where to get it; the last frame can rhyme with the first.
 
-Plan the order as moment roles (Creative Studio: `skills/opencut-video-studio/references/moment-roles-and-clips.md`) (hook, setup, proof, turn, payoff, cta) so cutdowns reuse the same windows. **A film from a pull request or changelog** (added 2026-11-04): read the diff, commits and description for one user-visible change; show it as before and after in the product's real screens, the code only as a short supporting beat; claims stay inside what the change does, checked with the author.
+Plan the order as moment roles (FrameCut: `skills/framecut/references/moment-roles-and-clips.md`) (hook, setup, proof, turn, payoff, cta) so cutdowns reuse the same windows. **A film from a pull request or changelog** (added 2026-11-04): read the diff, commits and description for one user-visible change; show it as before and after in the product's real screens, the code only as a short supporting beat; claims stay inside what the change does, checked with the author.
 
 ## Rules for the frame
 

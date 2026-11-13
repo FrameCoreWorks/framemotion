@@ -27,7 +27,7 @@ Use this skill when:
 - Existing Remotion code needs timing, layout, media, render, or maintainability review.
 - A storyboard or Creative Video Production Pack must become a Remotion implementation contract.
 
-Use `opencut-video-studio` for footage-first timeline editing. Use [Motion Graphics](../SKILL.md) for general motion planning and HTML/SVG/Canvas/GSAP composition, including HyperFrames when selected. Remotion may be recommended from project requirements and available capabilities without the user naming it; preserve explicit choices and existing project constraints. Port an existing Remotion project to HyperFrames only on an explicit request, with HyperFrames' `remotion-to-hyperframes` ([skill map](../references/hyperframes-skill-map.md)).
+Use the FrameCut plugin (`framecut`) for footage-first timeline editing. Use [Motion Graphics](../SKILL.md) for general motion planning and HTML/SVG/Canvas/GSAP composition, including HyperFrames when selected. Remotion may be recommended from project requirements and available capabilities without the user naming it; preserve explicit choices and existing project constraints. Port an existing Remotion project to HyperFrames only on an explicit request, with HyperFrames' `remotion-to-hyperframes` ([skill map](../references/hyperframes-skill-map.md)).
 
 ## Inputs
 
@@ -77,7 +77,7 @@ For motion quality and execution technique once the idea is chosen, use [quality
 
 - Use Remotion when deterministic React/TypeScript composition, reusable props, data-driven variants, or code reviewability is a primary requirement.
 - Use a storyboard or `creative-video-producer` first when story, shot order, timing intent, copy, or asset authority is unresolved.
-- Use `caption-studio` when subtitle segmentation, timing, styling, safe zones, or caption QA needs dedicated work.
+- Use FrameCut's captions guide (FrameCut: `skills/framecut/captions/CAPTIONS.md`) when subtitle segmentation, timing, styling, safe zones, or caption QA needs dedicated work.
 - Use `asset-manifest` before rendering when source files, versions, rights, or output naming are unclear.
 - In an existing project, prefer its installed Remotion APIs and package versions. Check current official documentation before introducing an API that is absent from the project.
 - In a chat-only environment, return the brief, architecture, code guidance, and QA plan; do not claim files, previews, or renders were created.

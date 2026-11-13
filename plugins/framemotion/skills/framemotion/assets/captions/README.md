@@ -2,7 +2,7 @@
 
 `captions.py` reads and burns subtitle cues (SRT, VTT, the contract's caption track). FrameMotion uses it to duck music under captions ([sound for supplied footage](../motion-sound/README.md#sound-for-supplied-footage)) and to burn captions with the [motion renderer](../motion-render/README.md).
 
-The owner of this script is Caption Studio in FrameCore Works Creative Studio (planned to move to FrameCut). This folder holds a copy so FrameMotion works on its own:
+The script is maintained in FrameCut (FrameCut: `skills/framecut/assets/captions/captions.py`, [FrameCoreWorks/framecut](https://github.com/FrameCoreWorks/framecut)). This folder holds a copy so FrameMotion works on its own; it was made from the source below:
 
 | Field | Value |
 | --- | --- |

@@ -253,14 +253,29 @@ def main(argv=None):
 
 
 def limit(x, ceiling_db):
-    """a look-ahead peak limiter (FFmpeg alimiter) so a peaky effects mix can reach its loudness target"""
-    lin = 10 ** (ceiling_db / 20)
-    p = subprocess.run(['ffmpeg', '-v', 'error', '-nostdin', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-', '-af',
-                        f'alimiter=limit={lin:.4f}:attack=3:release=80:level=disabled', '-f', 'f32le', '-'],
-                       input=np.clip(x, -4, 4).astype(np.float32).tobytes(), capture_output=True)
-    if p.returncode != 0 or not p.stdout:
-        return x
-    return np.frombuffer(p.stdout, np.float32).reshape(-1, 2).astype(np.float64)
+    """a look-ahead true-peak limiter in numpy, so a peaky effects mix can reach its loudness target
+    (owner rule 2026-11-13: limit in numpy, not with FFmpeg's alimiter). It uses the limiter of
+    ../motion-sound/synth.py; without that file next to this kit, a numpy look-ahead sample-peak limiter."""
+    try:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'motion-sound'))
+        import synth  # noqa: E402
+        if synth.RATE == SR:
+            return synth.limit(np.clip(x, -4, 4), ceiling_db)
+    except ImportError:
+        pass
+    ceiling = 10 ** (ceiling_db / 20)
+    need = np.minimum(1.0, ceiling / np.maximum(np.abs(x).max(axis=1), 1e-12))
+    ahead = max(1, int(0.003 * SR))
+    padded = np.concatenate([need, np.ones(ahead - 1)])
+    floor = np.lib.stride_tricks.sliding_window_view(padded, ahead).min(axis=1)[:len(need)]
+    ramp = np.convolve(np.concatenate([np.ones(ahead - 1), floor]), np.ones(ahead) / ahead, mode='valid')[:len(need)]
+    gain = np.empty_like(ramp)
+    coeff = np.exp(-1 / (0.08 * SR))
+    level = 1.0
+    for i, target in enumerate(ramp):
+        level = target if target < level else target + (level - target) * coeff
+        gain[i] = level
+    return x * gain[:, None]
 
 
 def kweight(x):

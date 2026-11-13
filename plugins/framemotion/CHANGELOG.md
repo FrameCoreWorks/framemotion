@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.2 (2026-11-13)
+
+- **Reel workflow** (owner decision 2026-11-13): every reel follows [plan, contact sheet, 540p preview, full render](skills/framemotion/references/reel-workflow.md); the plan and the contact sheet are approved before anything renders, corrections to the preview re-render only the changed part, and the full render follows the accepted preview.
+- **Sound for reels** (owner decision 2026-11-13): music and effects from code by default, a warning before using someone else's track (platforms mute or claim even CC BY music), about −14 LUFS with the peak below −1 dB. `place_sfx.py` now limits in numpy instead of FFmpeg's `alimiter`.
+- **Runtimes without Creative Studio:** first setup has its own [runtime section](skills/framemotion/references/first-setup.md#runtimes) (Animate engine, GSAP and Remotion starters, motion toolkit, copied from this plugin into the shared workspace and installed from their lockfiles); the Animate, HyperFrames and runtime-map references point to it instead of Studio's environment check.
+- **First setup** also offers FrameCut, Open Assets and Creative Studio, with their install routes, and Toolbox's `rea-video` (checked against Toolbox 1.15.0).
+- **Captions and editing links** point to FrameCut (`skills/framecut/...`) instead of Creative Studio paths that no longer exist; the captions copy names FrameCut as the script's home, and the capability card's captions rows belong to FrameMotion.
+- Installation guide: FrameMotion's only marketplace is `framemotion`; how to replace an older `framemotion@framecore-works` copy.
+- Repository check prints the end of a failing test's output.
+
 ## 0.1.1 (2026-11-12)
 
 - Descriptions present FrameMotion as a complete standalone plugin and no longer as a part taken out of another plugin (owner decision 2026-11-12).

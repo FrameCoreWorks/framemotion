@@ -11,7 +11,7 @@ How Studio learns from a reference video the user brings ("make it like this one
 ## Method
 
 1. **Measure.** Cut points and shot lengths, text on screen and its timing, motion per shot (direction, speed, easing), framing, palette, type families, sound hits. With a shell, `hyperframes measure` and `hyperframes audio` give these in film time; otherwise extract frames at every cut and read them.
-2. **Write a technique card:** structure (which moment roles (Creative Studio: `skills/opencut-video-studio/references/moment-roles-and-clips.md`) in which order), pacing numbers, type and motion rules, what makes it recognisable. No asset of the original goes into it.
+2. **Write a technique card:** structure (which moment roles (FrameCut: `skills/framecut/references/moment-roles-and-clips.md`) in which order), pacing numbers, type and motion rules, what makes it recognisable. No asset of the original goes into it.
 3. **Build the user's version** from the card with the user's content, brand and copy, as a HyperFrames composition or through Studio's other routes.
 4. **Compare.** Put matching moments side by side (`hyperframes compare` or a contact sheet) and check the technique carried over while the content is the user's. `hyperframes diff` scores frame closeness; for a third-party reference a very high score is a warning, not a goal.
 
