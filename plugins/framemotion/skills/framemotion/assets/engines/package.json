@@ -4,12 +4,15 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "smoke": "node kit/render-engine.mjs --engine photoreal"
+    "smoke": "node kit/render-engine.mjs --engine photoreal-demo"
   },
   "dependencies": {
     "three": "0.187.0"
   },
   "engines": {
     "node": ">=20"
+  },
+  "devDependencies": {
+    "gsap": "3.15.0"
   }
 }

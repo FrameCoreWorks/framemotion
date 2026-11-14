@@ -20,4 +20,4 @@ npm ci
 node kit/render-engine.mjs --engine photoreal-demo --frames 0,30,59 --out frames
 ```
 
-Add `--gpu` on a machine with a graphics card; without it Chromium renders in software (slow but identical in method). `--params '{"samples":32}'` passes settings to the engine page. The tool needs Playwright with Chromium (it also finds the Animate engine's pinned copy).
+Add `--gpu` on a machine with a graphics card; without it Chromium renders in software (slow but identical in method). `--params '{"samples":32}'` passes settings to the engine page. The tool needs Playwright with Chromium (it also finds the Animate engine's pinned copy). The engine tests also use GSAP 3.15.0, a dev dependency installed by `npm ci` and never bundled. From frames to an MP4 with sound: [engine contract](../../references/engine-contract.md#from-frames-to-an-mp4-with-sound).

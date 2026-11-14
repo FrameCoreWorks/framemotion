@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else.",
   "engines": [
     {
       "id": "photoreal-demo",
@@ -24,7 +24,23 @@
         "photoreal/film-grade.mjs"
       ],
       "gpu_recommended": true,
-      "duration": 2
+      "duration": 2,
+      "params": {
+        "samples": {
+          "type": "integer",
+          "default": 16,
+          "min": 1,
+          "max": 256,
+          "about": "sub-frames averaged per frame"
+        },
+        "aperture": {
+          "type": "number",
+          "default": 0.012,
+          "min": 0,
+          "max": 0.1,
+          "about": "lens radius in metres (0 = no depth of field)"
+        }
+      }
     },
     {
       "id": "animate-starter",

@@ -39,6 +39,10 @@ a source-manifest.json with the pinned commit):
   integrations/hairline/LICENSE).
 - nexu-io/open-design, Leonxlnx/earshot, rea and awesome-opus-videos: adapted ideas and records; provenance in
   integrations/open-design/, integrations/earshot/, integrations/rea/ and integrations/awesome-opus-videos/.
-- Leonxlnx/room-at-dawn, commit aab8be218aa051bbb2e22b82916962619c951747, Copyright (c) 2026 Leon Lin, MIT: techniques
-  rewritten as our own code in skills/framemotion/assets/engines/photoreal/ (no file copied; licence in
-  integrations/room-at-dawn/). three.js (MIT) is installed from npm at 0.187.0, not bundled.
+- Leonxlnx/room-at-dawn, commit aab8be218aa051bbb2e22b82916962619c951747, Copyright (c) 2026 Leon Lin, MIT: parts
+  adapted and rewritten on the FrameMotion engine kit in skills/framemotion/assets/engines/photoreal/
+  (accum-camera.mjs, film-grade.mjs; the file headers name the source; licence in integrations/room-at-dawn/).
+  The grain hash in film-grade.mjs is "Hash without Sine" by David Hoskins (MIT, shadertoy.com/view/4djSRW).
+- mrdoob/three.js (MIT, Copyright (c) 2010-2026 three.js authors) is installed from npm at exactly 0.187.0
+  (tag r187, commit 7e89746a687bb88271253698fa108b1dd59825d0) and never bundled. GSAP 3.15.0, used only by the
+  engine tests, is installed the same way under its own GreenSock licence and never bundled.

@@ -7,6 +7,8 @@ import {defineEngine} from '../../kit/engine-kit.mjs';
 import {createAccumCamera} from '../accum-camera.mjs';
 import {createFilmGrade} from '../film-grade.mjs';
 
+export const LOOK = Object.freeze({vignette: 0.3, bloom: 0.3});
+
 export function createDemo({canvas, width = 540, height = 960, fps = 30, duration = 2, samples = 16, aperture = 0.012}) {
   const renderer = new THREE.WebGLRenderer({canvas, antialias: false, preserveDrawingBuffer: true});
   renderer.setPixelRatio(1);
@@ -52,30 +54,48 @@ export function createDemo({canvas, width = 540, height = 960, fps = 30, duratio
   }
 
   const accum = createAccumCamera({THREE, renderer, width, height});
+  const forward = new THREE.Vector3(), eye = new THREE.Vector3(), axis = new THREE.Vector3();   // focus along the view axis
   const grade = createFilmGrade({THREE, renderer, width, height});
   const engine = defineEngine({
     id: 'photoreal-demo', width, height, fps, duration,
     seek(t) {
       const frame = Math.min(Math.round(t * fps), Math.round(duration * fps) - 1);
       place(frame / fps);
-      const focus = camera.position.distanceTo(plate.position);
+      camera.updateMatrixWorld(true);
+      const focus = forward.subVectors(plate.position, camera.getWorldPosition(eye)).dot(camera.getWorldDirection(axis));
       const hdr = accum.render({scene, camera, frame, fps, samples, shutter: 0.5, aperture, focus, duration, prepare: place});
-      grade.render(hdr, {vignette: 0.3, bloom: 0.06}, {seed: frame});
+      grade.render(hdr, LOOK, {seed: frame});
     },
   });
-  // Grade parity: a flat linear colour through the shader, read back as 8-bit sRGB.
   const checks = {
-    gradeParity(flat, look) {
-      const src = new THREE.WebGLRenderTarget(8, 8, {type: THREE.HalfFloatType, depthBuffer: false});
+    /** A flat linear colour through the grade shader, read back as 8-bit sRGB at pixel (x, y) of 8x8. */
+    gradeParity(flat, look, {x = 4, y = 4} = {}) {
+      const src = new THREE.WebGLRenderTarget(8, 8, {type: THREE.FloatType, depthBuffer: false});
       const out = new THREE.WebGLRenderTarget(8, 8);
+      const before = new THREE.Color(); renderer.getClearColor(before);
       renderer.setRenderTarget(src);
       renderer.setClearColor(new THREE.Color().setRGB(...flat, THREE.LinearSRGBColorSpace), 1);
       renderer.clear();
       grade.render(src, look, {seed: 0, target: out});
       const px = new Uint8Array(4);
-      renderer.readRenderTargetPixels(out, 4, 4, 1, 1, px);
+      renderer.readRenderTargetPixels(out, x, y, 1, 1, px);
+      renderer.setClearColor(before, 1);
       src.dispose(); out.dispose();
       return [px[0], px[1], px[2]];
+    },
+    /** Average n sub-frames of a flat linear grey and read the sum back: accumulation drift. */
+    accumPrecision(value, n, precision = 'auto') {
+      const w = 16, h = 16;
+      const probe = createAccumCamera({THREE, renderer, width: w, height: h, precision});
+      const flat = new THREE.Scene(); flat.background = new THREE.Color().setRGB(value, value, value, THREE.LinearSRGBColorSpace);
+      const cam = new THREE.PerspectiveCamera(40, 1, 0.1, 10);
+      probe.render({scene: flat, camera: cam, frame: 0, fps: 30, samples: n});
+      const half = probe.precision === 'half';
+      const raw = half ? new Uint16Array(4) : new Float32Array(4);
+      renderer.readRenderTargetPixels(probe.target, 8, 8, 1, 1, raw);
+      const read = half ? THREE.DataUtils.fromHalfFloat(raw[0]) : raw[0];
+      probe.dispose();
+      return {precision: probe.precision, read, error: Math.abs(read - value) / value};
     },
   };
   return {engine, renderer, THREE, accum, grade, checks};

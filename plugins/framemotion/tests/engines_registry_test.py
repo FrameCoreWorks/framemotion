@@ -54,17 +54,38 @@ class EnginesRegistryTest(unittest.TestCase):
             if 'node_modules' in path.parts:
                 continue
             self.assertEqual(path.parent, ENGINES, f'{path}: engines share assets/engines/package.json')
-        deps = json.loads((ENGINES / 'package.json').read_text())['dependencies']
-        for name, version in deps.items():
-            self.assertRegex(version, r'^\d+\.\d+\.\d+$', f'{name} must be pinned exactly')
+        package = json.loads((ENGINES / 'package.json').read_text())
+        for group in ('dependencies', 'devDependencies'):
+            for name, version in package.get(group, {}).items():
+                self.assertRegex(version, r'^\d+\.\d+\.\d+$', f'{name} must be pinned exactly')
+
+    def test_npm_scripts_name_registered_engines(self):
+        ids = {e['id'] for e in REGISTRY['engines']}
+        scripts = json.loads((ENGINES / 'package.json').read_text()).get('scripts', {})
+        for name, command in scripts.items():
+            for engine in re.findall(r'--engine\s+(\S+)', command):
+                self.assertIn(engine, ids, f'npm run {name} names unknown engine {engine}')
+
+    def test_params_follow_the_declared_settings(self):
+        for e in REGISTRY['engines']:
+            for name, spec in e.get('params', {}).items():
+                with self.subTest(f"{e['id']}.{name}"):
+                    self.assertIn(spec['type'], {'integer', 'number', 'boolean', 'string'})
+                    self.assertIn('default', spec)
+                    if 'min' in spec:
+                        self.assertLessEqual(spec['min'], spec['default'])
+                    if 'max' in spec:
+                        self.assertGreaterEqual(spec['max'], spec['default'])
 
     def test_no_network_or_server_in_engine_code(self):
-        bad = re.compile(r"\b(fetch\(|XMLHttpRequest|WebSocket|child_process|createServer|http\.request)")
-        for path in ENGINES.rglob('*.mjs'):
-            if 'node_modules' in path.parts or path.name in {'render-engine.mjs', 'builders.mjs'}:
+        bad = re.compile(r"\b(fetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|new\s+(?:Shared)?Worker\(|"
+                         r"importScripts|RTCPeerConnection|child_process|createServer|http\.request|https?://(?!framemotion\.local))")
+        for path in ENGINES.rglob('*'):
+            if path.suffix not in {'.mjs', '.js', '.html'} or 'node_modules' in path.parts:
+                continue
+            if path.name in {'render-engine.mjs', 'builders.mjs'}:
                 continue
             self.assertIsNone(bad.search(path.read_text()), f'{path.relative_to(ENGINES)} reaches the network or a process')
-
 
 if __name__ == '__main__':
     unittest.main()

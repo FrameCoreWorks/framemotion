@@ -1,3 +1,4 @@
+import {createRequire} from 'node:module';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {createRng, halton, subframeTimes, defineEngine, bindToGsap} from '../skills/framemotion/assets/engines/kit/engine-kit.mjs';
@@ -47,23 +48,26 @@ test('invalid engine definitions are refused', () => {
   assert.throws(() => defineEngine({...ok, seek: null}), TypeError);
 });
 
-test('a paused GSAP timeline drives engine.seek', () => {
+function loadGsap() {
+  try {
+    return createRequire(new URL('../skills/framemotion/assets/engines/package.json', import.meta.url))('gsap').gsap;
+  } catch { return null; }
+}
+
+test('a paused real GSAP timeline draws the engine on every seek', {skip: loadGsap() ? false : 'gsap not installed (npm ci in assets/engines)'}, () => {
+  const gsap = loadGsap();
   const seen = [];
-  const engine = defineEngine({id: 'probe', width: 64, height: 64, fps: 30, duration: 2, seek: (t) => seen.push(t)});
-  const fakeGsap = {timeline: ({paused}) => {
-    assert.equal(paused, true);
-    const tweens = [];
-    return {
-      to(target, vars) { tweens.push({target, vars}); return this; },
-      seek(time) { for (const {target, vars} of tweens) { target.t = vars.t * time / vars.duration; vars.onUpdate(); } },
-      tweens,
-    };
-  }};
-  const timeline = bindToGsap(engine, fakeGsap);
-  assert.equal(timeline.tweens[0].vars.ease, 'none');
-  timeline.seek(1.5);
-  timeline.seek(0.5);
-  assert.deepEqual(seen, [1.5, 0.5]);
+  const engine = defineEngine({id: 'probe', width: 64, height: 64, fps: 30, duration: 2, seek: (t) => seen.push(+t.toFixed(6))});
+  const timeline = bindToGsap(engine, gsap);
+  assert.equal(seen[0], 0, 'binding draws t = 0 at once');
+  assert.equal(timeline.paused(), true);
+  assert.equal(timeline.duration(), 2);
+  seen.length = 0;
+  timeline.seek(1.5);            // HyperFrames-style seek: callbacks suppressed by default
+  timeline.seek(0.5, false);
+  timeline.progress(1);
+  timeline.seek(0.25);
+  assert.deepEqual(seen, [1.5, 0.5, 2, 0.25]);
   assert.throws(() => bindToGsap(engine, {}), TypeError);
 });
 

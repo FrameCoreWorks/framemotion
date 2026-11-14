@@ -7,7 +7,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCES = json.loads((ROOT / 'integrations/sources.json').read_text())['sources']
 NOTICE = (ROOT / 'NOTICE').read_text()
 LICENCES = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause'}
-STATUSES = {'bundled', 'adapted', 'patterns', 'planned'}
+STATUSES = {'bundled', 'adapted', 'patterns', 'planned', 'dependency'}
+ENGINES_PACKAGE = json.loads((ROOT / 'skills/framemotion/assets/engines/package.json').read_text())
 KINDS = {'engine', 'knowledge', 'library', 'technique'}
 PACKS = {f'P{n}' for n in range(1, 11)}
 
@@ -36,6 +37,14 @@ class SourcesTest(unittest.TestCase):
                 self.assertRegex(s.get('bundled_commit', ''), r'^[0-9a-f]{40}$')
                 self.assertIn(s['repo'], NOTICE)
                 self.assertIn(s['bundled_commit'], NOTICE)
+
+    def test_dependencies_match_the_engines_package(self):
+        for s in SOURCES:
+            if s['status'] != 'dependency':
+                continue
+            with self.subTest(s['name']):
+                self.assertEqual(ENGINES_PACKAGE['dependencies'].get(s['name']), s['version'])
+                self.assertIn(s['repo'], NOTICE)
 
     def test_nothing_rejected_sneaks_in(self):
         rejected = {'DavidHDev/react-bits', 'ruucm/shadergradient', 'bangtutorial/bang-motion', 'pmndrs/drei',

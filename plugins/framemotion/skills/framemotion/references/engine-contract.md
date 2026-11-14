@@ -4,11 +4,11 @@ Every engine in FrameMotion, whether a bundled copy or our own code, follows thi
 
 ## Rules
 
-1. **A pure function of time.** `seek(t)` draws the state at `t` seconds. No wall clock, no `requestAnimationFrame` loop that carries state, no state from the previous frame. Forward, backward and direct seeks give the same picture.
+1. **A pure function of time.** `seek(t)` draws the state at `t` seconds, for any `t` in `[0, duration]`. No wall clock, no `requestAnimationFrame` loop that carries state, no state from the previous frame. Forward, backward and direct seeks give the same picture. Frames are `0 … totalFrames − 1` and frame `f` shows `t = f / fps`, so `t = duration` is the end state but never a frame of its own; a motion-blur sample may still land on it.
 2. **Seeded randomness.** Use `createRng(seed)`; never `Math.random`. Simulations are precomputed or rebuilt deterministically before seeking.
 3. **One clock.** In HyperFrames, register the timeline from `bindToGsap(engine, gsap)`; never run a second clock.
 4. **Input as JSON.** Copy, colours, fonts, assets and timing come in one JSON object the brief fills; no brand is built in.
-5. **Sub-frames.** Motion blur, anti-aliasing and depth of field average `subframeTimes(...)`; the shutter is a setting, not a hard-coded value.
+5. **Sub-frames.** Motion blur, anti-aliasing and depth of field average `subframeTimes(...)`: the open shutter is centred on the frame time and split into equal strata, one sample in the middle of each. The shutter is a setting, not a hard-coded value. The photoreal lens plan uses exactly these times.
 6. **Local and safe.** No network at render time, no account or key, and no server that runs commands sent from a browser page. Frames are written by the renderer (Playwright or a Node process).
 7. **Credited.** Every third-party source is listed in `integrations/sources.json` with its full commit and licence; material in the package also has its `integrations/<name>/` folder (licence text, source manifest) and a line in `NOTICE`. Only MIT, Apache-2.0 and BSD code; OFL fonts with their licence text.
 
@@ -18,7 +18,20 @@ Every engine in FrameMotion, whether a bundled copy or our own code, follows thi
 - [`engines.json`](../assets/engines/engines.json) registers each engine: id (the same as in `defineEngine`), page, size, sources (names from `integrations/sources.json`) and reusable blocks.
 - Each engine has a page that sets `window.__framemotion = {engine, canvas, ready: true, checks}`; `render-engine.mjs` renders any registered engine the same way and fails a frame that does not repeat exactly.
 - Engines reuse each other's blocks by relative import (a stickman scene can use the photoreal film grade). A block is a module with no global state, created per renderer.
-- Engine code never reaches the network or starts a process; a test scans for it.
+- Settings an engine accepts are declared under `params` in its registry entry (type, default, min, max); the renderer refuses unknown or out-of-range settings before a browser starts.
+- Engine code never reaches the network or starts a process; a test scans `.mjs`, `.js` and `.html` for it. At render time the renderer also blocks every request outside the engines origin, every WebSocket and every host name, so a slip in engine code fails instead of reaching out.
+
+## From frames to an MP4 with sound
+
+1. Render every frame: `node kit/render-engine.mjs --engine <id> --frames all --out frames/` (add `--once` for a long final render after a checked preview; add `--gpu` on a machine with a GPU). The command fails on a page error, a frame that does not repeat, or a flat frame.
+2. Encode the PNG sequence with the same frame rate, and add the designed sound in the same step:
+
+   ```bash
+   ffmpeg -framerate 30 -i frames/<id>-%05d.png -i sound.wav \
+     -c:v libx264 -pix_fmt yuv420p -crf 16 -c:a aac -b:a 192k -shortest out.mp4
+   ```
+
+3. Review the encoded MP4, not the PNGs: the usual frame QA, and loudness measured on the encoded file as [the sound reference](motion-sound-design.md) says (−14 LUFS for social, true peak at most −1 dBTP).
 
 ## How an engine enters the package
 

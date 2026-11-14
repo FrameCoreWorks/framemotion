@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-sources/1",
-  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is what the package already holds. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet).",
+  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is what the package already holds. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag).",
   "sources": [
     {
       "name": "animate",
@@ -205,11 +205,12 @@
       "copyright": "Copyright (c) 2026 Leon Lin",
       "kind": "technique",
       "pack": "P1",
-      "status": "patterns",
+      "status": "adapted",
       "conditions": [
-        "own code after its techniques; blocks 3 and 4 written 2026-11-14 (accum-camera, film-grade)",
+        "parts adapted and rewritten on the engine kit: blocks 3 and 4 (accum-camera, film-grade) on 2026-11-14; file headers name the source",
         "never the ffmpeg helper server, the scene or the sound"
-      ]
+      ],
+      "bundled_commit": "aab8be218aa051bbb2e22b82916962619c951747"
     },
     {
       "name": "three-mesh-bvh",
@@ -227,15 +228,16 @@
     {
       "name": "three",
       "repo": "mrdoob/three.js",
-      "commit": "b529cbbda2ba956a8444545a5634f6db22b68385",
+      "commit": "7e89746a687bb88271253698fa108b1dd59825d0",
       "licence": "MIT",
       "copyright": "Copyright (c) 2010-2026 three.js authors",
       "kind": "library",
       "pack": "P1",
-      "status": "planned",
+      "status": "dependency",
       "conditions": [
-        "npm dependency, pinned 0.187.0 in assets/engines/package.json; never bundled"
-      ]
+        "npm dependency pinned exactly in assets/engines/package.json (tag r187 = this commit); installed by npm ci, never bundled"
+      ],
+      "version": "0.187.0"
     },
     {
       "name": "paper-shaders",

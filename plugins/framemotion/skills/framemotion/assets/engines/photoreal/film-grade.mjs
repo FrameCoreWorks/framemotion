@@ -3,15 +3,21 @@
 // tint by tonal range, saturation, contrast around mid grey, a filmic curve, grain that is
 // weaker in the highlights, and a dither against banding. Grain is seeded by the frame, so
 // every frame renders the same way twice.
-// Own FrameCore Works code (Apache-2.0); technique after Leonxlnx/room-at-dawn (MIT, Leon Lin).
-// The curve is Hajime Uchimura's published filmic tone curve (CEDEC 2017).
+// Adapted from Leonxlnx/room-at-dawn (MIT, Copyright (c) 2026 Leon Lin, commit aab8be2), rewritten
+// on the FrameMotion engine kit; see integrations/room-at-dawn/. Changes are FrameCore Works (Apache-2.0).
+// The curve is Hajime Uchimura's published filmic tone curve (CEDEC 2017). The grain hash is
+// "Hash without Sine" by David Hoskins (MIT, shadertoy.com/view/4djSRW).
+// Pixels brighter than MAX_LINEAR are clamped first, so one hot pixel cannot flood the bloom.
 import {createQuad} from './accum-camera.mjs';
 
 export const DEFAULT_LOOK = Object.freeze({
-  exposure: 1, whiteBalance: [1, 1, 1], bloom: 0.05, bloomThreshold: 0, vignette: 0.25,
+  exposure: 1, whiteBalance: [1, 1, 1], bloom: 0.25, bloomThreshold: 0, vignette: 0.25, highlightRolloff: 1,
   shadowTint: [0.97, 1.0, 1.04], midTint: [1, 1, 1], highTint: [1.03, 1.0, 0.96],
   saturation: 1, contrast: 1, fade: 1, grain: 0.012, dither: true, peak: 1,
 });
+
+/** Brightest linear value the grade accepts; larger values (a sun glint, a NaN-free inf) are clamped. */
+export const MAX_LINEAR = 60;
 
 const smoothstep = (a, b, x) => { const t = Math.min(1, Math.max(0, (x - a) / (b - a))); return t * t * (3 - 2 * t); };
 const luma = ([r, g, b]) => 0.2126 * r + 0.7152 * g + 0.0722 * b;
@@ -32,16 +38,17 @@ const encodeSrgb = (v) => (v <= 0.0031308 ? v * 12.92 : 1.055 * Math.pow(Math.ma
 
 export function vignetteFactor(u, v, aspect, amount) {
   const x = (u - 0.5) * aspect * 0.82, y = v - 0.5;
-  return 1 + (smoothstep(1.05, 0.25, Math.hypot(x, y)) - 1) * amount;
+  return 1 + (1 - smoothstep(0.25, 1.05, Math.hypot(x, y)) - 1) * amount;
 }
 
 /**
  * Reference grade of one linear pixel, matching the shader. Returns sRGB in [0, 1] before
- * grain and dither (pass noise in [-0.5, 0.5) to include them).
+ * grain and dither (pass noise in [-0.5, 0.5) to include them). bloom is the glow already
+ * normalised by the number of bloom levels, as the shader receives it.
  */
 export function gradePixel(rgb, look = DEFAULT_LOOK, {u = 0.5, v = 0.5, aspect = 1, bloom = [0, 0, 0], noise = null} = {}) {
   const L = {...DEFAULT_LOOK, ...look};
-  let c = rgb.map((x, i) => (x + bloom[i] * L.bloom) * L.exposure * L.whiteBalance[i]);
+  let c = rgb.map((x, i) => (Math.min(x, MAX_LINEAR) + bloom[i] * L.bloom) * L.exposure * L.whiteBalance[i]);
   const vig = vignetteFactor(u, v, aspect, L.vignette);
   c = c.map((x) => x * vig);
   const l0 = luma(c);
@@ -55,6 +62,8 @@ export function gradePixel(rgb, look = DEFAULT_LOOK, {u = 0.5, v = 0.5, aspect =
   c = c.map((x) => Math.pow(Math.max(x, 0) / 0.18, L.contrast) * 0.18 * L.fade);
   const l2 = Math.max(luma(c), 1e-5), lt = uchimura(l2, L.peak);
   c = c.map((x) => 0.5 * x * (lt / l2) + 0.5 * uchimura(x, L.peak));
+  const white = Math.max(...c), roll = smoothstep(1, 8, l2) * L.highlightRolloff;   // very bright light burns to white
+  c = c.map((x) => x + (white - x) * roll);
   c = c.map((x) => encodeSrgb(Math.min(1, Math.max(0, x))));
   if (noise !== null) {
     const amp = L.grain * (1 - 0.6 * luma(c)) + (L.dither ? 1 / 255 : 0);
@@ -71,7 +80,7 @@ void main(){
   vec2 d = uTexel;
   vec3 a = texture2D(tSrc, vUv + vec2(-d.x, -d.y)).rgb + texture2D(tSrc, vUv + vec2(d.x, -d.y)).rgb
          + texture2D(tSrc, vUv + vec2(-d.x, d.y)).rgb + texture2D(tSrc, vUv + vec2(d.x, d.y)).rgb;
-  a *= 0.25;
+  a = min(a * 0.25, vec3(${MAX_LINEAR}.0));
   if (uThreshold > 0.0) { float l = max(a.r, max(a.g, a.b)); a *= smoothstep(uThreshold * 0.5, uThreshold * 2.0, l); }
   gl_FragColor = vec4(a, 1.0);
 }`;
@@ -91,7 +100,8 @@ void main(){
 export const GRADE_FS = /* glsl */`precision highp float;
 varying vec2 vUv;
 uniform sampler2D tColor; uniform sampler2D tBloom;
-uniform float uExposure, uBloom, uVignette, uGrain, uDither, uSeed, uSat, uContrast, uFade, uPeak, uAspect;
+uniform float uExposure, uBloom, uVignette, uGrain, uDither, uSat, uContrast, uFade, uPeak, uAspect, uRoll;
+uniform vec2 uSeed;
 uniform vec3 uWB, uShadowTint, uMidTint, uHighTint;
 float luma(vec3 c){ return dot(c, vec3(0.2126, 0.7152, 0.0722)); }
 float uchimura(float x, float P){
@@ -104,9 +114,9 @@ float uchimura(float x, float P){
 vec3 srgb(vec3 c){ return mix(c * 12.92, 1.055 * pow(max(c, 0.0), vec3(1.0 / 2.4)) - 0.055, step(0.0031308, c)); }
 float hash(vec2 p){ vec3 q = fract(vec3(p.xyx) * 0.1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
 void main(){
-  vec3 c = (texture2D(tColor, vUv).rgb + texture2D(tBloom, vUv).rgb * uBloom) * uExposure * uWB;
+  vec3 c = (min(texture2D(tColor, vUv).rgb, vec3(${MAX_LINEAR}.0)) + texture2D(tBloom, vUv).rgb * uBloom) * uExposure * uWB;
   vec2 q = vUv - 0.5; q.x *= uAspect * 0.82;
-  c *= mix(1.0, smoothstep(1.05, 0.25, length(q)), uVignette);
+  c *= mix(1.0, 1.0 - smoothstep(0.25, 1.05, length(q)), uVignette);
   float l = luma(c);
   float shw = 1.0 - smoothstep(0.0, 0.25, l), hiw = smoothstep(0.35, 1.6, l);
   c *= mix(mix(uMidTint, uShadowTint, shw), uHighTint, hiw);
@@ -115,11 +125,21 @@ void main(){
   c = pow(max(c, 0.0) / 0.18, vec3(uContrast)) * 0.18 * uFade;
   float ll = max(luma(c), 1e-5), lt = uchimura(ll, uPeak);
   c = 0.5 * c * (lt / ll) + 0.5 * vec3(uchimura(c.r, uPeak), uchimura(c.g, uPeak), uchimura(c.b, uPeak));
+  c = mix(c, vec3(max(c.r, max(c.g, c.b))), smoothstep(1.0, 8.0, ll) * uRoll);
   c = srgb(clamp(c, 0.0, 1.0));
-  float n = hash(gl_FragCoord.xy + uSeed * 91.7) - 0.5;
+  float n = hash(gl_FragCoord.xy + uSeed) - 0.5;
   c += n * (uGrain * (1.0 - 0.6 * luma(c)) + uDither / 255.0);
   gl_FragColor = vec4(clamp(c, 0.0, 1.0), 1.0);
 }`;
+
+/**
+ * A small per-frame offset for the grain hash. Large offsets lose float precision in the
+ * shader and the grain turns into stripes, so the seed is folded into [0, 256) on each axis.
+ */
+export function grainOffset(seed) {
+  const s = Math.abs(Math.trunc(seed));
+  return [((s * 37) % 251) + 0.31, ((s * 61) % 241) + 0.73];
+}
 
 /**
  * createFilmGrade({THREE, renderer, width, height, levels})
@@ -140,12 +160,14 @@ export function createFilmGrade({THREE, renderer, width, height, levels = 5}) {
   const v3 = (a) => new THREE.Vector3(...a);
   const grade = pass(GRADE_FS, {
     tColor: {value: null}, tBloom: {value: null}, uExposure: {value: 1}, uBloom: {value: 0}, uVignette: {value: 0},
-    uGrain: {value: 0}, uDither: {value: 1}, uSeed: {value: 0}, uSat: {value: 1}, uContrast: {value: 1}, uFade: {value: 1},
+    uGrain: {value: 0}, uDither: {value: 1}, uSeed: {value: new THREE.Vector2()}, uRoll: {value: 1}, uSat: {value: 1}, uContrast: {value: 1}, uFade: {value: 1},
     uPeak: {value: 1}, uAspect: {value: width / height}, uWB: {value: v3([1, 1, 1])},
     uShadowTint: {value: v3([1, 1, 1])}, uMidTint: {value: v3([1, 1, 1])}, uHighTint: {value: v3([1, 1, 1])},
   });
 
   function bloom(source, threshold) {
+    const autoClear = renderer.autoClear;
+    renderer.autoClear = true;
     let prev = source;
     mips.forEach((mip, i) => {
       down.material.uniforms.tSrc.value = prev.texture;
@@ -160,7 +182,7 @@ export function createFilmGrade({THREE, renderer, width, height, levels = 5}) {
       up.material.uniforms.uTexel.value.set(1 / mips[i].width, 1 / mips[i].height);
       renderer.setRenderTarget(mips[i - 1]); renderer.render(up.scene, up.camera);
     }
-    renderer.autoClear = true;
+    renderer.autoClear = autoClear;
     return mips[0];
   }
 
@@ -170,8 +192,9 @@ export function createFilmGrade({THREE, renderer, width, height, levels = 5}) {
     const glow = bloom(source, L.bloomThreshold);
     const u = grade.material.uniforms;
     u.tColor.value = source.texture; u.tBloom.value = glow.texture;
-    u.uExposure.value = L.exposure; u.uBloom.value = L.bloom; u.uVignette.value = L.vignette;
-    u.uGrain.value = L.grain; u.uDither.value = L.dither ? 1 : 0; u.uSeed.value = seed % 4096;
+    u.uExposure.value = L.exposure; u.uBloom.value = L.bloom / levels; u.uVignette.value = L.vignette;
+    u.uGrain.value = L.grain; u.uDither.value = L.dither ? 1 : 0; u.uSeed.value.set(...grainOffset(seed));
+    u.uRoll.value = L.highlightRolloff;
     u.uSat.value = L.saturation; u.uContrast.value = L.contrast; u.uFade.value = L.fade; u.uPeak.value = L.peak;
     u.uWB.value.set(...L.whiteBalance); u.uShadowTint.value.set(...L.shadowTint);
     u.uMidTint.value.set(...L.midTint); u.uHighTint.value.set(...L.highTint);

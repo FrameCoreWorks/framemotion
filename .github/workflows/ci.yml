@@ -27,9 +27,16 @@ jobs:
           sudo apt-get update -q -o Acquire::Retries=3
           sudo apt-get install -y -q --no-install-recommends -o Acquire::Retries=3 ffmpeg
           python3 -m pip install --no-deps --only-binary :all: -r requirements-ci.txt
+      - name: Install the engines (exact versions) and a headless Chromium for the render tests
+        timeout-minutes: 15
+        run: |
+          npm ci --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/engines
+          npm ci --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/animate-engine
+          cd plugins/framemotion/skills/framemotion/assets/animate-engine && npx --no-install playwright install --with-deps chromium
       - name: Source, tests and package
         env:
           PYTHONDONTWRITEBYTECODE: "1"
+          FRAMEMOTION_REQUIRE_RENDER: "1"
         run: |
           if command -v google-chrome >/dev/null; then export MOTION_REVIEW_BROWSER="$(command -v google-chrome)"; fi
           python3 tools/check.py

@@ -3,8 +3,9 @@
 // Files reach the page through Playwright's request routing from this engines folder only:
 // there is no HTTP server, and nothing a page sends can run a command or read outside it.
 //
-//   node kit/render-engine.mjs --engine photoreal [--frames 0,30,59] [--out DIR]
-//                              [--params '{"samples":16}'] [--gpu]
+//   node kit/render-engine.mjs --engine photoreal-demo [--frames 0,30,59] [--out DIR]
+//                              [--params '{"samples":16}'] [--gpu] [--allow-flat] [--once]
+//   --frames all renders every frame (for an MP4); --once skips the repeat check (half the time).
 //
 // The engine page must set window.__framemotion = {engine, canvas, ready: true, checks?}
 // where engine comes from defineEngine() and canvas is what it draws on. Every frame is
@@ -19,10 +20,24 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 export const ENGINES_ROOT = path.resolve(here, '..');
 const ORIGIN = 'http://framemotion.local';
 const TYPES = {'.html': 'text/html', '.mjs': 'text/javascript', '.js': 'text/javascript', '.json': 'application/json',
-  '.png': 'image/png', '.jpg': 'image/jpeg', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.bin': 'application/octet-stream'};
+  '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp', '.woff2': 'font/woff2', '.woff': 'font/woff', '.ttf': 'font/ttf', '.otf': 'font/otf',
+  '.wasm': 'application/wasm', '.glb': 'model/gltf-binary', '.gltf': 'model/gltf+json', '.hdr': 'image/vnd.radiance',
+  '.ktx2': 'image/ktx2', '.bin': 'application/octet-stream'};
+// Chromium flags that keep a page offline even if a request slipped past routing: every host name
+// resolves to nothing, and no proxy or background service may reach out.
+const OFFLINE_ARGS = ['--host-resolver-rules=MAP * ~NOTFOUND', '--no-proxy-server', '--disable-background-networking',
+  '--disable-component-update', '--disable-domain-reliability', '--disable-sync', '--no-pings'];
+const SOFTWARE_GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
 
-export function registry() {
-  return JSON.parse(fs.readFileSync(path.join(ENGINES_ROOT, 'engines.json'), 'utf8'));
+/** True only for the engines folder's own origin: scheme, host and port must all match. */
+export function isEngineUrl(url) {
+  try { return new URL(url).origin === ORIGIN; } catch { return false; }
+}
+
+/** The engine registry of an engines folder (this one by default; tests pass their own). */
+export function registry(root = ENGINES_ROOT) {
+  return JSON.parse(fs.readFileSync(path.join(root, 'engines.json'), 'utf8'));
 }
 
 /** Playwright from this folder, a global install (NODE_PATH) or the Animate engine's pinned copy. */
@@ -38,32 +53,69 @@ export async function loadPlaywright() {
 
 /** Resolve a request path inside the engines folder, or null when it would leave it. */
 export function resolveInside(root, urlPath) {
-  const rel = decodeURIComponent(urlPath).replace(/^\/+/, '');
-  const file = path.resolve(root, rel);
-  return file.startsWith(root + path.sep) ? file : null;
+  let rel;
+  try { rel = decodeURIComponent(urlPath); } catch { return null; }   // malformed escapes are a 404
+  if (rel.includes('\0')) return null;
+  const base = fs.realpathSync(root);
+  const file = path.resolve(base, rel.replace(/^\/+/, ''));
+  if (!file.startsWith(base + path.sep)) return null;
+  if (!fs.existsSync(file)) return file;
+  const real = fs.realpathSync(file);                               // a symlink may not lead outside
+  return real.startsWith(base + path.sep) ? real : null;
 }
 
-export async function openEngine(id, {params = {}, gpu = false} = {}) {
-  const entry = registry().engines.find((e) => e.id === id);
+/**
+ * Check settings against the entry's declared params. width and height are always allowed;
+ * an entry without params accepts any JSON object (bundled engines read their own settings).
+ */
+export function validateParams(entry, params) {
+  if (params === null || typeof params !== 'object' || Array.isArray(params)) throw new TypeError('params must be a JSON object.');
+  for (const key of ['width', 'height']) {
+    if (key in params && !(Number.isInteger(params[key]) && params[key] >= 16 && params[key] <= 8192)) {
+      throw new RangeError(`${key} must be an integer in [16, 8192].`);
+    }
+  }
+  if (!entry.params) return params;
+  for (const [key, value] of Object.entries(params)) {
+    if (key === 'width' || key === 'height') continue;
+    const spec = entry.params[key];
+    if (!spec) throw new RangeError(`${entry.id} has no setting "${key}" (known: ${Object.keys(entry.params).join(', ')}).`);
+    const ok = {integer: Number.isInteger(value), number: Number.isFinite(value), boolean: typeof value === 'boolean', string: typeof value === 'string'}[spec.type];
+    if (!ok) throw new TypeError(`${entry.id}.${key} must be ${spec.type}.`);
+    if ((spec.min !== undefined && value < spec.min) || (spec.max !== undefined && value > spec.max)) {
+      throw new RangeError(`${entry.id}.${key} must be in [${spec.min ?? '-inf'}, ${spec.max ?? 'inf'}].`);
+    }
+  }
+  return params;
+}
+
+export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_ROOT} = {}) {
+  const entry = registry(root).engines.find((e) => e.id === id);
   if (!entry) throw new Error(`Unknown engine "${id}"; see engines.json.`);
+  validateParams(entry, params);
   const {chromium} = await loadPlaywright();
-  const args = gpu ? ['--ignore-gpu-blocklist'] : ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'];
+  const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : SOFTWARE_GL)];
   const browser = await chromium.launch({args});
   const {width, height} = {...entry.size, ...params};
-  const page = await browser.newPage({viewport: {width, height}});
+  const context = await browser.newContext({viewport: {width, height}, serviceWorkers: 'block', acceptDownloads: false});
+  const page = await context.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
-  const built = entry.build ? await buildEntry(entry, ENGINES_ROOT) : null;
-  await page.route(`${ORIGIN}/**`, async (route) => {
-    const urlPath = new URL(route.request().url()).pathname;
+  const built = entry.build ? await buildEntry(entry, root) : null;
+  // One handler for every request of the whole context (pages, workers, iframes): the engines
+  // origin is served from disk, everything else is refused. WebSockets are closed at once.
+  await context.routeWebSocket(() => true, (ws) => ws.close({code: 1008, reason: 'offline'}));
+  await context.route(() => true, async (route) => {
+    const url = route.request().url();
+    if (!isEngineUrl(url)) return route.abort('blockedbyclient');
+    const urlPath = new URL(url).pathname;
     const file = built && urlPath.startsWith('/_build/')
       ? resolveInside(built.dir, urlPath.slice('/_build'.length))
-      : resolveInside(ENGINES_ROOT, urlPath);
+      : resolveInside(root, urlPath);
     if (!file || !fs.existsSync(file) || !fs.statSync(file).isFile()) return route.fulfill({status: 404, body: ''});
     return route.fulfill({status: 200, contentType: TYPES[path.extname(file)] ?? 'application/octet-stream', body: fs.readFileSync(file)});
   });
-  await page.route((url) => !url.href.startsWith(ORIGIN), (route) => route.abort());   // no network at render time
   const query = new URLSearchParams({params: JSON.stringify({width, height, ...params})});
   const pagePath = built ? `_build/${built.page}` : entry.page;
   await page.goto(`${ORIGIN}/${pagePath}?${query}`);
@@ -123,20 +175,35 @@ async function capture(page, frame, {png = false} = {}) {
   return {hash: shot.toString('base64'), ...stats, png: png ? dataUrl : null};
 }
 
-export async function renderFrames(id, {frames, out = null, params = {}, gpu = false} = {}) {
-  const {entry, page, close} = await openEngine(id, {params, gpu});
+/** Spread of a frame below this (0..255 brightness) counts as flat: nothing was drawn. */
+export const FLAT_SPREAD = 1;
+
+/**
+ * Render and check frames. Throws when the page reports an error at any point or when the
+ * page's engine differs from its registry entry (id, size, fps). Each frame records whether it
+ * repeated byte for byte (deterministic) and whether it is flat (one colour, usually a failed draw).
+ */
+export async function renderFrames(id, {frames, out = null, params = {}, gpu = false, root = ENGINES_ROOT, once = false} = {}) {
+  const {entry, page, errors, close} = await openEngine(id, {params, gpu, root});
+  const fail = (where) => { if (errors.length) throw new Error(`Engine page errors ${where}: ${errors.join(' | ')}`); };
   try {
-    const info = await page.evaluate(() => { const e = window.__framemotion.engine; return {id: e.id, fps: e.fps, totalFrames: e.totalFrames, width: e.width, height: e.height}; });
-    if (info.id !== entry.id) throw new Error(`Page engine id ${info.id} differs from registry id ${entry.id}`);
-    const list = frames ?? [0, Math.floor(info.totalFrames / 2), info.totalFrames - 1];
+    const info = await page.evaluate(() => { const e = window.__framemotion.engine; return {id: e.id, fps: e.fps, totalFrames: e.totalFrames, width: e.width, height: e.height, duration: e.duration}; });
+    const expected = {id: entry.id, fps: entry.fps, duration: entry.duration, width: params.width ?? entry.size?.width, height: params.height ?? entry.size?.height};
+    for (const [key, value] of Object.entries(expected)) {
+      if (value !== undefined && info[key] !== value) throw new Error(`Page engine ${key} ${info[key]} differs from registry ${value}`);
+    }
+    const list = frames === 'all' ? Array.from({length: info.totalFrames}, (_, i) => i)
+      : frames ?? [0, Math.floor(info.totalFrames / 2), info.totalFrames - 1];
     const report = {engine: info, frames: []};
     for (const frame of list) {
       const t0 = Date.now();
       const first = await capture(page, frame, {png: Boolean(out)});
       const seconds = (Date.now() - t0) / 1000;
-      const second = await capture(page, frame);
+      fail(`at frame ${frame}`);
+      const second = once ? first : await capture(page, frame);
+      fail(`at frame ${frame} (repeat)`);
       const {hash, png, ...stats} = first;
-      report.frames.push({frame, seconds, deterministic: hash === second.hash, ...stats});
+      report.frames.push({frame, seconds, deterministic: once ? null : hash === second.hash, flat: stats.max - stats.min < FLAT_SPREAD, ...stats});
       if (out) {
         fs.mkdirSync(out, {recursive: true});
         fs.writeFileSync(path.join(out, `${entry.id}-${String(frame).padStart(5, '0')}.png`), Buffer.from(png.split(',')[1], 'base64'));
@@ -152,9 +219,10 @@ function parseArgs(argv) {
   const o = {};
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i].replace(/^--/, '');
-    if (key === 'gpu') { o.gpu = true; continue; }
+    const flags = {gpu: 'gpu', 'allow-flat': 'allowFlat', once: 'once'};
+    if (key in flags) { o[flags[key]] = true; continue; }
     const value = argv[++i];
-    if (key === 'frames') o.frames = value.split(',').map(Number);
+    if (key === 'frames') o.frames = value === 'all' ? 'all' : value.split(',').map(Number);
     else if (key === 'params') o.params = JSON.parse(value);
     else o[key] = value;
   }
@@ -163,8 +231,12 @@ function parseArgs(argv) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const o = parseArgs(process.argv.slice(2));
-  if (!o.engine) { console.error('Usage: node kit/render-engine.mjs --engine <id> [--frames 0,30] [--out DIR] [--params JSON] [--gpu]'); process.exit(2); }
+  if (!o.engine) { console.error('Usage: node kit/render-engine.mjs --engine <id> [--frames 0,30] [--out DIR] [--params JSON] [--gpu] [--allow-flat] [--once]'); process.exit(2); }
   const report = await renderFrames(o.engine, o);
   console.log(JSON.stringify(report, null, 2));
-  if (!report.frames.every((f) => f.deterministic)) process.exit(3);
+  if (report.frames.some((f) => f.deterministic === false)) process.exit(3);
+  if (!o.allowFlat && report.frames.some((f) => f.flat)) {
+    console.error('A frame is flat (one colour). Pass --allow-flat when that is intended, such as a fade from black.');
+    process.exit(4);
+  }
 }

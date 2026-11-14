@@ -6,6 +6,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import subprocess
@@ -86,8 +87,20 @@ def main():
             run.check_returncode()
         print(f'PASS {test.name}', flush=True)
     if not fast:
-        subprocess.run(['node', '--test', *sorted(str(p) for p in (PLUGIN / 'tests').glob('*.test.mjs'))], cwd=PLUGIN, check=True)
-        print('PASS Node.js suites', flush=True)
+        run = subprocess.run(['node', '--test', '--test-reporter=tap', *sorted(str(p) for p in (PLUGIN / 'tests').glob('*.test.mjs'))],
+                             cwd=PLUGIN, capture_output=True, text=True)
+        if run.returncode != 0:
+            print((run.stdout + run.stderr)[-8000:])
+            run.check_returncode()
+        # A skipped browser test is not a pass: name every skip, and fail when the render
+        # tests are required (CI sets FRAMEMOTION_REQUIRE_RENDER=1 after installing Chromium).
+        skips = re.findall(r'^[ \t]*ok \d+ - ([^\n]+?) # SKIP[ \t]*([^\n]*)$', run.stdout, re.M)
+        for name, reason in skips:
+            print(f'SKIP {name}: {reason or "no reason given"}', flush=True)
+        engine_skips = [name for name, reason in skips if re.search(r'assets/engines|Playwright', reason)]
+        require(not (engine_skips and os.environ.get('FRAMEMOTION_REQUIRE_RENDER') == '1'),
+                f'Engine render tests skipped while FRAMEMOTION_REQUIRE_RENDER=1: {engine_skips}')
+        print(f'PASS Node.js suites ({len(skips)} skipped)' if skips else 'PASS Node.js suites', flush=True)
     with tempfile.TemporaryDirectory() as temp:
         one, two = build(Path(temp) / 'one'), build(Path(temp) / 'two')
         require(one.read_bytes() == two.read_bytes(), 'Archive is not reproducible')

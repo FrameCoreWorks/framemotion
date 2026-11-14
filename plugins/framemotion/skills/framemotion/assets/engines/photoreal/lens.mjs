@@ -1,7 +1,8 @@
 // Photoreal three.js engine: sub-frame lens and shutter samples (pure math, no three.js).
-// Own FrameCore Works code (Apache-2.0); the technique follows Leonxlnx/room-at-dawn (MIT, Leon Lin),
+// Adapted from Leonxlnx/room-at-dawn (MIT, Copyright (c) 2026 Leon Lin, commit aab8be2), rewritten on the
+// FrameMotion engine kit; changes are FrameCore Works (Apache-2.0),
 // see integrations/room-at-dawn/.
-import {halton} from '../kit/engine-kit.mjs';
+import {halton, subframeTimes} from '../kit/engine-kit.mjs';
 
 /**
  * One output frame as n sub-frames. Each has a time inside the open shutter (stratified),
@@ -14,11 +15,10 @@ export function subframePlan(frame, {fps, samples = 16, shutter = 0.5, aperture 
   if (!Number.isInteger(samples) || samples < 1) throw new RangeError('samples must be an integer >= 1.');
   if (!(shutter >= 0 && shutter <= 1)) throw new RangeError('shutter must be in [0, 1].');
   if (!(aperture >= 0)) throw new RangeError('aperture must be >= 0.');
-  const t0 = frame / fps;
+  const times = subframeTimes(frame, {fps, samples, shutter, duration});
   return Array.from({length: samples}, (_, i) => {
     const k = i + 1;
-    const offset = samples > 1 ? ((i + 0.5) / samples - 0.5) * (shutter / fps) : 0;
-    const t = Math.min(Math.max(t0 + offset, 0), duration);
+    const t = times[Math.min(i, times.length - 1)];
     const jx = samples > 1 ? halton(k, 2) - 0.5 : 0;
     const jy = samples > 1 ? halton(k, 3) - 0.5 : 0;
     let lx = 0, ly = 0;

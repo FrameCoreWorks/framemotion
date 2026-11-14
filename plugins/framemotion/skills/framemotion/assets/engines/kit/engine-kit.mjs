@@ -43,7 +43,9 @@ export function halton(index, base) {
 
 /**
  * Times (seconds) to sample for one output frame. shutter is the open fraction of
- * the frame (0.5 = 180 degrees); samples are centred on the frame and clamped to [0, duration].
+ * the frame (0.5 = 180 degrees). The open interval is centred on t = frame/fps and split
+ * into equal strata, one sample in the middle of each, clamped to [0, duration].
+ * The photoreal lens plan uses exactly these times.
  */
 export function subframeTimes(frame, {fps, samples = 1, shutter = 0.5, duration = Infinity}) {
   if (!Number.isInteger(frame) || frame < 0) throw new RangeError('frame must be an integer >= 0.');
@@ -54,7 +56,7 @@ export function subframeTimes(frame, {fps, samples = 1, shutter = 0.5, duration 
   if (samples === 1 || shutter === 0) return [Math.min(t0, duration)];
   const open = shutter / fps;
   return Array.from({length: samples}, (_, i) => {
-    const t = t0 + (halton(i + 1, 2) - 0.5) * open;
+    const t = t0 + ((i + 0.5) / samples - 0.5) * open;
     return Math.min(Math.max(t, 0), duration);
   });
 }
@@ -70,35 +72,35 @@ export function defineEngine(def) {
   if (!(duration > 0)) throw new RangeError('duration must be > 0 seconds.');
   if (typeof seek !== 'function') throw new TypeError('seek(t) must be a function.');
   const totalFrames = Math.round(duration * fps);
-  return Object.freeze({
-    ...def,
-    totalFrames,
-    timeAt: (frame) => {
-      if (!Number.isInteger(frame) || frame < 0 || frame >= totalFrames) {
-        throw new RangeError('frame must be an integer in [0, totalFrames).');
-      }
-      return frame / fps;
-    },
-    seekFrame(frame) {
-      return seek(this.timeAt(frame));
-    },
-  });
+  const timeAt = (frame) => {
+    if (!Number.isInteger(frame) || frame < 0 || frame >= totalFrames) {
+      throw new RangeError('frame must be an integer in [0, totalFrames).');
+    }
+    return frame / fps;
+  };
+  // Frames are 0..totalFrames-1 and frame f shows time f/fps, so t = duration itself is never a
+  // frame. seek(duration) is still valid (the end state) and a motion-blur sample may land on it.
+  return Object.freeze({...def, totalFrames, timeAt, seekFrame: (frame) => seek(timeAt(frame))});
 }
 
 /**
  * Drive an engine from one paused GSAP timeline, the way HyperFrames seeks a
  * composition. Pass the page's gsap; register the returned timeline as the
  * composition timeline. Seeking the timeline calls engine.seek(time).
+ *
+ * The engine is drawn by a property setter, not an onUpdate callback: GSAP's seek()
+ * suppresses callbacks by default, but it always writes tweened properties, so the
+ * picture follows every seek, render and play. The engine draws t = 0 at once.
  */
 export function bindToGsap(engine, gsap) {
   if (!gsap || typeof gsap.timeline !== 'function') throw new TypeError('gsap with timeline() is required.');
-  const clock = {t: 0};
+  let now = 0;   // the tween reads its start (0) here once; it never changes outside the setter
+  const clock = {
+    get t() { return now; },
+    set t(value) { now = value; engine.seek(value); },
+  };
   const timeline = gsap.timeline({paused: true});
-  timeline.to(clock, {
-    t: engine.duration,
-    duration: engine.duration,
-    ease: 'none',
-    onUpdate: () => engine.seek(clock.t),
-  }, 0);
+  timeline.to(clock, {t: engine.duration, duration: engine.duration, ease: 'none', lazy: false}, 0);
+  engine.seek(0);
   return timeline;
 }
