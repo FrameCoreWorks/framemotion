@@ -207,7 +207,7 @@
       "pack": "P1",
       "status": "patterns",
       "conditions": [
-        "rewrite: accum-camera, film-grade, bake, gi-material in own code",
+        "own code after its techniques; blocks 3 and 4 written 2026-11-14 (accum-camera, film-grade)",
         "never the ffmpeg helper server, the scene or the sound"
       ]
     },
@@ -234,7 +234,7 @@
       "pack": "P1",
       "status": "planned",
       "conditions": [
-        "dependency, pinned npm version"
+        "npm dependency, pinned 0.187.0 in assets/engines/package.json; never bundled"
       ]
     },
     {

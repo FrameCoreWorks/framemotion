@@ -1,0 +1,15 @@
+{
+  "name": "framemotion-engines",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "smoke": "node kit/render-engine.mjs --engine photoreal"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

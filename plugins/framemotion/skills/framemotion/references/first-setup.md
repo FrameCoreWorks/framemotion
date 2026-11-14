@@ -29,6 +29,7 @@ FrameMotion installs its own runtimes; it needs no other plugin for them. Where 
 | `animate-engine` | `assets/animate-engine` | the [Animate engine](animate-engine.md); then `npx playwright@1.56.1 install chromium` in that folder |
 | `gsap-motion-starter` | `assets/gsap-motion-starter` | HTML/GSAP builds |
 | `motion-toolkit` | `assets/motion-toolkit` | Three.js, PixiJS, D3, Lottie and Mediabunny examples |
+| `engines` | `assets/engines` | FrameMotion's own engines ([engines](../assets/engines/README.md)), starting with the photoreal three.js blocks; Playwright with Chromium renders them |
 | `kinetic-type-starter`, `three-motion-example`, `gltf-turntable` | `remotion/assets/<name>` | the [Remotion route](../remotion/REMOTION.md) |
 
 The workspace is `~/.framecore-studio/workspace` (or `FRAMECORE_STUDIO_WORKSPACE`), the same folder older Creative Studio installations used, so an existing copy is reused: compare its `package-lock.json` with the plugin's and reinstall (`npm ci`) only when they differ. HyperFrames runs through `npx hyperframes` and needs Node.js 22, FFmpeg and Chrome. When Creative Studio is installed, its environment check reports the same tools; either may install them, never both at once.

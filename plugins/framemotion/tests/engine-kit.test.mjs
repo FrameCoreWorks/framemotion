@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {createRng, halton, subframeTimes, defineEngine, bindToGsap} from '../skills/framemotion/assets/engine-kit/engine-kit.mjs';
+import {createRng, halton, subframeTimes, defineEngine, bindToGsap} from '../skills/framemotion/assets/engines/kit/engine-kit.mjs';
 
 test('seeded random numbers repeat for the same seed and differ for another', () => {
   const a = createRng(7), b = createRng(7), c = createRng(8);

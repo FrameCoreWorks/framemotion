@@ -39,3 +39,6 @@ a source-manifest.json with the pinned commit):
   integrations/hairline/LICENSE).
 - nexu-io/open-design, Leonxlnx/earshot, rea and awesome-opus-videos: adapted ideas and records; provenance in
   integrations/open-design/, integrations/earshot/, integrations/rea/ and integrations/awesome-opus-videos/.
+- Leonxlnx/room-at-dawn, commit aab8be218aa051bbb2e22b82916962619c951747, Copyright (c) 2026 Leon Lin, MIT: techniques
+  rewritten as our own code in skills/framemotion/assets/engines/photoreal/ (no file copied; licence in
+  integrations/room-at-dawn/). three.js (MIT) is installed from npm at 0.187.0, not bundled.
