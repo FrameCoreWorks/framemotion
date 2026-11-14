@@ -2,6 +2,10 @@
 
 The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/framemotion/CHANGELOG.md).
 
+## 2026-11-14
+
+- FrameMotion 0.1.4: a fixed, owner-approved welcome on a bare invocation, with a byte-check test.
+
 ## 2026-11-13
 
 - FrameMotion 0.1.3: text-cut check on the contact sheet, preview sound measured on the encoded MP4.
