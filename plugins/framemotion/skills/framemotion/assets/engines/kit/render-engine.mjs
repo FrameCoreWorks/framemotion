@@ -10,6 +10,7 @@
 // The engine page must set window.__framemotion = {engine, canvas, ready: true, checks?}
 // where engine comes from defineEngine() and canvas is what it draws on. Every frame is
 // rendered twice and must match byte for byte (the engine is a pure function of time).
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -28,6 +29,8 @@ const TYPES = {'.html': 'text/html', '.mjs': 'text/javascript', '.js': 'text/jav
 // resolves to nothing, and no proxy or background service may reach out.
 const OFFLINE_ARGS = ['--host-resolver-rules=MAP * ~NOTFOUND', '--no-proxy-server', '--disable-background-networking',
   '--disable-component-update', '--disable-domain-reliability', '--disable-sync', '--no-pings'];
+/** Bundled engines' own clock functions, by registry adapter name. */
+const ADAPTERS = {renderFrame: 'renderFrame', seek: 'seek'};
 const SOFTWARE_GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
 
 /** True only for the engines folder's own origin: scheme, host and port must all match. */
@@ -80,7 +83,8 @@ export function validateParams(entry, params) {
     if (key === 'width' || key === 'height') continue;
     const spec = entry.params[key];
     if (!spec) throw new RangeError(`${entry.id} has no setting "${key}" (known: ${Object.keys(entry.params).join(', ')}).`);
-    const ok = {integer: Number.isInteger(value), number: Number.isFinite(value), boolean: typeof value === 'boolean', string: typeof value === 'string'}[spec.type];
+    const ok = {integer: Number.isInteger(value), number: Number.isFinite(value), boolean: typeof value === 'boolean', string: typeof value === 'string',
+      object: value !== null && typeof value === 'object' && !Array.isArray(value)}[spec.type];
     if (!ok) throw new TypeError(`${entry.id}.${key} must be ${spec.type}.`);
     if ((spec.min !== undefined && value < spec.min) || (spec.max !== undefined && value > spec.max)) {
       throw new RangeError(`${entry.id}.${key} must be in [${spec.min ?? '-inf'}, ${spec.max ?? 'inf'}].`);
@@ -101,39 +105,54 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  // Missing files are reported by the router below with their path; the browser's own
+  // "Failed to load resource" line carries no path, so it is not counted twice.
+  page.on('console', (m) => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
+  const optional = new Set(entry.optional ?? []);
+  const blocked = new Set();   // outside requests the page tried; they never leave, the report lists them
   const built = entry.build ? await buildEntry(entry, root) : null;
   // One handler for every request of the whole context (pages, workers, iframes): the engines
   // origin is served from disk, everything else is refused. WebSockets are closed at once.
   await context.routeWebSocket(() => true, (ws) => ws.close({code: 1008, reason: 'offline'}));
   await context.route(() => true, async (route) => {
     const url = route.request().url();
-    if (!isEngineUrl(url)) return route.abort('blockedbyclient');
+    if (!isEngineUrl(url)) { if (!url.startsWith('data:')) blocked.add(url); return route.abort('blockedbyclient'); }
     const urlPath = new URL(url).pathname;
     const file = built && urlPath.startsWith('/_build/')
       ? resolveInside(built.dir, urlPath.slice('/_build'.length))
       : resolveInside(root, urlPath);
-    if (!file || !fs.existsSync(file) || !fs.statSync(file).isFile()) return route.fulfill({status: 404, body: ''});
+    if (!file || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+      const rel = built && urlPath.startsWith('/_build/') ? urlPath.slice('/_build/'.length) : urlPath.slice(1);
+      if (!optional.has(rel)) errors.push(`404 ${urlPath}`);
+      return route.fulfill({status: 404, body: ''});
+    }
     return route.fulfill({status: 200, contentType: TYPES[path.extname(file)] ?? 'application/octet-stream', body: fs.readFileSync(file)});
   });
-  const query = new URLSearchParams({params: JSON.stringify({width, height, ...params})});
+  const query = new URLSearchParams({...(built?.query ?? {}), params: JSON.stringify({width, height, ...params})});
   const pagePath = built ? `_build/${built.page}` : entry.page;
   await page.goto(`${ORIGIN}/${pagePath}?${query}`);
-  if (entry.adapter === 'renderFrame') {
-    await page.waitForFunction(() => typeof window.renderFrame === 'function', null, {timeout: 120000}).catch(() => {});
+  if (ADAPTERS[entry.adapter]) {
+    const fn = ADAPTERS[entry.adapter];
+    await page.waitForFunction((name) => typeof window[name] === 'function', fn, {timeout: 120000}).catch(() => {});
+    // A page may report its own size and timing (kaventro films set window.FILM_INFO); the
+    // adapter uses those, so the runner's registry check catches a registry that disagrees.
     await page.addScriptTag({type: 'module', content: `
       import {fromRenderFrame} from '/kit/adapters.mjs';
-      const spec = ${JSON.stringify({id: entry.id, width, height, fps: entry.fps, duration: entry.duration})};
+      const info = window.FILM_INFO;
+      const spec = info ? {id: ${JSON.stringify(entry.id)}, width: info.W, height: info.H, fps: info.FPS, duration: info.frames / info.FPS}
+        : ${JSON.stringify({id: entry.id, width, height, fps: entry.fps, duration: entry.duration})};
       const canvas = ${JSON.stringify(entry.capture ?? null)} ? document.querySelector(${JSON.stringify(entry.capture ?? 'canvas')}) : null;
-      window.__framemotion = {engine: fromRenderFrame({...spec, renderFrame: window.renderFrame}), canvas, element: ${JSON.stringify(entry.screenshot ?? null)}, ready: true};
+      window.__framemotion = {engine: fromRenderFrame({...spec, renderFrame: window[${JSON.stringify(fn)}]}), canvas, element: ${JSON.stringify(entry.screenshot ?? null)}, ready: true};
     `});
   }
   await page.waitForFunction(() => window.__framemotion?.ready === true, null, {timeout: 120000}).catch(() => {});
   const close = async () => { await browser.close(); if (built) fs.rmSync(built.dir, {recursive: true, force: true}); };
   if (errors.length) { await close(); throw new Error(`Engine page errors: ${errors.join(' | ')}`); }
+  // Web fonts and the first layout must settle before frame 0, or frame 0 differs from its repeat.
+  await page.evaluate(() => document.fonts.ready.then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))));
   const ready = await page.evaluate(() => window.__framemotion?.ready === true);
   if (!ready) { await close(); throw new Error('Engine page never set window.__framemotion.ready'); }
-  return {entry, browser, page, errors, close};
+  return {entry, browser, page, errors, blocked, close};
 }
 
 /**
@@ -141,10 +160,14 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
  * min and max brightness. The PNG travels to Node only when it is saved (PNG encoding is slow).
  * Pages without a canvas are captured as a screenshot of their element.
  */
+const warmed = new WeakSet();
+/** A short stable id of a frame's pixels (canvas pages hash in the page; screenshots are hashed here). */
+const hashOf = (h) => (h.length <= 16 ? h : crypto.createHash('sha256').update(h).digest('hex').slice(0, 16));
+
 async function capture(page, frame, {png = false} = {}) {
-  const result = await page.evaluate(({f, png}) => {
+  const result = await page.evaluate(async ({f, png}) => {
     const fm = window.__framemotion;
-    fm.engine.seekFrame(f);
+    await fm.engine.seekFrame(f);   // a page's seek may be async (fonts, images); the frame is drawn when it settles
     if (!fm.canvas) return null;
     const c = fm.canvas;
     const ctx = document.createElement('canvas').getContext('2d', {willReadFrequently: true});
@@ -161,9 +184,11 @@ async function capture(page, frame, {png = false} = {}) {
   }, {f: frame, png});
   if (result) return result;
   const selector = await page.evaluate(() => window.__framemotion.element || 'body');
-  const shot = await page.locator(selector).first().screenshot({animations: 'disabled'});
-  const dataUrl = `data:image/png;base64,${shot.toString('base64')}`;
-  const stats = await page.evaluate(async (url) => {
+  const target = page.locator(selector).first();
+  // The first screenshot and the first canvas the page makes for measuring change how Chromium
+  // rasterises the page afterwards (anti-aliasing of SVG strokes, seen on the Hairline example),
+  // so one throwaway screenshot and measurement come first and frame 0 repeats like every other.
+  const measure = (buffer) => page.evaluate(async (url) => {
     const img = new Image(); img.src = url; await img.decode();
     const ctx = document.createElement('canvas').getContext('2d');
     ctx.canvas.width = img.width; ctx.canvas.height = img.height; ctx.drawImage(img, 0, 0);
@@ -171,7 +196,15 @@ async function capture(page, frame, {png = false} = {}) {
     let sum = 0, min = 255, max = 0;
     for (let i = 0; i < px.length; i += 4) { const l = (px[i] + px[i + 1] + px[i + 2]) / 3; sum += l; if (l < min) min = l; if (l > max) max = l; }
     return {mean: +(sum / (px.length / 4)).toFixed(2), min, max};
-  }, dataUrl);
+  }, `data:image/png;base64,${buffer.toString('base64')}`);
+  if (!warmed.has(page)) {
+    warmed.add(page);
+    await measure(await target.screenshot({animations: 'disabled'}));
+    await page.evaluate((f) => window.__framemotion.engine.seekFrame(f), frame);
+  }
+  const shot = await target.screenshot({animations: 'disabled'});
+  const dataUrl = `data:image/png;base64,${shot.toString('base64')}`;
+  const stats = await measure(shot);
   return {hash: shot.toString('base64'), ...stats, png: png ? dataUrl : null};
 }
 
@@ -184,11 +217,13 @@ export const FLAT_SPREAD = 1;
  * repeated byte for byte (deterministic) and whether it is flat (one colour, usually a failed draw).
  */
 export async function renderFrames(id, {frames, out = null, params = {}, gpu = false, root = ENGINES_ROOT, once = false} = {}) {
-  const {entry, page, errors, close} = await openEngine(id, {params, gpu, root});
+  const {entry, page, errors, blocked, close} = await openEngine(id, {params, gpu, root});
   const fail = (where) => { if (errors.length) throw new Error(`Engine page errors ${where}: ${errors.join(' | ')}`); };
   try {
     const info = await page.evaluate(() => { const e = window.__framemotion.engine; return {id: e.id, fps: e.fps, totalFrames: e.totalFrames, width: e.width, height: e.height, duration: e.duration}; });
-    const expected = {id: entry.id, fps: entry.fps, duration: entry.duration, width: params.width ?? entry.size?.width, height: params.height ?? entry.size?.height};
+    const retimed = Object.keys(params).some((key) => entry.params?.[key]?.timing);
+    const expected = {id: entry.id, fps: retimed ? undefined : entry.fps, duration: retimed ? undefined : entry.duration,
+      width: params.width ?? entry.size?.width, height: params.height ?? entry.size?.height};
     for (const [key, value] of Object.entries(expected)) {
       if (value !== undefined && info[key] !== value) throw new Error(`Page engine ${key} ${info[key]} differs from registry ${value}`);
     }
@@ -203,12 +238,13 @@ export async function renderFrames(id, {frames, out = null, params = {}, gpu = f
       const second = once ? first : await capture(page, frame);
       fail(`at frame ${frame} (repeat)`);
       const {hash, png, ...stats} = first;
-      report.frames.push({frame, seconds, deterministic: once ? null : hash === second.hash, flat: stats.max - stats.min < FLAT_SPREAD, ...stats});
+      report.frames.push({frame, seconds, hash: hashOf(hash), deterministic: once ? null : hash === second.hash, flat: stats.max - stats.min < FLAT_SPREAD, ...stats});
       if (out) {
         fs.mkdirSync(out, {recursive: true});
         fs.writeFileSync(path.join(out, `${entry.id}-${String(frame).padStart(5, '0')}.png`), Buffer.from(png.split(',')[1], 'base64'));
       }
     }
+    report.blocked = [...blocked];
     return report;
   } finally {
     await close();

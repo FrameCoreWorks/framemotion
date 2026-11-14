@@ -36,7 +36,7 @@ Use it for a calm object in an explainer, a product or feature film, an app or d
 ## Make one
 
 1. Copy the example folder, keep the kit copy beside it, and change the object, the rest composition, the tour and the read-out.
-2. Render with `npx hyperframes render --quality draft` in a HyperFrames project, or `node <skill>/assets/motion-export/capture-html.mjs index.html --out figure.mp4 --width 1080 --height 1920 --seconds 8`.
+2. Render with `npx hyperframes render --quality draft` in a HyperFrames project, or `node <skill>/assets/motion-export/capture-html.mjs index.html --out figure.mp4 --width 1080 --height 1920 --seconds 8`. The example is also registered with FrameMotion's shared engine renderer as `hairline-spice-rack`: `node <skill>/assets/engines/kit/render-engine.mjs --engine hairline-spice-rack --frames 0,120 --out frames` checks that frames repeat exactly, offline (the GSAP script from the CDN is blocked and listed; the renderer drives `renderFrame(t)` itself).
 3. Check the look on stills before the full render: rest, each tour stop, the frame at a quarter width, and the strongest setting. Answer the [look questions](#look-questions), then run the usual [motion review](../motion-review/README.md) and [motion activity](../motion-quality/README.md) steps.
 
 ## Look questions

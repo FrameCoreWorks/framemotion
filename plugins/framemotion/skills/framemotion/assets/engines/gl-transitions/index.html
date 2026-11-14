@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>gl-transitions engine</title>
+<style>html, body { margin: 0; background: #000; } canvas { display: block; }</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+// Settings come as JSON in ?params: transition (a file name in shaders/ without .glsl), settings
+// (that shader's own values), hold, length, ease, and optional from / to pictures (paths inside
+// the engines folder); without pictures two built-in ones are drawn in code.
+import {createTransition, drawDefaultPicture, buildFragment, shaderSettings} from './transition.mjs';
+
+const params = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+const {width = 1080, height = 1920, transition = 'BandWipe'} = params;
+if (!/^[A-Za-z0-9_-]+$/.test(transition)) throw new Error(`bad transition name ${transition}`);
+const shaderUrl = (name) => new URL(`./shaders/${name}.glsl`, import.meta.url);
+// same-origin only: every URL here is built from import.meta.url; the renderer blocks anything else.
+const read = async (url) => { const r = await fetch(url); if (!r.ok) throw new Error(`${url.pathname}: ${r.status}`); return r.text(); };
+const picture = async (which) => {
+  const canvas = Object.assign(document.createElement('canvas'), {width, height});
+  if (!params[which]) return drawDefaultPicture(canvas, which);
+  const img = new Image(); img.src = new URL(`../${params[which]}`, import.meta.url); await img.decode();
+  const g = canvas.getContext('2d'), s = Math.max(width / img.width, height / img.height);   // cover the frame
+  g.drawImage(img, (width - img.width * s) / 2, (height - img.height * s) / 2, img.width * s, img.height * s);
+  return canvas;
+};
+const source = await read(shaderUrl(transition));
+const made = createTransition({canvas: document.getElementById('c'), transition, source, settings: params.settings ?? {},
+  width, height, fps: params.fps ?? 30, hold: params.hold ?? 0.25, length: params.length ?? 1, ease: params.ease ?? 'inOut',
+  from: await picture('from'), to: await picture('to')});
+made.engine.seek(0);
+const checks = {
+  /** Compile each named shader with its defaults in a small canvas; returns the failures. */
+  async compileAll(names) {
+    const failures = [];
+    for (const name of names) {
+      try {
+        const src = await read(shaderUrl(name));
+        const c = Object.assign(document.createElement('canvas'), {width: 32, height: 32});
+        const pic = (w) => drawDefaultPicture(Object.assign(document.createElement('canvas'), {width: 32, height: 32}), w);
+        const t = createTransition({canvas: c, transition: name, source: src, width: 32, height: 32, from: pic('from'), to: pic('to')});
+        t.engine.seek(0.75);
+        c.getContext('webgl').getExtension('WEBGL_lose_context')?.loseContext();
+      } catch (e) { failures.push(`${name}: ${String(e.message ?? e).split('\n')[0]}`); }
+    }
+    return failures;
+  },
+  settings: async (name) => shaderSettings(await read(shaderUrl(name))),
+};
+window.__framemotion = {engine: made.engine, canvas: made.canvas, ready: true, checks};
+</script>
+</body>
+</html>

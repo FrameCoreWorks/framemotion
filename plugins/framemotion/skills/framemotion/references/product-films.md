@@ -35,3 +35,16 @@ App Review Guideline 2.3.4 allows only captures of the app itself (with narratio
 ## Contract example
 
 [`examples/app-film.motion-score.json`](../assets/motion-scenes/examples/app-film.motion-score.json) shows a phone with a tap, two screens with a push between them, a camera focus on the new row and a caption, a browser window with an address and a caption on the other side, an end card, and a 9:16 variant. Its screenshots are original and show fictional example data.
+
+## Launch film from a project folder
+
+A short film (15 to 25 s) made from a project the user built, a site or an app, with no brief beyond "make a launch video". The flow is restated from [brag](https://github.com/latent-spaces/brag) by Shunit Haviv Hakimi (MIT; `integrations/brag/`).
+
+1. **Inspect.** Read the page, its styles, the README and the package description, and walk the main user flow. Answer nine questions in writing: what the product does in one sentence, its strongest claim, the visual hook, which real screen to show, the shortest film that lands, the tone, what the sound should feel like, the share caption, and the two or three steps of using it worth showing. Take colours and fonts from the project itself.
+2. **Plan.** One page: the angle (why this film could only be about this project), the hook in the first two seconds, two or three concrete moments from the product, the flow as the centrepiece, the ending line before the logo. No implementation details yet.
+3. **Compose.** Turn the plan into the usual storyboard and motion contract, then build (HyperFrames, or the `kaventro-mobile`, `kaventro-desktop` and `kaventro-story` templates in [engines](../assets/engines/README.md)). Lock the reveal on a strong beat of the music; ground every on-screen claim in the project's own text.
+4. **Deliver.** Render and review as usual. Pick the poster at the strongest settled beat, never mid-transition, and make it frame 0 so every platform's thumbnail shows it. Write the share caption in the film's tone.
+
+**Nothing secret on screen.** Whatever is read in step 1 can end up in a public video: never carry keys, tokens, internal addresses, real customer names, emails or other personal data into the plan, the film or the caption. Replace real data in the UI with plausible stand-ins and say so.
+
+For real clicks, key presses and hits, the [SFX library](../assets/sfx-library/README.md) holds 260 CC0 recordings placed with `place_sfx.py`; FrameMotion's designed sound stays the default.

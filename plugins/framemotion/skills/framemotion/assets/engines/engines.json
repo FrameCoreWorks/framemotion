@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry.",
   "engines": [
     {
       "id": "photoreal-demo",
@@ -93,6 +93,233 @@
         "anatomy"
       ],
       "blocks": []
+    },
+    {
+      "id": "kaventro-blank",
+      "title": "kaventro/motion-designer film template: blank (titles, kinetic type, data)",
+      "status": "ready",
+      "kind": "html",
+      "build": {
+        "tool": "kaventro",
+        "kind": "blank"
+      },
+      "adapter": "seek",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 60,
+      "duration": 12,
+      "readme": "../kaventro-engine/README.md",
+      "sources": [
+        "kaventro-motion-designer"
+      ],
+      "blocks": [],
+      "optional": [
+        "audio/edit.m4a"
+      ]
+    },
+    {
+      "id": "kaventro-overlay",
+      "title": "kaventro/motion-designer film template: overlay (lower thirds, captions and callouts over footage (transparent background))",
+      "status": "ready",
+      "kind": "html",
+      "build": {
+        "tool": "kaventro",
+        "kind": "overlay"
+      },
+      "adapter": "seek",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 60,
+      "duration": 8,
+      "optional": [
+        "audio/edit.m4a"
+      ],
+      "readme": "../kaventro-engine/README.md",
+      "sources": [
+        "kaventro-motion-designer"
+      ],
+      "blocks": []
+    },
+    {
+      "id": "kaventro-mobile",
+      "title": "kaventro/motion-designer film template: mobile (an app inside an iPhone)",
+      "status": "ready",
+      "kind": "html",
+      "build": {
+        "tool": "kaventro",
+        "kind": "mobile"
+      },
+      "adapter": "seek",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1440,
+        "height": 1440
+      },
+      "fps": 60,
+      "duration": 14,
+      "optional": [
+        "audio/edit.m4a"
+      ],
+      "readme": "../kaventro-engine/README.md",
+      "sources": [
+        "kaventro-motion-designer"
+      ],
+      "blocks": []
+    },
+    {
+      "id": "kaventro-desktop",
+      "title": "kaventro/motion-designer film template: desktop (an app window on a laptop)",
+      "status": "ready",
+      "kind": "html",
+      "build": {
+        "tool": "kaventro",
+        "kind": "desktop"
+      },
+      "adapter": "seek",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1440,
+        "height": 1440
+      },
+      "fps": 60,
+      "duration": 16,
+      "optional": [
+        "audio/edit.m4a"
+      ],
+      "readme": "../kaventro-engine/README.md",
+      "sources": [
+        "kaventro-motion-designer"
+      ],
+      "blocks": []
+    },
+    {
+      "id": "kaventro-story",
+      "title": "kaventro/motion-designer film template: story (hook, product, feature panels and end card)",
+      "status": "ready",
+      "kind": "html",
+      "build": {
+        "tool": "kaventro",
+        "kind": "story"
+      },
+      "adapter": "seek",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 60,
+      "duration": 24,
+      "optional": [
+        "audio/edit.m4a"
+      ],
+      "readme": "../kaventro-engine/README.md",
+      "sources": [
+        "kaventro-motion-designer"
+      ],
+      "blocks": []
+    },
+    {
+      "id": "hairline-spice-rack",
+      "title": "Hairline isometric line figure (spice rack example)",
+      "status": "ready",
+      "kind": "svg",
+      "build": {
+        "tool": "folder",
+        "path": "../hairline/examples/spice-rack",
+        "page": "index.html"
+      },
+      "adapter": "renderFrame",
+      "screenshot": "#root",
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": 8,
+      "readme": "../hairline/README.md",
+      "sources": [
+        "hairline"
+      ],
+      "blocks": [
+        "../hairline/hairline-kit.js"
+      ]
+    },
+    {
+      "id": "gl-transition",
+      "title": "gl-transitions: 236 transitions between two pictures",
+      "status": "ready",
+      "kind": "canvas",
+      "page": "gl-transitions/index.html",
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": 1.5,
+      "readme": "gl-transitions/README.md",
+      "sources": [
+        "gl-transitions"
+      ],
+      "blocks": [
+        "gl-transitions/transition.mjs"
+      ],
+      "params": {
+        "transition": {
+          "type": "string",
+          "default": "BandWipe",
+          "about": "file name in gl-transitions/shaders/ without .glsl"
+        },
+        "settings": {
+          "type": "object",
+          "default": {},
+          "about": "the shader's own uniforms by name; unset ones keep the defaults in its file"
+        },
+        "hold": {
+          "type": "number",
+          "default": 0.25,
+          "min": 0,
+          "max": 10,
+          "timing": true,
+          "about": "seconds on each picture before and after"
+        },
+        "length": {
+          "type": "number",
+          "default": 1,
+          "min": 0.1,
+          "max": 10,
+          "timing": true,
+          "about": "seconds the transition takes"
+        },
+        "ease": {
+          "type": "string",
+          "default": "inOut",
+          "about": "linear or inOut"
+        },
+        "from": {
+          "type": "string",
+          "default": "",
+          "about": "picture path inside the engines folder; empty draws a built-in one"
+        },
+        "to": {
+          "type": "string",
+          "default": "",
+          "about": "picture path inside the engines folder; empty draws a built-in one"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        }
+      }
     }
   ]
 }

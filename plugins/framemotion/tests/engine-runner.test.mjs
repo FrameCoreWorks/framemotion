@@ -91,9 +91,11 @@ test('the runner fails on an error after start and flags a flat frame', {skip: b
     'async-error': `${drawRamp} if (t > 0.5) setTimeout(() => { throw new Error('async boom'); }, 0);`,
     'flat-frame': `g.fillStyle = '#336'; g.fillRect(0, 0, 64, 64);`,
     'good-ramp': drawRamp,
+    'missing-file': `${drawRamp} if (t > 0.5 && !window.asked) { window.asked = true; const img = new Image(); img.src = '/missing-file/logo.png'; }`,
   });
   await assert.rejects(kit.renderFrames('late-error', {root, frames: [0, 9]}), /boom at 0\.9/);
   await assert.rejects(kit.renderFrames('async-error', {root, frames: [0, 9, 0]}), /async boom/);
+  await assert.rejects(kit.renderFrames('missing-file', {root, frames: [0, 9, 0]}), /404 \/missing-file\/logo\.png/);
   const flat = await kit.renderFrames('flat-frame', {root, frames: [0]});
   assert.equal(flat.frames[0].flat, true);
   const good = await kit.renderFrames('good-ramp', {root, frames: [0, 9]});

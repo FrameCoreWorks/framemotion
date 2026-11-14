@@ -28,7 +28,7 @@ class EnginesRegistryTest(unittest.TestCase):
                     self.assertIn(f"id: '{e['id']}'", self._page_scripts(page))
                 else:
                     self.assertIn(e['build']['tool'], BUILDERS)
-                    self.assertEqual(e['adapter'], 'renderFrame')
+                    self.assertIn(e['adapter'], {'renderFrame', 'seek'})
                     self.assertTrue(e['fps'] > 0 and e['duration'] > 0)
                     if 'piece' in e['build']:
                         self.assertTrue((ENGINES / e['build']['piece'] / 'piece.json').is_file())
@@ -70,7 +70,7 @@ class EnginesRegistryTest(unittest.TestCase):
         for e in REGISTRY['engines']:
             for name, spec in e.get('params', {}).items():
                 with self.subTest(f"{e['id']}.{name}"):
-                    self.assertIn(spec['type'], {'integer', 'number', 'boolean', 'string'})
+                    self.assertIn(spec['type'], {'integer', 'number', 'boolean', 'string', 'object'})
                     self.assertIn('default', spec)
                     if 'min' in spec:
                         self.assertLessEqual(spec['min'], spec['default'])
@@ -85,7 +85,14 @@ class EnginesRegistryTest(unittest.TestCase):
                 continue
             if path.name in {'render-engine.mjs', 'builders.mjs'}:
                 continue
-            self.assertIsNone(bad.search(path.read_text()), f'{path.relative_to(ENGINES)} reaches the network or a process')
+            text = path.read_text()
+            if '// same-origin only:' in text:
+                # A page may read its own files with fetch, but only by URLs built from import.meta.url.
+                self.assertNotRegex(text, r'https?://')
+                for call in re.findall(r'new URL\(([^;]*?)\)', text):
+                    self.assertIn('import.meta.url', call, f'{path.relative_to(ENGINES)}: {call}')
+                text = text.replace('fetch(', 'same_origin_read(')
+            self.assertIsNone(bad.search(text), f'{path.relative_to(ENGINES)} reaches the network or a process')
 
 if __name__ == '__main__':
     unittest.main()

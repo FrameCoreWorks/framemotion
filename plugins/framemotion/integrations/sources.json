@@ -37,7 +37,8 @@
       "status": "bundled",
       "bundled_commit": "7d0b8bb78ddd2c91c57db9d1e83fcf711304bdb8",
       "conditions": [
-        "Inter and JetBrains Mono ship without licence text: add OFL text or use bundled fonts"
+        "Inter and JetBrains Mono ship without licence text: add OFL text or use bundled fonts",
+        "film templates copied 1:1 to assets/kaventro-engine/templates/ on 2026-11-14 (hashes in its source-manifest.json); rendered through the seek adapter; they use system fonts, no Inter or JetBrains Mono files"
       ]
     },
     {
@@ -60,10 +61,12 @@
       "copyright": "Copyright (c) 2017-present gl-transitions contributors",
       "kind": "engine",
       "pack": "P6",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "keep each shader's author and licence header (two shaders are BSD)"
-      ]
+        "each shader keeps its author and licence header (two shaders are BSD, texts in the headers)",
+        "238 shaders copied 1:1 on 2026-11-14 to assets/engines/gl-transitions/shaders/; DisplacementMap and LumaWipe need an extra texture and are not wired yet"
+      ],
+      "bundled_commit": "5a8788c96c45966ce4667e206df6415d494917cc"
     },
     {
       "name": "brag",
@@ -73,10 +76,13 @@
       "copyright": "Copyright (c) 2026 Shunit Haviv Hakimi",
       "kind": "engine",
       "pack": "P6",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "sound effects CC0 only; leave out the CC BY 4.0 music by Sascha Ende"
-      ]
+        "sound effects CC0 only (Kenney packs and unicae_games, checked on the source pages 2026-11-14), copied 1:1 to assets/sfx-library/ with brag's MIT analysis files",
+        "leave out the CC BY 4.0 music by Sascha Ende",
+        "launch flow restated in our own words in references/product-films.md (Launch film from a project folder)"
+      ],
+      "bundled_commit": "669ab9286aa28b6c3ee30e75f181ee74319d012a"
     },
     {
       "name": "stickman-kino",

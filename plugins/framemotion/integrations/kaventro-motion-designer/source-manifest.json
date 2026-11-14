@@ -5,7 +5,7 @@
   "retrieved_on": "2026-10-07",
   "license": "MIT",
   "attribution": "Copyright (c) 2026 kaventro",
-  "activation": "reference_and_two_unchanged_scripts_no_skill_installation",
+  "activation": "reference_two_unchanged_scripts_and_unchanged_film_templates_no_skill_installation",
   "adaptation": "../../skills/framemotion/references/kaventro-motion-designer-adaptation.md",
   "retained_files": [
     {
@@ -25,6 +25,132 @@
       "destination_path": "../../skills/framemotion/assets/motion-sync/music_edit.py",
       "sha256": "a11f61bc0bb3f4d571215393801b32dc12a5f51c4b9064b39edf57d776123340",
       "meaning": "Unchanged upstream script: cuts a supplied track to whole bars, exact to the frame."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/blank/device.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/blank/device.js",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/blank/film.css",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/blank/film.css",
+      "sha256": "40afdae68870dc562500f995f940de305e6ba9569e36fea03728110826c0ff2e",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/blank/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/blank/scenes.js",
+      "sha256": "cdf6d6326f0e50555964c37c67239940a11284a6589bbde4e84cb05a09c10ce5",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/desktop/device.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/desktop/device.js",
+      "sha256": "e3e22aeea07662e68bdcd2605196dde5dc2b719ab1cabfc595d21a37119758c0",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/desktop/film.css",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/desktop/film.css",
+      "sha256": "b55b00580c7d83980e01abbcd4774f4772b1467c3952a020b10da4c65c78a00d",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/desktop/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/desktop/scenes.js",
+      "sha256": "5f5d1e08092df617b13c2386bc629d63be461cc654926ce3262bd4dc708d0ff0",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/mobile/device.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/mobile/device.js",
+      "sha256": "12e08b225abd9e4e1a0ba629f847f41dafa0aa7d42a55e72074b949c2bebc4ae",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/mobile/film.css",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/mobile/film.css",
+      "sha256": "568b6373138f3335a02b120c3cbf715a8a38bfa31a8916b1f6859eb1e0bf907c",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/mobile/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/mobile/scenes.js",
+      "sha256": "a70a5002fc5623a646732876e1b9bfc95818f20cc1a487d253412695b165a460",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/overlay/device.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/overlay/device.js",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/overlay/film.css",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/overlay/film.css",
+      "sha256": "375df40c62cf505215babddec4123bb51c2f1b85cc549f71f1549124416e3c27",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/overlay/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/overlay/scenes.js",
+      "sha256": "966ee536e97e755d493f870998c5927d63d2ca6ffefb0ba82a183f7916b0dbca",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/shared/assets.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/shared/assets.js",
+      "sha256": "18836951d79503a79d1e4becf3dd47419e3b1b176c06b6aef2e962432e3727ec",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/shared/core.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/shared/core.js",
+      "sha256": "c107a40c45a8bede4a622f46a9a9d0f6b6a40d06259a445c72dff754cfb0e687",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/shared/fx.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/shared/fx.js",
+      "sha256": "58cf1ee4801278e9af2ddd0a260381e6ee89b5ac240e122a06118b8e203f4dd5",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/shared/index.html",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/shared/index.html",
+      "sha256": "54320050a763cab25f2d967b3aec9eb56bacd174993d689a5a5d924acf2c1385",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/shared/main.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/shared/main.js",
+      "sha256": "22b929e3a00f3b35e303de0425bc6da4236a267d0007aa15525fa717ddf7b421",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/story/device.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/story/device.js",
+      "sha256": "53a38204e5393e1c12bbd9231438c795079c05d70b0c2da6ab83f1bb09954fc6",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/story/film.css",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/story/film.css",
+      "sha256": "cd20606b952a22eb6f4d996e3c087129e37452b72ebbda696c939ee242acd9fe",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "skills/motion-designer/templates/story/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/templates/story/scenes.js",
+      "sha256": "3eb9a223a6a793b3a79653b336bdfcdc2eceacf8df12fdfe6d2c9bd1cf6caa97",
+      "meaning": "Unchanged upstream template file; a film is shared/ plus one kind folder, rendered through the FrameMotion seek adapter."
+    },
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/kaventro-engine/LICENSE",
+      "sha256": "d2aa14a6cf9bd8d71c451a6bffd46a3bc0a66c89ef6076d175d9a561c40371fe",
+      "meaning": "Unchanged upstream MIT notice next to the copied templates."
     }
   ],
   "reviewed_sources": [

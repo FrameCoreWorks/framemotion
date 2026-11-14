@@ -17,7 +17,8 @@ a source-manifest.json with the pinned commit):
 - wheresryan22/anatomy, commit e9488296a44211c42701ff71705b7901470ec78f, Copyright (c) 2026 Ryan, MIT.
   Bundled as skills/framemotion/assets/anatomy-engine/. See integrations/anatomy/.
 - kaventro/motion-designer, commit 7d0b8bb78ddd2c91c57db9d1e83fcf711304bdb8, Copyright (c) 2026 kaventro, MIT.
-  See integrations/kaventro-motion-designer/.
+  Two scripts and the film templates (skills/framemotion/assets/kaventro-engine/templates/) are unchanged
+  copies with their licence; see integrations/kaventro-motion-designer/.
 - aievolutionpl/motion-designer-studio, commit 7c215ed50355ca6ad592a3a4ed88e2ef49bb4bb3, Copyright (c) 2026
   Tabasco Creatives / AI Evolution Labs, MIT. See integrations/motion-designer-studio/ and its THIRD_PARTY_NOTICES.md.
 - gongnyang/awesome-ai-motion, commit 1e3c249073c61b42ceb556d7800f628d565d9312, Copyright (c) 2026 gongnyang, MIT:
@@ -43,6 +44,14 @@ a source-manifest.json with the pinned commit):
   adapted and rewritten on the FrameMotion engine kit in skills/framemotion/assets/engines/photoreal/
   (accum-camera.mjs, film-grade.mjs; the file headers name the source; licence in integrations/room-at-dawn/).
   The grain hash in film-grade.mjs is "Hash without Sine" by David Hoskins (MIT, shadertoy.com/view/4djSRW).
+- gl-transitions/gl-transitions, commit 5a8788c96c45966ce4667e206df6415d494917cc, Copyright (c) 2017-present
+  gl-transitions contributors, MIT: 238 shaders copied unchanged to skills/framemotion/assets/engines/gl-transitions/shaders/,
+  each with its author and licence header (InvertedPageCurl: BSD 3 Clause, Hewlett-Packard; StereoViewer: BSD 2 Clause,
+  Theodore K Schundler). See integrations/gl-transitions/.
+- latent-spaces/brag, commit 669ab9286aa28b6c3ee30e75f181ee74319d012a, Copyright (c) 2026 Shunit Haviv Hakimi, MIT:
+  its sound-effect library and analysis copied unchanged to skills/framemotion/assets/sfx-library/. The recordings are CC0
+  (Kenney: Casino Audio, Impact Sounds, Interface Sounds, UI Audio; unicae_games: Keyboard Soundpack #1). Its CC BY music
+  is not included. See integrations/brag/.
 - mrdoob/three.js (MIT, Copyright (c) 2010-2026 three.js authors) is installed from npm at exactly 0.187.0
   (tag r187, commit 7e89746a687bb88271253698fa108b1dd59825d0) and never bundled. GSAP 3.15.0, used only by the
   engine tests, is installed the same way under its own GreenSock licence and never bundled.

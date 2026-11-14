@@ -146,11 +146,12 @@ test('photoreal demo renders deterministic frames and the shader matches the ref
 test('bundled engines render deterministic frames through their adapters', {skip: three ? false : 'engines are not installed (npm ci in assets/engines)', timeout: 300000}, async (t) => {
   const kit = await import('../skills/framemotion/assets/engines/kit/render-engine.mjs');
   try { await kit.loadPlaywright(); } catch { t.skip('Playwright is not installed'); return; }
-  for (const [id, frames] of [['animate-starter', [0, 191]], ['anatomy-svg', [0, 119]]]) {
+  for (const [id, frames] of [['animate-starter', [0, 191]], ['anatomy-svg', [0, 119, 0]], ['kaventro-blank', [0, 360, 719, 0]], ['kaventro-mobile', [420]], ['hairline-spice-rack', [0, 120, 0]]]) {
     const report = await kit.renderFrames(id, {frames});
     assert.equal(report.engine.id, id);
     assert.ok(report.frames.every((f) => f.deterministic), `${id}: every frame repeats exactly`);
     assert.ok(report.frames.every((f) => f.max - f.min > 20), `${id}: frames are not blank`);
+    if (frames.at(-1) === frames[0]) assert.equal(report.frames.at(-1).hash, report.frames[0].hash, `${id}: frame ${frames[0]} is the same after other frames`);
   }
 });
 

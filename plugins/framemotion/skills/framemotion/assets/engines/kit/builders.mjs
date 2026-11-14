@@ -27,6 +27,29 @@ export const BUILDERS = {
     fs.writeFileSync(path.join(dir, 'index.html'), studio.buildPage(entry.build.options));
     return {dir, page: 'index.html'};
   },
+  /** A finished composition folder of the package (an example with its own copy of a kit), copied as is. */
+  async folder(entry, enginesRoot) {
+    const source = path.resolve(enginesRoot, entry.build.path);
+    const assets = path.resolve(enginesRoot, '..');
+    if (!source.startsWith(assets + path.sep)) throw new Error(`${entry.id}: build.path must stay inside the skill's assets`);
+    const dir = temp(entry.id);
+    fs.cpSync(source, dir, {recursive: true});
+    return {dir, page: entry.build.page ?? 'index.html'};
+  },
+  /**
+   * kaventro/motion-designer film templates: shared/ plus one kind (blank, overlay, mobile, desktop,
+   * story), assembled the way its new_film.sh does. The page draws on window.seek(t) with ?render.
+   */
+  async kaventro(entry, enginesRoot) {
+    const templates = path.resolve(enginesRoot, '../kaventro-engine/templates');
+    const kind = entry.build.kind;
+    if (!['blank', 'overlay', 'mobile', 'desktop', 'story'].includes(kind)) throw new Error(`Unknown kaventro kind "${kind}"`);
+    const dir = temp(entry.id);
+    fs.cpSync(path.join(templates, 'shared'), path.join(dir, 'src'), {recursive: true});
+    fs.cpSync(path.join(templates, kind), path.join(dir, 'src'), {recursive: true});
+    fs.mkdirSync(path.join(dir, 'audio'));   // the film's music goes here; a silent render needs none
+    return {dir, page: 'src/index.html', query: {render: '1'}};
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {
