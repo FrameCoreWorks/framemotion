@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "framemotion",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Motion graphics from code: idea, storyboard, build, render and frame QA of finished MP4 films, standalone or as Creative Studio's motion companion.",
   "author": {
     "name": "FrameCore Works"

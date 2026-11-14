@@ -1,0 +1,454 @@
+{
+  "schema": "framemotion-sources/1",
+  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is what the package already holds. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet).",
+  "sources": [
+    {
+      "name": "animate",
+      "repo": "cth9191/animate",
+      "commit": "7e5eb56feb2dd573f890e1b7b34748af43d58263",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 cth9191",
+      "kind": "engine",
+      "pack": "P6",
+      "status": "bundled",
+      "bundled_commit": "7e5eb56feb2dd573f890e1b7b34748af43d58263",
+      "conditions": []
+    },
+    {
+      "name": "anatomy",
+      "repo": "wheresryan22/anatomy",
+      "commit": "e9488296a44211c42701ff71705b7901470ec78f",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Ryan",
+      "kind": "engine",
+      "pack": "P6",
+      "status": "bundled",
+      "bundled_commit": "e9488296a44211c42701ff71705b7901470ec78f",
+      "conditions": []
+    },
+    {
+      "name": "kaventro-motion-designer",
+      "repo": "kaventro/motion-designer",
+      "commit": "7d0b8bb78ddd2c91c57db9d1e83fcf711304bdb8",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 kaventro",
+      "kind": "engine",
+      "pack": "P6",
+      "status": "bundled",
+      "bundled_commit": "7d0b8bb78ddd2c91c57db9d1e83fcf711304bdb8",
+      "conditions": [
+        "Inter and JetBrains Mono ship without licence text: add OFL text or use bundled fonts"
+      ]
+    },
+    {
+      "name": "hairline",
+      "repo": "lucasmarkes/hairline",
+      "commit": "034f4bf9902c6adcf3cf39d82f85e6010cb4e094",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Lucas Marques",
+      "kind": "engine",
+      "pack": "P6",
+      "status": "adapted",
+      "bundled_commit": "37d2e78dcb333ab30c3338e28ed4a690364ea014",
+      "conditions": []
+    },
+    {
+      "name": "gl-transitions",
+      "repo": "gl-transitions/gl-transitions",
+      "commit": "5a8788c96c45966ce4667e206df6415d494917cc",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2017-present gl-transitions contributors",
+      "kind": "engine",
+      "pack": "P6",
+      "status": "planned",
+      "conditions": [
+        "keep each shader's author and licence header (two shaders are BSD)"
+      ]
+    },
+    {
+      "name": "brag",
+      "repo": "latent-spaces/brag",
+      "commit": "669ab9286aa28b6c3ee30e75f181ee74319d012a",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Shunit Haviv Hakimi",
+      "kind": "engine",
+      "pack": "P6",
+      "status": "planned",
+      "conditions": [
+        "sound effects CC0 only; leave out the CC BY 4.0 music by Sascha Ende"
+      ]
+    },
+    {
+      "name": "stickman-kino",
+      "repo": "dsauce/stickman-kino",
+      "commit": "d3d665301c0b62f04c885785e6bd6044de0785c6",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Prerit Ahuja",
+      "kind": "engine",
+      "pack": "P7",
+      "status": "planned",
+      "conditions": [
+        "rewrite: own code on the engine kit",
+        "OFL fonts keep their licence text",
+        "install ffmpeg, never bundle it"
+      ]
+    },
+    {
+      "name": "cutaway",
+      "repo": "Nyxera0x/cutaway",
+      "commit": "5d8f1c6efe0ed65a8fc7647a7a2a3ee9fbb4d20a",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Nyxera0x",
+      "kind": "engine",
+      "pack": "P7",
+      "status": "planned",
+      "conditions": [
+        "rewrite: own code on the engine kit",
+        "credit whaleyxbt/claude-motion",
+        "CC0 Freesound recordings allowed"
+      ]
+    },
+    {
+      "name": "motion-launch-videos",
+      "repo": "Kimeur/motion-launch-videos",
+      "commit": "5092579bc9aaeb0e3547ded0980a93404d2dc906",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Marouane Gazouzi",
+      "kind": "engine",
+      "pack": "P8",
+      "status": "planned",
+      "conditions": [
+        "no example voice recordings",
+        "motion-captions belongs to FrameCut"
+      ]
+    },
+    {
+      "name": "claude-animation-skills",
+      "repo": "artemnovitckii/claude-animation-skills",
+      "commit": "5dbea55c23aa6a5c93dc3cfb5583840513b56b94",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Artem Novitckii",
+      "kind": "engine",
+      "pack": "P8",
+      "status": "planned",
+      "conditions": [
+        "five engines only, not stick-figure",
+        "OFL fonts keep their licence text",
+        "rename creator-named styles descriptively"
+      ]
+    },
+    {
+      "name": "huashu-art-motion",
+      "repo": "alchaincyf/huashu-art-motion",
+      "commit": "1468196505a51728686db118d52561aa27a25124",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 alchaincyf",
+      "kind": "engine",
+      "pack": "P8",
+      "status": "adapted",
+      "bundled_commit": "8a0d7d72ca65fcce6f8ba82c4a6c8dfe35b8422c",
+      "conditions": [
+        "never reference_films or the Arphic font",
+        "OFL reserved font names stay unchanged"
+      ]
+    },
+    {
+      "name": "pixelfx",
+      "repo": "patch-gg/pixelfx",
+      "commit": "5294518ce7c72e48b6100a744596e0acf57f2826",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Patch",
+      "kind": "engine",
+      "pack": "P9",
+      "status": "planned",
+      "conditions": [
+        "keep NOTICE credit to Hugo Duprez",
+        "the Patch Pixel font is not MIT: leave it out"
+      ]
+    },
+    {
+      "name": "lemo-opuscar",
+      "repo": "lemomo-ai/lemo-opuscar",
+      "commit": "3a7132b996be0241c1ea0ab180d519f06e6f10b6",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Lemomo (LemoLab)",
+      "kind": "engine",
+      "pack": "P9",
+      "status": "planned",
+      "conditions": [
+        "code under core/, tools/, styleboard/ and demo code only (MIT)",
+        "never any .md file or prompt (CC BY-NC 4.0)",
+        "no Clawd, no demo voice tracks"
+      ]
+    },
+    {
+      "name": "rea-video",
+      "repo": "JuneYaooo/rea-video",
+      "commit": "751596967f58b8949124d291e59bdc40fc04486e",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright 2026 JuneYaooo",
+      "kind": "engine",
+      "pack": "P9",
+      "status": "planned",
+      "conditions": [
+        "keep NOTICE and mark changed files",
+        "no docs/cases clips",
+        "models downloaded by hash only, licences checked first",
+        "no ChatCut or capsule-cinema"
+      ]
+    },
+    {
+      "name": "room-at-dawn",
+      "repo": "Leonxlnx/room-at-dawn",
+      "commit": "aab8be218aa051bbb2e22b82916962619c951747",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Leon Lin",
+      "kind": "technique",
+      "pack": "P1",
+      "status": "patterns",
+      "conditions": [
+        "rewrite: accum-camera, film-grade, bake, gi-material in own code",
+        "never the ffmpeg helper server, the scene or the sound"
+      ]
+    },
+    {
+      "name": "three-mesh-bvh",
+      "repo": "gkjohnson/three-mesh-bvh",
+      "commit": "65d069f1d8728272704e6127ad29a6cb86ad632b",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2018 Garrett Johnson",
+      "kind": "library",
+      "pack": "P5",
+      "status": "planned",
+      "conditions": [
+        "dependency of bake, pinned npm version"
+      ]
+    },
+    {
+      "name": "three",
+      "repo": "mrdoob/three.js",
+      "commit": "b529cbbda2ba956a8444545a5634f6db22b68385",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2010-2026 three.js authors",
+      "kind": "library",
+      "pack": "P1",
+      "status": "planned",
+      "conditions": [
+        "dependency, pinned npm version"
+      ]
+    },
+    {
+      "name": "paper-shaders",
+      "repo": "paper-design/shaders",
+      "commit": "e7003a2d4e6e932e30b8fa11ec1239e6ea48e16a",
+      "licence": "Apache-2.0",
+      "copyright": "Paper Shaders authors",
+      "kind": "library",
+      "pack": "P2",
+      "status": "planned",
+      "conditions": [
+        "keep NOTICE (Powered by Paper Shaders), mark changed files"
+      ]
+    },
+    {
+      "name": "p5-brush",
+      "repo": "acamposuribe/p5.brush",
+      "commit": "054f2feb2ec8f98bd6dbb7d676d0335323180d83",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2023-2026 Alejandro Campos Uribe",
+      "kind": "library",
+      "pack": "P2",
+      "status": "planned",
+      "conditions": [
+        "p5.js itself is LGPL-2.1: install, never bundle"
+      ]
+    },
+    {
+      "name": "pixi-filters",
+      "repo": "pixijs/filters",
+      "commit": "e9d1ca987864f121680bb0d7e9612c05b37748de",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2013-2025 Mathew Groves, Chad Engler",
+      "kind": "library",
+      "pack": "P2",
+      "status": "planned",
+      "conditions": []
+    },
+    {
+      "name": "tsparticles",
+      "repo": "tsparticles/tsparticles",
+      "commit": "81b3eae3eb9b2a215b968fb33344845fe983cb06",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2020 Matteo Bruni",
+      "kind": "library",
+      "pack": "P2",
+      "status": "planned",
+      "conditions": []
+    },
+    {
+      "name": "css-doodle",
+      "repo": "css-doodle/css-doodle",
+      "commit": "0df625e7be6a15d56d12788123286b98d0a18935",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2017-present Yuan Chuan",
+      "kind": "library",
+      "pack": "P2",
+      "status": "planned",
+      "conditions": []
+    },
+    {
+      "name": "torph",
+      "repo": "lochie/torph",
+      "commit": "bfb4a85918adfb81de81a1b5ede22ce15635a111",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2025 Lochie Axon",
+      "kind": "library",
+      "pack": "P2",
+      "status": "planned",
+      "conditions": []
+    },
+    {
+      "name": "claude-video-2",
+      "repo": "ItsssssJack/claude-video-2",
+      "commit": "18891e4996abb7ccc0085f2d43cef2fd7eff1dc8",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Claude Video Studio contributors",
+      "kind": "knowledge",
+      "pack": "P3",
+      "status": "planned",
+      "conditions": [
+        "no Higgsfield route"
+      ]
+    },
+    {
+      "name": "varg-skills",
+      "repo": "vargHQ/skills",
+      "commit": "aafd5aadfc9cdfdc067fc8fca2602b150a590305",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 vargai Inc",
+      "kind": "knowledge",
+      "pack": "P3",
+      "status": "planned",
+      "conditions": [
+        "only kinetic-type-art, motion-formats, title-design, transition-craft, footage-effects, maps-and-data-motion",
+        "skip satellite-flyover",
+        "caption-styles belongs to FrameCut"
+      ]
+    },
+    {
+      "name": "iart-kinetic-typography",
+      "repo": "iart-ai/kinetic-typography-skills",
+      "commit": "2b79c81230c6647a344844f9ed53b6fa07f3f1f9",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 iart",
+      "kind": "knowledge",
+      "pack": "P3",
+      "status": "planned",
+      "conditions": [
+        "Remotion parts rewritten for HyperFrames"
+      ]
+    },
+    {
+      "name": "charlie947-motion-graphics",
+      "repo": "charlie947/motion-graphics-skills",
+      "commit": "229022ebca76972e119e36ada23a1648d51665ab",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Charlie Hills",
+      "kind": "knowledge",
+      "pack": "P3",
+      "status": "planned",
+      "conditions": [
+        "rename brand-named recipes descriptively",
+        "skip brand-intake and brief-writer"
+      ]
+    },
+    {
+      "name": "sunwood-motion-reel",
+      "repo": "Sunwood-ai-labs/hyperframes-motion-reel-skill",
+      "commit": "be78681a88a70f1f66c82275299fe569a9a9fcaa",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Sunwood AI Labs",
+      "kind": "knowledge",
+      "pack": "P3",
+      "status": "planned",
+      "conditions": [
+        "Japanese text rewritten in English"
+      ]
+    },
+    {
+      "name": "iart-explainer",
+      "repo": "iart-ai/explainer-video-skills",
+      "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 iart",
+      "kind": "knowledge",
+      "pack": "P4",
+      "status": "planned",
+      "conditions": [
+        "Remotion parts rewritten for HyperFrames"
+      ]
+    },
+    {
+      "name": "iart-javascript-animation",
+      "repo": "iart-ai/javascript-animation-skills",
+      "commit": "060f7467a6e5ae5b57c90c9cb1b3508c13b88e49",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 iart",
+      "kind": "knowledge",
+      "pack": "P4",
+      "status": "planned",
+      "conditions": []
+    },
+    {
+      "name": "gsap-skills",
+      "repo": "greensock/gsap-skills",
+      "commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 GreenSock",
+      "kind": "knowledge",
+      "pack": "P4",
+      "status": "planned",
+      "conditions": [
+        "GSAP itself is a dependency only; no no-code visual animation builder"
+      ]
+    },
+    {
+      "name": "threejs-skills",
+      "repo": "CloudAI-X/threejs-skills",
+      "commit": "0e181866f095b5f06d005133876e926515390d95",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 CloudAI-X",
+      "kind": "knowledge",
+      "pack": "P4",
+      "status": "planned",
+      "conditions": []
+    },
+    {
+      "name": "manim-skill",
+      "repo": "Yusuke710/manim-skill",
+      "commit": "a0048d9e265499038f34a9aa58ff16d306b5034c",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2025 Yusuke Miyashita",
+      "kind": "knowledge",
+      "pack": "P4",
+      "status": "planned",
+      "conditions": [
+        "name 3Blue1Brown only descriptively"
+      ]
+    },
+    {
+      "name": "papercut-explainer",
+      "repo": "0xS4N4TG/papercut-explainer",
+      "commit": "ff8223abc8136cc09e8d7e9b62ecb5d080c389e1",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 sanat",
+      "kind": "knowledge",
+      "pack": "P4",
+      "status": "planned",
+      "conditions": [
+        "method only: no Remotion code, no AI-made backgrounds",
+        "OFL fonts keep their licence text"
+      ]
+    }
+  ]
+}

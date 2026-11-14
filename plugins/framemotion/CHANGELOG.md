@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0 (2026-11-14)
+
+- **Engine foundation** (owner decision 2026-11-14, "Startujemy", first pack of the own-engines plan): the [engine contract](skills/framemotion/references/engine-contract.md) every engine follows (a pure function of time, seeded randomness, one HyperFrames timeline, JSON input, sub-frames, local and safe, credited), and the dependency-free [engine kit](skills/framemotion/assets/engine-kit/README.md) (`createRng`, `halton`, `subframeTimes`, `defineEngine`, `bindToGsap`) with `tests/engine-kit.test.mjs`. Per the owner's choice of 2026-11-14, upstream engines enter as 1:1 copies with an adapter, and only the photoreal three.js blocks, stickman-kino and cutaway are rewritten.
+- **Source register:** `integrations/sources.json` lists all 34 sources of the plan with a full pinned commit, licence, copyright, pack and conditions (licence files read at each pin on 2026-11-14; lemo-opuscar's code is MIT, its Markdown and prompts CC BY-NC and never bundled). `tests/sources_test.py` refuses an unpinned or non-permitted source and checks that bundled or adapted material is credited in `NOTICE`.
+- `tools/check.py` prints the archive's file count and size.
+
 ## 0.1.4 (2026-11-14)
 
 - **Fixed welcome on a bare invocation** (owner request and approval 2026-11-14): `skills/framemotion/assets/startup-welcome.en.md` holds the approved English text (what FrameMotion makes, six capabilities, storyboard approval before the build, optional materials, three numbered examples, closing question; no link to another plugin). `SKILL.md` embeds the same text in a "Welcome" section: output it alone, copied exactly in English or translated in full, then ask the first missing standalone-brief question after the answer. `tests/welcome_test.py` checks the embedded copy is byte-identical to the asset.

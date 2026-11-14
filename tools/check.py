@@ -95,6 +95,7 @@ def main():
             names = archive.namelist()
         require('plugin.json' in names and 'skills/framemotion/SKILL.md' in names, 'Archive root files missing')
         require(not any('node_modules' in n for n in names), 'node_modules leaked into the archive')
+        print(f'Archive: {len(names)} files, {one.stat().st_size / 1e6:.1f} MB', flush=True)
     print('PASS: manifests, contract, links, tests and reproducible archive' + (' (fast: Node.js suites skipped)' if fast else ''))
 
 
