@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>css-doodle engine</title>
+<style>
+  html, body { margin: 0; background: #0d0f14; overflow: hidden; }
+  #stage { position: relative; overflow: hidden; background: #0d0f14; display: grid; place-items: center; }
+</style>
+<script src="../../node_modules/css-doodle/css-doodle.min.js"></script>
+</head>
+<body>
+<div id="stage"></div>
+<script type="module">
+// css-doodle (MIT, Yuan Chuan) on the FrameMotion clock, used unchanged from node_modules; this page
+// is ours. A doodle is a grid of cells styled by CSS rules with random values; `seed` fixes those
+// values. Motion must be CSS animations or transitions: seek(t) pauses every animation in the page,
+// shadow trees included, and sets its time to t. Doodle functions that load fonts or files from the
+// web (@import, font loading) cannot work here: the renderer blocks them and reports the request.
+import {defineEngine} from '../../kit/engine-kit.mjs';
+import {readParams, frames} from '../library-kit.mjs';
+import {DOODLES} from './doodles.mjs';
+
+const params = readParams();
+const {width = 540, height = 960, doodle = 'tiles', seed = 2026} = params;
+const rules = params.rules ?? DOODLES[doodle];
+if (!rules) throw new Error(`unknown doodle "${doodle}" (known: ${Object.keys(DOODLES).join(', ')})`);
+const stage = document.getElementById('stage');
+Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
+const el = document.createElement('css-doodle');
+el.setAttribute('seed', String(seed));
+el.style.cssText = `--w:${width}px; --h:${height}px;`;
+el.textContent = rules;
+stage.appendChild(el);
+await customElements.whenDefined('css-doodle');
+await frames(3);
+
+const animations = () => document.getAnimations();
+if (animations().length === 0) throw new Error('the doodle has no CSS animation to seek');
+const engine = defineEngine({id: 'css-doodle', width, height, fps: params.fps ?? 30, duration: params.duration ?? 4,
+  seek(t) { for (const a of animations()) { a.pause(); a.currentTime = t * 1000; } }});
+engine.seek(0);
+window.__framemotion = {engine, element: '#stage', ready: true, animationCount: animations().length};
+</script>
+</body>
+</html>

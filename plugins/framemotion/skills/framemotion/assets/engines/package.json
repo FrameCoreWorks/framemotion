@@ -7,7 +7,15 @@
     "smoke": "node kit/render-engine.mjs --engine photoreal-demo"
   },
   "dependencies": {
-    "three": "0.187.0"
+    "@paper-design/shaders": "0.0.82",
+    "@tsparticles/engine": "4.6.0",
+    "@tsparticles/slim": "4.6.0",
+    "css-doodle": "0.69.0",
+    "p5.brush": "3.0.0",
+    "pixi-filters": "6.1.5",
+    "pixi.js": "8.23.0",
+    "three": "0.187.0",
+    "torph": "0.1.4"
   },
   "engines": {
     "node": ">=20"

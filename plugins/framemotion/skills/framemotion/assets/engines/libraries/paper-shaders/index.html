@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Paper Shaders engine</title>
+<style>html, body { margin: 0; background: #000; overflow: hidden; } #mount { position: absolute; inset: 0; }</style>
+<script type="importmap">{"imports":{"@paper-design/shaders":"../../node_modules/@paper-design/shaders/dist/index.js"}}</script>
+</head>
+<body>
+<div id="mount"></div>
+<script type="module">
+// Paper Shaders (Apache-2.0, Paper; "Powered by Paper Shaders", shaders.paper.design) on the
+// FrameMotion clock. The library is used unchanged from node_modules; this page is ours.
+// Settings (JSON in ?params): shader, look (overrides of the preset below), speed, start (ms).
+// seek(t) sets the shader's own time to start + t * 1000 * speed; nothing runs between seeks.
+import * as paper from '@paper-design/shaders';
+import {defineEngine} from '../../kit/engine-kit.mjs';
+import {PRESETS, uniformsFor} from './presets.mjs';
+
+const params = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+const {width = 540, height = 960, shader = 'mesh-gradient', look = {}, speed = 1, start = 0} = params;
+const preset = PRESETS[shader];
+if (!preset) throw new Error(`unknown shader "${shader}" (known: ${Object.keys(PRESETS).join(', ')})`);
+const mountEl = document.getElementById('mount');
+const uniforms = uniformsFor(paper, shader, {...preset.look, ...look});
+for (const value of Object.values(uniforms)) if (value instanceof HTMLImageElement) await value.decode();
+// speed 0: no animation loop of its own; minPixelRatio 1: the canvas has the frame's own pixel size.
+const mount = new paper.ShaderMount(mountEl, paper[preset.fragment], uniforms,
+  {preserveDrawingBuffer: true, antialias: false}, 0, start, 1);
+// The canvas gets its size from a ResizeObserver; wait for it before the first frame.
+while (mount.canvasElement.width !== width || mount.canvasElement.height !== height) {
+  await new Promise((resolve) => requestAnimationFrame(resolve));
+}
+const engine = defineEngine({id: 'paper-shader', width, height, fps: params.fps ?? 30, duration: params.duration ?? 4,
+  seek(t) { mount.setFrame(start + t * 1000 * speed); }});
+engine.seek(0);
+window.__framemotion = {engine, canvas: mount.canvasElement, ready: true, presets: Object.keys(PRESETS)};
+</script>
+</body>
+</html>

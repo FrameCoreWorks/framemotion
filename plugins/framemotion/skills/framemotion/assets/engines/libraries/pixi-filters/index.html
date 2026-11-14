@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>pixi-filters engine</title>
+<style>html, body { margin: 0; background: #000; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">{"imports":{"pixi.js":"../../node_modules/pixi.js/dist/pixi.min.mjs","pixi-filters":"../../node_modules/pixi-filters/dist/pixi-filters.mjs"}}</script>
+</head>
+<body>
+<script type="module">
+// PixiJS filters (MIT) on the FrameMotion clock, used unchanged from node_modules; this page is ours.
+// Settings (JSON in ?params): effect, seed, title. Pixi's own ticker never runs: seek(t) sets every
+// time-driven setting from t and renders once. The glitch's random slices come from the seed and
+// change 12 times a second, so a frame always shows the same slices.
+import * as PIXI from 'pixi.js';
+import * as F from 'pixi-filters';
+import {defineEngine} from '../../kit/engine-kit.mjs';
+import {readParams, withSeededRandom} from '../library-kit.mjs';
+import {EFFECTS} from './effects.mjs';
+
+const params = readParams();
+const {width = 540, height = 960, effect = 'shockwave', seed = 7, title = 'FrameMotion'} = params;
+const make = EFFECTS[effect];
+if (!make) throw new Error(`unknown effect "${effect}" (known: ${Object.keys(EFFECTS).join(', ')})`);
+
+const app = new PIXI.Application();
+await app.init({width, height, preference: 'webgl', autoStart: false, sharedTicker: false, antialias: false,
+  preserveDrawingBuffer: true, background: '#0d0f14', resolution: 1});
+app.ticker.stop();
+document.body.appendChild(app.canvas);
+
+// The picture the filters work on: a few shapes and a title, drawn once.
+const scene = new PIXI.Container();
+const shapes = new PIXI.Graphics();
+shapes.rect(0, 0, width, height).fill(0x0d0f14);   // full frame, so filters cover all of it
+for (let i = 0; i < 7; i++) {
+  const y = height * (0.12 + i * 0.12);
+  shapes.rect(0, y, width, height * 0.05).fill({color: [0x3b82f6, 0xf97316, 0x22c55e, 0xe11d48][i % 4], alpha: 0.55});
+}
+shapes.circle(width * 0.5, height * 0.5, Math.min(width, height) * 0.28).fill({color: 0xf8fafc, alpha: 0.9});
+const label = new PIXI.Text({text: title, style: {fontFamily: 'DejaVu Sans, Arial, sans-serif', fontWeight: '700',
+  fontSize: Math.round(width * 0.11), fill: 0x0d0f14}});
+label.anchor.set(0.5); label.position.set(width * 0.5, height * 0.5);
+scene.addChild(shapes, label);
+app.stage.addChild(scene);
+
+const fx = withSeededRandom(seed, () => make(F, {width, height}));
+scene.filters = fx.filters;
+const engine = defineEngine({id: 'pixi-filter', width, height, fps: params.fps ?? 30, duration: params.duration ?? 4,
+  seek(t) {
+    withSeededRandom(seed + Math.floor(t * 12) * 7919, () => fx.at(t));
+    app.renderer.render(app.stage);
+  }});
+engine.seek(0);
+window.__framemotion = {engine, canvas: app.canvas, ready: true};
+</script>
+</body>
+</html>
