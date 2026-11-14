@@ -97,3 +97,14 @@ test('photoreal demo renders deterministic frames and the shader matches the ref
     }
   } finally { await browser.close(); }
 });
+
+test('bundled engines render deterministic frames through their adapters', {skip: three ? false : 'engines are not installed (npm ci in assets/engines)', timeout: 300000}, async (t) => {
+  const kit = await import('../skills/framemotion/assets/engines/kit/render-engine.mjs');
+  try { await kit.loadPlaywright(); } catch { t.skip('Playwright is not installed'); return; }
+  for (const [id, frames] of [['animate-starter', [0, 191]], ['anatomy-svg', [0, 119]]]) {
+    const report = await kit.renderFrames(id, {frames});
+    assert.equal(report.engine.id, id);
+    assert.ok(report.frames.every((f) => f.deterministic), `${id}: every frame repeats exactly`);
+    assert.ok(report.frames.every((f) => f.max - f.min > 20), `${id}: frames are not blank`);
+  }
+});

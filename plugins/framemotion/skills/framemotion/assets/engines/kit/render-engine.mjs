@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
+import {buildEntry} from './builders.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 export const ENGINES_ROOT = path.resolve(here, '..');
@@ -53,29 +54,77 @@ export async function openEngine(id, {params = {}, gpu = false} = {}) {
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text()); });
+  const built = entry.build ? await buildEntry(entry, ENGINES_ROOT) : null;
   await page.route(`${ORIGIN}/**`, async (route) => {
-    const file = resolveInside(ENGINES_ROOT, new URL(route.request().url()).pathname);
+    const urlPath = new URL(route.request().url()).pathname;
+    const file = built && urlPath.startsWith('/_build/')
+      ? resolveInside(built.dir, urlPath.slice('/_build'.length))
+      : resolveInside(ENGINES_ROOT, urlPath);
     if (!file || !fs.existsSync(file) || !fs.statSync(file).isFile()) return route.fulfill({status: 404, body: ''});
     return route.fulfill({status: 200, contentType: TYPES[path.extname(file)] ?? 'application/octet-stream', body: fs.readFileSync(file)});
   });
   await page.route((url) => !url.href.startsWith(ORIGIN), (route) => route.abort());   // no network at render time
   const query = new URLSearchParams({params: JSON.stringify({width, height, ...params})});
-  await page.goto(`${ORIGIN}/${entry.page}?${query}`);
+  const pagePath = built ? `_build/${built.page}` : entry.page;
+  await page.goto(`${ORIGIN}/${pagePath}?${query}`);
+  if (entry.adapter === 'renderFrame') {
+    await page.waitForFunction(() => typeof window.renderFrame === 'function', null, {timeout: 120000}).catch(() => {});
+    await page.addScriptTag({type: 'module', content: `
+      import {fromRenderFrame} from '/kit/adapters.mjs';
+      const spec = ${JSON.stringify({id: entry.id, width, height, fps: entry.fps, duration: entry.duration})};
+      const canvas = ${JSON.stringify(entry.capture ?? null)} ? document.querySelector(${JSON.stringify(entry.capture ?? 'canvas')}) : null;
+      window.__framemotion = {engine: fromRenderFrame({...spec, renderFrame: window.renderFrame}), canvas, element: ${JSON.stringify(entry.screenshot ?? null)}, ready: true};
+    `});
+  }
   await page.waitForFunction(() => window.__framemotion?.ready === true, null, {timeout: 120000}).catch(() => {});
-  if (errors.length) { await browser.close(); throw new Error(`Engine page errors: ${errors.join(' | ')}`); }
+  const close = async () => { await browser.close(); if (built) fs.rmSync(built.dir, {recursive: true, force: true}); };
+  if (errors.length) { await close(); throw new Error(`Engine page errors: ${errors.join(' | ')}`); }
   const ready = await page.evaluate(() => window.__framemotion?.ready === true);
-  if (!ready) { await browser.close(); throw new Error('Engine page never set window.__framemotion.ready'); }
-  return {entry, browser, page, errors};
+  if (!ready) { await close(); throw new Error('Engine page never set window.__framemotion.ready'); }
+  return {entry, browser, page, errors, close};
 }
 
-const capture = (page, frame) => page.evaluate((f) => {
-  const fm = window.__framemotion;
-  fm.engine.seekFrame(f);
-  return fm.canvas.toDataURL('image/png');
-}, frame);
+/**
+ * Draw a frame and measure it in the page: a hash of every pixel (FNV-1a over RGBA), and the mean,
+ * min and max brightness. The PNG travels to Node only when it is saved (PNG encoding is slow).
+ * Pages without a canvas are captured as a screenshot of their element.
+ */
+async function capture(page, frame, {png = false} = {}) {
+  const result = await page.evaluate(({f, png}) => {
+    const fm = window.__framemotion;
+    fm.engine.seekFrame(f);
+    if (!fm.canvas) return null;
+    const c = fm.canvas;
+    const ctx = document.createElement('canvas').getContext('2d', {willReadFrequently: true});
+    ctx.canvas.width = c.width; ctx.canvas.height = c.height; ctx.drawImage(c, 0, 0);
+    const px = ctx.getImageData(0, 0, c.width, c.height).data;
+    let h = 0x811c9dc5, sum = 0, min = 255, max = 0;
+    const words = new Uint32Array(px.buffer, px.byteOffset, px.byteLength >> 2);
+    for (let i = 0; i < words.length; i++) {
+      h = Math.imul(h ^ words[i], 16777619) >>> 0;
+      const v = words[i], l = ((v & 255) + ((v >>> 8) & 255) + ((v >>> 16) & 255)) / 3;
+      sum += l; if (l < min) min = l; if (l > max) max = l;
+    }
+    return {hash: h.toString(16), mean: +(sum / words.length).toFixed(2), min, max, png: png ? c.toDataURL('image/png') : null};
+  }, {f: frame, png});
+  if (result) return result;
+  const selector = await page.evaluate(() => window.__framemotion.element || 'body');
+  const shot = await page.locator(selector).first().screenshot({animations: 'disabled'});
+  const dataUrl = `data:image/png;base64,${shot.toString('base64')}`;
+  const stats = await page.evaluate(async (url) => {
+    const img = new Image(); img.src = url; await img.decode();
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.canvas.width = img.width; ctx.canvas.height = img.height; ctx.drawImage(img, 0, 0);
+    const px = ctx.getImageData(0, 0, img.width, img.height).data;
+    let sum = 0, min = 255, max = 0;
+    for (let i = 0; i < px.length; i += 4) { const l = (px[i] + px[i + 1] + px[i + 2]) / 3; sum += l; if (l < min) min = l; if (l > max) max = l; }
+    return {mean: +(sum / (px.length / 4)).toFixed(2), min, max};
+  }, dataUrl);
+  return {hash: shot.toString('base64'), ...stats, png: png ? dataUrl : null};
+}
 
 export async function renderFrames(id, {frames, out = null, params = {}, gpu = false} = {}) {
-  const {entry, browser, page} = await openEngine(id, {params, gpu});
+  const {entry, page, close} = await openEngine(id, {params, gpu});
   try {
     const info = await page.evaluate(() => { const e = window.__framemotion.engine; return {id: e.id, fps: e.fps, totalFrames: e.totalFrames, width: e.width, height: e.height}; });
     if (info.id !== entry.id) throw new Error(`Page engine id ${info.id} differs from registry id ${entry.id}`);
@@ -83,26 +132,19 @@ export async function renderFrames(id, {frames, out = null, params = {}, gpu = f
     const report = {engine: info, frames: []};
     for (const frame of list) {
       const t0 = Date.now();
-      const first = await capture(page, frame);
+      const first = await capture(page, frame, {png: Boolean(out)});
       const seconds = (Date.now() - t0) / 1000;
       const second = await capture(page, frame);
-      const stats = await page.evaluate(() => {
-        const c = window.__framemotion.canvas, ctx = document.createElement('canvas').getContext('2d');
-        ctx.canvas.width = c.width; ctx.canvas.height = c.height; ctx.drawImage(c, 0, 0);
-        const px = ctx.getImageData(0, 0, c.width, c.height).data;
-        let sum = 0, min = 255, max = 0;
-        for (let i = 0; i < px.length; i += 4) { const l = (px[i] + px[i + 1] + px[i + 2]) / 3; sum += l; if (l < min) min = l; if (l > max) max = l; }
-        return {mean: +(sum / (px.length / 4)).toFixed(2), min, max};
-      });
-      report.frames.push({frame, seconds, deterministic: first === second, ...stats});
+      const {hash, png, ...stats} = first;
+      report.frames.push({frame, seconds, deterministic: hash === second.hash, ...stats});
       if (out) {
         fs.mkdirSync(out, {recursive: true});
-        fs.writeFileSync(path.join(out, `${entry.id}-${String(frame).padStart(5, '0')}.png`), Buffer.from(first.split(',')[1], 'base64'));
+        fs.writeFileSync(path.join(out, `${entry.id}-${String(frame).padStart(5, '0')}.png`), Buffer.from(png.split(',')[1], 'base64'));
       }
     }
     return report;
   } finally {
-    await browser.close();
+    await close();
   }
 }
 

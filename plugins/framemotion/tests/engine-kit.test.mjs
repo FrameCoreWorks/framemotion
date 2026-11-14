@@ -66,3 +66,14 @@ test('a paused GSAP timeline drives engine.seek', () => {
   assert.deepEqual(seen, [1.5, 0.5]);
   assert.throws(() => bindToGsap(engine, {}), TypeError);
 });
+
+test('a renderFrame page becomes a contract engine', async () => {
+  const {fromRenderFrame} = await import('../skills/framemotion/assets/engines/kit/adapters.mjs');
+  const seen = [];
+  const engine = fromRenderFrame({id: 'legacy', width: 64, height: 64, fps: 24, duration: 2, renderFrame: (t) => seen.push(t)});
+  assert.equal(engine.totalFrames, 48);
+  engine.seekFrame(12);
+  engine.seekFrame(47);
+  assert.deepEqual(seen, [0.5, 47 / 24]);
+  assert.throws(() => fromRenderFrame({id: 'x', width: 64, height: 64, fps: 24, duration: 1}), TypeError);
+});

@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. page is relative to this folder and sets window.__framemotion; sources name entries of integrations/sources.json; blocks are modules other engines may import.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import.",
   "engines": [
     {
       "id": "photoreal-demo",
@@ -8,12 +8,75 @@
       "status": "ready",
       "kind": "three",
       "page": "photoreal/demo/index.html",
-      "size": {"width": 540, "height": 960},
+      "size": {
+        "width": 540,
+        "height": 960
+      },
       "fps": 30,
       "readme": "photoreal/README.md",
-      "sources": ["room-at-dawn", "three"],
-      "blocks": ["photoreal/lens.mjs", "photoreal/accum-camera.mjs", "photoreal/film-grade.mjs"],
-      "gpu_recommended": true
+      "sources": [
+        "room-at-dawn",
+        "three"
+      ],
+      "blocks": [
+        "photoreal/lens.mjs",
+        "photoreal/accum-camera.mjs",
+        "photoreal/film-grade.mjs"
+      ],
+      "gpu_recommended": true,
+      "duration": 2
+    },
+    {
+      "id": "animate-starter",
+      "title": "Animate engine (bundled, starter piece in cut paper)",
+      "status": "ready",
+      "kind": "canvas",
+      "build": {
+        "tool": "animate",
+        "piece": "../animate-engine/templates/piece"
+      },
+      "adapter": "renderFrame",
+      "capture": "canvas#c",
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 24,
+      "duration": 8,
+      "readme": "../animate-engine/ENGINE.md",
+      "sources": [
+        "animate"
+      ],
+      "blocks": []
+    },
+    {
+      "id": "anatomy-svg",
+      "title": "Anatomy engine (bundled, SVG fixture)",
+      "status": "ready",
+      "kind": "svg",
+      "build": {
+        "tool": "anatomy",
+        "options": {
+          "mode": "svg",
+          "width": 640,
+          "height": 480,
+          "fps": 30,
+          "seconds": 4
+        }
+      },
+      "adapter": "renderFrame",
+      "screenshot": "svg.iso-svg",
+      "size": {
+        "width": 640,
+        "height": 480
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "../anatomy-engine/README.md",
+      "sources": [
+        "anatomy"
+      ],
+      "blocks": []
     }
   ]
 }

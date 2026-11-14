@@ -22,7 +22,7 @@ Every engine in FrameMotion, whether a bundled copy or our own code, follows thi
 
 ## How an engine enters the package
 
-- **Copy 1:1 (default).** The upstream files stay byte-identical at the pinned commit, with a `source-manifest.json` of hashes and a test that checks them (as the Animate and Anatomy engines do). Our adapter beside the copy maps the engine's own clock to `seek(t)`.
+- **Copy 1:1 (default).** The upstream files stay byte-identical at the pinned commit, with a `source-manifest.json` of hashes and a test that checks them (as the Animate and Anatomy engines do). Our adapter maps the engine's own clock to `seek(t)`: an engine that exposes `renderFrame(seconds)` needs only a builder in `kit/builders.mjs` and a registry entry with `adapter: "renderFrame"`; nothing in the copy changes.
 - **Rewrite (only where needed).** When the code has to change deeply (the photoreal three.js blocks, stickman-kino, cutaway), we write our own code on the engine kit and keep the upstream's licence text and credit.
 
 ## Checklist for a new engine

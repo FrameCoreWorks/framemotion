@@ -14,6 +14,8 @@ The one contract every FrameMotion engine follows, bundled or our own. Rules and
 
 `render-engine.mjs` renders any engine in [`engines.json`](../engines.json) in headless Chromium: it serves files to the page from the engines folder only (request routing, no HTTP server, all other network blocked), renders each frame twice and fails when the two differ, writes PNG frames with `--out`, and reports seconds per frame and pixel range. Use it in Node as `renderFrames(id, {frames, out, params, gpu})` or `openEngine(id)`.
 
+`adapters.mjs`: `fromRenderFrame({id, renderFrame, width, height, fps, duration})` turns a page's own `renderFrame(seconds)` into a contract engine. `builders.mjs`: `animate` (copies a piece and runs the Animate engine's `tools/build.mjs`) and `anatomy` (the Anatomy engine's `studio.mjs` `buildPage`), each into a temporary folder that is removed after rendering; registry entries with `build` and `adapter: "renderFrame"` use them. Frames without a canvas (SVG) are captured as a screenshot of the `screenshot` element.
+
 An engine page sets `window.__framemotion = {engine, canvas, ready: true, checks}`: `engine` from `defineEngine`, `canvas` created with `preserveDrawingBuffer: true` (WebGL), `checks` optional functions its tests call.
 
 Tests: `tests/engine-kit.test.mjs`, `tests/photoreal.test.mjs`, `tests/engines_registry_test.py`.
