@@ -113,7 +113,7 @@
         "bundled unchanged (SKILL.md renamed docs/method.md), hashes in integrations/cutaway/source-manifest.json",
         "credit whaleyxbt/claude-motion (kit, capture, sound engine) and Barty-Bart/motion-graphics (trimmed samples)",
         "CC0 Freesound recordings allowed, sources in sfx/samples/SOURCES.md",
-        "teardown (framemotion/) is own code on the kit, merged with the claude-animation-skills breakdown method"
+        "teardown (framemotion/) is our code on the kit, rewritten after the claude-animation-skills breakdown template (layout and several values follow it)"
       ],
       "bundled_commit": "5d8f1c6efe0ed65a8fc7647a7a2a3ee9fbb4d20a"
     },
@@ -141,7 +141,7 @@
       "pack": "P8",
       "status": "planned",
       "conditions": [
-        "five engines in P8; stick-figure merged into the Stickman engine and breakdown merged into the cutaway teardown, both as method only (own words and own code, no file copied)",
+        "five engines in P8; stick-figure merged into the Stickman engine and breakdown merged into the cutaway teardown, stick-figure as method only; the teardown rewritten after the breakdown template (no file copied)",
         "OFL fonts keep their licence text",
         "rename creator-named styles descriptively"
       ]

@@ -305,6 +305,10 @@ function parseArgs(argv) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const o = parseArgs(process.argv.slice(2));
   if (!o.engine) { console.error('Usage: node kit/render-engine.mjs --engine <id> [--frames 0,30] [--out DIR] [--params JSON] [--gpu] [--allow-flat] [--once]'); process.exit(2); }
+  if (!o.gpu) {
+    const entry = JSON.parse(fs.readFileSync(path.join(ENGINES_ROOT, 'engines.json'), 'utf8')).engines.find((e) => e.id === o.engine);
+    if (entry?.gpu_recommended) console.error(`${o.engine} is heavy in software rendering (from about 30 s to minutes a frame); pass --gpu on a machine with a graphics card.`);
+  }
   const report = await renderFrames(o.engine, o);
   console.log(JSON.stringify(report, null, 2));
   if (report.frames.some((f) => f.deterministic === false)) process.exit(3);

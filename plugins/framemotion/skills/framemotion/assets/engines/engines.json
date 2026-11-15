@@ -859,14 +859,14 @@
       ],
       "build": {
         "tool": "cutaway",
-        "sim": "../cutaway-engine/framemotion/teardown-phone"
+        "spec": "../cutaway-engine/framemotion/teardown-phone/spec.json"
       },
       "size": {
         "width": 1080,
         "height": 1920
       },
       "fps": 30,
-      "duration": 11.8,
+      "duration": "page",
       "readme": "../cutaway-engine/README.md"
     },
     {
@@ -885,14 +885,14 @@
       ],
       "build": {
         "tool": "cutaway",
-        "sim": "../cutaway-engine/framemotion/teardown-watch"
+        "spec": "../cutaway-engine/framemotion/teardown-watch/spec.json"
       },
       "size": {
         "width": 1920,
         "height": 1080
       },
       "fps": 30,
-      "duration": 8.9,
+      "duration": "page",
       "readme": "../cutaway-engine/README.md"
     }
   ]

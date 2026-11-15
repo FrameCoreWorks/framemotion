@@ -41,7 +41,7 @@ class CutawayEngineTest(unittest.TestCase):
         self.assertIn('CC0', sources)
         self.assertEqual(len(list((ENGINE / 'sfx/samples').glob('*.ogg'))), 12)
         notice = (ROOT / 'NOTICE').read_text()
-        for name in ('Nyxera0x/cutaway', 'whaleyxbt/claude-motion', 'Barty-Bart/motion-graphics', 'breakdown method'):
+        for name in ('Nyxera0x/cutaway', 'whaleyxbt/claude-motion', 'Barty-Bart/motion-graphics', 'breakdown/template.html'):
             self.assertIn(name, notice)
         teardown = (ENGINE / 'framemotion/teardown.js').read_text()
         self.assertIn('Apache-2.0', teardown)
@@ -58,13 +58,14 @@ class CutawayEngineTest(unittest.TestCase):
         sims = [e for e in REGISTRY['engines'] if e.get('build', {}).get('tool') == 'cutaway']
         self.assertEqual({e['id'] for e in sims}, {'cutaway-piranha', 'teardown-phone', 'teardown-watch'})
         for e in sims:
-            folder = ROOT / 'skills/framemotion/assets/engines' / e['build']['sim']
-            self.assertTrue((folder / 'main.js').is_file(), e['id'])
             self.assertEqual(e['adapter'], 'renderFrame')
-            if e['id'].startswith('teardown'):
-                spec = json.loads((folder / 'spec.json').read_text())
+            if 'spec' in e['build']:   # a teardown is built from its spec alone and is as long as the spec says
+                spec = json.loads((ROOT / 'skills/framemotion/assets/engines' / e['build']['spec']).read_text())
                 self.assertTrue(2 <= len(spec['layers']) <= 8)
-                self.assertAlmostEqual(e['duration'] * e['fps'], round(e['duration'] * e['fps']), places=6)
+                self.assertEqual(e['duration'], 'page')
+            else:
+                folder = ROOT / 'skills/framemotion/assets/engines' / e['build']['sim']
+                self.assertTrue((folder / 'main.js').is_file(), e['id'])
 
 
 if __name__ == '__main__':

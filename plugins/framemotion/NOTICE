@@ -94,9 +94,10 @@ a source-manifest.json with the pinned commit):
   engine and review rules come from whaleyxbt/claude-motion (MIT); its twelve recorded samples are CC0 1.0 Freesound
   recordings trimmed by Barty-Bart/motion-graphics (MIT), listed in sfx/samples/SOURCES.md. three.js, esbuild,
   @fontsource/jetbrains-mono and @fontsource-variable/inter are installed from npm and never bundled. The teardown
-  (framemotion/teardown.js and its two samples) is FrameCore Works' own code on that kit, following the cutaway method
-  and the breakdown method of artemnovitckii/claude-animation-skills (commit 5dbea55c23aa6a5c93dc3cfb5583840513b56b94,
-  MIT, Copyright (c) 2026 Artem Novitckii); no file of it is copied.
+  (framemotion/teardown.js and its two samples) is FrameCore Works code on that kit, rewritten after
+  skills/breakdown/template.html of artemnovitckii/claude-animation-skills (commit
+  5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii): its layout and several values
+  follow that template; no file of it is copied.
 - Stickman engine (skills/framemotion/assets/stickman-engine): dsauce/stickman-kino (commit
   d3d665301c0b62f04c885785e6bd6044de0785c6, MIT, Copyright (c) 2026 Prerit Ahuja), bundled unchanged except
   engine/sm-rig.js (a headScale option; original and current hashes in integrations/stickman-kino/source-manifest.json);

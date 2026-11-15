@@ -30,8 +30,8 @@ class EnginesRegistryTest(unittest.TestCase):
                     self.assertIn(e['build']['tool'], BUILDERS)
                     self.assertIn(e['adapter'], {'renderFrame', 'seek'})
                     self.assertTrue(e['fps'] > 0)
-                    if e['duration'] == 'page':   # a Stickman film is as long as its voice lines
-                        self.assertEqual(e['build']['tool'], 'stickman')
+                    if e['duration'] == 'page':   # a Stickman film follows its voice lines, a teardown its spec
+                        self.assertIn(e['build']['tool'], {'stickman', 'cutaway'})
                     else:
                         self.assertTrue(e['duration'] > 0)
                     if 'piece' in e['build']:

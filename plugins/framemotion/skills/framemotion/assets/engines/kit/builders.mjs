@@ -76,9 +76,21 @@ export const BUILDERS = {
    */
   async cutaway(entry, enginesRoot) {
     const engine = sibling(enginesRoot, 'cutaway-engine');
-    const sim = path.resolve(enginesRoot, entry.build.sim);
-    if (!fs.existsSync(path.join(sim, 'main.js'))) throw new Error(`${entry.id}: no main.js in ${sim}`);
     const dir = temp(entry.id);
+    let sim;
+    if (entry.build.spec) {
+      // a teardown from its spec.json alone: the page's main.js is written here, so the spec can live anywhere
+      const spec = path.resolve(enginesRoot, entry.build.spec);
+      if (!fs.existsSync(spec)) throw new Error(`${entry.id}: no spec at ${spec}`);
+      sim = path.join(dir, entry.id);
+      fs.mkdirSync(sim);
+      fs.copyFileSync(spec, path.join(sim, 'spec.json'));
+      const teardown = JSON.stringify(path.join(engine, 'framemotion/teardown.js'));
+      fs.writeFileSync(path.join(sim, 'main.js'), `import {runTeardown} from ${teardown};\nimport SPEC from './spec.json';\nrunTeardown(SPEC);\n`);
+    } else {
+      sim = path.resolve(enginesRoot, entry.build.sim);
+    }
+    if (!fs.existsSync(path.join(sim, 'main.js'))) throw new Error(`${entry.id}: no main.js in ${sim}`);
     const run = spawnSync(process.execPath, [path.join(engine, 'sims/build.mjs'), sim], {encoding: 'utf8', cwd: dir,
       env: {...process.env, CUTAWAY_DEPS: path.resolve(enginesRoot, 'node_modules'), CUTAWAY_OUT: dir}});
     if (run.status !== 0) throw new Error(`Cutaway build failed: ${run.stderr || run.stdout}`);
