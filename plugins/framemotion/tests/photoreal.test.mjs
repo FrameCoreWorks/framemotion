@@ -111,9 +111,9 @@ test('the vignette darkens the corners smoothly, the same way the shader does', 
 });
 
 const three = fs.existsSync(path.join(engines, 'node_modules/three/package.json'));
-test('photoreal demo renders deterministic frames and the shader matches the reference grade', {skip: three ? false : 'three is not installed (npm ci in assets/engines)', timeout: 300000}, async (t) => {
+test('photoreal demo renders deterministic frames and the shader matches the reference grade', {skip: three ? false : 'engines: three is not installed (npm ci in assets/engines)', timeout: 300000}, async (t) => {
   const kit = await import('../skills/framemotion/assets/engines/kit/render-engine.mjs');
-  try { await kit.loadPlaywright(); } catch { t.skip('Playwright is not installed'); return; }
+  try { await kit.loadPlaywright(); } catch { t.skip('engines: Playwright is not installed'); return; }
   const report = await kit.renderFrames('photoreal-demo', {frames: [0, 59], params: {samples: 4, width: 270, height: 480}});
   assert.ok(report.frames.every((f) => f.deterministic), 'every frame repeats exactly');
   assert.ok(report.frames.every((f) => f.max - f.min > 40), 'frames are not blank');
@@ -143,10 +143,10 @@ test('photoreal demo renders deterministic frames and the shader matches the ref
   } finally { await close(); }
 });
 
-test('bundled engines render deterministic frames through their adapters', {skip: three ? false : 'engines are not installed (npm ci in assets/engines)', timeout: 300000}, async (t) => {
+test('bundled engines render deterministic frames through their adapters', {skip: three ? false : 'engines: not installed (npm ci in assets/engines)', timeout: 300000}, async (t) => {
   const kit = await import('../skills/framemotion/assets/engines/kit/render-engine.mjs');
-  try { await kit.loadPlaywright(); } catch { t.skip('Playwright is not installed'); return; }
-  for (const [id, frames] of [['animate-starter', [0, 191]], ['anatomy-svg', [0, 119, 0]], ['kaventro-blank', [0, 360, 719, 0]], ['kaventro-mobile', [420]], ['hairline-spice-rack', [0, 120, 0]]]) {
+  try { await kit.loadPlaywright(); } catch { t.skip('engines: Playwright is not installed'); return; }
+  for (const [id, frames] of [['animate-starter', [0, 191]], ['anatomy-svg', [0, 119, 0]], ['kaventro-blank', [0, 360, 719, 0]], ['kaventro-mobile', [420]], ['kaventro-desktop', [480]], ['kaventro-story', [720]], ['hairline-spice-rack', [0, 120, 0]]]) {
     const report = await kit.renderFrames(id, {frames});
     assert.equal(report.engine.id, id);
     assert.ok(report.frames.every((f) => f.deterministic), `${id}: every frame repeats exactly`);
@@ -179,7 +179,7 @@ function fakeRenderer(THREE, {float = true, failAt = -1} = {}) {
   };
 }
 
-test('the accumulation camera works from a parented, scaled camera and restores everything', {skip: three ? false : 'three is not installed'}, async () => {
+test('the accumulation camera works from a parented, scaled camera and restores everything', {skip: three ? false : 'engines: three is not installed'}, async () => {
   const THREE = await loadThree();
   const renderer = fakeRenderer(THREE);
   const accum = createAccumCamera({THREE, renderer, width: 64, height: 64});

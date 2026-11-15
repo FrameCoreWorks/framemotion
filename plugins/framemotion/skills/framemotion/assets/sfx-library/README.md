@@ -15,6 +15,6 @@ Licences were checked on the source pages on 2026-11-14. CC0 needs no credit; we
 
 ## Use
 
-1. Read `sfx-analysis.md` first: it lists the safest picks per use (a hard transition, a reveal, a button press) and flags bright, fatiguing files. Prefer low or medium high-frequency risk for anything repeated.
+1. Read `sfx-analysis.md` first (it covers 228 of the 260 files; `keyboard/` is not analysed, as upstream): it lists the safest picks per use (a hard transition, a reveal, a button press) and flags bright, fatiguing files. Prefer low or medium high-frequency risk for anything repeated.
 2. Write a cue file (`t` or `frame`, `file`, `align`, `gain_db`) and run `place_sfx.py` on the silent render. For typing, vary across the 32 key presses so repeated letters do not sound mechanical.
 3. Designed sound stays the default for a FrameMotion film ([motion sound](../motion-sound/README.md)); these recordings are for a launch or UI film that wants real clicks and hits, or a user who asks for them. Measure the delivered file as usual.

@@ -54,7 +54,7 @@ function loadGsap() {
   } catch { return null; }
 }
 
-test('a paused real GSAP timeline draws the engine on every seek', {skip: loadGsap() ? false : 'gsap not installed (npm ci in assets/engines)'}, () => {
+test('a paused real GSAP timeline draws the engine on every seek', {skip: loadGsap() ? false : 'engines: gsap not installed (npm ci in assets/engines)'}, () => {
   const gsap = loadGsap();
   const seen = [];
   const engine = defineEngine({id: 'probe', width: 64, height: 64, fps: 30, duration: 2, seek: (t) => seen.push(+t.toFixed(6))});

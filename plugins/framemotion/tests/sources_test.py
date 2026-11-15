@@ -43,7 +43,7 @@ class SourcesTest(unittest.TestCase):
             if s['status'] != 'dependency':
                 continue
             with self.subTest(s['name']):
-                self.assertEqual(ENGINES_PACKAGE['dependencies'].get(s['name']), s['version'])
+                self.assertEqual(ENGINES_PACKAGE['dependencies'].get(s.get('package', s['name'])), s['version'])
                 self.assertIn(s['repo'], NOTICE)
 
     def test_nothing_rejected_sneaks_in(self):

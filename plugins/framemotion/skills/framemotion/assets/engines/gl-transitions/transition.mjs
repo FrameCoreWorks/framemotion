@@ -9,22 +9,35 @@ import {defineEngine} from '../kit/engine-kit.mjs';
 const UNIFORM = /^\s*uniform\s+(bool|int|float|vec2|vec3|vec4|ivec2|ivec3|ivec4)\s+(\w+)\s*;?\s*(?:\/\/\s*=\s*(.+?)\s*;?\s*$|\/\*\s*=\s*(.+?)\s*\*\/\s*;?\s*$)/;
 const SAMPLER = /^\s*uniform\s+sampler2D\s+(\w+)/m;
 
+/** A default as written after `// =`, without a trailing `;` or a second comment (`0.4 ; // if 0.0, ...`). */
+const cleanDefault = (text) => text.split(/;|\/\//)[0].trim();
+
+/** A setting given as text must be a plain GLSL literal: a number, true/false or vecN(numbers). */
+const NUMBER = '[-+]?(?:\\d+\\.?\\d*|\\.\\d+)(?:e[-+]?\\d+)?';
+const LITERAL = new RegExp(`^(?:${NUMBER}|true|false|i?vec[234]\\(\\s*${NUMBER}(?:\\s*,\\s*${NUMBER}){0,3}\\s*\\))$`, 'i');
+
 /** The settings a shader declares: {name: {type, default}} in source order. */
 export function shaderSettings(source) {
   const out = {};
   for (const line of source.split('\n')) {
     const m = line.match(UNIFORM);
-    if (m) out[m[2]] = {type: m[1], default: (m[3] ?? m[4]).replace(/;$/, '').trim()};
+    if (m) out[m[2]] = {type: m[1], default: cleanDefault(m[3] ?? m[4])};
   }
   return out;
 }
 
 /** A GLSL literal of `type` for a JSON value (number, boolean or array). */
 export function glslValue(type, value) {
-  if (typeof value === 'string') return value;
+  if (typeof value === 'string') {
+    if (!LITERAL.test(value.trim())) throw new TypeError(`setting text must be a number, true/false or vecN(numbers), got "${value}"`);
+    const text = value.trim();
+    return new RegExp(`^${NUMBER}$`, 'i').test(text) ? glslValue(type, Number(text)) : text;
+  }
   const num = (v, int) => {
     if (!Number.isFinite(v)) throw new TypeError(`setting values must be finite numbers, got ${v}`);
-    return int ? String(Math.round(v)) : (Number.isInteger(v) ? `${v}.0` : String(v));
+    if (int) return String(Math.round(v));
+    const text = String(v);   // 1e+21 is already a float literal; 2 needs to become 2.0
+    return /[.e]/i.test(text) ? text : `${text}.0`;
   };
   if (type === 'bool') return value ? 'true' : 'false';
   if (type === 'int') return num(value, true);
@@ -55,7 +68,7 @@ export function buildFragment(source, settings = {}) {
   const body = source.split('\n').map((line) => {
     const m = line.match(UNIFORM);
     if (!m) return line;
-    const value = Object.hasOwn(settings, m[2]) ? glslValue(m[1], settings[m[2]]) : defaultLiteral(m[1], (m[3] ?? m[4]).replace(/;$/, '').trim());
+    const value = Object.hasOwn(settings, m[2]) ? glslValue(m[1], settings[m[2]]) : defaultLiteral(m[1], cleanDefault(m[3] ?? m[4]));
     return `const ${m[1]} ${m[2]} = ${value};`;
   }).join('\n');
   return `precision highp float;

@@ -39,7 +39,7 @@ class EnginesRegistryTest(unittest.TestCase):
                 self.assertTrue(e['size']['width'] >= 16 and e['size']['height'] >= 16)
 
     def _page_scripts(self, page):
-        text = ''
+        text = page.read_text()   # an engine may be defined in the page itself
         for path in page.parent.rglob('*.mjs'):
             text += path.read_text()
         return text

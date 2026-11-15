@@ -4,12 +4,13 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import zlib from 'node:zlib';
 import * as kit from '../skills/framemotion/assets/engines/kit/render-engine.mjs';
 
 const {ENGINES_ROOT, isEngineUrl, resolveInside} = kit;
 let playwright = true;
 try { await kit.loadPlaywright(); } catch { playwright = false; }
-const browserSkip = playwright ? false : 'Playwright is not installed';
+const browserSkip = playwright ? false : 'engines: Playwright is not installed';
 
 test('only the engines origin itself counts as local', () => {
   assert.equal(isEngineUrl('http://framemotion.local/photoreal/lens.mjs'), true);
@@ -119,4 +120,75 @@ test('engine settings are checked against the registry before a browser starts',
   assert.throws(() => kit.validateParams(entry, {samples: 100000}), RangeError);
   assert.throws(() => kit.validateParams(entry, {width: 4}), RangeError);
   assert.throws(() => kit.validateParams(entry, []), TypeError);
+});
+
+test('an engine whose renderFrame draws later is captured after it has drawn', {skip: browserSkip, timeout: 120000}, async (t) => {
+  const root = fixtureRoot(t, {});
+  fs.mkdirSync(path.join(root, 'slow-draw'));
+  fs.writeFileSync(path.join(root, 'slow-draw', 'index.html'), `<!doctype html><canvas id="c" width="64" height="64"></canvas>
+<script>
+const g = document.getElementById('c').getContext('2d');
+window.renderFrame = async (t) => {
+  await new Promise((r) => setTimeout(r, 30));   // a font or image that loads first, like a kaventro film
+  g.fillStyle = '#000'; g.fillRect(0, 0, 64, 64); g.fillStyle = '#fff'; g.fillRect(0, 0, 8 + Math.round(t * 50), 64);
+};
+</script>`);
+  const registryFile = path.join(root, 'engines.json');
+  const reg = JSON.parse(fs.readFileSync(registryFile, 'utf8'));
+  reg.engines.push({id: 'slow-draw', page: 'slow-draw/index.html', adapter: 'renderFrame', capture: '#c', size: {width: 64, height: 64}, fps: 10, duration: 1});
+  fs.writeFileSync(registryFile, JSON.stringify(reg));
+  const report = await kit.renderFrames('slow-draw', {root, frames: [0, 5, 9]});
+  for (const f of report.frames) assert.ok(f.mean > 20 && !f.flat, `frame ${f.frame} was captured before it was drawn (mean ${f.mean})`);
+  assert.ok(report.frames[2].mean > report.frames[0].mean);
+});
+
+test('a request outside the engines folder fails the render unless the entry allows it', {skip: browserSkip, timeout: 120000}, async (t) => {
+  const asks = `${drawRamp} if (!window.asked) { window.asked = true; const s = document.createElement('script'); s.src = 'https://cdn.example.com/lib.js'; document.head.append(s); }`;
+  const root = fixtureRoot(t, {'asks-outside': asks});
+  await assert.rejects(kit.renderFrames('asks-outside', {root, frames: [0]}), /asked for files outside.*cdn\.example\.com\/lib\.js/);
+  const registryFile = path.join(root, 'engines.json');
+  const reg = JSON.parse(fs.readFileSync(registryFile, 'utf8'));
+  reg.engines[0].allowed_blocked = ['https://cdn.example.com/lib.js'];
+  fs.writeFileSync(registryFile, JSON.stringify(reg));
+  const report = await kit.renderFrames('asks-outside', {root, frames: [0]});
+  assert.deepEqual(report.blocked, ['https://cdn.example.com/lib.js']);
+});
+
+/** The first pixel of a PNG and its colour type (6 = RGBA), read without an image library. */
+function firstPixel(file) {
+  const png = fs.readFileSync(file);
+  const colourType = png[25];
+  const chunks = [];
+  for (let at = 8; at < png.length;) {
+    const length = png.readUInt32BE(at), type = png.toString('ascii', at + 4, at + 8);
+    if (type === 'IDAT') chunks.push(png.subarray(at + 8, at + 8 + length));
+    at += 12 + length;
+  }
+  const raw = zlib.inflateSync(Buffer.concat(chunks));
+  return {colourType, rgba: [...raw.subarray(1, 5)]};   // every PNG filter leaves the first pixel of row 0 as is
+}
+
+test('the kaventro overlay film is captured with a transparent background', {skip: browserSkip, timeout: 180000}, async (t) => {
+  const out = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-overlay-'));
+  t.after(() => fs.rmSync(out, {recursive: true, force: true}));
+  const report = await kit.renderFrames('kaventro-overlay', {frames: [240], out, once: true});
+  assert.ok(!report.frames[0].flat, 'the lower third is drawn');
+  const {colourType, rgba} = firstPixel(path.join(out, 'kaventro-overlay-00240.png'));
+  assert.equal(colourType, 6, 'PNG with an alpha channel');
+  assert.equal(rgba[3], 0, 'the corner is fully transparent (no preview checkerboard)');
+});
+
+test('bundled engines render from a workspace copy when their folders sit next to engines', {skip: browserSkip, timeout: 240000}, async (t) => {
+  const assets = path.dirname(ENGINES_ROOT);
+  const workspace = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-workspace-'));
+  t.after(() => fs.rmSync(workspace, {recursive: true, force: true}));
+  const engines = path.join(workspace, 'engines');
+  fs.cpSync(ENGINES_ROOT, engines, {recursive: true, filter: (src) => !src.split(path.sep).includes('node_modules')});
+  for (const name of ['kaventro-engine', 'hairline', 'anatomy-engine']) fs.cpSync(path.join(assets, name), path.join(workspace, name), {recursive: true});
+  for (const [id, frame] of [['kaventro-blank', 360], ['hairline-spice-rack', 120], ['anatomy-svg', 119]]) {
+    const report = await kit.renderFrames(id, {root: engines, frames: [frame], once: true});
+    assert.ok(!report.frames[0].flat, `${id} draws from the workspace copy`);
+  }
+  fs.rmSync(path.join(workspace, 'kaventro-engine'), {recursive: true});
+  await assert.rejects(kit.renderFrames('kaventro-blank', {root: engines, frames: [0], once: true}), /needs the folder "kaventro-engine" next to "engines"/);
 });

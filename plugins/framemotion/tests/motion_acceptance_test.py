@@ -269,9 +269,10 @@ class QualityGates(unittest.TestCase):
     def test_renderer_refuses_characters_the_font_cannot_draw(self):
         # Research intake 2026-11-11 (DR-01 P0-3): a missing glyph would render as an empty box; block before rendering.
         with tempfile.TemporaryDirectory() as temp:
-            done = self.render_line('Cena \U0001F9FF 49', temp)
+            # U+1D2E0 (Mayan numeral zero) is in no common font, emoji fonts included, so the test holds on any machine.
+            done = self.render_line('Cena \U0001D2E0 49', temp)
             self.assertEqual(done.returncode, 4, done.stderr)
-            self.assertEqual(json.loads(done.stdout)['missing_glyphs'][0]['missing'], '\U0001F9FF')
+            self.assertEqual(json.loads(done.stdout)['missing_glyphs'][0]['missing'], '\U0001D2E0')
             self.assertFalse(os.path.exists(os.path.join(temp, 'c.mp4')), 'nothing is rendered')
 
     def test_decomposed_polish_copy_is_drawn_composed(self):

@@ -30,6 +30,18 @@ class RetainedFilesTest(unittest.TestCase):
             if path.is_file():
                 self.assertIn(f'../../skills/framemotion/assets/kaventro-engine/templates/{path.relative_to(base).as_posix()}', listed)
 
+    def test_copied_libraries_hold_only_listed_files(self):
+        # Every file in a folder copied 1:1 is in its manifest, so an unsigned file cannot slip in.
+        own = {'README.md'}   # our own notes next to the copies
+        for manifest_name, folder in [('brag', 'skills/framemotion/assets/sfx-library'),
+                                      ('gl-transitions', 'skills/framemotion/assets/engines/gl-transitions/shaders')]:
+            manifest = json.loads((ROOT / f'integrations/{manifest_name}/source-manifest.json').read_text())
+            listed = {item['destination_path'] for item in manifest['retained_files']}
+            for path in (ROOT / folder).rglob('*'):
+                if path.is_file() and path.name not in own:
+                    with self.subTest(str(path.relative_to(ROOT))):
+                        self.assertIn('../../' + path.relative_to(ROOT).as_posix(), listed)
+
 
 if __name__ == '__main__':
     unittest.main()

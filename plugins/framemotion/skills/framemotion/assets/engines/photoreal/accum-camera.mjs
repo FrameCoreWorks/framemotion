@@ -21,10 +21,12 @@ export function createQuad(THREE, material) {
 /**
  * Can this renderer add into a 32-bit float target? Half floats keep only ~11 bits, so 96
  * sub-frames summed into one drift by up to a few percent; 32-bit sums stay exact to < 0.01%.
+ * The sum is read back through a linear filter, so the GPU must also filter float textures
+ * (OES_texture_float_linear); without it the texture is incomplete and the frame comes out black.
  */
 export function supportsFloatAccumulation(renderer) {
   const ext = renderer.extensions;
-  return Boolean(renderer.capabilities?.isWebGL2 !== false && ext.has('EXT_color_buffer_float') && ext.has('EXT_float_blend'));
+  return Boolean(renderer.capabilities?.isWebGL2 !== false && ext.has('EXT_color_buffer_float') && ext.has('EXT_float_blend') && ext.has('OES_texture_float_linear'));
 }
 
 /**

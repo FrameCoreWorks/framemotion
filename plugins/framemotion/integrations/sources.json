@@ -248,15 +248,18 @@
     {
       "name": "paper-shaders",
       "repo": "paper-design/shaders",
-      "commit": "e7003a2d4e6e932e30b8fa11ec1239e6ea48e16a",
+      "commit": "14c06ef5c8c7863e8efec89f85243e118c747ca9",
       "licence": "Apache-2.0",
-      "copyright": "Paper Shaders authors",
+      "copyright": "Copyright 2026 Paper (Paper Shaders authors)",
       "kind": "library",
       "pack": "P2",
-      "status": "planned",
+      "status": "dependency",
       "conditions": [
-        "keep NOTICE (Powered by Paper Shaders), mark changed files"
-      ]
+        "npm dependency pinned exactly in assets/engines/package.json (npm gitHead of 0.0.82 = this commit); installed by npm ci, never bundled",
+        "keep the NOTICE line \"Powered by Paper Shaders\" (shaders.paper.design)"
+      ],
+      "package": "@paper-design/shaders",
+      "version": "0.0.82"
     },
     {
       "name": "p5-brush",
@@ -279,8 +282,27 @@
       "copyright": "Copyright (c) 2013-2025 Mathew Groves, Chad Engler",
       "kind": "library",
       "pack": "P2",
-      "status": "planned",
-      "conditions": []
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly (tag v6.1.5 = this commit); installed by npm ci, never bundled"
+      ],
+      "package": "pixi-filters",
+      "version": "6.1.5"
+    },
+    {
+      "name": "pixijs",
+      "repo": "pixijs/pixijs",
+      "commit": "1e707686d00a2a8cd6432b047e56034fc7e7a909",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2013-2023 Mathew Groves, Chad Engler",
+      "kind": "library",
+      "pack": "P2",
+      "status": "dependency",
+      "package": "pixi.js",
+      "version": "8.23.0",
+      "conditions": [
+        "npm dependency pinned exactly (tag v8.23.0 = this commit); needed by pixi-filters; installed by npm ci, never bundled"
+      ]
     },
     {
       "name": "tsparticles",

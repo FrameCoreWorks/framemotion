@@ -55,3 +55,9 @@ a source-manifest.json with the pinned commit):
 - mrdoob/three.js (MIT, Copyright (c) 2010-2026 three.js authors) is installed from npm at exactly 0.187.0
   (tag r187, commit 7e89746a687bb88271253698fa108b1dd59825d0) and never bundled. GSAP 3.15.0, used only by the
   engine tests, is installed the same way under its own GreenSock licence and never bundled.
+- Library engines (assets/engines/libraries/) install these npm packages at exact versions; none is bundled:
+  paper-design/shaders (@paper-design/shaders 0.0.82, commit 14c06ef5c8c7863e8efec89f85243e118c747ca9,
+  Apache-2.0, Copyright 2026 Paper). Powered by Paper Shaders: https://shaders.paper.design
+  pixijs/filters (pixi-filters 6.1.5, commit e9d1ca987864f121680bb0d7e9612c05b37748de, MIT, Copyright (c) 2013-2025
+  Mathew Groves, Chad Engler) and pixijs/pixijs (pixi.js 8.23.0, commit 1e707686d00a2a8cd6432b047e56034fc7e7a909, MIT,
+  Copyright (c) 2013-2023 Mathew Groves, Chad Engler).

@@ -44,7 +44,7 @@ test('settings are read from the uniform lines and become constants', () => {
   for (const name of NEEDS_TEXTURE) assert.throws(() => buildFragment(fs.readFileSync(path.join(dir, `${name}.glsl`), 'utf8')), /extra texture/);
 });
 
-test('every shader compiles and draws in the browser', {skip: playwright ? false : 'Playwright is not installed', timeout: 600000}, async () => {
+test('every shader compiles and draws in the browser', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 600000}, async () => {
   const {page, close} = await kit.openEngine('gl-transition', {params: {width: 64, height: 64}});
   try {
     const failures = await page.evaluate((list) => window.__framemotion.checks.compileAll(list), names);
@@ -52,7 +52,7 @@ test('every shader compiles and draws in the browser', {skip: playwright ? false
   } finally { await close(); }
 });
 
-test('a transition renders deterministic frames that start on one picture and end on the other', {skip: playwright ? false : 'Playwright is not installed', timeout: 300000}, async () => {
+test('a transition renders deterministic frames that start on one picture and end on the other', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 300000}, async () => {
   const base = {width: 108, height: 192};
   const a = await kit.renderFrames('gl-transition', {params: base, frames: [0, 22, 44]});
   assert.ok(a.frames.every((f) => f.deterministic && !f.flat));
@@ -66,4 +66,22 @@ test('a transition renders deterministic frames that start on one picture and en
   const long = await kit.renderFrames('gl-transition', {params: {...base, length: 2}, frames: [74]});
   assert.equal(long.engine.duration, 2.5, 'a timing setting retimes the engine');
   await assert.rejects(kit.renderFrames('gl-transition', {params: {...base, transition: 'NoSuchWipe'}, frames: [0]}), /404/);
+});
+
+test('settings given as text must be plain GLSL literals', () => {
+  assert.throws(() => glslValue('float', '1.0; } void main(){ /*'), TypeError);
+  assert.throws(() => glslValue('vec3', 'vec3(sin(1.0), 0.0, 0.0)'), TypeError);
+  assert.equal(glslValue('float', '2'), '2.0');
+  assert.equal(glslValue('vec4', 'vec4(0.0, 0.5, 1.0, 1.0)'), 'vec4(0.0, 0.5, 1.0, 1.0)');
+  assert.equal(glslValue('bool', 'true'), 'true');
+  assert.equal(glslValue('float', 1e21), '1e+21', 'a large number stays a valid float literal');
+});
+
+test('a default followed by a second comment is read without it', () => {
+  const read = (name) => shaderSettings(fs.readFileSync(path.join(dir, `${name}.glsl`), 'utf8'));
+  assert.equal(read('FadeColor').colorPhase.default, '0.4');
+  assert.equal(read('FadeGrayscale').intensity.default, '0.3');
+  for (const name of names) {
+    for (const [key, s] of Object.entries(read(name))) assert.doesNotMatch(s.default, /\/\/|;/, `${name}.${key}`);
+  }
 });

@@ -97,7 +97,7 @@ def main():
         skips = re.findall(r'^[ \t]*ok \d+ - ([^\n]+?) # SKIP[ \t]*([^\n]*)$', run.stdout, re.M)
         for name, reason in skips:
             print(f'SKIP {name}: {reason or "no reason given"}', flush=True)
-        engine_skips = [name for name, reason in skips if re.search(r'assets/engines|Playwright', reason)]
+        engine_skips = [name for name, reason in skips if reason.startswith('engines:')]   # engine tests name their skips 'engines: ...'
         require(not (engine_skips and os.environ.get('FRAMEMOTION_REQUIRE_RENDER') == '1'),
                 f'Engine render tests skipped while FRAMEMOTION_REQUIRE_RENDER=1: {engine_skips}')
         print(f'PASS Node.js suites ({len(skips)} skipped)' if skips else 'PASS Node.js suites', flush=True)

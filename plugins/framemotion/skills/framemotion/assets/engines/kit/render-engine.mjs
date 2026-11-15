@@ -28,7 +28,8 @@ const TYPES = {'.html': 'text/html', '.mjs': 'text/javascript', '.js': 'text/jav
 // Chromium flags that keep a page offline even if a request slipped past routing: every host name
 // resolves to nothing, and no proxy or background service may reach out.
 const OFFLINE_ARGS = ['--host-resolver-rules=MAP * ~NOTFOUND', '--no-proxy-server', '--disable-background-networking',
-  '--disable-component-update', '--disable-domain-reliability', '--disable-sync', '--no-pings'];
+  '--disable-component-update', '--disable-domain-reliability', '--disable-sync', '--no-pings',
+  '--force-webrtc-ip-handling-policy=disable_non_proxied_udp'];   // no WebRTC over UDP: routes cover HTTP and WebSockets only
 /** Bundled engines' own clock functions, by registry adapter name. */
 const ADAPTERS = {renderFrame: 'renderFrame', seek: 'seek'};
 const SOFTWARE_GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
@@ -97,6 +98,8 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   const entry = registry(root).engines.find((e) => e.id === id);
   if (!entry) throw new Error(`Unknown engine "${id}"; see engines.json.`);
   validateParams(entry, params);
+  // Build first: a failed build (a missing folder) must not leave a browser running.
+  const built = entry.build ? await buildEntry(entry, root) : null;
   const {chromium} = await loadPlaywright();
   const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : SOFTWARE_GL)];
   const browser = await chromium.launch({args});
@@ -110,7 +113,6 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   page.on('console', (m) => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
   const optional = new Set(entry.optional ?? []);
   const blocked = new Set();   // outside requests the page tried; they never leave, the report lists them
-  const built = entry.build ? await buildEntry(entry, root) : null;
   // One handler for every request of the whole context (pages, workers, iframes): the engines
   // origin is served from disk, everything else is refused. WebSockets are closed at once.
   await context.routeWebSocket(() => true, (ws) => ws.close({code: 1008, reason: 'offline'}));
@@ -152,6 +154,13 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   await page.evaluate(() => document.fonts.ready.then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))));
   const ready = await page.evaluate(() => window.__framemotion?.ready === true);
   if (!ready) { await close(); throw new Error('Engine page never set window.__framemotion.ready'); }
+  if (entry.transparent) {
+    // A film made to lie over footage: drop every background (a template's preview checkerboard
+    // too) and capture with an alpha channel. Only screenshot pages can do this.
+    if (!entry.screenshot) { await close(); throw new Error(`${entry.id}: transparent needs a screenshot element`); }
+    await page.addStyleTag({content: `html, body, ${entry.screenshot} { background: transparent !important; }`});
+    transparentPages.add(page);
+  }
   return {entry, browser, page, errors, blocked, close};
 }
 
@@ -161,6 +170,7 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
  * Pages without a canvas are captured as a screenshot of their element.
  */
 const warmed = new WeakSet();
+const transparentPages = new WeakSet();   // pages captured with an alpha channel
 /** A short stable id of a frame's pixels (canvas pages hash in the page; screenshots are hashed here). */
 const hashOf = (h) => (h.length <= 16 ? h : crypto.createHash('sha256').update(h).digest('hex').slice(0, 16));
 
@@ -197,12 +207,13 @@ async function capture(page, frame, {png = false} = {}) {
     for (let i = 0; i < px.length; i += 4) { const l = (px[i] + px[i + 1] + px[i + 2]) / 3; sum += l; if (l < min) min = l; if (l > max) max = l; }
     return {mean: +(sum / (px.length / 4)).toFixed(2), min, max};
   }, `data:image/png;base64,${buffer.toString('base64')}`);
+  const shotOptions = {animations: 'disabled', omitBackground: transparentPages.has(page)};
   if (!warmed.has(page)) {
     warmed.add(page);
-    await measure(await target.screenshot({animations: 'disabled'}));
+    await measure(await target.screenshot(shotOptions));
     await page.evaluate((f) => window.__framemotion.engine.seekFrame(f), frame);
   }
-  const shot = await target.screenshot({animations: 'disabled'});
+  const shot = await target.screenshot(shotOptions);
   const dataUrl = `data:image/png;base64,${shot.toString('base64')}`;
   const stats = await measure(shot);
   return {hash: shot.toString('base64'), ...stats, png: png ? dataUrl : null};
@@ -244,7 +255,15 @@ export async function renderFrames(id, {frames, out = null, params = {}, gpu = f
         fs.writeFileSync(path.join(out, `${entry.id}-${String(frame).padStart(5, '0')}.png`), Buffer.from(png.split(',')[1], 'base64'));
       }
     }
+    // A blocked request may change the picture (a missing library, font or image), so it fails
+    // the render unless the registry entry lists it as known and harmless (allowed_blocked).
     report.blocked = [...blocked];
+    const allowed = new Set(entry.allowed_blocked ?? []);
+    const unexpected = report.blocked.filter((url) => !allowed.has(url));
+    if (unexpected.length) {
+      throw new Error(`${entry.id} asked for files outside the engines folder (blocked, the picture may be wrong): ` +
+        `${unexpected.join(', ')}. Bundle them, or list a harmless one in the entry's allowed_blocked.`);
+    }
     return report;
   } finally {
     await close();

@@ -26,3 +26,5 @@ Inside a HyperFrames composition, import `createTransition` from `transition.mjs
 - `DisplacementMap` and `LumaWipe` need an extra texture (a displacement or luma map); they are not wired yet and fail with a clear message.
 - `DreamyZoom` and a few others pass through a bright flash at mid-point by design; check a contact sheet before choosing.
 - A test compiles all 236 in software WebGL and renders the first, middle and last frames.
+- The two sides are still pictures: `from` and `to` are uploaded once, so a transition between two moving scenes needs their boundary frames rendered first (render the last frame of scene A and the first frame of scene B, then pass those two pictures). Moving sides are planned with the scene plan.
+- `from` and `to` are paths inside the engines folder (in a workspace copy too); the renderer serves nothing else.

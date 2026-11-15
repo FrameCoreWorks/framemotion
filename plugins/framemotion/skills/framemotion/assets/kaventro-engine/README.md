@@ -12,4 +12,4 @@ node ../engines/kit/render-engine.mjs --engine kaventro-blank --frames 0,360,719
 
 The builder copies the templates into a temporary folder outside the plugin (`src/` and an empty `audio/`), so a silent render needs no music; add the edited track as `audio/edit.m4a` for the film's own player. For a real film, copy the two folders into the project, change `scenes.js` (copy, timing, shots) and `film.css` (colours, type), and keep the rest unchanged.
 
-Left out on purpose: upstream's installers, music and voice generators, and its own render script (FrameMotion's renderer replaces it). The templates use the system's fonts; no font files are bundled.
+Left out on purpose: upstream's installers, music and voice generators, and its own render script (FrameMotion's renderer replaces it). The templates use the system's fonts; no font files are bundled, so the same film looks slightly different on a Mac and in the cloud. Render a delivery on one machine, or set a bundled font from `assets/fonts` in the film's CSS.
