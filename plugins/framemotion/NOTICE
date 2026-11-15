@@ -115,6 +115,13 @@ a source-manifest.json with the pinned commit):
   scripts/engine/lib/fonts are SIL Open Font License 1.1, each with its copyright in LICENSES.md and the licence text
   in OFL.txt there; three.min.js keeps its MIT notice in THREE_LICENSE.txt. framemotion/ (the sample specs) is
   FrameCore Works' own.
+- Pixel engine (skills/framemotion/assets/pixel-engine): patch-gg/pixelfx 0.3.0 (commit
+  a84159688af3ca37a4be05a0d422b94451b2e24e, MIT, Copyright (c) 2026 Patch and Copyright (c) 2026 Hugo Duprez),
+  bundled unchanged in its own layout with its NOTICE.md (Sprite Fusion effects by Hugo Duprez and Hollow Crown by
+  rehan-remade, both MIT). SKILL.md is method.md. Not bundled: the gallery and its Patch Pixel font (Patch's own,
+  all rights reserved), the gallery tools, the showcase GIFs. framemotion/ (the player, adapted from upstream's
+  tools/lib/fxlib.mjs) is FrameCore Works' own, credited there; file list and hashes in
+  integrations/pixelfx/source-manifest.json.
 - Reels engine (skills/framemotion/assets/reels-engine): artemnovitckii/claude-animation-skills (commit
   5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii), its kit and four reel styles
   bundled unchanged except styles/what-if-3d/engine/src/shots.js (one line in shot 7; original and current hashes in

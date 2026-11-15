@@ -54,7 +54,7 @@ Grouped as the user sees it; names and pins come from [Toolbox's catalog](https:
 **Looks and methods:**
 - `huashu-art-motion`: art styles and explainer grammars; FrameMotion already bundles its engine as the Art engine (without the studio and protected-artist looks), so offer this only for upstream's own render, QA and voice tools.
 - `gl-transitions`: the upstream player and gallery; FrameMotion already renders the same 236 shader transitions with its built-in `gl-transition` engine, so offer this only for the gallery.
-- `pixelfx`: 244 pixel effects and sprite sheets.
+- `pixelfx`: FrameMotion already bundles its 244 effects and tools as the Pixel engine, so offer this only for upstream's gallery.
 - `anatomy`: detailed isometric figures of a technical product.
 - `hairline`: interactive isometric line figures for a web page.
 - `manim-skill`: math and science explainers in Manim.

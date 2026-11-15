@@ -163,11 +163,11 @@
       "status": "bundled",
       "bundled_commit": "1468196505a51728686db118d52561aa27a25124",
       "conditions": [
-        "bundled as the Art engine (assets/art-engine) in its own layout, SKILL.md as method.md; one changed file, scripts/engine/lib/typo.js (two marked lines for Latin words and descenders), hashes in the source manifest",
+        "bundled as the Art engine (assets/art-engine) in its own layout, SKILL.md as method.md; nine changed files, each change marked (typo.js for Latin words and descenders, transitions.js so the pointillist transition repeats, the 8-bit scene's level label, and the lines that pointed to the removed cards, rig and author page), hashes in the source manifest",
         "never reference_films or the Arphic font",
-        "twelve scenes left out: studio, franchise, living-artist and still-protected-artist looks (kusama, dali, hopper, ghibli, kirby, haring, shinkai, picasso_blue, chagall, south_park, pixar, ghibli_lab)",
+        "twelve scenes left out: studio, franchise, living-artist and still-protected-artist looks (kusama, dali, hopper, ghibli, kirby, haring, shinkai, picasso_blue, chagall, south_park, pixar, ghibli_lab); their twelve recipe cards are left out too",
         "Chinese and Japanese faces not bundled; their families draw with bundled Latin faces",
-        "the author's likeness (demos/_shared) and the demos that use it are not bundled",
+        "the author's likeness (lib/rig_huashu.js, demos/_shared and the demos that use it) and promotional page (references/about-author.md) are not bundled",
         "OFL reserved font names stay unchanged",
         "the earlier adaptation (reference-breakdown, art-and-explainer-motion-direction.md) at 8a0d7d7 stays as it is"
       ]
@@ -175,16 +175,19 @@
     {
       "name": "pixelfx",
       "repo": "patch-gg/pixelfx",
-      "commit": "5294518ce7c72e48b6100a744596e0acf57f2826",
+      "commit": "a84159688af3ca37a4be05a0d422b94451b2e24e",
       "licence": "MIT",
-      "copyright": "Copyright (c) 2026 Patch",
+      "copyright": "Copyright (c) 2026 Patch; Copyright (c) 2026 Hugo Duprez",
       "kind": "engine",
       "pack": "P9",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "keep NOTICE credit to Hugo Duprez",
-        "the Patch Pixel font is not MIT: leave it out"
-      ]
+        "bundled as the Pixel engine (assets/pixel-engine) in its own layout, SKILL.md as method.md, unchanged; the commit Toolbox reviewed (0.3.0)",
+        "keep NOTICE.md credit to Hugo Duprez (Sprite Fusion) and rehan-remade (Hollow Crown)",
+        "the Patch Pixel font (all rights reserved) and the gallery that uses it are not bundled",
+        "FrameMotion's player (framemotion/) is our own, adapted from upstream's tools/lib/fxlib.mjs renderFrames with credit"
+      ],
+      "bundled_commit": "a84159688af3ca37a4be05a0d422b94451b2e24e"
     },
     {
       "name": "lemo-opuscar",

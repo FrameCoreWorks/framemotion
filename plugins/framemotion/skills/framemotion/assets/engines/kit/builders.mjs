@@ -340,6 +340,26 @@ export const BUILDERS = {
    * bundled: their families draw with Latin faces that carry Polish letters), the spec, and renderFrameAt(t),
    * which awaits the engine's own prepare(t) and draws renderFrame(t) once the engine reports ready.
    */
+  /**
+   * Pixel engine (bundled pixelfx): one effect from src/fx, played by FrameMotion's player as a pure function of
+   * time and scaled up with whole pixels. build: {fx: "fire/torch", options, seed, bg, actor, scale, seconds}.
+   */
+  async pixel(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'pixel-engine');
+    const fx = entry.build.fx;
+    if (typeof fx !== 'string' || !/^[a-z0-9-]+\/[a-z0-9-]+$/.test(fx) || !fs.existsSync(path.join(engine, 'src/fx', fx + '.js'))) {
+      throw new Error(`${entry.id}: unknown pixelfx effect "${fx}" (see pixel-engine/docs/CATALOG.md)`);
+    }
+    const dir = temp(entry.id);
+    for (const part of ['src', 'framemotion', 'package.json']) fs.cpSync(path.join(engine, part), path.join(dir, part), {recursive: true});
+    const {tool, ...spec} = entry.build;
+    const data = JSON.stringify({...spec, width: entry.size.width, height: entry.size.height, fps: entry.fps ?? 30}).replace(/</g, '\\u003c');
+    const page = 'framemotion/player.html';
+    const html = fs.readFileSync(path.join(dir, page), 'utf8')
+      .replace('<script type="module"', () => `<script>window.PIXEL_SPEC = ${data};</script>\n<script type="module"`);
+    fs.writeFileSync(path.join(dir, page), html);
+    return {dir, page, query: {}};
+  },
   async art(entry, enginesRoot) {
     const engine = path.join(sibling(enginesRoot, 'art-engine'), 'scripts/engine');
     const dir = temp(entry.id);

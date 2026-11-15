@@ -1540,6 +1540,103 @@
       "fps": 30,
       "duration": "page",
       "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "pixel-torch",
+      "title": "Pixel effect, a wall torch: a licking flame, smoke and embers, looped twice (1:1)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "pixelfx"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "pixel",
+        "fx": "fire/torch"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../pixel-engine/README.md"
+    },
+    {
+      "id": "pixel-big-explosion",
+      "title": "Pixel effect, a big explosion on a stone floor, one shot (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "pixelfx"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "pixel",
+        "fx": "explosions/big-explosion",
+        "bg": "ground"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../pixel-engine/README.md"
+    },
+    {
+      "id": "pixel-level-up",
+      "title": "Pixel effect, a level-up burst with its text, one shot (9:16)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "pixelfx"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "pixel",
+        "fx": "ui/level-up"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../pixel-engine/README.md"
+    },
+    {
+      "id": "pixel-slash-wipe",
+      "title": "Pixel transition, a slash wipe across the whole frame (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "flat_frames": [
+        24,
+        25
+      ],
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "pixelfx"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "pixel",
+        "fx": "transitions/slash-wipe"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../pixel-engine/README.md"
     }
   ]
 }

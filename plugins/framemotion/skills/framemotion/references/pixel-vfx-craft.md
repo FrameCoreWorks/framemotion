@@ -8,21 +8,19 @@ composition drawn at a low internal resolution.
 Written in FrameMotion's own words from a review of [pixelfx](https://github.com/patch-gg/pixelfx) by Patch at
 `a84159688af3ca37a4be05a0d422b94451b2e24e` (0.3.0, MIT), whose method comes from Hugo Duprez's
 [How to make (good) pixel art effects with Claude](https://www.spritefusion.com/blog/how-to-make-good-pixel-art-effects-with-claude)
-and his MIT [Sprite Fusion effects](https://www.spritefusion.com/pixel-art-vfx). No code or skill text was copied.
+and his MIT [Sprite Fusion effects](https://www.spritefusion.com/pixel-art-vfx). This page copies no code or skill text; the engine itself is bundled unchanged with its notices.
 Credit both when a piece follows this method closely.
 
 ## Route
 
-- **pixelfx installed** (its skill `pixelfx:pixelfx` or `pixelfx` is in this host's list, from the
-  Toolbox catalog ([installing a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))): say in one line that
-  Studio uses it for the effect, read its skill and follow it for that step only (installed catalog
-  entries ([using a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))). Start from its 244 ready
-  effects (recolor with a palette, change the seed, mirror) before drafting a new one. Studio keeps the brief, the
-  plan and the review.
-- **Not installed:** when a pixel effect is central to the piece, offer the entry once in the user's terms (ready
-  effects and sprite sheets); otherwise build the effect yourself with the rules below.
-- **Sprite sheets for a game** (Godot, Unity, Phaser, GameMaker): that is pixelfx's own deliverable (transparent
-  PNG grid plus frame JSON with FPS, loop and pivot). Studio does not write an engine exporter of its own.
+- **A ready effect first.** FrameMotion bundles pixelfx as the [Pixel engine](../assets/pixel-engine/README.md):
+  244 effects at the reviewed commit. Find one in its `docs/CATALOG.md`, change its palette, seed or options, and
+  render it into the film with the `pixel` builder (a pure function of time, scaled up with whole pixels).
+- **Sprite sheets for a game** (Godot, Unity, Phaser, GameMaker): use the engine's own `tools/sheets.mjs`
+  (transparent PNG grid plus frame JSON with FPS, loop and pivot) in a workspace copy. FrameMotion does not write
+  an engine exporter of its own.
+- **A new effect:** draft it with the engine's `tools/new.mjs` in a workspace copy and follow the rules below, or
+  draw it yourself in a canvas composition at a low internal resolution.
 
 ## Build an effect from two layers
 

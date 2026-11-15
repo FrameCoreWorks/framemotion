@@ -1,4 +1,4 @@
-"""The bundled Art engine matches its upstream files, with one marked change, and leaves out what it must."""
+"""The bundled Art engine matches its upstream files, with marked changes in nine files, and leaves out what it must."""
 import hashlib
 import json
 from pathlib import Path
