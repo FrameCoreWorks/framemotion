@@ -2,27 +2,29 @@
 
 How Studio makes stick-figure explainers, short stories and faceless channel videos (YouTube, Shorts, Reels,
 TikTok): a narrator's voice, a simple figure acting out the idea, props and diagrams, captions and sound. Use it
-with the Toolbox entry `stickman-kino` when it is installed, or with any HyperFrames, Remotion or Animate engine
-composition, and for prompts to a video generator.
+with FrameMotion's built-in [Stickman engine](../assets/stickman-engine/README.md), with any HyperFrames, Remotion or
+Animate engine composition, and for prompts to a video generator.
 
 Written in FrameMotion's own words from reviews of [stickman-kino](https://github.com/dsauce/stickman-kino) by Prerit
 Ahuja at `d3d665301c0b62f04c885785e6bd6044de0785c6` (1.0.0, MIT) and
 [Stickman Video Director](https://github.com/kaomei/stickman-video-director) by kaomei at
 `eb4bb378c4716a617f9ad7d98a60379b9d1fa54a` (MIT). No code or skill text was copied. Credit them when a piece
-follows their method closely.
+follows their method closely. The vertical cartoon reel below also follows the stick-figure reel method of
+[claude-animation-skills](https://github.com/artemnovitckii/claude-animation-skills) by Artem Novitckii at
+`5dbea55c23aa6a5c93dc3cfb5583840513b56b94` (MIT), in FrameMotion's own words and code.
 
 ## Route
 
-- **stickman-kino installed** (its skill `stickman-kino:stickman-kino` or `stickman-kino` is in this host's list,
-  from the Toolbox catalog ([installing a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))): say in one line
-  that Studio uses it to build the film, read its skill and follow it for the build step only (installed catalog
-  entries ([using a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry))). It draws rigged figures
-  with ready poses, props, charts, captions, voice, music and effects locally in HyperFrames, with no video model or
-  API key. Studio keeps the brief, script, copy locks, board plan and review, and passes the rules below as the
-  direction.
-- **Not installed:** when the stick-figure look is the point of the piece, offer the entry once in the user's terms
-  (a ready stickman rig and render, no paid video service); otherwise build the figure yourself in the chosen
-  runtime with the rules below.
+- **Built-in Stickman engine** (default where a shell, Node.js and a browser run): the bundled Stickman Kino engine,
+  unchanged except one rig option, with FrameMotion's reel additions. A film is a folder with `film.json` (clips,
+  voice lines, theme, format) and `scenes.js` (what happens in each clip, in clip seconds). It renders through the
+  shared engine renderer like every other engine; see the [engine README](../assets/stickman-engine/README.md) for the
+  API, the 58 poses, about 200 props and the samples. Its voice, music and final mix follow FrameMotion's sound route,
+  not the engine's own tools. FrameMotion keeps the brief, script, copy locks, board plan and review.
+- **Toolbox entry `stickman-kino` installed** (its skill is in this host's list): it is the same engine with its own
+  command line, voice and music set-up. Use the built-in engine unless the user asks for the entry.
+- **No shell:** plan the film (script, look, character sheet, `film.json` and the shots) and hand it over; nothing
+  renders.
 - **Video generator instead** (Veo, Kling, Gemini, Sora and similar): write the clips with
   video-prompt-architect (Creative Studio: `skills/video-prompt-architect/SKILL.md`) and apply the character and voice locks below.
 
@@ -80,6 +82,26 @@ not someone's identity. Any channel the user points to is a reference to learn f
   never stand in for missing motion.
 - Keep the voice on top. The audio direction (Creative Studio: `skills/audio-production-director/SKILL.md`) and Toolbox's Earshot
   measure loudness and place effects on the right frame.
+
+## Vertical cartoon reel
+
+A 9:16 reel of 30 to 45 s that answers one surprising question: a bright world, stick people with big white heads,
+a camera that never stops, short captions and cartoon sound. In the Stickman engine it is theme `cartoon`, the
+`bighead` character, `sc.drift()` for the moving camera and `sc.reelCaptions()` for the captions (the
+`stickman-reel` sample shows all four).
+
+- **Script.** About 110 to 120 words for 38 to 40 s, one idea per sentence, in this order: a "what if" question,
+  what most people believe, a turn on "but", examples that build, one shot that shows how it works, and an ending
+  that answers the opening question. Show the script before animating, and check every claim; hedge a theory.
+- **Shots.** About 10 to 12 set-ups, most 2 to 4 s, the mechanism shot longer; a new idea gets a new set-up. Open
+  mid-action on frame 1. Keep faces and key props clear of the caption band and inside the safe area of the platform
+  the user names.
+- **Camera.** A slow push with a little handheld drift in every shot, a whip pan with blur between topics, and an
+  impact made of a burst, a short shake and a flash.
+- **Captions.** One or two lowercase words at a time, popped in on the voice, without punctuation or dashes (digits
+  and % stay). For this look that replaces the one-line rule below; every other piece keeps one-line captions.
+- **Sound.** Effects sit under the voice, and the music is a quiet plucked bed ducked under it, never a loud loop at
+  the start.
 
 ## Captions and checks
 

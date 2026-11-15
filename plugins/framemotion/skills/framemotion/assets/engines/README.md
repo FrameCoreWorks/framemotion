@@ -22,8 +22,9 @@ Registered engines:
 | `kaventro-blank`, `-overlay`, `-mobile`, `-desktop`, `-story` | The bundled [kaventro film templates](../kaventro-engine/README.md) | builder `kaventro`, adapter `seek` |
 | `hairline-spice-rack` | The [Hairline](../hairline/README.md) example | builder `folder`, adapter `renderFrame` |
 | `paper-shader`, `pixi-filter`, `css-doodle`, `torph-text`, `tsparticles`, `p5-brush` | [Library engines](libraries/README.md) | own page, library from `node_modules` |
+| `stickman-hello`, `stickman-vertical`, `stickman-reel` | The bundled [Stickman engine](../stickman-engine/README.md): two of its sample films and FrameMotion's vertical cartoon reel | builder `stickman` (the engine's own `compose`), adapter `seek` |
 
-Bundled engines stay byte-identical in their own folders (a test checks their hashes); a builder in `kit/builders.mjs` makes their page in a temporary folder and an adapter wraps the page's own clock (`window.renderFrame(seconds)` or `window.seek(t)`). Any Animate piece, Anatomy page or kaventro film renders the same way: add an entry with its piece folder, page options or template kind. A page may list files that are allowed to be missing in `optional` (a film's music in a silent render); any other missing file fails the render, and outside requests are blocked and listed in the report.
+Bundled engines stay byte-identical in their own folders (a test checks their hashes); a builder in `kit/builders.mjs` makes their page in a temporary folder and an adapter wraps the page's own clock (`window.renderFrame(seconds)` or `window.seek(t)`). Any Animate piece, Anatomy page, kaventro film or Stickman film folder renders the same way: add an entry with its piece folder, page options or template kind. A page may list files that are allowed to be missing in `optional` (a film's music in a silent render); any other missing file fails the render, and outside requests are blocked and listed in the report.
 
 ## Run
 
@@ -34,4 +35,4 @@ npm ci --ignore-scripts   # .npmrc keeps unused peer packages (p5.js) out
 node kit/render-engine.mjs --engine photoreal-demo --frames 0,30,59 --out frames
 ```
 
-Add `--gpu` on a machine with a graphics card; without it Chromium renders in software (slow but identical in method). `--params '{"samples":32}'` passes settings to the engine page. The tool needs Playwright with Chromium (it also finds the Animate engine's pinned copy). The engine tests also use GSAP 3.15.0, a dev dependency installed by `npm ci` and never bundled. From frames to an MP4 with sound: [engine contract](../../references/engine-contract.md#from-frames-to-an-mp4-with-sound).
+Add `--gpu` on a machine with a graphics card; without it Chromium renders in software (slow but identical in method). `--params '{"samples":32}'` passes settings to the engine page. The tool needs Playwright with Chromium (it also finds the Animate engine's pinned copy). GSAP 3.15.0 is installed by `npm ci` and never bundled: the Stickman films load it from `node_modules`, and the engine tests use it too. From frames to an MP4 with sound: [engine contract](../../references/engine-contract.md#from-frames-to-an-mp4-with-sound).

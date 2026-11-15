@@ -18,7 +18,9 @@ class RetainedFilesTest(unittest.TestCase):
                 path = (manifest.parent / item['destination_path']).resolve()
                 with self.subTest(str(path.relative_to(ROOT))):
                     self.assertTrue(path.is_file(), 'retained file is missing')
-                    self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), item['sha256'], 'retained file was changed')
+                    # A file FrameMotion changed on purpose keeps the upstream hash and records its own as well.
+                    expected = item['current_sha256'] if item.get('changed') else item['sha256']
+                    self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(), expected, 'retained file was changed')
                     checked += 1
         self.assertGreater(checked, 20)
 

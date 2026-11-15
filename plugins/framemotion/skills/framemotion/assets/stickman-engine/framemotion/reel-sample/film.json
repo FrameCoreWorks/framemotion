@@ -1,0 +1,52 @@
+{
+  "title": "Why does popcorn pop?",
+  "format": "9:16",
+  "theme": "cartoon",
+  "music": {
+    "style": "none"
+  },
+  "clips": [
+    {
+      "id": "hook",
+      "label": "Hook",
+      "duration": "auto",
+      "tail": 0.3,
+      "vo": "What if every popcorn kernel is a tiny pressure cooker?",
+      "sfx": [
+        {
+          "at": 1.3,
+          "name": "pop",
+          "volume": 0.4
+        }
+      ]
+    },
+    {
+      "id": "turn",
+      "label": "Mechanism",
+      "duration": "auto",
+      "tail": 0.4,
+      "vo": "Inside is a drop of water, and the heat turns it into steam.",
+      "sfx": [
+        {
+          "at": 2.2,
+          "name": "boing",
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "payoff",
+      "label": "Payoff",
+      "duration": "auto",
+      "tail": 0.8,
+      "vo": "The shell holds until it bursts, and the kernel flips inside out.",
+      "sfx": [
+        {
+          "at": 1.8,
+          "name": "success",
+          "volume": 0.4
+        }
+      ]
+    }
+  ]
+}

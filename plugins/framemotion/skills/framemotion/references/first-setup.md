@@ -30,7 +30,7 @@ FrameMotion installs its own runtimes; it needs no other plugin for them. Where 
 | `gsap-motion-starter` | `assets/gsap-motion-starter` | HTML/GSAP builds |
 | `motion-toolkit` | `assets/motion-toolkit` | Three.js, PixiJS, D3, Lottie and Mediabunny examples |
 | `engines` | `assets/engines` | FrameMotion's own engines ([engines](../assets/engines/README.md)), starting with the photoreal three.js blocks; Playwright with Chromium renders them |
-| `anatomy-engine`, `kaventro-engine`, `hairline` | `assets/<same name>` | the engines in `engines` that build from these folders (`anatomy-svg`, the `kaventro-*` films, `hairline-spice-rack`); they must sit next to `engines`, like `animate-engine` |
+| `anatomy-engine`, `kaventro-engine`, `hairline`, `stickman-engine` | `assets/<same name>` | the engines in `engines` that build from these folders (`anatomy-svg`, the `kaventro-*` films, `hairline-spice-rack`, the `stickman-*` films); they must sit next to `engines`, like `animate-engine` |
 | `kinetic-type-starter`, `three-motion-example`, `gltf-turntable` | `remotion/assets/<name>` | the [Remotion route](../remotion/REMOTION.md) |
 
 The workspace is `~/.framecore-studio/workspace` (or `FRAMECORE_STUDIO_WORKSPACE`), the same folder older Creative Studio installations used, so an existing copy is reused: compare its `package-lock.json` with the plugin's and reinstall (`npm ci`) only when they differ. HyperFrames runs through `npx hyperframes` and needs Node.js 22, FFmpeg and Chrome. When Creative Studio is installed, its environment check reports the same tools; either may install them, never both at once.
@@ -66,7 +66,7 @@ Grouped as the user sees it; names and pins come from [Toolbox's catalog](https:
 - `bang-motion`: openers, promos, lower thirds as one autoplaying page.
 - `animate`: illustrated explainers and histories in seven styles.
 - `papercut-explainer`: cut-paper explainer reels from a link.
-- `stickman-kino`: stick-figure explainers with a ready rig.
+- `stickman-kino`: the same Stickman engine with its own command line; FrameMotion already has the engine built in.
 - `cutaway`: a product or machine taking itself apart, from one picture.
 - `brag`: a quick launch video of a finished project.
 

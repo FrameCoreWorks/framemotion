@@ -64,6 +64,44 @@ export const BUILDERS = {
     fs.mkdirSync(path.join(dir, 'audio'));   // the film's music goes here; a silent render needs none
     return {dir, page: 'src/index.html', query: {render: '1'}};
   },
+  /**
+   * Stickman engine (bundled Stickman Kino plus FrameMotion's reel additions): copy a film folder
+   * (film.json + scenes.js), compose its page with the engine's own compose(), add the reel
+   * additions and a seek(t) on the film's one paused timeline. GSAP comes from this engines folder.
+   */
+  async stickman(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'stickman-engine');
+    const film = path.resolve(enginesRoot, entry.build.film);
+    const dir = temp(entry.id);
+    fs.cpSync(film, dir, {recursive: true});
+    const script = `import {compose} from ${JSON.stringify(pathToFileURL(path.join(engine, 'lib/film.mjs')).href)};
+      const r = compose(process.argv[1]); console.log(JSON.stringify({W: r.W, H: r.H, total: r.total}));`;
+    const run = spawnSync(process.execPath, ['--input-type=module', '-e', script, dir], {
+      encoding: 'utf8', env: {...process.env, NODE_PATH: path.join(enginesRoot, 'node_modules')}});
+    if (run.status !== 0) throw new Error(`Stickman compose failed: ${run.stderr || run.stdout}`);
+    const {W, H, total} = JSON.parse(run.stdout.trim().split('\n').pop());
+    fs.copyFileSync(path.join(engine, 'framemotion/reel.js'), path.join(dir, '.sm/fm-reel.js'));
+    const fps = entry.fps ?? 30;
+    let html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+    html = html.replace('<script src="film.js"></script>', '<script src="film.js"></script>\n  <script src=".sm/fm-reel.js"></script>');
+    html = html.replace('</body>', `<script>
+    window.FILM_INFO = {W: ${W}, H: ${H}, FPS: ${fps}, frames: ${Math.round(total * fps)}};
+    // HyperFrames shows one clip section at a time from its data-start and data-duration; outside
+    // HyperFrames the seek does the same, then moves the film's one timeline.
+    window.seek = (t) => {
+      const clips = [...document.querySelectorAll('section.clip')];
+      const last = clips[clips.length - 1];
+      for (const s of clips) {
+        const a = +s.dataset.start, b = a + +s.dataset.duration;
+        s.style.visibility = (t >= a && t < b) || (s === last && t >= b) ? 'visible' : 'hidden';
+      }
+      window.__timelines.stickman.seek(t);
+    };
+  </script>
+</body>`);
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    return {dir, page: 'index.html'};
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {

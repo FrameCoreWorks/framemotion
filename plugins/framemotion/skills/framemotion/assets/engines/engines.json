@@ -727,6 +727,95 @@
       "flat_frames": [
         0
       ]
+    },
+    {
+      "id": "stickman-hello",
+      "title": "Stickman engine: the bundled hello-stickman film (16:9, light theme)",
+      "status": "ready",
+      "kind": "svg",
+      "build": {
+        "tool": "stickman",
+        "film": "../stickman-engine/samples/hello-stickman"
+      },
+      "adapter": "seek",
+      "screenshot": "#root",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 18.5,
+      "readme": "../stickman-engine/README.md",
+      "sources": [
+        "stickman-kino"
+      ],
+      "blocks": [
+        "../stickman-engine/engine/sm-core.js"
+      ],
+      "optional": [
+        "assets/vo",
+        "assets/music"
+      ]
+    },
+    {
+      "id": "stickman-vertical",
+      "title": "Stickman engine: the bundled two-minute-rule short (9:16, dark theme, pop captions)",
+      "status": "ready",
+      "kind": "svg",
+      "build": {
+        "tool": "stickman",
+        "film": "../stickman-engine/samples/two-minute-rule"
+      },
+      "adapter": "seek",
+      "screenshot": "#root",
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": 25.5,
+      "readme": "../stickman-engine/README.md",
+      "sources": [
+        "stickman-kino"
+      ],
+      "blocks": [
+        "../stickman-engine/engine/sm-core.js"
+      ],
+      "optional": [
+        "assets/vo",
+        "assets/music"
+      ]
+    },
+    {
+      "id": "stickman-reel",
+      "title": "Stickman engine: FrameMotion's vertical cartoon reel (big heads, drift, short captions)",
+      "status": "ready",
+      "kind": "svg",
+      "build": {
+        "tool": "stickman",
+        "film": "../stickman-engine/framemotion/reel-sample"
+      },
+      "adapter": "seek",
+      "screenshot": "#root",
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": 17,
+      "readme": "../stickman-engine/README.md",
+      "sources": [
+        "stickman-kino",
+        "claude-animation-skills"
+      ],
+      "blocks": [
+        "../stickman-engine/engine/sm-core.js",
+        "../stickman-engine/framemotion/reel.js"
+      ],
+      "optional": [
+        "assets/vo",
+        "assets/music"
+      ]
     }
   ]
 }

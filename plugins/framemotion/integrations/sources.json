@@ -92,12 +92,13 @@
       "copyright": "Copyright (c) 2026 Prerit Ahuja",
       "kind": "engine",
       "pack": "P7",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "rewrite: own code on the engine kit",
+        "bundled unchanged except engine/sm-rig.js (headScale option), hashes in integrations/stickman-kino/source-manifest.json",
         "OFL fonts keep their licence text",
-        "install ffmpeg, never bundle it"
-      ]
+        "GSAP from npm, never bundled; no command line, installer, voice or music tool bundled"
+      ],
+      "bundled_commit": "d3d665301c0b62f04c885785e6bd6044de0785c6"
     },
     {
       "name": "cutaway",
@@ -138,7 +139,7 @@
       "pack": "P8",
       "status": "planned",
       "conditions": [
-        "five engines only, not stick-figure",
+        "five engines in P8; stick-figure merged into the Stickman engine as method only (own words and own code, no file copied)",
         "OFL fonts keep their licence text",
         "rename creator-named styles descriptively"
       ]

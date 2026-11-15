@@ -192,3 +192,13 @@ test('bundled engines render from a workspace copy when their folders sit next t
   fs.rmSync(path.join(workspace, 'kaventro-engine'), {recursive: true});
   await assert.rejects(kit.renderFrames('kaventro-blank', {root: engines, frames: [0], once: true}), /needs the folder "kaventro-engine" next to "engines"/);
 });
+
+test('the stickman engine shows one clip at a time and repeats every frame', {skip: browserSkip, timeout: 240000}, async () => {
+  // Frames inside the three clips of the reel sample (hook, mechanism, payoff) and the very last frame.
+  const report = await kit.renderFrames('stickman-reel', {frames: [30, 200, 420, 509]});
+  for (const f of report.frames) {
+    assert.ok(f.deterministic, `frame ${f.frame} repeats byte for byte`);
+    assert.ok(!f.flat, `frame ${f.frame} is drawn`);
+  }
+  assert.equal(new Set(report.frames.map((f) => f.hash)).size, 4, 'each clip shows its own scene');
+});

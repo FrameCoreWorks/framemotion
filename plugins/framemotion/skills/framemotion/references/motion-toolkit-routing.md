@@ -58,7 +58,7 @@ FrameCore Works Toolbox lists reviewed third-party motion tools. FrameMotion kee
 | Painter or tradition looks, Vox, Kurzgesagt, 3Blue1Brown grammars | [art-style and explainer direction](art-and-explainer-motion-direction.md) | `huashu-art-motion` | 36 art styles and 9 explainer grammars with shot-list checks |
 | Rebuild the technique of a supplied reference video | [reference breakdown](../assets/reference-breakdown/README.md) | `rea-video` | a shot-by-shot account of how each picture, title, sound and cut was made |
 | Math, formulas, graphs, geometry | [Manim bridge](motion-toolkit-runtime-cards.md#manim-local-clip-bridge), [math explainer timing](explainer-method-recipes.md#math-explainer) | `manim-skill` | exact LaTeX and Manim scenes |
-| Stick figures, faceless explainers | [stickman explainer craft](stickman-explainer-craft.md) | `stickman-kino` | a ready rig with 58 poses and about 190 props on HyperFrames |
+| Stick figures, faceless explainers | the built-in [Stickman engine](../assets/stickman-engine/README.md) with [stickman explainer craft](stickman-explainer-craft.md) | `stickman-kino` | the same engine with its own command line, voice and music set-up |
 | Technical product as an isometric figure | [Anatomy engine](../assets/anatomy-engine/README.md) | `anatomy` | the upstream skill for detailed interactive figures |
 | Isometric line figures on a web page | [Hairline kit](../assets/hairline/README.md) | `hairline` | interactive pointer-driven figures for web, not video |
 | A product or machine taking itself apart from one picture | Anatomy cutaways for diagrams | `cutaway` | a rendered three.js exploded view matched to a picture, best with a GPU |

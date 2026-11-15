@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/dsauce/stickman-kino",
+  "source_commit": "d3d665301c0b62f04c885785e6bd6044de0785c6",
+  "retrieved_on": "2026-11-15",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2026 Prerit Ahuja",
+  "activation": "bundled_engine_rendered_by_the_framemotion_engine_kit_no_cli_no_installer",
+  "not_bundled": [
+    "bin/",
+    "lib/audio.mjs",
+    "lib/prompts.mjs",
+    "lib/setup.mjs",
+    "lib/skills.mjs",
+    "skills/ (agent skills)",
+    "scripts/",
+    "test/",
+    "docs/ (except the two animator references)",
+    "samples/README.md",
+    "assets/brand/"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/LICENSE",
+      "sha256": "c56b745c925586c58c48252b44027678cf925282c31fedc0b12001425e1901ba"
+    },
+    {
+      "source_path": "THIRD_PARTY_NOTICES.md",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/THIRD_PARTY_NOTICES.md",
+      "sha256": "860de86c17c2cdd08c1f100730b351736147fa09f9e99545eaedf959cd0dc765"
+    },
+    {
+      "source_path": "skills/stickman-animator/references/api.md",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/docs/api.md",
+      "sha256": "74a160d668c69b3b8fad68144bf3419b8be584a69aa06a704c34477dc74696cb"
+    },
+    {
+      "source_path": "skills/stickman-animator/references/cookbook.md",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/docs/cookbook.md",
+      "sha256": "e79d4be25f00ccbd94ad2dea920c531717ec6ed850ded4f295dd9603579a3bd4"
+    },
+    {
+      "source_path": "engine/fonts/OFL.txt",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/OFL.txt",
+      "sha256": "58fc8f72572743673e5197d184a7a739bff43488808ca54d680028f6b66629f7"
+    },
+    {
+      "source_path": "engine/fonts/caveat-latin-400-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/caveat-latin-400-normal.woff2",
+      "sha256": "d0b7b931b8980049327e8f8f9ac264617c8200b8422d62e886473d3d9527bad3"
+    },
+    {
+      "source_path": "engine/fonts/caveat-latin-700-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/caveat-latin-700-normal.woff2",
+      "sha256": "15f9638095ad5ec9816f93d66805ca1a87e71dc5a76b596bfce1c78d4704c405"
+    },
+    {
+      "source_path": "engine/fonts/inter-latin-400-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/inter-latin-400-normal.woff2",
+      "sha256": "8909904ab6c872eb994093482a88a28eca2cd95912d7b6fecd72103b0dc07edc"
+    },
+    {
+      "source_path": "engine/fonts/inter-latin-500-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/inter-latin-500-normal.woff2",
+      "sha256": "f3779f1efccc4bdcdf9c0a02ab95bf6bd092ed09c48c08cedc725889edd1d19f"
+    },
+    {
+      "source_path": "engine/fonts/inter-latin-600-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/inter-latin-600-normal.woff2",
+      "sha256": "f9a06e79cd3a2a20951c0f0e28f66dd0e6d3fda73911d640a2125c8fcb78f21a"
+    },
+    {
+      "source_path": "engine/fonts/inter-latin-700-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/inter-latin-700-normal.woff2",
+      "sha256": "6f56409fd3d64bb85f7d070bce20749db2d66b6d63cec586cc22d1c761be2491"
+    },
+    {
+      "source_path": "engine/fonts/inter-latin-800-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/inter-latin-800-normal.woff2",
+      "sha256": "a7d0a50f15d389cad679238466bdb5fc9787aa0715719064ce25abaff042820d"
+    },
+    {
+      "source_path": "engine/fonts/inter-latin-900-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/inter-latin-900-normal.woff2",
+      "sha256": "d5c0ed7b8b5dde97d48b97947d740bbd8ad3ba9f2c5cc6b8280f16acba2d828e"
+    },
+    {
+      "source_path": "engine/fonts/permanent-marker-latin-400-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/fonts/permanent-marker-latin-400-normal.woff2",
+      "sha256": "4884fec2c73aa52a2461073c1b87d1ceb80f400520391b43f97ca7d3c39eeb24"
+    },
+    {
+      "source_path": "engine/sm-charts.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-charts.js",
+      "sha256": "7243c8daaddbd169367a00410f5e9a32ba5c1f5f1709a73aa8cfcaad93007125"
+    },
+    {
+      "source_path": "engine/sm-core.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-core.js",
+      "sha256": "df99e687bb7d15deefeea7d110e823c27fdd130a96348c29eef24774a6402ff1"
+    },
+    {
+      "source_path": "engine/sm-fx.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-fx.js",
+      "sha256": "d2a697f4cf6c0bfd31bbab42b5c6404a06633e1525a5d44d933798470baaec26"
+    },
+    {
+      "source_path": "engine/sm-props.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-props.js",
+      "sha256": "290505b0db949804dc08a94fa61915888d61658fb2766ce40022709fa0be0275"
+    },
+    {
+      "source_path": "engine/sm-rig.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-rig.js",
+      "sha256": "da3384d70868aab54c02687b9a0610f021d2e336f90ac38ad101d60518cfeb95",
+      "changed": true,
+      "current_sha256": "fc5ec0afb408cbf455d6729dbddfe40008b6d719cfc070e0dac40a7c09eae2a0",
+      "change": "headScale option on a figure (one line in the Figure constructor)"
+    },
+    {
+      "source_path": "engine/sm-titles.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-titles.js",
+      "sha256": "3cf3316029e4110dc5ffd5a2cd1ab1d4d9b1b2b9d01c923fb7bc1e6f1506de56"
+    },
+    {
+      "source_path": "engine/sm-type.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-type.js",
+      "sha256": "46e3e34642bd3e12291301391180b4c7fc4a99a5672df1fc9855082274db312f"
+    },
+    {
+      "source_path": "engine/sm-world.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-world.js",
+      "sha256": "5752f05b3cd6c5089880e7fac7148f093c5dabd30d7e465d283cc128976c4e84"
+    },
+    {
+      "source_path": "engine/sm.css",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm.css",
+      "sha256": "7d524ac766abaf124e2c75b456f657082b1897c7ff9e1c57a917c32f20e82d14"
+    },
+    {
+      "source_path": "lib/env.mjs",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/lib/env.mjs",
+      "sha256": "722f0d9f079b7960ce89e70d7590f83d68bb66a68c66df74143426f33e90e92f"
+    },
+    {
+      "source_path": "lib/film.mjs",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/lib/film.mjs",
+      "sha256": "892652ce0717176ced581f37e87f6f2fe68374c2e95716d150d59664fb6600eb"
+    },
+    {
+      "source_path": "lib/synth.mjs",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/lib/synth.mjs",
+      "sha256": "556806d3b180f1c3fed748d3f4fd585b48cdb11a757ecd67898b3f89631aa453"
+    },
+    {
+      "source_path": "samples/chorus/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/chorus/film.json",
+      "sha256": "f1e2309608ac450a3402fb8a7bfa157c695d28781cae0aff1840e359278fcd2c"
+    },
+    {
+      "source_path": "samples/chorus/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/chorus/scenes.js",
+      "sha256": "ad9d67d1c7ade19a1134b21c98d21c8e07d22ab6a5d049722d2177f717e67117"
+    },
+    {
+      "source_path": "samples/compound-interest/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/compound-interest/film.json",
+      "sha256": "5f829538961d7e792940a8220e01ae2c88053fb5cbd3b9f45789ff4605ad32cb"
+    },
+    {
+      "source_path": "samples/compound-interest/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/compound-interest/scenes.js",
+      "sha256": "4467d49d6bd4f85185617c22096397d47f1f4201c204fa370b2dc9694da47291"
+    },
+    {
+      "source_path": "samples/gallery/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/gallery/film.json",
+      "sha256": "07da479e5da258de02cd39967e5ab54c57cae8edf37244e6066f5a2e2b6f3325"
+    },
+    {
+      "source_path": "samples/gallery/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/gallery/scenes.js",
+      "sha256": "db4e55422656ed3b38b27a1c6a2c79474c44e0b97404671a48ecf050fde4afee"
+    },
+    {
+      "source_path": "samples/hello-stickman/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/hello-stickman/film.json",
+      "sha256": "a74fb0809294450d013873249ebd0a515cfcc25c4847cc1b5c8b6bdb6eed6231"
+    },
+    {
+      "source_path": "samples/hello-stickman/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/hello-stickman/scenes.js",
+      "sha256": "707d63f01ca574a54ee41c8102986dce7d1aecfd439ca215491847228135bbcf"
+    },
+    {
+      "source_path": "samples/recipes/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/recipes/film.json",
+      "sha256": "1faaa54bcb0b51e03e094654a638e30854b10a4b12085d5ab8dca8ced7853666"
+    },
+    {
+      "source_path": "samples/recipes/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/recipes/scenes.js",
+      "sha256": "90c2e834bad2ee2e9a79736213e18872609ed6510e4f2842ea48cea554d9bf44"
+    },
+    {
+      "source_path": "samples/showcase/assets/icon.svg",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/showcase/assets/icon.svg",
+      "sha256": "229cb61ae7b193312bab4ad9d0b8fb9a1ace03295abebd7f2621bfe642550e08"
+    },
+    {
+      "source_path": "samples/showcase/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/showcase/film.json",
+      "sha256": "30f585e8374a73546880598c4dbcd68dde4f41847f975fffe0100324ffc72012"
+    },
+    {
+      "source_path": "samples/showcase/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/showcase/scenes.js",
+      "sha256": "8cee7bed610b59a76d57fbc4a05f435dd2f3730e24beac9e7967f82920246080"
+    },
+    {
+      "source_path": "samples/titles/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/titles/film.json",
+      "sha256": "e7f374e69694db566561a5a01409da89fbeed860d58038b6eb5a56e57a68d1d3"
+    },
+    {
+      "source_path": "samples/titles/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/titles/scenes.js",
+      "sha256": "fe287b8b33a984f6b506f8dc8be8f36f26763983d1f4463c66cb391c57be9315"
+    },
+    {
+      "source_path": "samples/two-minute-rule/film.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/two-minute-rule/film.json",
+      "sha256": "d896ea8e21ff3151ecf23dce03090e81aedb52537f2eebb531394b102f9a91e7"
+    },
+    {
+      "source_path": "samples/two-minute-rule/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/samples/two-minute-rule/scenes.js",
+      "sha256": "d7a005e10af4b61245acb7838672a919e1b9cfdf78cb2314ad93923a6d3c3157"
+    },
+    {
+      "source_path": "schema/film.schema.json",
+      "destination_path": "../../skills/framemotion/assets/stickman-engine/schema/film.schema.json",
+      "sha256": "a2e77516df90e5d985907ce14a6df2c70742c4c98bd7c1b178e191ca8409cbf6"
+    }
+  ]
+}
