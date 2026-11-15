@@ -1,0 +1,29 @@
+{
+  "grammar": "t3_finance_chart",
+  "duration": 7,
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "theme": "paper",
+  "data": {
+    "title": "Sprzedaż sklepu rośnie",
+    "unit": "sprzedaż w tys. zł, dane przykładowe",
+    "source": "Źródło: dane przykładowe do podmiany",
+    "chart": "bar",
+    "decimals": 0,
+    "series": [
+      { "label": "2021", "value": 120 },
+      { "label": "2022", "value": 165 },
+      { "label": "2023", "value": 190 },
+      { "label": "2024", "value": 260 },
+      { "label": "2025", "value": 410 }
+    ],
+    "highlight": { "index": 4, "text": "3,4 ×", "sub": "410 ÷ 120" }
+  },
+  "cues": [
+    { "at": 0.3, "kind": "bar", "data": { "index": [0, 1, 2] } },
+    { "at": 1.7, "kind": "bar", "data": { "index": 3 } },
+    { "at": 2.7, "kind": "bar", "data": { "index": 4 } },
+    { "at": 4.4, "kind": "highlight" }
+  ]
+}

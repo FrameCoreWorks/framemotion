@@ -1371,6 +1371,167 @@
       "duration": "page",
       "readme": "../reels-engine/README.md",
       "gpu_recommended": true
+    },
+    {
+      "id": "art-gallery",
+      "title": "Art styles: one beat in each bundled art style, from cave painting to 8-bit, on a 128 BPM grid (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "film": "gallery"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "art-speedrun",
+      "title": "Art styles: the art-history speedrun, one room through fifteen eras with each era's own transition (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "film": "speedrun"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "art-style-studies",
+      "title": "Art styles: style studies, one six-second scene each for fourteen painters and traditions, from Giotto to Gauguin, Ma Yuan, Persian miniature and Dunhuang (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "film": "style_studies"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "art-kinetic-type-pl",
+      "title": "Art clip, kinetic type: a counting number, big words with a highlighter, Polish copy (9:16)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "clip": "../art-engine/framemotion/samples/kinetic-type-pl.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "art-finance-chart-pl",
+      "title": "Art clip, finance chart: bars that build to one highlighted result, with source and unit, Polish copy and example data (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "clip": "../art-engine/framemotion/samples/finance-chart-pl.json"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "art-flat-science",
+      "title": "Art clip, flat science explainer: a centre subject with points and a zoom in (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "clip": "../art-engine/framemotion/samples/flat-science.json"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
+    },
+    {
+      "id": "art-keynote-ui",
+      "title": "Art clip, keynote interface: a counting number and an icon card in a presentation look (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "huashu-art-motion"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "art",
+        "clip": "../art-engine/framemotion/samples/keynote-ui.json"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../art-engine/README.md"
     }
   ]
 }

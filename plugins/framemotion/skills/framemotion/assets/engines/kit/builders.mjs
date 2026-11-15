@@ -326,6 +326,77 @@ export const BUILDERS = {
     link(path.join(nm, 'gsap/dist/gsap.min.js'), path.join(dir, 'vendor/gsap.min.js'));
     return finish(dir, html, '(t) => { window.__timelines.main.seek(t, false); }', 1080, 1920, frames);
   },
+  /**
+   * Art engine (bundled huashu-art-motion): an era film (the speedrun, FrameMotion's gallery of the bundled
+   * styles, or a demo) on index.html, or a parameterized clip on clip.html from a spec JSON. The engine folder
+   * is copied as is; the page gets FrameMotion's font stand-ins (the Chinese and Japanese faces are not
+   * bundled: their families draw with Latin faces that carry Polish letters), the spec, and renderFrameAt(t),
+   * which awaits the engine's own prepare(t) and draws renderFrame(t) once the engine reports ready.
+   */
+  async art(entry, enginesRoot) {
+    const engine = path.join(sibling(enginesRoot, 'art-engine'), 'scripts/engine');
+    const dir = temp(entry.id);
+    fs.cpSync(engine, dir, {recursive: true});
+    const fps = entry.fps ?? 30;
+    const standIn = {
+      'PuHui-Medium': ['Inter-var.woff', {weight: '500'}], 'PuHui-Bold': ['Inter-var.woff', {weight: '700'}],
+      'PuHui-Heavy': ['Inter-var.woff', {weight: '800'}], 'PuHui-Black': ['Inter-var.woff', {weight: '900'}],
+      'NotoSansSC': ['Inter-var.woff', {weight: '100 900'}], 'NotoSerifSC': ['EBGaramond-400.woff', {}],
+      'NotoSerifJP-600': ['EBGaramond-600.woff', {}], 'LXGWWenKai-500': ['Kalam-700.woff', {}],
+    };
+    const fonts = `<script src="lib/fonts.js"></script>
+<script>
+// FrameMotion: faces that are not bundled draw with a bundled Latin face (see the Art engine README).
+window.FONT_FACES = window.FONT_FACES.map((f) => { const s = ${JSON.stringify(standIn)}[f.family];
+  return s ? {family: f.family, url: 'lib/fonts/' + s[0], desc: s[1]} : f; });
+</script>`;
+    const ready = `<script>
+(() => { const wait = () => {
+  if (window.__bootFailed) { console.error('Art engine: ' + window.__bootFailed); return; }
+  if (!window.__ready) { setTimeout(wait, 20); return; }
+  const [W, H] = window.__size;
+  window.FILM_INFO = {W, H, FPS: ${fps}, frames: Math.round(window.__total * ${fps})};
+  window.renderFrameAt = async (t) => { await window.prepare(t); window.renderFrame(t); };
+}; wait(); })();
+</script>`;
+    const page = entry.build.clip ? 'clip.html' : 'index.html';
+    let html = fs.readFileSync(path.join(dir, page), 'utf8').replace('<script src="lib/fonts.js"></script>', () => fonts);
+    const query = {};
+    if (entry.build.clip) {
+      const specFile = path.resolve(enginesRoot, entry.build.clip);
+      const spec = JSON.parse(fs.readFileSync(specFile, 'utf8'));
+      // Pictures a spec names are relative to the spec file, as in upstream's render.py.
+      fs.cpSync(path.dirname(specFile), path.join(dir, '_spec'), {recursive: true});
+      const media = (v) => typeof v === 'string' && /\.(png|jpe?g|webp|gif|svg|mp4|webm)$/i.test(v) && !/^[a-z]+:/i.test(v) && !path.isAbsolute(v);
+      const walk = (v) => Array.isArray(v) ? v.map(walk) : v && typeof v === 'object'
+        ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)])) : media(v) ? `_spec/${v}` : v;
+      html = html.replace('<script src="clip.js"></script>', () =>
+        `<script>window.CLIP_SPEC = ${JSON.stringify(walk(spec)).replace(/</g, '\\u003c')};</script>\n<script src="clip.js"></script>`);
+    } else {
+      const film = entry.build.film ?? 'speedrun';
+      // The 2026 scene signs its painting with window.SIGNATURE, and upstream's fallback is a model's name: sign
+      // with the entry's signature, or leave the corner blank.
+      html = html.replace('<script src="engine.js"></script>', () =>
+        `<script>window.SIGNATURE = ${JSON.stringify(entry.build.signature || ' ')};</script>\n<script src="engine.js"></script>`);
+      if (film === 'gallery' || film === 'style_studies') {
+        // FrameMotion's gallery: upstream's style gallery without the styles that are not bundled, and the four
+        // Chinese corner labels in English (the Chinese faces are not bundled).
+        const galleryLabels = {'20_dunhuang': 'Dunhuang mural · Tang', '34_shadowpuppet': 'Shadow puppetry · Song',
+          '17_ink': 'Ink wash · Bada Shanren', '18_klimt': 'Klimt · golden phase'};
+        const bundled = new Set(fs.readdirSync(path.join(dir, 'scenes')).map((f) => f.replace(/\.js$/, '')));
+        fs.writeFileSync(path.join(dir, `eras_fm_${film}.js`), `document.write('<script src="eras_${film}.js"><\\/script>');
+document.write('<script>window.ERAS = window.ERAS.filter((e) => ${JSON.stringify([...bundled])}.includes(e.id));' +
+  'const EN = ${JSON.stringify(galleryLabels)};' +
+  'for (const e of window.ERAS) if (EN[e.id] && e.counter && e.counter.label) e.counter.label.text = EN[e.id];<\\/script>');\n`);
+        query.film = `fm_${film}`;
+      } else if (film !== 'speedrun') query.film = film;
+    }
+    query.w = String(entry.size.width); query.h = String(entry.size.height);
+    const tail = html.lastIndexOf('</body>');
+    html = html.slice(0, tail) + ready + '\n' + html.slice(tail);
+    fs.writeFileSync(path.join(dir, page), html);
+    return {dir, page, query};
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {

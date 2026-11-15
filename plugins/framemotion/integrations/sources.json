@@ -160,11 +160,16 @@
       "copyright": "Copyright (c) 2026 alchaincyf",
       "kind": "engine",
       "pack": "P8",
-      "status": "adapted",
-      "bundled_commit": "8a0d7d72ca65fcce6f8ba82c4a6c8dfe35b8422c",
+      "status": "bundled",
+      "bundled_commit": "1468196505a51728686db118d52561aa27a25124",
       "conditions": [
+        "bundled as the Art engine (assets/art-engine) in its own layout, SKILL.md as method.md; one changed file, scripts/engine/lib/typo.js (two marked lines for Latin words and descenders), hashes in the source manifest",
         "never reference_films or the Arphic font",
-        "OFL reserved font names stay unchanged"
+        "twelve scenes left out: studio, franchise, living-artist and still-protected-artist looks (kusama, dali, hopper, ghibli, kirby, haring, shinkai, picasso_blue, chagall, south_park, pixar, ghibli_lab)",
+        "Chinese and Japanese faces not bundled; their families draw with bundled Latin faces",
+        "the author's likeness (demos/_shared) and the demos that use it are not bundled",
+        "OFL reserved font names stay unchanged",
+        "the earlier adaptation (reference-breakdown, art-and-explainer-motion-direction.md) at 8a0d7d7 stays as it is"
       ]
     },
     {

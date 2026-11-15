@@ -35,6 +35,10 @@ const OFFLINE_ARGS = ['--host-resolver-rules=MAP * ~NOTFOUND', '--no-proxy-serve
 /** Bundled engines' own clock functions, by registry adapter name. */
 const ADAPTERS = {renderFrame: 'renderFrame', renderFrameAt: 'renderFrameAt', seek: 'seek'};
 const SOFTWARE_GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
+// Without a GPU, a 2D canvas that Chromium moves between its emulated-GPU and CPU rasterizers draws thin lines
+// and text edges a level apart, so a frame could depend on the frames drawn before it (seen in the Art engine).
+// Keeping 2D canvases on the CPU makes them repeat byte for byte in any order.
+const SOFTWARE_2D = ['--disable-accelerated-2d-canvas'];
 
 /** True only for the engines folder's own origin: scheme, host and port must all match. */
 export function isEngineUrl(url) {
@@ -113,7 +117,7 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   // Build first: a failed build (a missing folder) must not leave a browser running.
   const built = entry.build ? await buildEntry(entry, root) : null;
   const {chromium} = await loadPlaywright();
-  const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : SOFTWARE_GL)];
+  const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : [...SOFTWARE_GL, ...SOFTWARE_2D])];
   const browser = await chromium.launch({args});
   const {width, height} = {...entry.size, ...params};
   const context = await browser.newContext({viewport: {width, height}, serviceWorkers: 'block', acceptDownloads: false});
@@ -225,7 +229,9 @@ async function capture(page, frame, {png = false} = {}) {
   }, `data:image/png;base64,${buffer.toString('base64')}`);
   // Playwright's 'disabled' jumps finite CSS animations to their end; a page whose seek pauses
   // and places its own CSS animations (registry "css_animations": "seeked") keeps them as set.
-  const shotOptions = {animations: seekedAnimationPages.has(page) ? 'allow' : 'disabled', omitBackground: transparentPages.has(page)};
+  // A large element page (a 1080x1920 Stickman reel) can take longer than Playwright's default 30 s to settle on a
+  // busy machine without a GPU; a slow frame is still a frame, so wait longer before calling it a failure.
+  const shotOptions = {animations: seekedAnimationPages.has(page) ? 'allow' : 'disabled', omitBackground: transparentPages.has(page), timeout: 120000};
   if (!warmed.has(page)) {
     warmed.add(page);
     await measure(await target.screenshot(shotOptions));

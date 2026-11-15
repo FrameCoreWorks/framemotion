@@ -1,0 +1,14 @@
+{
+  "grammar": "y5_kinetic_type",
+  "duration": 7.5,
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "theme": "poster",
+  "cues": [
+    { "at": 0.7, "kind": "number", "text": "godzin oszczędzonych w miesiącu", "data": { "value": 120 } },
+    { "at": 2.6, "kind": "point", "text": "Szkic", "sub": "kiedyś robiony ręcznie", "data": { "label": "dawniej", "key": "ręcznie" } },
+    { "at": 4.3, "kind": "point", "text": "Gotowy film", "sub": "dziś z jednego opisu", "data": { "label": "dziś", "key": "jednego opisu" } },
+    { "at": 5.6, "kind": "highlight", "data": { "word": "Gotowy" } }
+  ]
+}
