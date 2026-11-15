@@ -232,6 +232,100 @@ export const BUILDERS = {
     fs.writeFileSync(path.join(dir, 'index.html'), html);
     return {dir, page: 'index.html'};
   },
+  /**
+   * Reels engine (bundled claude-animation-skills reel styles). A spec style (graph, map-route,
+   * minimal-line-art) is filled and checked by the style's own build.py through framemotion/spec.py,
+   * then its template gets the spec, the kit's fonts and GSAP or three.js from this engines folder
+   * (upstream's setup.sh fetched them from a CDN). The what-if-3d style copies a three.js film folder
+   * (the bundled example, or a user's copy) and points its import map at this folder's three.js.
+   * Every page gets window.seek(t) and window.FILM_INFO.
+   */
+  async reels(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'reels-engine');
+    const style = entry.build.style;
+    const fps = entry.fps ?? 30;
+    const nm = path.join(enginesRoot, 'node_modules');
+    const link = (from, to) => { fs.mkdirSync(path.dirname(to), {recursive: true}); fs.copyFileSync(from, to); };
+    const three = (dir, files) => {
+      link(path.join(nm, 'three/build/three.module.js'), path.join(dir, 'vendor/three/three.module.js'));
+      link(path.join(nm, 'three/build/three.core.js'), path.join(dir, 'vendor/three/three.core.js'));
+      for (const f of files) link(path.join(nm, 'three/examples/jsm', f), path.join(dir, 'vendor/three/addons', f));
+    };
+    // The kit's fonts are basic Latin subsets. Copy with letters beyond it (ą, ę, ł, ś, ż …) gets each
+    // face's Latin Extended twin from this folder's @fontsource packages, with its unicode-range.
+    const FAMILY = {'Inter': 'inter', 'Inter Tight': 'inter-tight', 'Poppins': 'poppins', 'JetBrains Mono': 'jetbrains-mono', 'Cap': 'montserrat'};
+    const extended = (text) => /[\u0100-\u024f\u1e00-\u1eff]/.test(text);
+    const twins = (dir, html) => {
+      let css = '';
+      for (const m of html.matchAll(/@font-face\s*\{[^}]*font-family:\s*'([^']+)'[^}]*?font-weight:\s*(\d+)[^}]*\}|@font-face\s*\{[^}]*?font-weight:\s*(\d+)[^}]*font-family:\s*'([^']+)'[^}]*\}/g)) {
+        const family = m[1] ?? m[4], weight = m[2] ?? m[3], pkg = FAMILY[family];
+        if (!pkg) continue;
+        const file = `${pkg}-latin-ext-${weight}-normal.woff2`;
+        const ranges = JSON.parse(fs.readFileSync(path.join(nm, '@fontsource', pkg, 'unicode.json'), 'utf8'))['latin-ext'];
+        link(path.join(nm, '@fontsource', pkg, 'files', file), path.join(dir, 'fonts', file));
+        link(path.join(nm, '@fontsource', pkg, 'LICENSE'), path.join(dir, 'fonts', `OFL-${pkg}-npm.txt`));
+        css += `@font-face{font-family:'${family}';font-weight:${weight};src:url(fonts/${file}) format('woff2');unicode-range:${ranges}}\n`;
+      }
+      return css ? html.replace('</style>', `${css}</style>`) : html;
+    };
+    const finish = (dir, html, seek, W, H, frames, query) => {
+      const tail = html.lastIndexOf('</body>');
+      // A module script runs after the page's own modules, so the film's clock exists by then.
+      html = html.slice(0, tail) + `<script type="module">
+    window.FILM_INFO = {W: ${W}, H: ${H}, FPS: ${fps}, frames: ${frames}};
+    window.seek = ${seek};
+  </script>
+` + html.slice(tail);
+      fs.writeFileSync(path.join(dir, 'index.html'), html);
+      return {dir, page: 'index.html', ...(query ? {query} : {})};
+    };
+    if (style === 'what-if-3d') {
+      const film = path.resolve(enginesRoot, entry.build.film ?? '../reels-engine/styles/what-if-3d/engine');
+      const dir = temp(entry.id);
+      fs.cpSync(film, dir, {recursive: true, filter: (p) => !p.includes(`${path.sep}node_modules`)});
+      let html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
+      html = html.replace('./node_modules/three/build/three.module.js', './vendor/three/three.module.js')
+        .replace('./node_modules/three/examples/jsm/', './vendor/three/addons/')
+        .replace('node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2', 'fonts/montserrat-latin-700-normal.woff2');
+      link(path.join(nm, '@fontsource/montserrat/files/montserrat-latin-700-normal.woff2'), path.join(dir, 'fonts/montserrat-latin-700-normal.woff2'));
+      link(path.join(nm, '@fontsource/montserrat/LICENSE'), path.join(dir, 'fonts/OFL-montserrat.txt'));
+      // Copy every three.js addon the film's modules reach, following the addons' own relative imports.
+      const jsm = path.join(nm, 'three/examples/jsm');
+      const used = new Set();
+      const visit = (file) => {
+        for (const m of fs.readFileSync(file, 'utf8').matchAll(/(?:from|import)\s*['"]([^'"]+)['"]/g)) {
+          const s = m[1];
+          let rel = null;
+          if (s.startsWith('three/addons/')) rel = s.slice('three/addons/'.length);
+          else if (/^\.\.?\//.test(s) && file.startsWith(jsm + path.sep)) rel = path.relative(jsm, path.resolve(path.dirname(file), s));
+          if (rel && !used.has(rel)) { used.add(rel); visit(path.join(jsm, rel)); }
+        }
+      };
+      for (const f of fs.readdirSync(path.join(dir, 'src'))) if (f.endsWith('.js')) visit(path.join(dir, 'src', f));
+      three(dir, [...used]);
+      html = twins(dir, html);
+      return finish(dir, html.replace('<div id="hud"></div>', '<div id="hud" hidden></div>'),
+        '(t) => { window.renderAt(t); }', 720, 1280, 'Math.floor(window.DURATION * ' + fps + ')', {render: '1'});
+    }
+    if (!['graph', 'map-route', 'minimal-line-art'].includes(style)) throw new Error(`Unknown reels style "${style}"`);
+    const specFile = path.resolve(enginesRoot, entry.build.spec);
+    const run = spawnSync('python3', ['-I', '-B', path.join(engine, 'framemotion/spec.py'), style, specFile], {encoding: 'utf8'});
+    if (run.status !== 0) throw new Error(`${entry.id}: spec check failed: ${run.stderr || run.stdout}`);
+    const {spec, duration} = JSON.parse(run.stdout.trim().split('\n').pop());
+    const dir = temp(entry.id);
+    const template = spec.template ? path.resolve(path.dirname(specFile), spec.template) : path.join(engine, 'styles', style, 'template.html');
+    const data = JSON.stringify(spec).replace(/<\//g, '<\\/');
+    let html = fs.readFileSync(template, 'utf8').replaceAll('__SPEC__', () => data).replaceAll('__DURATION__', duration.toFixed(3));
+    for (const f of fs.readdirSync(path.join(engine, 'kit/fonts'))) link(path.join(engine, 'kit/fonts', f), path.join(dir, 'fonts', f));
+    if (extended(data)) html = twins(dir, html);
+    const frames = Math.round(duration * fps);
+    if (style === 'map-route') {
+      three(dir, ['environments/RoomEnvironment.js']);
+      return finish(dir, html, "(t) => { window.__hfThreeTime = t; window.dispatchEvent(new CustomEvent('hf-seek', {detail: {time: t}})); }", 1080, 1920, frames);
+    }
+    link(path.join(nm, 'gsap/dist/gsap.min.js'), path.join(dir, 'vendor/gsap.min.js'));
+    return finish(dir, html, '(t) => { window.__timelines.main.seek(t, false); }', 1080, 1920, frames);
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {

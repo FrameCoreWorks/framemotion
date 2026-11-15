@@ -1251,6 +1251,126 @@
       "duration": "page",
       "readme": "../launch-engine/README.md",
       "critique": "critique"
+    },
+    {
+      "id": "reels-graph",
+      "title": "Reel, a smooth line graph that draws itself while one number counts up (9:16, 4 s, from a spec)",
+      "status": "ready",
+      "kind": "svg",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "graph",
+        "spec": "../reels-engine/framemotion/samples/graph-growth.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md"
+    },
+    {
+      "id": "reels-graph-pl",
+      "title": "Reel, the line graph with Polish copy (Latin Extended faces added by the builder)",
+      "status": "ready",
+      "kind": "svg",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "graph",
+        "spec": "../reels-engine/framemotion/samples/graph-pl.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md"
+    },
+    {
+      "id": "reels-map-route",
+      "title": "Reel, a white 3D city where a route draws itself, a pin drops and the camera pulls back (9:16, 4 s, three.js, from a spec)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "map-route",
+        "spec": "../reels-engine/framemotion/samples/map-route-city.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md"
+    },
+    {
+      "id": "reels-minimal-line-art",
+      "title": "Reel, black-and-white line art: a dot hops up the steps and lands one or two lines (9:16, from a spec)",
+      "status": "ready",
+      "kind": "svg",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "minimal-line-art",
+        "spec": "../reels-engine/framemotion/samples/minimal-steps.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md"
+    },
+    {
+      "id": "reels-what-if-3d",
+      "title": "Reel, a 3D cartoon 'what if' explainer short with procedural people and props, slow-motion impacts and 1 to 3 word captions (9:16, three.js; example: could ancient armour stop a bullet, silent until a voice is added)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "seek",
+      "screenshot": "#stage",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "what-if-3d"
+      },
+      "size": {
+        "width": 720,
+        "height": 1280
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md",
+      "gpu_recommended": true
     }
   ]
 }

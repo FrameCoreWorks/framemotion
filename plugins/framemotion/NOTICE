@@ -105,6 +105,15 @@ a source-manifest.json with the pinned commit):
   License 1.1 faces installed from npm (@fontsource packages at 5.3.0) and never bundled; each film embeds its faces
   with their OFL text. The globe's map data is Natural Earth (public domain) through world-atlas (ISC) and
   sane-topojson (MIT).
+- Reels engine (skills/framemotion/assets/reels-engine): artemnovitckii/claude-animation-skills (commit
+  5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii), its kit and four reel styles
+  bundled unchanged except styles/what-if-3d/engine/src/shots.js (one line in shot 7; original and current hashes in
+  integrations/claude-animation-skills/source-manifest.json). Each style's SKILL.md is styles/<style>/method.md;
+  minimalistic-graphics is styles/minimal-line-art and zach-d-films is styles/what-if-3d. install.sh and kit/setup.sh
+  are left out. kit/fonts holds Inter, Inter Tight, JetBrains Mono and Poppins subsets, SIL Open Font License 1.1, with
+  their licence texts; Latin Extended subsets and Montserrat come from @fontsource packages installed from npm and are
+  never bundled. three.js and GSAP are installed from npm and never bundled. framemotion/ (spec.py and the samples) is
+  FrameCore Works' own.
 - Stickman engine (skills/framemotion/assets/stickman-engine): dsauce/stickman-kino (commit
   d3d665301c0b62f04c885785e6bd6044de0785c6, MIT, Copyright (c) 2026 Prerit Ahuja), bundled unchanged except
   engine/sm-rig.js (a headScale option; original and current hashes in integrations/stickman-kino/source-manifest.json);

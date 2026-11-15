@@ -1,0 +1,204 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/artemnovitckii/claude-animation-skills",
+  "source_commit": "5dbea55c23aa6a5c93dc3cfb5583840513b56b94",
+  "retrieved_on": "2026-11-15",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2026 Artem Novitckii",
+  "activation": "bundled_engine_built_and_rendered_by_the_framemotion_engine_kit_no_installer",
+  "layout": "skills/<skill>/ is bundled as styles/<style>/ (one level down from the engine root, like upstream, so build.py still finds ../../kit)",
+  "renamed": {
+    "skills/graph/SKILL.md": "styles/graph/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "skills/map-route/SKILL.md": "styles/map-route/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "skills/minimalistic-graphics/SKILL.md": "styles/minimal-line-art/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "skills/minimalistic-graphics/": "styles/minimal-line-art/ (a descriptive name instead of a creator's name)",
+    "skills/zach-d-films/SKILL.md": "styles/what-if-3d/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "skills/zach-d-films/": "styles/what-if-3d/ (a descriptive name instead of a creator's name)"
+  },
+  "not_bundled": [
+    "skills/stick-figure/ (merged into the Stickman engine as method only)",
+    "skills/breakdown/ (the cutaway teardown is rewritten after its template)",
+    "install.sh and kit/setup.sh (they fetch GSAP from a CDN and run npx installers; the engines folder installs GSAP and three.js at exact versions)",
+    "kit/package-lock.json, docs/skills.jpg, README.md, .claude-plugin/, .gitignore"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/LICENSE",
+      "sha256": "87111395ddb9252e4a9eb039a1bea0439571e069cdf497fd519737b4d3168d66"
+    },
+    {
+      "source_path": "kit/anim.py",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/anim.py",
+      "sha256": "e9f984972e45b5edbfb7d7b4f07d062d8d9fd19054e6e835c12cff21c203f1d5"
+    },
+    {
+      "source_path": "kit/fonts/OFL-inter.txt",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/OFL-inter.txt",
+      "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
+    },
+    {
+      "source_path": "kit/fonts/OFL-intertight.txt",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/OFL-intertight.txt",
+      "sha256": "4fde1e56a50d4632cffcee7df85585274c60765ff893abe6f49da0ca9ab675b8"
+    },
+    {
+      "source_path": "kit/fonts/OFL-jetbrainsmono.txt",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/OFL-jetbrainsmono.txt",
+      "sha256": "30f0c136e3c88e422d0791acd97238870f9054a9729bc34cf2ff0d4ed8cac4ad"
+    },
+    {
+      "source_path": "kit/fonts/OFL-poppins.txt",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/OFL-poppins.txt",
+      "sha256": "5fafaf2b67f00b5c30e6ee2382d99c68d287f1debc2d17440f517b3b78ad524c"
+    },
+    {
+      "source_path": "kit/fonts/inter-500-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/inter-500-normal.woff2",
+      "sha256": "b0e7558f4710a1e255b93e3deefe3aebb19f3bb41c150f685a74d3b1a1c79e87"
+    },
+    {
+      "source_path": "kit/fonts/inter-600-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/inter-600-normal.woff2",
+      "sha256": "62553d159189834af73c9a6264704be5b2bee9a08da66a14768d8e5c6ffd2cdb"
+    },
+    {
+      "source_path": "kit/fonts/inter-700-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/inter-700-normal.woff2",
+      "sha256": "aac638f7503cebb084ec494cf00f75f7d8260d50c2f4e7820bccabba09626a3a"
+    },
+    {
+      "source_path": "kit/fonts/inter-tight-latin-700-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/inter-tight-latin-700-normal.woff2",
+      "sha256": "9c4f02f38678f2628292d66c4f7a1a6a06af7ffac4d279359b09074e7d0f1fe0"
+    },
+    {
+      "source_path": "kit/fonts/inter-tight-latin-800-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/inter-tight-latin-800-normal.woff2",
+      "sha256": "b4b4a0877ce8d65c2c194dec15236e4861d3b3c111b3aa3d54fc4efbe6171027"
+    },
+    {
+      "source_path": "kit/fonts/jetbrains-mono-latin-500-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/jetbrains-mono-latin-500-normal.woff2",
+      "sha256": "cb182feeed4d798ff6961d3c79f7026279448fca0676438aaecb21f3fc39553a"
+    },
+    {
+      "source_path": "kit/fonts/poppins-latin-400-normal.woff2",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/poppins-latin-400-normal.woff2",
+      "sha256": "7d93459d86585bfcdbb7e0376056226adb25821ee54b96236fe2123e9560929f"
+    },
+    {
+      "source_path": "kit/package.json",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/package.json",
+      "sha256": "8026d2375799b135e87453f6b4e61564b389f9b9cca1cb5d33ec64cf2fb620c6"
+    },
+    {
+      "source_path": "kit/words.py",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/words.py",
+      "sha256": "94720c23ecd2ea4afaa3d1a18fb9ea764652a8e7abc9bd1d3ae0e9ccaf584d02"
+    },
+    {
+      "source_path": "skills/graph/build.py",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/graph/build.py",
+      "sha256": "734b3dd038f63045b116a760b7f76cda176f64baeb4032d4270915376d52453c"
+    },
+    {
+      "source_path": "skills/graph/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/graph/method.md",
+      "sha256": "38de05a8476445451d9bb71fdc6982aee8478f1f83fcb6a4328a9e3b41d97021"
+    },
+    {
+      "source_path": "skills/graph/template.html",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/graph/template.html",
+      "sha256": "f8a1427f6c189113d5eba0f4d28c4cbfc2791958b9981cf905854d9bbd74b599"
+    },
+    {
+      "source_path": "skills/map-route/build.py",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/map-route/build.py",
+      "sha256": "2de4db4c146cae9a16767ba64cf7498e9fc38339ff88f169a0223469d2c1301a"
+    },
+    {
+      "source_path": "skills/map-route/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/map-route/method.md",
+      "sha256": "4d87472c022889d1a39384ef5629bbb5fa21f35ff0776bd5435eb5980bd0a335"
+    },
+    {
+      "source_path": "skills/map-route/template.html",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/map-route/template.html",
+      "sha256": "a86f7faa7eeb82e201fb242c89c32822e72b28a8a59de548d20cda70db34bdc7"
+    },
+    {
+      "source_path": "skills/minimalistic-graphics/build.py",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/minimal-line-art/build.py",
+      "sha256": "449c8e728316306acceb2b11ee313cea89563a377b7e8e1deab29ddc07cd047e"
+    },
+    {
+      "source_path": "skills/minimalistic-graphics/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/minimal-line-art/method.md",
+      "sha256": "3575fb5c19edca96c1978bebf86f837b4d29e734e63517faa0aa9653a468f73d"
+    },
+    {
+      "source_path": "skills/minimalistic-graphics/template.html",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/minimal-line-art/template.html",
+      "sha256": "24edece1fe079f4220683d1be398d61157490275b8c6e1adad9d6a247a62c63c"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/captions.py",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/captions.py",
+      "sha256": "3e2cf1ca40889657523f6a56bd4804cce121d4b5dbb889b8e006b082c764737e"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/index.html",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/index.html",
+      "sha256": "1166a7a23155ffa8894170b68248edf1276cffa4cd7479b973dca375913d47a1"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/render.mjs",
+      "sha256": "8bcf3fd82e0a0b4648aa8ac2885b9bad9fdc63fdb943ab1fcb0d019aa686de48"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/anim.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/anim.js",
+      "sha256": "a79b96b3692c34d54bc186209ef6bac36c5ac34b2a954f182b186483d7a6dc49"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/human.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/human.js",
+      "sha256": "5d92203e2e2cf1aab7e56b913216f0b41c480e522b3c1046334e91d890b080c8"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/main.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/main.js",
+      "sha256": "d705e5218de60c2ab7627ccf44fb525c66928845b7492c29ccfe7764dd835428"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/materials.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/materials.js",
+      "sha256": "e761b1ff371a88382928d16bc708d12d8c5151fb46e77895ec32aff015bde4ac"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/props.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/props.js",
+      "sha256": "fcea59d3e7de9eb67bcadc585e597f999cd5ec774b91592b45396eee4e9d71af"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/shots.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/shots.js",
+      "sha256": "91ee9aeb8c76cf0b6e4551c0cc44bf39c1bb67d79ba6b2f5e3bb1d8c92012954",
+      "changed": true,
+      "current_sha256": "07672f79fc9c4371797a79144b92e9fa9452c7fff0e0bbbfb5ec11da687bd9e9",
+      "change": "shot 7 always works out the arrow release from the same moment before it, so a frame never depends on the frames drawn before it (one line, marked by a FrameMotion comment)"
+    },
+    {
+      "source_path": "skills/zach-d-films/engine/src/textures.js",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/engine/src/textures.js",
+      "sha256": "3558d0e2bf8281dbf06cf4727172c2e72cc35fb3d6d6ce3bab1a3462d0ad7751"
+    },
+    {
+      "source_path": "skills/zach-d-films/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/method.md",
+      "sha256": "eeda3e4a59e4f8cd5e873465303a84bd04ff8c6c3aef3aa5be16af94feee5744"
+    }
+  ]
+}

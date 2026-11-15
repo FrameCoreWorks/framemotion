@@ -142,12 +142,15 @@
       "copyright": "Copyright (c) 2026 Artem Novitckii",
       "kind": "engine",
       "pack": "P8",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "five engines in P8; stick-figure merged into the Stickman engine and breakdown merged into the cutaway teardown, stick-figure as method only; the teardown rewritten after the breakdown template (no file copied)",
-        "OFL fonts keep their licence text",
-        "rename creator-named styles descriptively"
-      ]
+        "four reel styles bundled as the Reels engine (assets/reels-engine): graph, map-route, minimalistic-graphics as minimal-line-art, zach-d-films as what-if-3d (descriptive names instead of a creator's name); SKILL.md files as method.md",
+        "stick-figure merged into the Stickman engine and breakdown into the cutaway teardown, as method only (no file copied)",
+        "one changed file: the what-if-3d example's src/shots.js (shot 7 made order-independent, marked; original and current hashes in the source manifest)",
+        "install.sh and kit/setup.sh not bundled (CDN GSAP and npx installers); three.js, GSAP and Latin Extended fonts come from the engines folder's npm packages at exact versions",
+        "OFL fonts keep their licence text"
+      ],
+      "bundled_commit": "5dbea55c23aa6a5c93dc3cfb5583840513b56b94"
     },
     {
       "name": "huashu-art-motion",
