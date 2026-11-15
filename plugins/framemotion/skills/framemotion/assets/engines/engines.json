@@ -1578,7 +1578,8 @@
       "build": {
         "tool": "pixel",
         "fx": "explosions/big-explosion",
-        "bg": "ground"
+        "bg": "ground",
+        "scale": 3
       },
       "size": {
         "width": 1920,

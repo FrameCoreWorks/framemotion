@@ -18,8 +18,9 @@ make good ones.
 
 ## Before anything
 
-1. Work in a pixelfx checkout. If the working directory has no `tools/render.mjs`, clone one next to the
-   project: `git clone https://github.com/patch-gg/pixelfx`. No install step: the tools use only Node.
+1. Work in a pixelfx checkout. If the working directory has no `tools/render.mjs`, copy this folder (FrameMotion's
+   bundled copy at commit `a84159688af3ca37a4be05a0d422b94451b2e24e`) into the workspace; never clone the default
+   branch. No install step: the tools use only Node. <!-- FrameMotion: the unpinned `git clone` of the default branch is replaced by the bundled copy at the reviewed commit. -->
 2. Check it runs: `node tools/render.mjs fire/torch` writes `records/fire/torch/contact.png`. Open that PNG with
    your image-reading tool. That contact sheet is how you see every effect from now on.
 

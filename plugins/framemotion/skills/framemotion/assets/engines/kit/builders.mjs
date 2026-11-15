@@ -350,6 +350,18 @@ export const BUILDERS = {
     if (typeof fx !== 'string' || !/^[a-z0-9-]+\/[a-z0-9-]+$/.test(fx) || !fs.existsSync(path.join(engine, 'src/fx', fx + '.js'))) {
       throw new Error(`${entry.id}: unknown pixelfx effect "${fx}" (see pixel-engine/docs/CATALOG.md)`);
     }
+    // The effects draw words with upstream's two pixel fonts, which skip a letter they lack (ż became a space):
+    // stop on such a letter instead, so a word is never drawn with a hole in it.
+    const {FONTS} = await import(pathToFileURL(path.join(engine, 'src/core/font.js')).href);
+    const has = (ch) => ch === ' ' || Object.values(FONTS).every((F) => F.glyphs[ch] ?? F.glyphs[ch.toUpperCase()]);
+    for (const [key, value] of Object.entries(entry.build.options ?? {})) {
+      if (typeof value !== 'string' || /^#[0-9a-f]{3,8}$/i.test(value)) continue;
+      const missing = [...new Set([...value].filter((ch) => !has(ch)))];
+      if (missing.length) {
+        throw new Error(`${entry.id}: the pixel fonts have no ${missing.map((c) => `"${c}"`).join(', ')} for options.${key} ` +
+          `("${value}"); use capitals A-Z, digits and + - ! ? . , : / % * ' ( ) < > = #, or set the words in the film's own type`);
+      }
+    }
     const dir = temp(entry.id);
     for (const part of ['src', 'framemotion', 'package.json']) fs.cpSync(path.join(engine, part), path.join(dir, part), {recursive: true});
     const {tool, ...spec} = entry.build;

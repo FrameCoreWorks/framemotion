@@ -1,4 +1,4 @@
-"""The bundled Pixel engine: an unchanged pixelfx copy with its notices, no gallery font, and registered samples."""
+"""The bundled Pixel engine: a pixelfx copy with one marked step in method.md with its notices, no gallery font, and registered samples."""
 import hashlib
 import json
 import unittest
@@ -21,6 +21,11 @@ class PixelEngineTest(unittest.TestCase):
         self.assertEqual(MANIFEST['source_commit'], 'a84159688af3ca37a4be05a0d422b94451b2e24e')
         for f in MANIFEST['retained_files']:
             with self.subTest(f['source_path']):
+                if f['source_path'] == 'skills/pixelfx/SKILL.md':
+                    self.assertTrue(f['changed'])
+                    self.assertEqual(sha((INTEGRATION / f['destination_path']).resolve()), f['current_sha256'])
+                    self.assertEqual((ENGINE / 'method.md').read_text().count('FrameMotion:'), 1)
+                    continue
                 self.assertNotIn('changed', f)
                 self.assertEqual(sha((INTEGRATION / f['destination_path']).resolve()), f['sha256'])
 

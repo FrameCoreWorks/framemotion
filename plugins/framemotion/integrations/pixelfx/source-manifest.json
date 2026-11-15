@@ -40,7 +40,10 @@
     {
       "source_path": "skills/pixelfx/SKILL.md",
       "destination_path": "../../skills/framemotion/assets/pixel-engine/method.md",
-      "sha256": "e367a610687166da5251438fe9a0aae12d462a6a10beeedb15f3f959a2c6da63"
+      "sha256": "e367a610687166da5251438fe9a0aae12d462a6a10beeedb15f3f959a2c6da63",
+      "changed": true,
+      "current_sha256": "73517b034ad8591b461a4f5ad920bc297d858b678bc846f0af77777c233e4ffc",
+      "change": "step 1, marked by a FrameMotion comment: copy the bundled folder at the reviewed commit instead of cloning the default branch (a clone of today's branch adds publishing steps with npm i -g and curl | sh)"
     },
     {
       "source_path": "package.json",

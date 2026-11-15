@@ -20,7 +20,15 @@ test('an unknown or malformed effect id stops the build', async () => {
   }
 });
 
-for (const [id, frames] of [['pixel-torch', [0, 31, 77]], ['pixel-big-explosion', [12, 60, 140]], ['pixel-slash-wipe', [10, 30]]]) {
+test('a text option with a letter the pixel fonts lack stops the build', async () => {
+  const base = entries.find((e) => e.id === 'pixel-level-up');
+  await assert.rejects(BUILDERS.pixel({...base, build: {tool: 'pixel', fx: 'ui/level-up', options: {text: 'POZIOM WYŻEJ'}}}, ENGINES),
+    /no "Ż" for options\.text/);
+  const built = await BUILDERS.pixel({...base, build: {tool: 'pixel', fx: 'ui/level-up', options: {text: 'Poziom 2!', palette: ['#102', '#fff']}}}, ENGINES);
+  fs.rmSync(built.dir, {recursive: true, force: true});
+});
+
+for (const [id, frames] of [['pixel-torch', [0, 31, 77]], ['pixel-big-explosion', [12, 60, 140]], ['pixel-slash-wipe', [10, 30]], ['pixel-level-up', [5, 40, 100]]]) {
   test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip, timeout: 300000}, async () => {
     const first = await kit.renderFrames(id, {frames, once: true});
     const back = await kit.renderFrames(id, {frames: [...frames].reverse(), once: true});
