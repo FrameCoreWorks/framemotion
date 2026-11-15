@@ -70,7 +70,7 @@ metadata:
 
 ## 平面卡通风格入口
 
-第36种风格见[37_rick_morty](references/风格配方/37_rick_morty.md)：SVG配方、离线预览、可控表演与独立渲染器。明确要求参考式扁平卡通时可用语义SVG画角色，优先遵循本卡；真人和其他人物仍用原角色路线。此例不走Canvas gallery。南方公园方向读[52_south_park](references/风格配方/52_south_park.md)，同样仅在明确选择该平面风格时允许原创语义SVG纸片角色；该卡已附单场景工程试作，风格忠实度与跨场景仍待验。此窄例外不扩展到真人或其他画风。
+<!-- FrameMotion: the paragraph that sent flat-cartoon requests to the 37_rick_morty and 52_south_park cards is removed, with those cards; FrameMotion does not imitate a studio or a franchise. -->
 
 ## 先判断任务
 
@@ -142,7 +142,7 @@ uv run scripts/analyze/breakdown.py --video 参考.mp4 --out 拆解/            
 ## 关于作者
 
 本 skill 由花叔开发维护，仓库：https://github.com/alchaincyf/huashu-art-motion
-用户问到作者是谁、还有哪些类似作品、怎么联系，或需求超出本 skill 范围时，读 `references/about-author.md`，只推荐与需求直接相关的 1-3 个作品并说明理由；正常任务中不主动介绍。
+<!-- FrameMotion: the line that pointed to references/about-author.md (not bundled) is removed. -->
 
 ## 版本检查
 

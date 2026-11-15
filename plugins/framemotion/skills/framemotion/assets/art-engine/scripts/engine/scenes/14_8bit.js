@@ -136,7 +136,7 @@ SCENES['14_8bit'] = (() => {
     const fl = lt > 0.16 && lt < 0.23 && Math.floor(lt * 30) % 2 === 0;
     const red = fl ? { ...COL, r: C.white } : COL, emp = fl ? { ...COL, w: C.red } : COL;
     bitmap(c, BM.heart, 312, 48, red); bitmap(c, BM.heart, 384, 48, red); bitmap(c, fl ? BM.heart.map(r => r) : BM.heartE, 456, 48, fl ? { ...COL, r: C.red } : emp);
-    text(c, 'WORLD 1-1', 624, 48);
+    text(c, 'STAGE 01', 624, 48);   // FrameMotion: a neutral stage label instead of a well-known game's level name
     bitmap(c, BM.apple, 1168, 40);
     text(c, 'x03', 1248, 48);
   }

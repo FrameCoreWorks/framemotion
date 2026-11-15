@@ -510,7 +510,7 @@ const T = window.TRANSITIONS = {
     const pitch = 14, rowh = pitch * 0.866;
     const sa = once('ptA', () => mkc(W, H)), sb = once('ptB', () => mkc(W, H));
     const ga = sa.getContext('2d', { willReadFrequently: true }), gb = sb.getContext('2d', { willReadFrequently: true });
-    ga.drawImage(A, 0, 0); gb.drawImage(B, 0, 0);
+    ga.clearRect(0, 0, W, H); gb.clearRect(0, 0, W, H); ga.drawImage(A, 0, 0); gb.drawImage(B, 0, 0);   // FrameMotion: clear the reused canvases first, so a frame does not keep the last one's pixels
     const da = ga.getImageData(0, 0, W, H).data, db = gb.getImageData(0, 0, W, H).data;
     // 底：旧画面 → 纸色 → 新画面
     c.drawImage(A, 0, 0);

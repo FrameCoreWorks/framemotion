@@ -1446,6 +1446,14 @@
       "title": "Art clip, kinetic type: a counting number, big words with a highlighter, Polish copy (9:16)",
       "status": "ready",
       "kind": "canvas",
+      "flat_frames": [
+        75,
+        76,
+        77,
+        126,
+        127,
+        128
+      ],
       "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [

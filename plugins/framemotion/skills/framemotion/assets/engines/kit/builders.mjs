@@ -373,10 +373,19 @@ window.FONT_FACES = window.FONT_FACES.map((f) => { const s = ${JSON.stringify(st
       const specFile = path.resolve(enginesRoot, entry.build.clip);
       const spec = JSON.parse(fs.readFileSync(specFile, 'utf8'));
       // Pictures a spec names are relative to the spec file, as in upstream's render.py.
-      fs.cpSync(path.dirname(specFile), path.join(dir, '_spec'), {recursive: true});
+      // Only the files the spec names are copied, so a spec in a large workspace folder does not copy the folder.
       const media = (v) => typeof v === 'string' && /\.(png|jpe?g|webp|gif|svg|mp4|webm)$/i.test(v) && !/^[a-z]+:/i.test(v) && !path.isAbsolute(v);
+      const named = (v) => Array.isArray(v) ? v.flatMap(named) : v && typeof v === 'object' ? Object.values(v).flatMap(named) : media(v) ? [v] : [];
+      // Each one gets a numbered name in _spec/, so a path that leaves the spec folder (../) works too.
+      const copied = new Map();
+      fs.mkdirSync(path.join(dir, '_spec'));
+      for (const rel of new Set(named(spec))) {
+        const name = `${copied.size}${path.extname(rel).toLowerCase()}`, from = path.resolve(path.dirname(specFile), rel);
+        if (fs.existsSync(from)) fs.copyFileSync(from, path.join(dir, '_spec', name));
+        copied.set(rel, name);
+      }
       const walk = (v) => Array.isArray(v) ? v.map(walk) : v && typeof v === 'object'
-        ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)])) : media(v) ? `_spec/${v}` : v;
+        ? Object.fromEntries(Object.entries(v).map(([k, x]) => [k, walk(x)])) : media(v) ? `_spec/${copied.get(v)}` : v;
       html = html.replace('<script src="clip.js"></script>', () =>
         `<script>window.CLIP_SPEC = ${JSON.stringify(walk(spec)).replace(/</g, '\\u003c')};</script>\n<script src="clip.js"></script>`);
     } else {
@@ -390,11 +399,20 @@ window.FONT_FACES = window.FONT_FACES.map((f) => { const s = ${JSON.stringify(st
         // Chinese corner labels in English (the Chinese faces are not bundled).
         const galleryLabels = {'20_dunhuang': 'Dunhuang mural · Tang', '34_shadowpuppet': 'Shadow puppetry · Song',
           '17_ink': 'Ink wash · Bada Shanren', '18_klimt': 'Klimt · golden phase'};
+        // The style studies draw their painter's name in Chinese with the system font: draw it in English with
+        // Inter (bundled as the NotoSansSC stand-in), so the label is the same on every machine.
+        const studyNames = {'乔托': 'Giotto', '皮耶罗': 'Piero', '拉斐尔': 'Raphael', '米开朗基罗': 'Michelangelo',
+          '瓜尔迪': 'Guardi', '洛伦采蒂': 'Lorenzetti', '科尔托纳': 'Cortona', '雷诺阿': 'Renoir', '毕沙罗': 'Pissarro',
+          '西斯莱': 'Sisley', '高更': 'Gauguin', '马远': 'Ma Yuan', '波斯细密画': 'Persian miniature', '敦煌壁画': 'Dunhuang mural'};
         const bundled = new Set(fs.readdirSync(path.join(dir, 'scenes')).map((f) => f.replace(/\.js$/, '')));
         fs.writeFileSync(path.join(dir, `eras_fm_${film}.js`), `document.write('<script src="eras_${film}.js"><\\/script>');
 document.write('<script>window.ERAS = window.ERAS.filter((e) => ${JSON.stringify([...bundled])}.includes(e.id));' +
   'const EN = ${JSON.stringify(galleryLabels)};' +
-  'for (const e of window.ERAS) if (EN[e.id] && e.counter && e.counter.label) e.counter.label.text = EN[e.id];<\\/script>');\n`);
+  'for (const e of window.ERAS) if (EN[e.id] && e.counter && e.counter.label) e.counter.label.text = EN[e.id];' +
+  'const NAMES = ${JSON.stringify(studyNames)};' +
+  'for (const e of window.ERAS) if (e.counter && typeof e.counter.draw === "function") { const draw = e.counter.draw; e.counter.draw = (c) => {' +
+  ' const fill = c.fillText; c.fillText = (s, ...a) => { if (NAMES[s]) { c.font = c.font.replace("sans-serif", "NotoSansSC"); s = NAMES[s]; } return fill.call(c, s, ...a); };' +
+  ' try { draw(c); } finally { delete c.fillText; } }; }<\\/script>');\n`);
         query.film = `fm_${film}`;
       } else if (film !== 'speedrun') query.film = film;
     }

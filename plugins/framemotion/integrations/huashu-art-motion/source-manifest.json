@@ -13,9 +13,9 @@
   },
   "not_bundled": [
     "scripts/engine/reference_films/ (Rick and Morty and SpaceX recreations, and the Arphic font)",
-    "scenes that imitate a studio, a franchise, a living artist or an artist whose work is still under copyright: 21_kusama, 23_dali, 24_hopper, 25_ghibli, 27_kirby (Jack Kirby, Marvel), 31_haring, 35_shinkai, 36_picasso_blue, 49_chagall, 52_south_park, 53_pixar, 54_ghibli_lab",
+    "scenes that imitate a studio, a franchise, a living artist or an artist whose work is still under copyright: 21_kusama, 23_dali, 24_hopper, 25_ghibli, 27_kirby (Jack Kirby, Marvel), 31_haring, 35_shinkai, 36_picasso_blue, 49_chagall, 52_south_park, 53_pixar, 54_ghibli_lab; and their twelve recipe cards in references/风格配方/ (21, 23, 24, 25, 27, 31, 35, 36, 37, 49, 52, 53)",
     "the Chinese and Japanese faces in scripts/engine/lib/fonts (NotoSansSC, NotoSerifSC, NotoSerifJP, LXGW WenKai, 12.5 MB); the builder draws their families with bundled Latin faces",
-    "scripts/engine/demos/_shared (the author's own likeness), demos/long_scroll and the y1, y2 and y3 demos that use it",
+    "scripts/engine/demos/_shared and scripts/engine/lib/rig_huashu.js (the author's own likeness), demos/long_scroll and the y1, y2 and y3 demos that use it, and references/about-author.md (the author's promotional page)",
     "assets/ (showcase GIFs and overview pictures, 49 MB), README files, CHANGELOG, CONTRIBUTING, release-manifest.json, tests/, defaults/, schemas/ and the scripts outside scripts/engine (QA, delivery, voice and image tools)"
   ],
   "retained_files": [
@@ -27,7 +27,10 @@
     {
       "source_path": "SKILL.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/method.md",
-      "sha256": "961b5c245620dda55ddab724e1484cd38b677c6a1cc49057f950101e8f09789b"
+      "sha256": "961b5c245620dda55ddab724e1484cd38b677c6a1cc49057f950101e8f09789b",
+      "changed": true,
+      "current_sha256": "3ccacee67594a1d6a1bb9e3dca67dc418cd0baba3841fc5f92ab41e87cd27c97",
+      "change": "two lines replaced by FrameMotion comments: the paragraph that sent flat-cartoon requests to the 37_rick_morty and 52_south_park cards, and the pointer to references/about-author.md (both not bundled)"
     },
     {
       "source_path": "references/01-拆解.md",
@@ -77,7 +80,10 @@
     {
       "source_path": "references/10-角色.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/10-角色.md",
-      "sha256": "8fe37c83597892c42c8f292c00f302804fcc4a362ef47998abea038d96aa6166"
+      "sha256": "8fe37c83597892c42c8f292c00f302804fcc4a362ef47998abea038d96aa6166",
+      "changed": true,
+      "current_sha256": "79e4863fbf4d6eed4fc6c7ebf967212c4fffe6a0f8f59f101cf119f989cf50f4",
+      "change": "rig_huashu.js (not bundled) removed from the list of kept rigs, marked by a FrameMotion comment"
     },
     {
       "source_path": "references/11-长卷穿越片.md",
@@ -102,17 +108,15 @@
     {
       "source_path": "references/16-风格演示95分协议.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/16-风格演示95分协议.md",
-      "sha256": "bfb400c87ec844fb04450b453c502c47455c5b4b90cf9e2800283886d7ee61ea"
+      "sha256": "bfb400c87ec844fb04450b453c502c47455c5b4b90cf9e2800283886d7ee61ea",
+      "changed": true,
+      "current_sha256": "78c2c0473cb6ab5e7c4c94353a6559471903bf6bb5cbb3050132a9723bc0e221",
+      "change": "37 and 52 removed from the list of narrow exceptions, marked by a FrameMotion comment"
     },
     {
       "source_path": "references/18-媒介层与角色入画.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/18-媒介层与角色入画.md",
       "sha256": "b0f0411c33d506ce8a932295150e49204c20cc5bfb36163fd0122beb093bff4d"
-    },
-    {
-      "source_path": "references/about-author.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/about-author.md",
-      "sha256": "f53cdc9ca43881fd95f75b16b9176190708117b138c3d4ff2560e78b9ca2b945"
     },
     {
       "source_path": "references/capabilities.md",
@@ -192,7 +196,10 @@
     {
       "source_path": "references/角色精细度.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/角色精细度.md",
-      "sha256": "15d1607771c5553942cba89edd22a8e8af0f8dfdb16977fd180b7babe5a2dbb6"
+      "sha256": "15d1607771c5553942cba89edd22a8e8af0f8dfdb16977fd180b7babe5a2dbb6",
+      "changed": true,
+      "current_sha256": "cfd1dbb8a5068a38dab1ad3d8c3c2aeaa6dea37f2b61d2fa7cd7214e78027cee",
+      "change": "the 37/52 flat-cartoon exception replaced by a FrameMotion comment"
     },
     {
       "source_path": "references/镜头表模板.md",
@@ -300,39 +307,14 @@
       "sha256": "3a5911346899c0f19cc5bee74bc4e8b4b1ffc9ae1c603a8a48b8277596057568"
     },
     {
-      "source_path": "references/风格配方/21_kusama.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/21_kusama.md",
-      "sha256": "f39173eb8e80dba26fcdf822a60bb5cd0da2678d8efa4a8b2d19cbb2e1468a4a"
-    },
-    {
       "source_path": "references/风格配方/22_constructivism.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/22_constructivism.md",
       "sha256": "ff4adc806f0bf39d86136d805ef8e2cc48026fbcec3731fae22477fdafac846d"
     },
     {
-      "source_path": "references/风格配方/23_dali.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/23_dali.md",
-      "sha256": "facf3f033d5dbe42ab663860490a32920423fc5950ddcabf5f44bf81b49b3f2f"
-    },
-    {
-      "source_path": "references/风格配方/24_hopper.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/24_hopper.md",
-      "sha256": "fd19a530f9e0544d74e7eee40a88c01fa7f675ae94d9cacf2e5af4e214c64c63"
-    },
-    {
-      "source_path": "references/风格配方/25_ghibli.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/25_ghibli.md",
-      "sha256": "d094be1b497fd9635ef802f1997878696db98cfbc07ff81dd7bbc50442bf0a17"
-    },
-    {
       "source_path": "references/风格配方/26_vaporwave.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/26_vaporwave.md",
       "sha256": "30cf8e825125ff74f02bff93b975a74c96ceae9df09fae06fd7ef887fb64ec44"
-    },
-    {
-      "source_path": "references/风格配方/27_kirby.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/27_kirby.md",
-      "sha256": "e64b8a69ce706311b1e81aa7d0756c7d7390b2b3f84a17f18b67c3193bce2408"
     },
     {
       "source_path": "references/风格配方/28_monet.md",
@@ -350,11 +332,6 @@
       "sha256": "4da4fb6d6828fa529e2827d20bf0c4e45822427348db42b7016ca4bdc336c60b"
     },
     {
-      "source_path": "references/风格配方/31_haring.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/31_haring.md",
-      "sha256": "adcf02ce8c7dd9446e79e3393f61c411335c6f1734d584f3389f64283c5ab30b"
-    },
-    {
       "source_path": "references/风格配方/32_rembrandt.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/32_rembrandt.md",
       "sha256": "383f5953f5b61249c5735fef4e31f0ed05148a7ec038f580bf39ddf7dc6ba7f7"
@@ -368,21 +345,6 @@
       "source_path": "references/风格配方/34_shadowpuppet.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/34_shadowpuppet.md",
       "sha256": "6cd4f9a090bff6d325695e8e4656ad041871f2ff0418b4eab1a46d51bd7d7609"
-    },
-    {
-      "source_path": "references/风格配方/35_shinkai.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/35_shinkai.md",
-      "sha256": "b327bf36ef2edc246576cbfb8f1f1857c52600691adbd651efbb1eeb75e7a554"
-    },
-    {
-      "source_path": "references/风格配方/36_picasso_blue.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/36_picasso_blue.md",
-      "sha256": "7578a99b0dc416414eb2cfd5c6aa9055ded387531bfde65fd5c1f17f22e4404a"
-    },
-    {
-      "source_path": "references/风格配方/37_rick_morty.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/37_rick_morty.md",
-      "sha256": "321e3009c33faf400cf3242d87377d1777544a2ab2f59c9de8da11a141c3aed7"
     },
     {
       "source_path": "references/风格配方/38_giotto.md",
@@ -440,11 +402,6 @@
       "sha256": "5e785b76ff0e1d4b976ff7b80559d3faf9ad84a3bcb97de4d0148d45f118b37b"
     },
     {
-      "source_path": "references/风格配方/49_chagall.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/49_chagall.md",
-      "sha256": "2fca334d05347c1dcfbaaf7bfdd525c749ec175c076c5657bca9faa61f3bcde8"
-    },
-    {
       "source_path": "references/风格配方/50_ma_yuan.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/50_ma_yuan.md",
       "sha256": "962b0d5b23727646cd36e3083f2b263be0b589ae1186da7856760cf232ec2ed5"
@@ -455,16 +412,6 @@
       "sha256": "619741242ba640ca931d5dda6bbb8d1b9d5a456e056dc7db956a1051090a818b"
     },
     {
-      "source_path": "references/风格配方/52_south_park.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/52_south_park.md",
-      "sha256": "639b0b2e5fb0894dc3b44a4da67cac3ed986dc043ded886153abd2fec75ea9d8"
-    },
-    {
-      "source_path": "references/风格配方/53_pixar.md",
-      "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/53_pixar.md",
-      "sha256": "c6b0eea92294aa08e53ed71a6068f96a6cccd29e679aa2bcf0df9478ef100aa2"
-    },
-    {
       "source_path": "references/风格配方/55_dunhuang.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/55_dunhuang.md",
       "sha256": "ebf193ac4995dff6f146cf54ff62def57da5f8794ab2bdb8e7d0f18714af35f6"
@@ -472,7 +419,10 @@
     {
       "source_path": "references/风格配方/INDEX.md",
       "destination_path": "../../skills/framemotion/assets/art-engine/references/风格配方/INDEX.md",
-      "sha256": "3a79ab6eed9ddc93c08ecdd529103d9a7ade77c1d23aa36eb236215ad0ef9cea"
+      "sha256": "3a79ab6eed9ddc93c08ecdd529103d9a7ade77c1d23aa36eb236215ad0ef9cea",
+      "changed": true,
+      "current_sha256": "affc14a3122ad3c135378520e066d4c9215b7c5f6f7525f61959a291f3b04513",
+      "change": "a FrameMotion comment under the title; the rows and the note for the twelve removed recipe cards are removed"
     },
     {
       "source_path": "references/风格配方/_转场_迁移测试.md",
@@ -782,7 +732,10 @@
     {
       "source_path": "scripts/engine/index.html",
       "destination_path": "../../skills/framemotion/assets/art-engine/scripts/engine/index.html",
-      "sha256": "28a067428f79e16b9f108f296e58b4e7541e466d463c4abbe6de6be4ef90a2d1"
+      "sha256": "28a067428f79e16b9f108f296e58b4e7541e466d463c4abbe6de6be4ef90a2d1",
+      "changed": true,
+      "current_sha256": "9a0e227466de11a1ff61a0682bad146ed1ed95427a3a4909563e2b73fcd5dbcc",
+      "change": "the script tag for lib/rig_huashu.js (the author's likeness, not bundled) replaced by a FrameMotion comment"
     },
     {
       "source_path": "scripts/engine/lib/THREE_LICENSE.txt",
@@ -1070,11 +1023,6 @@
       "sha256": "62580706e14438c6b57289ce203d040c91d8a427e356f44084a65dfc53a13bbf"
     },
     {
-      "source_path": "scripts/engine/lib/rig_huashu.js",
-      "destination_path": "../../skills/framemotion/assets/art-engine/scripts/engine/lib/rig_huashu.js",
-      "sha256": "6419306bb314f89848b0adf842db0c305c2f6bc931df34388eb5389f29c1d392"
-    },
-    {
       "source_path": "scripts/engine/lib/three.min.js",
       "destination_path": "../../skills/framemotion/assets/art-engine/scripts/engine/lib/three.min.js",
       "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
@@ -1170,7 +1118,10 @@
     {
       "source_path": "scripts/engine/scenes/14_8bit.js",
       "destination_path": "../../skills/framemotion/assets/art-engine/scripts/engine/scenes/14_8bit.js",
-      "sha256": "3351f505bd0f272a623061a8f49993b877339c619dceb2f5e08c05933397b71e"
+      "sha256": "3351f505bd0f272a623061a8f49993b877339c619dceb2f5e08c05933397b71e",
+      "changed": true,
+      "current_sha256": "8b8d040375b88401a59ba92e0623ea19912f16172dda9cc57a47035e35c4137f",
+      "change": "one line, marked by a FrameMotion comment: the HUD reads STAGE 01 instead of a well-known game's level name"
     },
     {
       "source_path": "scripts/engine/scenes/15_raytrace.js",
@@ -1325,7 +1276,10 @@
     {
       "source_path": "scripts/engine/transitions.js",
       "destination_path": "../../skills/framemotion/assets/art-engine/scripts/engine/transitions.js",
-      "sha256": "c4bd441cf765db346933e5d18270f532d4c9782c9303b0bcda1ba59a2124b618"
+      "sha256": "c4bd441cf765db346933e5d18270f532d4c9782c9303b0bcda1ba59a2124b618",
+      "changed": true,
+      "current_sha256": "d0c2422a06038e434d3ba1b7bcf4cfb50cacaf4c031e9c9deedd7684b6166924",
+      "change": "one line, marked by a FrameMotion comment: the pointillist transition clears its two reused canvases before drawing, so a frame no longer keeps the previous frame's pixels (gallery frames 392 to 396 differed between two renders)"
     },
     {
       "source_path": "scripts/engine/时代作者规范.md",

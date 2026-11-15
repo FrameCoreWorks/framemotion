@@ -45,3 +45,34 @@ for (const [id, frames] of [['art-gallery', [200, 500]], ['art-kinetic-type-pl',
     assert.deepEqual(first.blocked, []);
   });
 }
+
+test('the kinetic clip\'s page turns are listed flat, and the frames around them are not', {skip: browserSkip, timeout: 300000}, async () => {
+  const report = await kit.renderFrames('art-kinetic-type-pl', {frames: [74, 75, 128, 129], once: true});
+  const flat = Object.fromEntries(report.frames.map((f) => [f.frame, [f.flat, Boolean(f.flatExpected)]]));
+  assert.deepEqual(flat, {74: [false, false], 75: [true, true], 128: [true, true], 129: [false, false]});
+});
+
+test('the style studies name each painter in English with a bundled face', async () => {
+  const built = await BUILDERS.art(entries.find((e) => e.id === 'art-style-studies'), ENGINES);
+  const list = fs.readFileSync(path.join(built.dir, 'eras_fm_style_studies.js'), 'utf8');
+  assert.ok(list.includes('"乔托":"Giotto"') && list.includes('NotoSansSC'));
+  fs.rmSync(built.dir, {recursive: true, force: true});
+});
+
+test('a clip copies only the pictures its spec names, also from outside the spec folder', async () => {
+  const root = fs.mkdtempSync(path.join(ENGINES, '.tmp-art-'));
+  try {
+    fs.mkdirSync(path.join(root, 'work/specs'), {recursive: true});
+    fs.mkdirSync(path.join(root, 'work/shots'));
+    fs.copyFileSync(path.join(LIB, '../examples/assets/营收图_竖屏.png'), path.join(root, 'work/shots/chart.png'));
+    fs.writeFileSync(path.join(root, 'work/specs/unrelated.bin'), 'x');
+    const spec = JSON.parse(fs.readFileSync(path.join(ENGINES, entries.find((e) => e.id === 'art-keynote-ui').build.clip), 'utf8'));
+    spec.cues = [{...spec.cues[0], image: '../shots/chart.png'}, ...spec.cues.slice(1)];
+    fs.writeFileSync(path.join(root, 'work/specs/spec.json'), JSON.stringify(spec));
+    const entry = {...entries.find((e) => e.id === 'art-keynote-ui'), build: {tool: 'art', clip: path.relative(ENGINES, path.join(root, 'work/specs/spec.json'))}};
+    const built = await BUILDERS.art(entry, ENGINES);
+    assert.deepEqual(fs.readdirSync(path.join(built.dir, '_spec')), ['0.png']);
+    assert.match(fs.readFileSync(path.join(built.dir, 'clip.html'), 'utf8'), /"image":"_spec\/0\.png"/);
+    fs.rmSync(built.dir, {recursive: true, force: true});
+  } finally { fs.rmSync(root, {recursive: true, force: true}); }
+});
