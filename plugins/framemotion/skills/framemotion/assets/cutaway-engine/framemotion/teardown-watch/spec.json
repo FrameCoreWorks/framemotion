@@ -1,0 +1,17 @@
+{
+  "title": "Pulse watch",
+  "subtitle": "What is inside",
+  "accent": "#FF6A3D",
+  "theme": "light",
+  "shape": {"w": 4.0, "l": 4.6, "r": 1.1},
+  "screen": {"time": "10:08", "date": "142 bpm"},
+  "layers": [
+    {"name": "Sapphire", "note": "scratch-proof", "finish": "glass", "h": 0.08},
+    {"name": "Display", "note": "always on", "finish": "gloss", "face": "screen", "color": "#2A1E3A", "h": 0.1, "inset": 0.04},
+    {"name": "Case", "note": "titanium", "finish": "metal", "face": "frame", "color": "#B9BCC2", "h": 0.4},
+    {"name": "Board", "note": "sensors and radio", "finish": "matte", "face": "board", "color": "#1A2F44", "h": 0.06, "inset": 0.25},
+    {"name": "Back", "note": "heart sensor", "finish": "gloss", "face": "ring", "color": "#2B2E34", "h": 0.12}
+  ],
+  "focus": ["Board"],
+  "hold": 1.0
+}

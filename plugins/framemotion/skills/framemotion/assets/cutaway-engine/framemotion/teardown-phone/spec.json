@@ -1,0 +1,18 @@
+{
+  "title": "Telefon F1",
+  "subtitle": "Widok rozłożony",
+  "partsLabel": "części",
+  "accent": "#3D8BFF",
+  "theme": "dark",
+  "shape": {"w": 7.2, "l": 15, "r": 1.0},
+  "screen": {"time": "9:41", "date": "sobota, 15 listopada"},
+  "layers": [
+    {"name": "Szkło ochronne", "note": "hartowane · 0,6 mm", "finish": "glass", "h": 0.08},
+    {"name": "Wyświetlacz", "note": "OLED · 120 Hz", "finish": "gloss", "face": "screen", "color": "#1B2A4A", "h": 0.12, "inset": 0.05},
+    {"name": "Rama", "note": "aluminium · 7,9 mm", "finish": "metal", "face": "frame", "color": "#9AA0A8", "h": 0.32},
+    {"name": "Płyta główna", "note": "8 GB · 256 GB", "finish": "matte", "face": "board", "color": "#123A2E", "h": 0.06, "inset": 0.35},
+    {"name": "Bateria", "note": "4 200 mAh", "finish": "matte", "face": "battery", "color": "#24272D", "h": 0.18, "inset": 0.6},
+    {"name": "Plecki", "note": "matowe szkło · Qi2", "finish": "gloss", "face": "ring", "color": "#3B4250", "h": 0.08}
+  ],
+  "focus": ["Płyta główna", "Bateria"]
+}

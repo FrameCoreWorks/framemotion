@@ -202,3 +202,16 @@ test('the stickman engine shows one clip at a time and repeats every frame', {sk
   }
   assert.equal(new Set(report.frames.map((f) => f.hash)).size, 4, 'each clip shows its own scene');
 });
+
+test('a teardown frame repeats and does not depend on the frames drawn before it', {skip: browserSkip, timeout: 240000}, async () => {
+  // The watch sample: assembled, labelled and exploded, the board out under its own camera, closed.
+  const forward = await kit.renderFrames('teardown-watch', {frames: [0, 100, 170, 266]});
+  for (const f of forward.frames) {
+    assert.ok(f.deterministic, `frame ${f.frame} repeats byte for byte`);
+    assert.ok(!f.flat, `frame ${f.frame} is drawn`);
+  }
+  assert.equal(new Set(forward.frames.map((f) => f.hash)).size, 4);
+  const back = await kit.renderFrames('teardown-watch', {frames: [266, 170, 100, 0], once: true});
+  const hash = (r) => Object.fromEntries(r.frames.map((f) => [f.frame, f.hash]));
+  assert.deepEqual(hash(back), hash(forward));
+});

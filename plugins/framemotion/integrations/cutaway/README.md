@@ -1,0 +1,7 @@
+# Cutaway attribution
+
+The [Cutaway engine](../../skills/framemotion/assets/cutaway-engine/README.md) bundles [Nyxera0x/cutaway](https://github.com/Nyxera0x/cutaway) at `5d8f1c6efe0ed65a8fc7647a7a2a3ee9fbb4d20a`, MIT, Copyright (c) 2026 Nyxera0x and Copyright (c) 2026 whaleyxbt. [LICENSE](LICENSE) is the unchanged upstream notice. [source-manifest.json](source-manifest.json) lists every bundled file with its upstream path and SHA-256. Every file is byte-identical; `SKILL.md` is bundled as `docs/method.md`, so no host loads it as a skill.
+
+Its kit, frame capture, sound engine and review rules come from [whaleyxbt/claude-motion](https://github.com/whaleyxbt/claude-motion) (MIT). The twelve recorded samples in `sfx/samples/` are CC0 1.0 recordings from Freesound, trimmed by [Barty-Bart/motion-graphics](https://github.com/Barty-Bart/motion-graphics) (MIT); `sfx/samples/SOURCES.md` names each author and page. The three preview GIFs in `docs/` (14 MB) and the lockfile are not bundled; three.js, esbuild and the two font packages are installed from npm by the engines folder's lockfile.
+
+FrameMotion's teardown (`framemotion/` in the engine folder) is FrameCore Works' own code on that kit (Apache-2.0). It follows the cutaway method and the exploded-view reel method of [artemnovitckii/claude-animation-skills](https://github.com/artemnovitckii/claude-animation-skills) (`skills/breakdown`, commit `5dbea55c23aa6a5c93dc3cfb5583840513b56b94`, MIT, Copyright (c) 2026 Artem Novitckii); no file of it is copied.

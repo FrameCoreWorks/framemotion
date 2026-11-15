@@ -105,15 +105,17 @@
       "repo": "Nyxera0x/cutaway",
       "commit": "5d8f1c6efe0ed65a8fc7647a7a2a3ee9fbb4d20a",
       "licence": "MIT",
-      "copyright": "Copyright (c) 2026 Nyxera0x",
+      "copyright": "Copyright (c) 2026 Nyxera0x; Copyright (c) 2026 whaleyxbt",
       "kind": "engine",
       "pack": "P7",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "rewrite: own code on the engine kit",
-        "credit whaleyxbt/claude-motion",
-        "CC0 Freesound recordings allowed"
-      ]
+        "bundled unchanged (SKILL.md renamed docs/method.md), hashes in integrations/cutaway/source-manifest.json",
+        "credit whaleyxbt/claude-motion (kit, capture, sound engine) and Barty-Bart/motion-graphics (trimmed samples)",
+        "CC0 Freesound recordings allowed, sources in sfx/samples/SOURCES.md",
+        "teardown (framemotion/) is own code on the kit, merged with the claude-animation-skills breakdown method"
+      ],
+      "bundled_commit": "5d8f1c6efe0ed65a8fc7647a7a2a3ee9fbb4d20a"
     },
     {
       "name": "motion-launch-videos",
@@ -139,7 +141,7 @@
       "pack": "P8",
       "status": "planned",
       "conditions": [
-        "five engines in P8; stick-figure merged into the Stickman engine as method only (own words and own code, no file copied)",
+        "five engines in P8; stick-figure merged into the Stickman engine and breakdown merged into the cutaway teardown, both as method only (own words and own code, no file copied)",
         "OFL fonts keep their licence text",
         "rename creator-named styles descriptively"
       ]

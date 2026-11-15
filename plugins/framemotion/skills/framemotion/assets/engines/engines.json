@@ -816,6 +816,84 @@
         "assets/vo",
         "assets/music"
       ]
+    },
+    {
+      "id": "cutaway-piranha",
+      "title": "Cutaway engine: the bundled robotic piranha film (the green page, 60 fps)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrame",
+      "screenshot": "#app",
+      "sources": [
+        "cutaway"
+      ],
+      "blocks": [
+        "../cutaway-engine/sims/kit/runtime.js"
+      ],
+      "build": {
+        "tool": "cutaway",
+        "sim": "../cutaway-engine/sims/piranha-film"
+      },
+      "size": {
+        "width": 1600,
+        "height": 900
+      },
+      "fps": 60,
+      "duration": 21.2,
+      "readme": "../cutaway-engine/README.md",
+      "gpu_recommended": true
+    },
+    {
+      "id": "teardown-phone",
+      "title": "Teardown: a labelled exploded view of a phone (9:16, Polish labels)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrame",
+      "screenshot": "#app",
+      "sources": [
+        "cutaway",
+        "claude-animation-skills"
+      ],
+      "blocks": [
+        "../cutaway-engine/framemotion/teardown.js"
+      ],
+      "build": {
+        "tool": "cutaway",
+        "sim": "../cutaway-engine/framemotion/teardown-phone"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": 11.8,
+      "readme": "../cutaway-engine/README.md"
+    },
+    {
+      "id": "teardown-watch",
+      "title": "Teardown: a labelled exploded view of a watch (16:9, light theme)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrame",
+      "screenshot": "#app",
+      "sources": [
+        "cutaway",
+        "claude-animation-skills"
+      ],
+      "blocks": [
+        "../cutaway-engine/framemotion/teardown.js"
+      ],
+      "build": {
+        "tool": "cutaway",
+        "sim": "../cutaway-engine/framemotion/teardown-watch"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 8.9,
+      "readme": "../cutaway-engine/README.md"
     }
   ]
 }

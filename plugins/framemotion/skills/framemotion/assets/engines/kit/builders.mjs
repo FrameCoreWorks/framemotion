@@ -69,6 +69,37 @@ export const BUILDERS = {
     return {dir, page: entry.build.page ?? 'index.html'};
   },
   /**
+   * Cutaway engine (bundled Nyxera0x/cutaway plus FrameMotion's teardown): bundle a sim folder
+   * (a main.js on the cutaway kit: an upstream film or a teardown spec) into one page with the
+   * engine's own build tool, then expose its pure SIM.render(t) as renderFrame. three.js, esbuild
+   * and the fonts come from this engines folder.
+   */
+  async cutaway(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'cutaway-engine');
+    const sim = path.resolve(enginesRoot, entry.build.sim);
+    if (!fs.existsSync(path.join(sim, 'main.js'))) throw new Error(`${entry.id}: no main.js in ${sim}`);
+    const dir = temp(entry.id);
+    const run = spawnSync(process.execPath, [path.join(engine, 'sims/build.mjs'), sim], {encoding: 'utf8', cwd: dir,
+      env: {...process.env, CUTAWAY_DEPS: path.resolve(enginesRoot, 'node_modules'), CUTAWAY_OUT: dir}});
+    if (run.status !== 0) throw new Error(`Cutaway build failed: ${run.stderr || run.stdout}`);
+    const page = `dist/${path.basename(sim)}.html`;
+    let html = fs.readFileSync(path.join(dir, page), 'utf8');
+    // capture mode: the page draws only when asked; renderFrame waits for the sim's setup to finish
+    html = html.replace('<script type="module">', () => '<script>window.__CAPTURE = true;</script>\n<script type="module">');
+    const tail = html.lastIndexOf('</body>');
+    html = html.slice(0, tail) + `<script>
+    (function wait() {
+      const sim = window.SIM;
+      if (!sim || !sim.ready) return setTimeout(wait, 20);
+      window.FILM_INFO = {W: innerWidth, H: innerHeight, FPS: sim.fps, frames: Math.round(sim.duration * sim.fps)};
+      window.renderFrame = (t) => sim.render(t);
+    })();
+  </script>
+` + html.slice(tail);
+    fs.writeFileSync(path.join(dir, page), html);
+    return {dir, page};
+  },
+  /**
    * kaventro/motion-designer film templates: shared/ plus one kind (blank, overlay, mobile, desktop,
    * story), assembled the way its new_film.sh does. The page draws on window.seek(t) with ?render.
    */
