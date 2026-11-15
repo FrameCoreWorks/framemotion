@@ -67,8 +67,9 @@ a source-manifest.json with the pinned commit):
   MIT, Copyright (c) 2020 Matteo Bruni); acamposuribe/p5.brush (p5.brush 3.0.0, commit
   75c89fd8e0a0b63d9a88b51983c0738e132e82a5, MIT, Copyright (c) 2023-2026 Alejandro Campos Uribe; its standalone build
   only: p5.js (LGPL-2.1) is not used, and .npmrc keeps npm from installing it as a peer).
-- Knowledge rewritten in FrameMotion's own words (no file copied; each is linked at its commit from the reference
-  named), all under the MIT licence:
+- Knowledge summarised for FrameMotion (no file copied; short technical phrases and all values follow the source;
+  each is linked at its commit from the reference named, and its licence text is in integrations/<name>/LICENSE),
+  all under the MIT licence:
   ItsssssJack/claude-video-2 (commit 18891e4996abb7ccc0085f2d43cef2fd7eff1dc8, Copyright (c) 2026 Claude Video Studio
   contributors): references/coded-look-library.md.
   vargHQ/skills (commit aafd5aadfc9cdfdc067fc8fca2602b150a590305, Copyright (c) 2026 vargai Inc.; only kinetic-type-art,
@@ -79,3 +80,11 @@ a source-manifest.json with the pinned commit):
   Sunwood AI Labs) and charlie947/motion-graphics-skills (commit 229022ebca76972e119e36ada23a1648d51665ab, Copyright
   (c) 2026 Charlie Hills): references/type-title-and-format-recipes.md and, for charlie947,
   references/transition-effect-and-data-recipes.md.
+  iart-ai/explainer-video-skills (commit 3c13a1bc360c08503f24f9c9a99fda6d3d35de56, Copyright (c) 2026 iart.ai),
+  iart-ai/javascript-animation-skills (commit 060f7467a6e5ae5b57c90c9cb1b3508c13b88e49, Copyright (c) 2026 iart.ai),
+  0xS4N4TG/papercut-explainer (commit ff8223abc8136cc09e8d7e9b62ecb5d080c389e1, Copyright (c) 2026 sanat; method only)
+  and Yusuke710/manim-skill (commit a0048d9e265499038f34a9aa58ff16d306b5034c, Copyright (c) 2025 Yusuke Miyashita):
+  references/explainer-method-recipes.md.
+  greensock/gsap-skills (commit aed9cfd3277740755f6bfc1155c7aa645403b760, Copyright (c) 2026 GreenSock; GSAP itself
+  is a dependency under its own licence) and CloudAI-X/threejs-skills (commit 0e181866f095b5f06d005133876e926515390d95,
+  Copyright (c) 2026 CloudAI-X): references/gsap-and-threejs-for-frames.md.

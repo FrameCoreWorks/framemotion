@@ -38,17 +38,19 @@ class SourcesTest(unittest.TestCase):
                 self.assertIn(s['repo'], NOTICE)
                 self.assertIn(s['bundled_commit'], NOTICE)
 
-    def test_rewritten_knowledge_links_its_pinned_source(self):
-        # Knowledge in FrameMotion's own words: each reference it names links the repository at the reviewed commit.
+    def test_summarised_knowledge_links_its_pinned_source(self):
+        # Knowledge summarised in references: each named reference links the repository at the reviewed commit,
+        # and the source's licence text travels in integrations/<name>/.
         refs = ROOT / 'skills/framemotion'
-        for s in SOURCES:
-            if s['kind'] != 'knowledge' or s['status'] != 'adapted':
-                continue
+        knowledge = [s for s in SOURCES if s['kind'] == 'knowledge' and s['status'] == 'adapted']
+        self.assertGreaterEqual(len(knowledge), 11)
+        for s in knowledge:
             with self.subTest(s['name']):
-                named = [c for c in s['conditions'] if 'linked at this commit from ' in c]
-                self.assertEqual(len(named), 1, 'name the references that link it')
-                files = named[0].split('linked at this commit from ', 1)[1].split(', ')
-                for rel in files:
+                self.assertTrue(s.get('references'), 'name the references that summarise it')
+                licence = ROOT / 'integrations' / s['name'] / 'LICENSE'
+                self.assertTrue(licence.is_file(), 'keep the licence text')
+                self.assertIn(s['licence'], licence.read_text())
+                for rel in s['references']:
                     text = (refs / rel).read_text()
                     self.assertIn(f"github.com/{s['repo']}", text, rel)
                     self.assertIn(s['bundled_commit'], text, rel)

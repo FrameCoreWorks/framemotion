@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-sources/1",
-  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is what the package already holds. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag).",
+  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is the commit the package's copy, adaptation or summary was made from. Knowledge summarised in references lists them in references (paths under skills/framemotion/) and keeps the source's licence text in integrations/<name>/. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag).",
   "sources": [
     {
       "name": "animate",
@@ -363,9 +363,12 @@
       "status": "adapted",
       "conditions": [
         "no Higgsfield route",
-        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/coded-look-library.md"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
-      "bundled_commit": "18891e4996abb7ccc0085f2d43cef2fd7eff1dc8"
+      "bundled_commit": "18891e4996abb7ccc0085f2d43cef2fd7eff1dc8",
+      "references": [
+        "references/coded-look-library.md"
+      ]
     },
     {
       "name": "varg-skills",
@@ -380,9 +383,13 @@
         "only kinetic-type-art, motion-formats, title-design, transition-craft, footage-effects, maps-and-data-motion",
         "skip satellite-flyover",
         "caption-styles belongs to FrameCut",
-        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md, references/transition-effect-and-data-recipes.md"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
-      "bundled_commit": "aafd5aadfc9cdfdc067fc8fca2602b150a590305"
+      "bundled_commit": "aafd5aadfc9cdfdc067fc8fca2602b150a590305",
+      "references": [
+        "references/type-title-and-format-recipes.md",
+        "references/transition-effect-and-data-recipes.md"
+      ]
     },
     {
       "name": "iart-kinetic-typography",
@@ -395,9 +402,12 @@
       "status": "adapted",
       "conditions": [
         "Remotion parts rewritten for HyperFrames",
-        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
-      "bundled_commit": "2b79c81230c6647a344844f9ed53b6fa07f3f1f9"
+      "bundled_commit": "2b79c81230c6647a344844f9ed53b6fa07f3f1f9",
+      "references": [
+        "references/type-title-and-format-recipes.md"
+      ]
     },
     {
       "name": "charlie947-motion-graphics",
@@ -410,10 +420,14 @@
       "status": "adapted",
       "conditions": [
         "rename brand-named recipes descriptively",
-        "skip brand-intake and brief-writer",
-        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md, references/transition-effect-and-data-recipes.md"
+        "skip brand-intake, brief-writer, motion-prompt-writer and reference-to-motion",
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
-      "bundled_commit": "229022ebca76972e119e36ada23a1648d51665ab"
+      "bundled_commit": "229022ebca76972e119e36ada23a1648d51665ab",
+      "references": [
+        "references/type-title-and-format-recipes.md",
+        "references/transition-effect-and-data-recipes.md"
+      ]
     },
     {
       "name": "sunwood-motion-reel",
@@ -426,21 +440,29 @@
       "status": "adapted",
       "conditions": [
         "Japanese text rewritten in English",
-        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
-      "bundled_commit": "be78681a88a70f1f66c82275299fe569a9a9fcaa"
+      "bundled_commit": "be78681a88a70f1f66c82275299fe569a9a9fcaa",
+      "references": [
+        "references/type-title-and-format-recipes.md"
+      ]
     },
     {
       "name": "iart-explainer",
       "repo": "iart-ai/explainer-video-skills",
       "commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
       "licence": "MIT",
-      "copyright": "Copyright (c) 2026 iart",
+      "copyright": "Copyright (c) 2026 iart.ai",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
-        "Remotion parts rewritten for HyperFrames"
+        "Remotion parts rewritten for HyperFrames",
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+      ],
+      "bundled_commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
+      "references": [
+        "references/explainer-method-recipes.md"
       ]
     },
     {
@@ -448,11 +470,17 @@
       "repo": "iart-ai/javascript-animation-skills",
       "commit": "060f7467a6e5ae5b57c90c9cb1b3508c13b88e49",
       "licence": "MIT",
-      "copyright": "Copyright (c) 2026 iart",
+      "copyright": "Copyright (c) 2026 iart.ai",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "planned",
-      "conditions": []
+      "status": "adapted",
+      "conditions": [
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+      ],
+      "bundled_commit": "060f7467a6e5ae5b57c90c9cb1b3508c13b88e49",
+      "references": [
+        "references/explainer-method-recipes.md"
+      ]
     },
     {
       "name": "gsap-skills",
@@ -462,9 +490,14 @@
       "copyright": "Copyright (c) 2026 GreenSock",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
-        "GSAP itself is a dependency only; no no-code visual animation builder"
+        "GSAP itself is a dependency only; no no-code visual animation builder",
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+      ],
+      "bundled_commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
+      "references": [
+        "references/gsap-and-threejs-for-frames.md"
       ]
     },
     {
@@ -475,8 +508,14 @@
       "copyright": "Copyright (c) 2026 CloudAI-X",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "planned",
-      "conditions": []
+      "status": "adapted",
+      "conditions": [
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+      ],
+      "bundled_commit": "0e181866f095b5f06d005133876e926515390d95",
+      "references": [
+        "references/gsap-and-threejs-for-frames.md"
+      ]
     },
     {
       "name": "manim-skill",
@@ -486,9 +525,14 @@
       "copyright": "Copyright (c) 2025 Yusuke Miyashita",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
-        "name 3Blue1Brown only descriptively"
+        "name 3Blue1Brown only descriptively",
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+      ],
+      "bundled_commit": "a0048d9e265499038f34a9aa58ff16d306b5034c",
+      "references": [
+        "references/explainer-method-recipes.md"
       ]
     },
     {
@@ -499,10 +543,15 @@
       "copyright": "Copyright (c) 2026 sanat",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
         "method only: no Remotion code, no AI-made backgrounds",
-        "OFL fonts keep their licence text"
+        "OFL fonts keep their licence text",
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+      ],
+      "bundled_commit": "ff8223abc8136cc09e8d7e9b62ecb5d080c389e1",
+      "references": [
+        "references/explainer-method-recipes.md"
       ]
     }
   ]
