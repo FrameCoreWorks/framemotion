@@ -154,6 +154,7 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   await page.evaluate(() => document.fonts.ready.then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r)))));
   const ready = await page.evaluate(() => window.__framemotion?.ready === true);
   if (!ready) { await close(); throw new Error('Engine page never set window.__framemotion.ready'); }
+  if (entry.css_animations === 'seeked') seekedAnimationPages.add(page);
   if (entry.transparent) {
     // A film made to lie over footage: drop every background (a template's preview checkerboard
     // too) and capture with an alpha channel. Only screenshot pages can do this.
@@ -171,6 +172,7 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
  */
 const warmed = new WeakSet();
 const transparentPages = new WeakSet();   // pages captured with an alpha channel
+const seekedAnimationPages = new WeakSet();   // pages whose seek sets CSS animations itself
 /** A short stable id of a frame's pixels (canvas pages hash in the page; screenshots are hashed here). */
 const hashOf = (h) => (h.length <= 16 ? h : crypto.createHash('sha256').update(h).digest('hex').slice(0, 16));
 
@@ -207,7 +209,9 @@ async function capture(page, frame, {png = false} = {}) {
     for (let i = 0; i < px.length; i += 4) { const l = (px[i] + px[i + 1] + px[i + 2]) / 3; sum += l; if (l < min) min = l; if (l > max) max = l; }
     return {mean: +(sum / (px.length / 4)).toFixed(2), min, max};
   }, `data:image/png;base64,${buffer.toString('base64')}`);
-  const shotOptions = {animations: 'disabled', omitBackground: transparentPages.has(page)};
+  // Playwright's 'disabled' jumps finite CSS animations to their end; a page whose seek pauses
+  // and places its own CSS animations (registry "css_animations": "seeked") keeps them as set.
+  const shotOptions = {animations: seekedAnimationPages.has(page) ? 'allow' : 'disabled', omitBackground: transparentPages.has(page)};
   if (!warmed.has(page)) {
     warmed.add(page);
     await measure(await target.screenshot(shotOptions));

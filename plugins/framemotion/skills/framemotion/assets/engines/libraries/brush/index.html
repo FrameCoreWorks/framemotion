@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>p5.brush engine</title>
+<style>html, body { margin: 0; background: #f6f1e8; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">{"imports":{"p5.brush/standalone":"../../node_modules/p5.brush/dist/brush.esm.js"}}</script>
+</head>
+<body>
+<script type="module">
+// p5.brush (MIT, Alejandro Campos Uribe), standalone build: no p5.js needed. Used unchanged from
+// node_modules; this page is ours. A drawing builds itself: strokes are revealed by a clip region
+// that grows along each stroke, then fills and hatching fade in. Every seek clears the paper and
+// draws the whole picture again from the same seed, so a stroke's grain never changes as it grows.
+// Settings (JSON in ?params): drawing, seed.
+import * as brush from 'p5.brush/standalone';
+import {defineEngine} from '../../kit/engine-kit.mjs';
+import {readParams} from '../library-kit.mjs';
+import {DRAWINGS} from './drawings.mjs';
+
+const params = readParams();
+const {width = 540, height = 960, drawing = 'still-life', seed = 5} = params;
+const make = DRAWINGS[drawing];
+if (!make) throw new Error(`unknown drawing "${drawing}" (known: ${Object.keys(DRAWINGS).join(', ')})`);
+const canvas = brush.createCanvas(width, height, {pixelDensity: 1});
+brush.scaleBrushes(2.5 * Math.min(width, height) / 540);   // built-in brushes are sized for small sketches
+const duration = params.duration ?? 4;
+const plan = make({width, height});
+
+const ease = (x) => { const c = Math.min(Math.max(x, 0), 1); return 1 - (1 - c) ** 3; };
+function seek(t) {
+  brush.clear(plan.paper);
+  brush.seed(seed);
+  brush.noiseSeed(seed);
+  brush.noFill(); brush.noHatch(); brush.noClip();   // no style carried over from the last seek
+  const p = t / duration;
+  for (const item of plan.items) {
+    const k = ease((p - item.from) / (item.to - item.from));   // 0 before its turn, 1 when done
+    if (k <= 0) continue;
+    item.draw(brush, k);
+  }
+  brush.render();
+}
+const engine = defineEngine({id: 'p5-brush', width, height, fps: params.fps ?? 30, duration, seek});
+engine.seek(0);
+window.__framemotion = {engine, canvas, ready: true};
+</script>
+</body>
+</html>

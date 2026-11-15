@@ -23,19 +23,28 @@ import {DOODLES} from './doodles.mjs';
 
 const params = readParams();
 const {width = 540, height = 960, doodle = 'tiles', seed = 2026} = params;
-const rules = params.rules ?? DOODLES[doodle];
+const rules = (params.rules || DOODLES[doodle])?.replaceAll('var(--w)', `${width}px`).replaceAll('var(--h)', `${height}px`);
 if (!rules) throw new Error(`unknown doodle "${doodle}" (known: ${Object.keys(DOODLES).join(', ')})`);
 const stage = document.getElementById('stage');
 Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
 const el = document.createElement('css-doodle');
 el.setAttribute('seed', String(seed));
-el.style.cssText = `--w:${width}px; --h:${height}px;`;
 el.textContent = rules;
 stage.appendChild(el);
 await customElements.whenDefined('css-doodle');
-await frames(3);
+// css-doodle builds its grid over a few frames and may rebuild it once; wait until the set of
+// animations has stayed the same for five frames, so no new, unpaused animation appears later.
+let last = -1, steady = 0;
+for (let i = 0; i < 300 && steady < 5; i++) {
+  await frames(1);
+  const n = el.shadowRoot ? el.shadowRoot.getAnimations().length : 0;
+  steady = n > 0 && n === last ? steady + 1 : 0;
+  last = n;
+}
 
-const animations = () => document.getAnimations();
+// The doodle draws in its shadow root; document.getAnimations() does not reach into it.
+const animations = () => [...document.getAnimations(), ...el.shadowRoot.getAnimations()];
+
 if (animations().length === 0) throw new Error('the doodle has no CSS animation to seek');
 const engine = defineEngine({id: 'css-doodle', width, height, fps: params.fps ?? 30, duration: params.duration ?? 4,
   seek(t) { for (const a of animations()) { a.pause(); a.currentTime = t * 1000; } }});

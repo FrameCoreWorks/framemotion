@@ -443,6 +443,250 @@
           "about": "seconds"
         }
       }
+    },
+    {
+      "id": "css-doodle",
+      "title": "css-doodle: CSS pattern grids with seeded random values",
+      "status": "ready",
+      "kind": "html",
+      "page": "libraries/css-doodle/index.html",
+      "screenshot": "#stage",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "libraries/README.md",
+      "sources": [
+        "css-doodle"
+      ],
+      "blocks": [
+        "libraries/css-doodle/doodles.mjs",
+        "libraries/library-kit.mjs"
+      ],
+      "params": {
+        "doodle": {
+          "type": "string",
+          "default": "tiles",
+          "about": "tiles or rings"
+        },
+        "rules": {
+          "type": "string",
+          "default": "",
+          "about": "your own css-doodle rules instead of a ready doodle (CSS animations only)"
+        },
+        "seed": {
+          "type": "integer",
+          "default": 2026,
+          "min": 0,
+          "max": 4294967295,
+          "about": "fixes every @rand and @pick"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "duration": {
+          "type": "number",
+          "default": 4,
+          "min": 0.1,
+          "max": 120,
+          "timing": true,
+          "about": "seconds"
+        }
+      },
+      "css_animations": "seeked"
+    },
+    {
+      "id": "torph-text",
+      "title": "torph: words that morph into each other letter by letter",
+      "status": "ready",
+      "kind": "html",
+      "page": "libraries/torph/index.html",
+      "screenshot": "#stage",
+      "css_animations": "seeked",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "libraries/README.md",
+      "sources": [
+        "torph"
+      ],
+      "blocks": [
+        "libraries/library-kit.mjs"
+      ],
+      "params": {
+        "words": {
+          "type": "object",
+          "default": [
+            "Idea",
+            "Sketch",
+            "Motion",
+            "Film"
+          ],
+          "about": "the texts in order (a list)"
+        },
+        "hold": {
+          "type": "number",
+          "default": 1,
+          "min": 0.2,
+          "max": 30,
+          "timing": true,
+          "about": "seconds per word"
+        },
+        "morph": {
+          "type": "number",
+          "default": 0.6,
+          "min": 0.05,
+          "max": 10,
+          "about": "seconds each change takes"
+        },
+        "size": {
+          "type": "integer",
+          "default": 86,
+          "min": 8,
+          "max": 1000,
+          "about": "text size in px (default 16% of the width)"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "duration": {
+          "type": "number",
+          "default": 4,
+          "min": 0.1,
+          "max": 600,
+          "timing": true,
+          "about": "seconds (default words \u00d7 hold)"
+        }
+      }
+    },
+    {
+      "id": "tsparticles",
+      "title": "tsParticles: confetti, drifting dust and point networks, stepped on the clock",
+      "status": "ready",
+      "kind": "canvas",
+      "page": "libraries/tsparticles/index.html",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "libraries/README.md",
+      "sources": [
+        "tsparticles"
+      ],
+      "blocks": [
+        "libraries/tsparticles/presets.mjs",
+        "libraries/library-kit.mjs"
+      ],
+      "params": {
+        "preset": {
+          "type": "string",
+          "default": "confetti",
+          "about": "confetti, drift or links"
+        },
+        "options": {
+          "type": "object",
+          "default": {},
+          "about": "tsParticles options merged over the preset"
+        },
+        "seed": {
+          "type": "integer",
+          "default": 11,
+          "min": 0,
+          "max": 4294967295,
+          "about": "every random choice of the simulation"
+        },
+        "steps": {
+          "type": "integer",
+          "default": 2,
+          "min": 1,
+          "max": 8,
+          "about": "simulation steps per frame"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "duration": {
+          "type": "number",
+          "default": 4,
+          "min": 0.1,
+          "max": 120,
+          "timing": true,
+          "about": "seconds"
+        }
+      }
+    },
+    {
+      "id": "p5-brush",
+      "title": "p5.brush: a drawing that builds itself with pencil, watercolour and hatching",
+      "status": "ready",
+      "kind": "canvas",
+      "page": "libraries/brush/index.html",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "libraries/README.md",
+      "sources": [
+        "p5-brush"
+      ],
+      "blocks": [
+        "libraries/brush/drawings.mjs",
+        "libraries/library-kit.mjs"
+      ],
+      "params": {
+        "drawing": {
+          "type": "string",
+          "default": "still-life",
+          "about": "still-life"
+        },
+        "seed": {
+          "type": "integer",
+          "default": 5,
+          "min": 0,
+          "max": 4294967295,
+          "about": "the grain of every stroke and fill"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "duration": {
+          "type": "number",
+          "default": 4,
+          "min": 0.1,
+          "max": 120,
+          "timing": true,
+          "about": "seconds"
+        }
+      }
     }
   ]
 }

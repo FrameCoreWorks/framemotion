@@ -9,6 +9,7 @@ One folder for every engine FrameMotion renders frame by frame: our own engines 
 | `package.json`, `package-lock.json` | The one dependency set of all engines, pinned exactly (three.js 0.187.0) |
 | `photoreal/` | [Photoreal three.js blocks](photoreal/README.md): accumulation camera and film grade, with a demo scene |
 | `gl-transitions/` | [gl-transitions engine](gl-transitions/README.md): 236 transitions between two pictures (unchanged shaders, our wrapper) |
+| `libraries/` | [Library engines](libraries/README.md): Paper Shaders, PixiJS filters, css-doodle, torph, tsParticles and p5.brush on our clock (npm packages, not copied) |
 
 Registered engines:
 
@@ -20,6 +21,7 @@ Registered engines:
 | `anatomy-svg` | The bundled [Anatomy engine](../anatomy-engine/README.md), its SVG fixture | builder `anatomy`, adapter `renderFrame` |
 | `kaventro-blank`, `-overlay`, `-mobile`, `-desktop`, `-story` | The bundled [kaventro film templates](../kaventro-engine/README.md) | builder `kaventro`, adapter `seek` |
 | `hairline-spice-rack` | The [Hairline](../hairline/README.md) example | builder `folder`, adapter `renderFrame` |
+| `paper-shader`, `pixi-filter`, `css-doodle`, `torph-text`, `tsparticles`, `p5-brush` | [Library engines](libraries/README.md) | own page, library from `node_modules` |
 
 Bundled engines stay byte-identical in their own folders (a test checks their hashes); a builder in `kit/builders.mjs` makes their page in a temporary folder and an adapter wraps the page's own clock (`window.renderFrame(seconds)` or `window.seek(t)`). Any Animate piece, Anatomy page or kaventro film renders the same way: add an entry with its piece folder, page options or template kind. A page may list files that are allowed to be missing in `optional` (a film's music in a silent render); any other missing file fails the render, and outside requests are blocked and listed in the report.
 

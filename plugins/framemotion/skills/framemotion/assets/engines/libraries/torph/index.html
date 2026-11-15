@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>torph engine</title>
+<style>
+  html, body { margin: 0; background: #0d0f14; overflow: hidden; }
+  #stage { position: relative; overflow: hidden; background: #0d0f14; display: grid; place-items: center; }
+  #word { color: #f8fafc; font: 700 var(--size) / 1.1 "DejaVu Sans", Arial, sans-serif; letter-spacing: -0.02em; white-space: nowrap; }
+</style>
+<script type="importmap">{"imports":{"torph":"../../node_modules/torph/dist/index.mjs"}}</script>
+</head>
+<body>
+<div id="stage"><span id="word"></span></div>
+<script type="module">
+// torph (MIT, Lochie Axon) on the FrameMotion clock, used unchanged from node_modules; this page is
+// ours. Settings (JSON in ?params): words (a list), hold (seconds per word), morph (seconds of each
+// change), size (px). torph animates with the Web Animations API from the previous word to the
+// next, so a seek rebuilds that one change from scratch (previous word drawn at once, then the
+// update), pauses its animations and places them at the time since the change began. Nothing
+// depends on what was drawn before.
+import {TextMorph} from 'torph';
+import {defineEngine} from '../../kit/engine-kit.mjs';
+import {readParams} from '../library-kit.mjs';
+
+const params = readParams();
+const {width = 540, height = 960, words = ['Idea', 'Sketch', 'Motion', 'Film'], hold = 1, morph = 0.6} = params;
+if (!Array.isArray(words) || words.length < 1 || !words.every((w) => typeof w === 'string' && w.length > 0)) {
+  throw new TypeError('words must be a list of non-empty texts');
+}
+const size = params.size ?? Math.round(width * 0.16);
+const stage = document.getElementById('stage');
+Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
+stage.style.setProperty('--size', `${size}px`);
+await document.fonts.ready;
+
+let element = document.getElementById('word');
+let morpher = null;
+const options = {duration: morph * 1000, ease: 'cubic-bezier(0.19, 1, 0.22, 1)', respectReducedMotion: false};
+const change = (i) => i * hold;   // word i arrives at i * hold seconds (word 0 is there from the start)
+function seek(t) {
+  const i = Math.max(0, Math.min(words.length - 1, Math.floor(t / hold)));
+  morpher?.destroy();
+  const fresh = document.createElement('span');
+  fresh.id = 'word';
+  element.replaceWith(fresh);
+  element = fresh;
+  morpher = new TextMorph({element, ...options});
+  morpher.update(i === 0 ? words[0] : words[i - 1]);   // the first render draws without animation
+  if (i > 0) morpher.update(words[i]);
+  const since = (t - change(i)) * 1000;
+  for (const a of element.getAnimations({subtree: true})) { a.pause(); a.currentTime = Math.max(0, since); }
+}
+const duration = params.duration ?? words.length * hold;
+const engine = defineEngine({id: 'torph-text', width, height, fps: params.fps ?? 30, duration, seek});
+engine.seek(0);
+window.__framemotion = {engine, element: '#stage', ready: true};
+</script>
+</body>
+</html>

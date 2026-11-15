@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>tsParticles engine</title>
+<style>html, body { margin: 0; background: #0d0f14; overflow: hidden; } #particles { position: absolute; inset: 0; }</style>
+<script src="../../node_modules/@tsparticles/slim/tsparticles.slim.bundle.min.js"></script>
+</head>
+<body>
+<div id="particles"></div>
+<script type="module">
+// tsParticles (MIT, Matteo Bruni) on the FrameMotion clock, used unchanged from node_modules (the
+// slim bundle); this page is ours. tsParticles is a simulation: each step moves particles from where
+// they were. So the library's animation loop is replaced by ours, its random numbers come from the
+// seed, and seek(t) steps the simulation from the start in fixed steps (a backwards seek starts it
+// over). The same seed and t always give the same picture.
+// Settings (JSON in ?params): preset, options (tsParticles options merged over the preset), seed, steps (per frame).
+import {defineEngine, createRng} from '../../kit/engine-kit.mjs';
+import {readParams, frames} from '../library-kit.mjs';
+import {PRESETS} from './presets.mjs';
+
+const params = readParams();
+const {width = 540, height = 960, preset = 'confetti', seed = 11} = params;
+const fps = params.fps ?? 30, steps = params.steps ?? 2;
+if (!PRESETS[preset]) throw new Error(`unknown preset "${preset}" (known: ${Object.keys(PRESETS).join(', ')})`);
+const box = document.getElementById('particles');
+Object.assign(box.style, {width: `${width}px`, height: `${height}px`});
+
+const lib = window.__tsParticlesInternals.engine;
+// Our loop: the library asks for its next frame here, and we run it when we step.
+let queue = [];
+lib.setAnimationFunctions((fn) => { queue.push(fn); return fn; }, (fn) => { queue = queue.filter((f) => f !== fn); });
+await window.loadSlim(window.tsParticles);
+
+const merge = (a, b) => {
+  if (b === undefined) return a;
+  if (a && b && typeof a === 'object' && typeof b === 'object' && !Array.isArray(a) && !Array.isArray(b)) {
+    const out = {...a};
+    for (const [k, v] of Object.entries(b)) out[k] = merge(a[k], v);
+    return out;
+  }
+  return b;
+};
+const options = merge({...PRESETS[preset], fullScreen: {enable: false}, detectRetina: false, fpsLimit: fps * steps * 2,
+  smooth: false, pauseOnBlur: false, pauseOnOutsideViewport: false}, params.options);
+
+let container = null, done = -1;   // done: the last step drawn
+const stepMs = 1000 / (fps * steps);
+async function restart() {
+  queue = [];
+  lib.setRandom(createRng(seed >>> 0).next);   // the same numbers on every start
+  if (container) await container.reset(options);   // same canvas, particles made again from the seed
+  else container = await window.tsParticles.load({id: 'particles', element: box, options});
+  queue = [];
+  container.draw(true);   // exactly one pending frame, timed from our first step
+  done = -1;
+}
+function step() {
+  done += 1;
+  const run = queue; queue = [];
+  for (const fn of run) fn(done * stepMs);
+}
+async function seek(t) {
+  const target = Math.round(t * fps * steps);
+  const fresh = container === null || target < done;
+  if (fresh) await restart();
+  while (done < target) step();
+  if (fresh) await frames(4);   // a restarted simulation needs a few page updates before its canvas shows
+  // tsParticles draws into an OffscreenCanvas made from the page's canvas; the picture reaches the
+  // page's canvas when the browser next updates the page.
+  await frames(2);
+}
+await seek(0);
+const engine = defineEngine({id: 'tsparticles', width, height, fps, duration: params.duration ?? 4, seek});
+window.__framemotion = {engine, get canvas() { return container.canvas.domElement; }, ready: true};
+</script>
+</body>
+</html>

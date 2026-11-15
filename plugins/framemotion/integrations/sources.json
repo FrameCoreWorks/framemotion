@@ -264,15 +264,18 @@
     {
       "name": "p5-brush",
       "repo": "acamposuribe/p5.brush",
-      "commit": "054f2feb2ec8f98bd6dbb7d676d0335323180d83",
+      "commit": "75c89fd8e0a0b63d9a88b51983c0738e132e82a5",
       "licence": "MIT",
       "copyright": "Copyright (c) 2023-2026 Alejandro Campos Uribe",
       "kind": "library",
       "pack": "P2",
-      "status": "planned",
+      "status": "dependency",
       "conditions": [
-        "p5.js itself is LGPL-2.1: install, never bundle"
-      ]
+        "npm dependency pinned exactly (tag v3.0.0 = this commit); installed by npm ci, never bundled",
+        "only the standalone build is used, so p5.js (LGPL-2.1) is not needed and not installed"
+      ],
+      "package": "p5.brush",
+      "version": "3.0.0"
     },
     {
       "name": "pixi-filters",
@@ -307,13 +310,17 @@
     {
       "name": "tsparticles",
       "repo": "tsparticles/tsparticles",
-      "commit": "81b3eae3eb9b2a215b968fb33344845fe983cb06",
+      "commit": "8c572f3f979a0115f6ff489cbedecffd8dec68ef",
       "licence": "MIT",
       "copyright": "Copyright (c) 2020 Matteo Bruni",
       "kind": "library",
       "pack": "P2",
-      "status": "planned",
-      "conditions": []
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly (tag v4.6.0 = this commit; its engine 4.6.0 comes with it); installed by npm ci, never bundled"
+      ],
+      "package": "@tsparticles/slim",
+      "version": "4.6.0"
     },
     {
       "name": "css-doodle",
@@ -323,19 +330,27 @@
       "copyright": "Copyright (c) 2017-present Yuan Chuan",
       "kind": "library",
       "pack": "P2",
-      "status": "planned",
-      "conditions": []
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly (tag v0.69.0 = this commit); installed by npm ci, never bundled"
+      ],
+      "package": "css-doodle",
+      "version": "0.69.0"
     },
     {
       "name": "torph",
       "repo": "lochie/torph",
-      "commit": "bfb4a85918adfb81de81a1b5ede22ce15635a111",
+      "commit": "6d3efe3232bdce003384c0f803aee661527ad0f5",
       "licence": "MIT",
       "copyright": "Copyright (c) 2025 Lochie Axon",
       "kind": "library",
       "pack": "P2",
-      "status": "planned",
-      "conditions": []
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly (tag torph@0.1.4 = this commit); installed by npm ci, never bundled"
+      ],
+      "package": "torph",
+      "version": "0.1.4"
     },
     {
       "name": "claude-video-2",

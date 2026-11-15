@@ -61,3 +61,9 @@ a source-manifest.json with the pinned commit):
   pixijs/filters (pixi-filters 6.1.5, commit e9d1ca987864f121680bb0d7e9612c05b37748de, MIT, Copyright (c) 2013-2025
   Mathew Groves, Chad Engler) and pixijs/pixijs (pixi.js 8.23.0, commit 1e707686d00a2a8cd6432b047e56034fc7e7a909, MIT,
   Copyright (c) 2013-2023 Mathew Groves, Chad Engler).
+  css-doodle/css-doodle (css-doodle 0.69.0, commit 0df625e7be6a15d56d12788123286b98d0a18935, MIT, Copyright (c)
+  2017-present Yuan Chuan); lochie/torph (torph 0.1.4, commit 6d3efe3232bdce003384c0f803aee661527ad0f5, MIT, Copyright
+  (c) 2025 Lochie Axon); tsparticles/tsparticles (@tsparticles/slim 4.6.0, commit 8c572f3f979a0115f6ff489cbedecffd8dec68ef,
+  MIT, Copyright (c) 2020 Matteo Bruni); acamposuribe/p5.brush (p5.brush 3.0.0, commit
+  75c89fd8e0a0b63d9a88b51983c0738e132e82a5, MIT, Copyright (c) 2023-2026 Alejandro Campos Uribe; its standalone build
+  only, so p5.js is not used).
