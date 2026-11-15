@@ -360,38 +360,44 @@
       "copyright": "Copyright (c) 2026 Claude Video Studio contributors",
       "kind": "knowledge",
       "pack": "P3",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
-        "no Higgsfield route"
-      ]
+        "no Higgsfield route",
+        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/coded-look-library.md"
+      ],
+      "bundled_commit": "18891e4996abb7ccc0085f2d43cef2fd7eff1dc8"
     },
     {
       "name": "varg-skills",
       "repo": "vargHQ/skills",
       "commit": "aafd5aadfc9cdfdc067fc8fca2602b150a590305",
       "licence": "MIT",
-      "copyright": "Copyright (c) 2026 vargai Inc",
+      "copyright": "Copyright (c) 2026 vargai Inc.",
       "kind": "knowledge",
       "pack": "P3",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
         "only kinetic-type-art, motion-formats, title-design, transition-craft, footage-effects, maps-and-data-motion",
         "skip satellite-flyover",
-        "caption-styles belongs to FrameCut"
-      ]
+        "caption-styles belongs to FrameCut",
+        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md, references/transition-effect-and-data-recipes.md"
+      ],
+      "bundled_commit": "aafd5aadfc9cdfdc067fc8fca2602b150a590305"
     },
     {
       "name": "iart-kinetic-typography",
       "repo": "iart-ai/kinetic-typography-skills",
       "commit": "2b79c81230c6647a344844f9ed53b6fa07f3f1f9",
       "licence": "MIT",
-      "copyright": "Copyright (c) 2026 iart",
+      "copyright": "Copyright (c) 2026 iart.ai",
       "kind": "knowledge",
       "pack": "P3",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
-        "Remotion parts rewritten for HyperFrames"
-      ]
+        "Remotion parts rewritten for HyperFrames",
+        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md"
+      ],
+      "bundled_commit": "2b79c81230c6647a344844f9ed53b6fa07f3f1f9"
     },
     {
       "name": "charlie947-motion-graphics",
@@ -401,11 +407,13 @@
       "copyright": "Copyright (c) 2026 Charlie Hills",
       "kind": "knowledge",
       "pack": "P3",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
         "rename brand-named recipes descriptively",
-        "skip brand-intake and brief-writer"
-      ]
+        "skip brand-intake and brief-writer",
+        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md, references/transition-effect-and-data-recipes.md"
+      ],
+      "bundled_commit": "229022ebca76972e119e36ada23a1648d51665ab"
     },
     {
       "name": "sunwood-motion-reel",
@@ -415,10 +423,12 @@
       "copyright": "Copyright (c) 2026 Sunwood AI Labs",
       "kind": "knowledge",
       "pack": "P3",
-      "status": "planned",
+      "status": "adapted",
       "conditions": [
-        "Japanese text rewritten in English"
-      ]
+        "Japanese text rewritten in English",
+        "rewritten in FrameMotion's own words, no file copied; linked at this commit from references/type-title-and-format-recipes.md"
+      ],
+      "bundled_commit": "be78681a88a70f1f66c82275299fe569a9a9fcaa"
     },
     {
       "name": "iart-explainer",

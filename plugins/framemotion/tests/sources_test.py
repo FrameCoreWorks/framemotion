@@ -38,6 +38,22 @@ class SourcesTest(unittest.TestCase):
                 self.assertIn(s['repo'], NOTICE)
                 self.assertIn(s['bundled_commit'], NOTICE)
 
+    def test_rewritten_knowledge_links_its_pinned_source(self):
+        # Knowledge in FrameMotion's own words: each reference it names links the repository at the reviewed commit.
+        refs = ROOT / 'skills/framemotion'
+        for s in SOURCES:
+            if s['kind'] != 'knowledge' or s['status'] != 'adapted':
+                continue
+            with self.subTest(s['name']):
+                named = [c for c in s['conditions'] if 'linked at this commit from ' in c]
+                self.assertEqual(len(named), 1, 'name the references that link it')
+                files = named[0].split('linked at this commit from ', 1)[1].split(', ')
+                for rel in files:
+                    text = (refs / rel).read_text()
+                    self.assertIn(f"github.com/{s['repo']}", text, rel)
+                    self.assertIn(s['bundled_commit'], text, rel)
+                    self.assertNotRegex(text, rf"github\.com/{s['repo']}/blob/(?!{s['bundled_commit']})", f'{rel} links another commit')
+
     def test_dependencies_match_the_engines_package(self):
         for s in SOURCES:
             if s['status'] != 'dependency':

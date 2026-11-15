@@ -67,3 +67,15 @@ a source-manifest.json with the pinned commit):
   MIT, Copyright (c) 2020 Matteo Bruni); acamposuribe/p5.brush (p5.brush 3.0.0, commit
   75c89fd8e0a0b63d9a88b51983c0738e132e82a5, MIT, Copyright (c) 2023-2026 Alejandro Campos Uribe; its standalone build
   only: p5.js (LGPL-2.1) is not used, and .npmrc keeps npm from installing it as a peer).
+- Knowledge rewritten in FrameMotion's own words (no file copied; each is linked at its commit from the reference
+  named), all under the MIT licence:
+  ItsssssJack/claude-video-2 (commit 18891e4996abb7ccc0085f2d43cef2fd7eff1dc8, Copyright (c) 2026 Claude Video Studio
+  contributors): references/coded-look-library.md.
+  vargHQ/skills (commit aafd5aadfc9cdfdc067fc8fca2602b150a590305, Copyright (c) 2026 vargai Inc.; only kinetic-type-art,
+  title-design, motion-formats, transition-craft, footage-effects and maps-and-data-motion):
+  references/type-title-and-format-recipes.md and references/transition-effect-and-data-recipes.md.
+  iart-ai/kinetic-typography-skills (commit 2b79c81230c6647a344844f9ed53b6fa07f3f1f9, Copyright (c) 2026 iart.ai),
+  Sunwood-ai-labs/hyperframes-motion-reel-skill (commit be78681a88a70f1f66c82275299fe569a9a9fcaa, Copyright (c) 2026
+  Sunwood AI Labs) and charlie947/motion-graphics-skills (commit 229022ebca76972e119e36ada23a1648d51665ab, Copyright
+  (c) 2026 Charlie Hills): references/type-title-and-format-recipes.md and, for charlie947,
+  references/transition-effect-and-data-recipes.md.
