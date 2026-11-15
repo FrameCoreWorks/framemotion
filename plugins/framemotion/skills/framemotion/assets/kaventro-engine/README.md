@@ -4,7 +4,7 @@ Unchanged copies of the film templates of [kaventro/motion-designer](https://git
 
 A film is `templates/shared/` plus one kind folder, the way upstream's `new_film.sh` assembles it: `blank` (titles, kinetic type, data), `overlay` (lower thirds and captions over footage), `mobile` (an app in an iPhone), `desktop` (an app window on a laptop) and `story` (hook, product, panels, end card). The page draws any time with `window.seek(t)` and reports its size and timing in `window.FILM_INFO`.
 
-FrameMotion renders them through its shared renderer with the `seek` adapter (registry ids `kaventro-blank`, `kaventro-overlay`, `kaventro-mobile`, `kaventro-desktop`, `kaventro-story`):
+With the [Launch engine](../launch-engine/README.md) they form FrameMotion's one launch-film family; its chooser says when to take a kaventro template and when a launch style. FrameMotion renders them through its shared renderer with the `seek` adapter (registry ids `kaventro-blank`, `kaventro-overlay`, `kaventro-mobile`, `kaventro-desktop`, `kaventro-story`):
 
 ```bash
 node ../engines/kit/render-engine.mjs --engine kaventro-blank --frames 0,360,719 --out frames

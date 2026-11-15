@@ -1,0 +1,1373 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/Kimeur/motion-launch-videos",
+  "source_commit": "5092579bc9aaeb0e3547ded0980a93404d2dc906",
+  "retrieved_on": "2026-11-15",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2026 Marouane Gazouzi",
+  "activation": "bundled_engine_built_and_rendered_by_the_framemotion_engine_kit_no_installer",
+  "layout": "shared/ keeps its upstream path; plugins/motion-launch-videos/skills/<style>/ is bundled as styles/<style>/ with its synced copies of shared/, so each style folder stays self-contained as upstream ships it",
+  "renamed": {
+    "plugins/motion-launch-videos/skills/motion-launch-videos/SKILL.md": "styles/motion-launch-videos/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-shapes/SKILL.md": "styles/motion-shapes/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-cartoon/SKILL.md": "styles/motion-cartoon/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-3d/SKILL.md": "styles/motion-3d/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-charts/SKILL.md": "styles/motion-charts/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-pixel/SKILL.md": "styles/motion-pixel/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-particles/SKILL.md": "styles/motion-particles/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-ui/SKILL.md": "styles/motion-ui/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-photo/SKILL.md": "styles/motion-photo/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-overlays/SKILL.md": "styles/motion-overlays/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-globe/SKILL.md": "styles/motion-globe/method.md (byte-identical; renamed so no host loads it as a skill)",
+    "plugins/motion-launch-videos/skills/motion-story/SKILL.md": "styles/motion-story/method.md (byte-identical; renamed so no host loads it as a skill)"
+  },
+  "not_bundled": [
+    "plugins/motion-launch-videos/skills/motion-captions/ (captioned clips belong to FrameCut)",
+    "plugins/motion-launch-videos/skills/motion-story/templates/assets/voice.wav (an example voice recording)",
+    "plugins/motion-launch-videos/skills/motion-story/scripts/voice.mjs (runs unpinned npx hyperframes tts and transcribe; FrameMotion voices a story through its own sound route)",
+    "examples/ (109 MB of rendered films, GIFs and posters)",
+    "README.md, CHANGELOG.md, .github/, tools/, .claude-plugin/, plugins/motion-launch-videos/.claude-plugin/, plugins/motion-launch-videos/README.md and LICENSE (the same text as LICENSE), .gitignore"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/LICENSE",
+      "sha256": "de6fdb5080127438630e1e0c1220d5a104bd08b58240a95ffa2ec047d1cedef9"
+    },
+    {
+      "source_path": "shared/core.js",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/core.js",
+      "sha256": "52ce1fe8b4e2ef8f95a7053160202af3d3c0f5bd27af2af7577f098c55ab05ec"
+    },
+    {
+      "source_path": "shared/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "shared/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "shared/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "shared/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "shared/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "shared/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "shared/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "shared/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "shared/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "shared/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "shared/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "shared/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "shared/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "shared/world/world-data.js",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/shared/world/world-data.js",
+      "sha256": "0f059da2ac008a37fa795485f86e4340578a6fe2c9907ac2f6bb173b9cfb93d8"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/method.md",
+      "sha256": "23c6c16d3c15d8031bdb65c98a16c80ebdeacdc38eb73620efc6b6a4492436c3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/package.json",
+      "sha256": "078d172e0b2566cdad0e0867286f3fce0315cd3d2b8628c4c11ded041231f6b5"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/3d-design.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/3d-design.md",
+      "sha256": "1e21494a9ac5434081545bf923d43dffcf904634e4e0ab7439569cb353210320"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/engine.md",
+      "sha256": "27857b131d6d8e5e4f8474adae5a569ced4e42e3dbe568d765ee06821ef6fa7d"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/review.md",
+      "sha256": "67d91c908dd24a9ad194989cbab23f833c0cde748b5f2d92d2ca0b8cbd9027be"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/templates/DESIGN.md",
+      "sha256": "cf0cb515e0498759e919e0448f6efc0b1f2b642d863cb0536113bdd861794d53"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-3d/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-3d/templates/film.html",
+      "sha256": "8a270479d5052ac76f291c8c8ca635cf71e9f5d83e7c6d0325db47b29c1e0126"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/method.md",
+      "sha256": "c4e99fdf87570b81024ae17729098e71fc54ed83efb8cd6c241915fd816d2070"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/package.json",
+      "sha256": "617396d2c86cabb5c45081fc57d8dc037385be928fb0029ba8e61b2b19420838"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/animation.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/animation.md",
+      "sha256": "9696055e32d59f60a21c5396f3cf32b559c5e4ff50353a6fcc2214cd9d133ef1"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/engine.md",
+      "sha256": "afb1437f65eb67d731a3fb542fb0847d385cbfc0ebf9e4925e10616f72d4faed"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/review.md",
+      "sha256": "4fa44833c43685387f46ca7e190a915dd7b07b828bfe2eb71401705b45628330"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/templates/DESIGN.md",
+      "sha256": "39ac7ef23fab3fbdd2ccb7207570662129b1e91161c7f959c64517af91f24b35"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-cartoon/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-cartoon/templates/film.html",
+      "sha256": "1da676f3aaec61a4628b4fe0d6f51737d46fe017f4f5c857c8f962f1addd461b"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/method.md",
+      "sha256": "75372a2821534c3c43bd5a4afd456f41ead1730c2da3f699122c38a2d2f7fd55"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/package.json",
+      "sha256": "41b4722d2e3afa051308bb909da8a2a130bbe6752f4b874cd6e3ec1f30827628"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/data-design.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/data-design.md",
+      "sha256": "5ed46ed67fd4b1847b69ff8e198ab97a5cd3e2c3d03ceb9860c76d12d5b37c2e"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/engine.md",
+      "sha256": "c5fb94378a2ac95f9987b840afdf326fa7e7b5c60d8f04a1e4f2521ee9a3c418"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/review.md",
+      "sha256": "e0254e3ada2919ecb2038f7d1ac5831d9289e2a49e4c0561b1f27627e337196b"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/templates/DESIGN.md",
+      "sha256": "e3ff17cea600fc71cecf70d48a98bef9ee2d031b51e2f1152818861738c72646"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-charts/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-charts/templates/film.html",
+      "sha256": "37b9fb01855a4b6c7b2909e3828d83b961fbf5973644def8ae7ee10b29ac49af"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/method.md",
+      "sha256": "27f4d67671e37112118f385e84723604fbdfefa18d3cbd84eee4aa2757568a24"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/package.json",
+      "sha256": "de840d9f6140657cff265ecda60faea25a07d8af2dea51679ab3c13cd01dcb44"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/engine.md",
+      "sha256": "af4f24a417d852b7c3c7fd0be49c446aa2cad14e2953f6fa1e3d096f49fd887a"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/globe-craft.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/globe-craft.md",
+      "sha256": "951801c824912c8d8652235d24d2c15e2606f220f294dbef332672baaca325ad"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/review.md",
+      "sha256": "9e54c37bfd38ebe47fb4ac2bd7f53c34b155cfc1ed5cf487d1eef71b37f86789"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/templates/DESIGN.md",
+      "sha256": "34dc7bcad9a3f8930592775f5cbcc1a26d20722b163a15ba33d6827174e8d578"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-globe/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-globe/templates/film.html",
+      "sha256": "c643e04e142dbfd649d92d12196f784d7cb0e151b91f4377a2e38ed452382fc0"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/method.md",
+      "sha256": "c0f092ae2339d9d227d7b93cdbe96b4f574b9c1df50e118e8760cf14642cbc5c"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/package.json",
+      "sha256": "b5a64cd29727c33305a9d14c4c7aa31b172ee108bf10aed7bb914e1bd3db6b03"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/brief.md",
+      "sha256": "764ea15e6408cd811dac5bbef0da5937a85aa7bb248e3245e6c758e6f28e0552"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/design-spec.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/design-spec.md",
+      "sha256": "49f004b3498fc31a5e859c4b18ee9b11a016955a881df859ced39dd194a7048e"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/engine.md",
+      "sha256": "9d5952dce1253c151bcfb4f7ca81174bf73bcde3dc8371329f9e355fcf89da2f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/fonts.md",
+      "sha256": "6b64a9a47db8ff68bbb3e526767cb576d1ca4b8aef68121b0e7b177e52d7059f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/kinetic-type.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/kinetic-type.md",
+      "sha256": "5603e76f945643036fcdbab33296555ff30776e013b03e7481cf5b5d7d9d40a2"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/motion-blur-loop.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/motion-blur-loop.md",
+      "sha256": "06e5d709d3f1d0971ab57714cdb75997cab82a4953d40dbba5319c89ad968b22"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/render.md",
+      "sha256": "66dedbe71a647ed39c0e28bb913ff9409aa709bdd2a5e76118988e26638d2488"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/review.md",
+      "sha256": "9004f20d18e91e4e09a07265a3c3d99374773741481391654486297a10f83428"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/springs.md",
+      "sha256": "426f60de2cdfaac7235424d039b3d5604dd38960e266941957db87c602599d43"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/techniques.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/techniques.md",
+      "sha256": "e2aa43895420ca37de584560fb1bcbf21c7f9a985a355a63e9b349e2579c635e"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/templates/BRIEF.md",
+      "sha256": "4a00e92b28a1b935fbd82e485a97e6c87174715b14b13979e97693c873ba9962"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/templates/DESIGN.md",
+      "sha256": "90540552f5ddd2feb16ecdcbfc08fbd1ae0d03acd65028f23a40b37dd28d4280"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-launch-videos/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-launch-videos/templates/film.html",
+      "sha256": "f6f1bf64919994cbfdfb849dd265cac86e8c8501368a60fbbf58a0bbaeb35b80"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/method.md",
+      "sha256": "8fc083b75cde3b2312b83c496204c3c17f656846634b2e377ba02ae625cac634"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/package.json",
+      "sha256": "0aef103e2028978412a3a7960673afc59122bcd94c99ca6fcaed9bcd36eb6f60"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/engine.md",
+      "sha256": "de120b8365f7661910c4a80d14020f8d423c318281e99c32021d2030c65cd468"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/overlay-craft.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/overlay-craft.md",
+      "sha256": "ba92cb6976647d1da78fd88d370746b0640083145597071c34e7172a8e9e75d4"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/review.md",
+      "sha256": "17123e0efd9036c4d1483e0acd679550a147d4286f9088e2a20acf1723475313"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/templates/DESIGN.md",
+      "sha256": "4b4ca0f851a4bf3ff9ed92679697c2ef0c0f71f5fb78ffac33d3fbd4f461b304"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-overlays/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-overlays/templates/film.html",
+      "sha256": "c647b040dab121f3f566cb374b5f1707c5d7b69082f93de29b1256f0ef9e4aaf"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/method.md",
+      "sha256": "1b07002dab7d932b91e434387a7c954ed27a90ab72d98107969a8c806109d612"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/package.json",
+      "sha256": "6b70cdec5c5d552891108a528a89ed0ce49e054d57ea1da576d9f52ece71da5f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/engine.md",
+      "sha256": "4e1ff53d3e3c25f6ee91bdab9b27e5286dedc4fdddda5cf786fbd7bbe160665d"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/particle-craft.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/particle-craft.md",
+      "sha256": "c48cf5559548cc2d9e552ae87562ab08e774ac71c3cb54dd46cda734c5b25833"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/review.md",
+      "sha256": "3e6140d8732d197c0028299a523c3f0063d49050fd54266f298fab2a32bc92a9"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/templates/DESIGN.md",
+      "sha256": "16b617fc88d4ce25f0a0372f8a7a5f6c914a91492ef6e06bed54db6fd717c3bd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-particles/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-particles/templates/film.html",
+      "sha256": "c5d8fa7eaad7f92b3aac8dd0e1026615886589b5434db5c722963859478c5aaf"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/method.md",
+      "sha256": "f459a5a04486bdaf40fed3add1471acf361f7c7976a9df77fc652041b4e0f092"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/package.json",
+      "sha256": "e4319805320d205a17ad2bb79eb50ed2988257cfaf0e4aa10645a169afed39d6"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/engine.md",
+      "sha256": "6d9be2abd21680070836ce5c248fce4d36d1a43654ab875ad705e9f3e5e0d6ff"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/photo-craft.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/photo-craft.md",
+      "sha256": "92c7a1ef7d2719fca126eba7561ee72f33629187ce6e8e69d009a02036ca4367"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/review.md",
+      "sha256": "e1d95cf5fcf08030d831e44638572357f580e9cd50ca914cac742213c1b7c9f7"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/DESIGN.md",
+      "sha256": "af9715e7604c8effc673c47429942cf31548b71a1a008025dc81ec04df4cd415"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/after-sky.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/after-sky.jpg",
+      "sha256": "a5e3a767efd70c5eff325d789e5c085d0b428143d884c4b50fc98ad1d15eab1d"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/before-graphite.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/before-graphite.jpg",
+      "sha256": "b6db8dc2ce464d2a24952a0f07c7a3ff35e424484f5ca7993eaa641066a469b4"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/flask-coral.webp",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/flask-coral.webp",
+      "sha256": "8ae8bcb6af8e4a20434a57d4a509f8d3ad70ac94fa74b7f3ae0fcf391047c264"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/hero-sage.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/hero-sage.jpg",
+      "sha256": "74e2323bbd5b44a9c750d39ccb7e45fc9d55afe2e193399fa90be499f7f77de7"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/set-coral.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/set-coral.jpg",
+      "sha256": "c4226a657038469c0513caafd4829a678da3e70f7485ec343227bbcc13fe6637"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/tile-coral.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/tile-coral.jpg",
+      "sha256": "fb59c984b6d53291a6c83d76f0b2dd9e2256512c7acadf6d876b7ef7ba2908fb"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/tile-sage.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/tile-sage.jpg",
+      "sha256": "833a5c4fa4f2ff500ac670c6f98c09cc0c712d6d821274be2adac9e4a2db9eb1"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/tile-sand.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/tile-sand.jpg",
+      "sha256": "abfde131d9dd13f4c0d7f75e470586daef410c2be9e1cb11967d2c61ba19dc82"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/assets/tile-sky.jpg",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/assets/tile-sky.jpg",
+      "sha256": "ed96ff1964b5fa6208a4ed64030d94a627956e7f2ffdb4ef3680f42cc06a6f6f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-photo/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-photo/templates/film.html",
+      "sha256": "414f952c77c9e1ca396c6bd258315238f85a8be6b5b7ab37d55bbc4b62e7e379"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/method.md",
+      "sha256": "de476ace8afb09643f16592480a24b9d02e44e4d06faa800cd504f46961fbee1"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/package.json",
+      "sha256": "b4a269876acc9d79fb4e384059605ead973c5d7d8aa63b11dd71005240f5f2cc"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/engine.md",
+      "sha256": "ecec9fa2a44f6a561ef28a815d23822114dc307e80e30234a4fdf13dc22559a6"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/pixel-craft.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/pixel-craft.md",
+      "sha256": "4a881c8dd1f3dc21d5607b30e25a17b17540e9430fa83fcade42a9e4a72cc82e"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/review.md",
+      "sha256": "bf3890c7acab9b3f3d6ef6af6e6917801f6691fef2e5fe87b863c38998707ce3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/templates/DESIGN.md",
+      "sha256": "07011b207ad24bb0a3cb78ae904c879d6835acd82901139f5e623e81ddacfb52"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-pixel/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-pixel/templates/film.html",
+      "sha256": "083f99f04be831a3cfb5dca61951943e36baaf3953b58ef6a183912c9a921618"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/method.md",
+      "sha256": "bd2de82a2dd16a8d284cbbd51e39564fc6847c7a08a738d52a170bab1fbf307b"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/package.json",
+      "sha256": "24c807f5504404965ea466cb98e7af62d0ced231e2334eeff70780b124204670"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/engine.md",
+      "sha256": "1b9c6973b4cc9d7ab84e5579599afa685212c0ad30af965f7e1091540b4732b4"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/motion-design.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/motion-design.md",
+      "sha256": "5892eba5db8afbe3f39afeb59ccc029f987c18d04434339cee3c1daddaaabc63"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/review.md",
+      "sha256": "60c4fc0816c3e7692e974566e04c99cdfd2dca8e7b35b0c20dbc617caaeee72c"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/templates/DESIGN.md",
+      "sha256": "7ff97b328d76c64adc648fb5f4a3b4be150560d8f185a984240d316f522bad82"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-shapes/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-shapes/templates/film.html",
+      "sha256": "71555fc7cdbe37aec1853466218ff99327f8fd9d093230a2a33bd75b9706a904"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/method.md",
+      "sha256": "516d7fd78f3bea1b3fdbd5b2eb6d59d6d327f8f1e2760b53fef99269ac4ffc96"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/package.json",
+      "sha256": "617396d2c86cabb5c45081fc57d8dc037385be928fb0029ba8e61b2b19420838"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/animation.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/animation.md",
+      "sha256": "9696055e32d59f60a21c5396f3cf32b559c5e4ff50353a6fcc2214cd9d133ef1"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/engine.md",
+      "sha256": "61320129dfdeb54a94cb87b5a517a6d8505d283f2e855e13141075029188a3fc"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/review.md",
+      "sha256": "132498971eef5dcb82563303412158eebbfe352a637ce043e5e0009408322aa1"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/story-craft.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/story-craft.md",
+      "sha256": "f8de8b5b7fa6e20f8d62f3ae8e477f0d989cdd1d1c371de166db6a3bf5349c9f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/templates/DESIGN.md",
+      "sha256": "59563249c79ed0655c542ba4a1a27efafe50adb17247e54a72a86546885645b7"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/templates/STORY.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/templates/STORY.md",
+      "sha256": "66caa4170b095ab89a9496a454a6507d5e0daf9c33d0516e5d12dde0f20e38d7"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/templates/assets/timing.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/templates/assets/timing.json",
+      "sha256": "004d672acbca6501028cd1d7764fe0b47298e53b19aec6360c2882a635a97753"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-story/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-story/templates/film.html",
+      "sha256": "022376949e18f66a6d95d2d306142c959e168678474937819ff8f85a0fb9f5c5"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/method.md",
+      "sha256": "e93910c7dce7d44be3bd19342346976c242e3e1fba7aef3c9b4e67e82d39c2f7"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/package.json",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/package.json",
+      "sha256": "d3d4330d1f87b6bf7d105a5686542a0a8339f12700c7e665789b240f386d7365"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/audio.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/audio.md",
+      "sha256": "1a147dd6afd7d81714b0ee996ae234e171c92cea7552031ff57bc99de49cec54"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/brief.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/brief.md",
+      "sha256": "627a78559c2fc9d755affa24f9ea4343331128f4196b714603e46246ddd27e71"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/core.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/core.md",
+      "sha256": "ba0fc7f4c65af3c788d2034686653fe4c2f12e74d100ce4be2b978d3361de460"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/engine.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/engine.md",
+      "sha256": "b3afc72ff04c55cb8407d13c4f1ac3d9179f2b5bafaf7ba23060fdd6ec5e206b"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/fonts.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/fonts.md",
+      "sha256": "c524ce61417482b41ad49e2bd8dfe37b2e60a9aedc5560c74bde1bc1c04e8eca"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/loops.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/loops.md",
+      "sha256": "4337469d9c30cb8de7501c0ef7c0de3b91f0f59b69d287b91347b902ded4ec09"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/render.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/render.md",
+      "sha256": "cdb31c7d4bdabd4a111578972bd37d3b62133208cb45ade7f377f89811065cb3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/review.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/review.md",
+      "sha256": "59d9b2dd59e1df318dfe9941a6ef0b57b83d99d000a66b9ad7563ce872cd74d9"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/springs.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/springs.md",
+      "sha256": "25cc3d4604381c1fc709b227cce3119adc1a68d5c8cca0e04eb9174c5438b1fa"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/ui-motion.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/ui-motion.md",
+      "sha256": "e4422f883f1256c789701ccfe6133fc41c460fca9511d572de5c1b9d3ab67e26"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/reference/video-types.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/reference/video-types.md",
+      "sha256": "25dce66edf9f1d69895008e16948b551546a34b5c36beef5403b6fe1a3b73617"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/scripts/build.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/scripts/build.mjs",
+      "sha256": "a2808cafa736a743d0f8898191220dbec7f4898f14cb981b46e34588f95de3dd"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/scripts/cmap.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/scripts/cmap.mjs",
+      "sha256": "5437a5b1b32133b05fcd9c880416f73f5f7f962c02c78b4973d7d340fcc70f62"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/scripts/fonts.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/scripts/fonts.mjs",
+      "sha256": "770c7de44c007087b96c4bc81cd72ec4c4addbae004ab0c774e18a27038c66a3"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/scripts/render.mjs",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/scripts/render.mjs",
+      "sha256": "821e28cfa86f9e0115f03a7b03100565906b1c20466838402d75e5ce429d264f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/templates/BRIEF.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/templates/BRIEF.md",
+      "sha256": "697490ba35429a296ff68b613462fa13e9cc28db321342ab1d3657fe6eafbc7f"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/templates/DESIGN.md",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/templates/DESIGN.md",
+      "sha256": "58365feeeed4c3d76fd5f7b868a437e74100331b48cfdf62929a96ac8598f41d"
+    },
+    {
+      "source_path": "plugins/motion-launch-videos/skills/motion-ui/templates/film.html",
+      "destination_path": "../../skills/framemotion/assets/launch-engine/styles/motion-ui/templates/film.html",
+      "sha256": "86260f09bc552d037f370881d81d3e3671663932170e42ae8a68d916509f261b"
+    }
+  ]
+}

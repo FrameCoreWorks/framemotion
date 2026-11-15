@@ -38,7 +38,8 @@
       "bundled_commit": "7d0b8bb78ddd2c91c57db9d1e83fcf711304bdb8",
       "conditions": [
         "Inter and JetBrains Mono ship without licence text: add OFL text or use bundled fonts",
-        "film templates copied 1:1 to assets/kaventro-engine/templates/ on 2026-11-14 (hashes in its source-manifest.json); rendered through the seek adapter; they use system fonts, no Inter or JetBrains Mono files"
+        "film templates copied 1:1 to assets/kaventro-engine/templates/ on 2026-11-14 (hashes in its source-manifest.json); rendered through the seek adapter; they use system fonts, no Inter or JetBrains Mono files",
+        "one launch-film family with motion-launch-videos (chooser in launch-engine/README.md)"
       ]
     },
     {
@@ -125,11 +126,13 @@
       "copyright": "Copyright (c) 2026 Marouane Gazouzi",
       "kind": "engine",
       "pack": "P8",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "no example voice recordings",
-        "motion-captions belongs to FrameCut"
-      ]
+        "no example voice recordings: the story voice.wav and voice.mjs are not bundled",
+        "motion-captions belongs to FrameCut",
+        "merged with the kaventro templates into one launch-film family: one chooser in launch-engine/README.md, one renderer; fonts from @fontsource at exact versions, never bundled"
+      ],
+      "bundled_commit": "5092579bc9aaeb0e3547ded0980a93404d2dc906"
     },
     {
       "name": "claude-animation-skills",

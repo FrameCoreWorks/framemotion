@@ -98,6 +98,13 @@ a source-manifest.json with the pinned commit):
   skills/breakdown/template.html of artemnovitckii/claude-animation-skills (commit
   5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii): its layout and several values
   follow that template; no file of it is copied.
+- Launch engine (skills/framemotion/assets/launch-engine): Kimeur/motion-launch-videos (commit
+  5092579bc9aaeb0e3547ded0980a93404d2dc906, MIT, Copyright (c) 2026 Marouane Gazouzi), bundled unchanged (each style's
+  SKILL.md as styles/<style>/method.md; the captions style, the story's example voice and voice.mjs, and the rendered
+  examples left out; hashes in integrations/motion-launch-videos/source-manifest.json). Its fonts are SIL Open Font
+  License 1.1 faces installed from npm (@fontsource packages at 5.3.0) and never bundled; each film embeds its faces
+  with their OFL text. The globe's map data is Natural Earth (public domain) through world-atlas (ISC) and
+  sane-topojson (MIT).
 - Stickman engine (skills/framemotion/assets/stickman-engine): dsauce/stickman-kino (commit
   d3d665301c0b62f04c885785e6bd6044de0785c6, MIT, Copyright (c) 2026 Prerit Ahuja), bundled unchanged except
   engine/sm-rig.js (a headScale option; original and current hashes in integrations/stickman-kino/source-manifest.json);

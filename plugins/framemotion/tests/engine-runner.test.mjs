@@ -215,3 +215,17 @@ test('a teardown frame repeats and does not depend on the frames drawn before it
   const hash = (r) => Object.fromEntries(r.frames.map((f) => [f.frame, f.hash]));
   assert.deepEqual(hash(back), hash(forward));
 });
+
+test('a launch film draws Polish letters and its frames do not depend on the frames drawn before it', {skip: browserSkip, timeout: 240000}, async () => {
+  // FrameMotion's Polish sample of the kinetic type style at 9:16: the lockup, the hook with Ł and Ż, Ś, the lockup again.
+  const forward = await kit.renderFrames('launch-type-pl', {frames: [0, 131, 348, 479]});
+  for (const f of forward.frames) {
+    assert.ok(f.deterministic, `frame ${f.frame} repeats byte for byte`);
+    assert.ok(!f.flat, `frame ${f.frame} is drawn`);
+  }
+  assert.equal(forward.engine.width, 1080);
+  assert.equal(forward.engine.height, 1920);
+  const back = await kit.renderFrames('launch-type-pl', {frames: [479, 348, 131, 0], once: true});
+  const hash = (r) => Object.fromEntries(r.frames.map((f) => [f.frame, f.hash]));
+  assert.deepEqual(hash(back), hash(forward));
+});

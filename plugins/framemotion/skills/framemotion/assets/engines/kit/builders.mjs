@@ -112,6 +112,68 @@ export const BUILDERS = {
     return {dir, page};
   },
   /**
+   * Launch engine (bundled Kimeur/motion-launch-videos): a style's film.html (its template, or the user's
+   * own film folder holding film.html and assets/) with its fonts from this engines folder's @fontsource
+   * packages, assembled into one offline page by the engine's own build.mjs. The page's renderFrame(n)
+   * (a frame number, with its motion blur) is exposed as renderFrame(t) once the fonts and layout are ready.
+   */
+  async launch(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'launch-engine');
+    const style = entry.build.style;
+    const template = path.join(engine, 'styles', style ?? '', 'templates');
+    if (!style || !fs.existsSync(path.join(template, 'film.html'))) throw new Error(`${entry.id}: unknown launch style "${style}" (see launch-engine/styles)`);
+    const source = entry.build.film ? path.resolve(enginesRoot, entry.build.film) : template;
+    if (!fs.existsSync(path.join(source, 'film.html'))) throw new Error(`${entry.id}: no film.html in ${source}`);
+    const dir = temp(entry.id);
+    const film = path.join(dir, 'film');
+    fs.mkdirSync(path.join(film, 'src'), {recursive: true});
+    if (fs.existsSync(path.join(source, 'assets'))) fs.cpSync(path.join(source, 'assets'), path.join(film, 'assets'), {recursive: true});
+    let html = fs.readFileSync(path.join(source, 'film.html'), 'utf8');
+    // letters beyond basic Latin (ą, ę, ł, ś, ż ...): each latin face gets its Latin Extended twin
+    const extended = /[Ā-ɏḀ-ỿ]/.test(html);
+    const fontsource = path.join(enginesRoot, 'node_modules', '@fontsource');
+    const font = (pkg, file) => {
+      const from = path.join(fontsource, pkg, 'files', file);
+      if (!fs.existsSync(from)) throw new Error(`${entry.id}: font ${file} is not in @fontsource/${pkg}; add the package at an exact version to the engines folder's package.json`);
+      fs.mkdirSync(path.join(film, 'fonts'), {recursive: true});
+      fs.copyFileSync(from, path.join(film, 'fonts', file));
+      fs.copyFileSync(path.join(fontsource, pkg, 'LICENSE'), path.join(film, 'fonts', `OFL-${pkg}.txt`));
+    };
+    html = html.replace(/@font-face\s*\{[^}]*__FONT:([a-z0-9-]+?)-latin-(\d+)-(normal|italic)\.woff2__[^}]*\}/g, (rule, pkg, weight, style) => {
+      font(pkg, `${pkg}-latin-${weight}-${style}.woff2`);
+      if (!extended) return rule;
+      const ranges = JSON.parse(fs.readFileSync(path.join(fontsource, pkg, 'unicode.json'), 'utf8'))['latin-ext'];
+      if (!ranges) return rule;
+      font(pkg, `${pkg}-latin-ext-${weight}-${style}.woff2`);
+      const twin = rule.replace(`-latin-${weight}-`, `-latin-ext-${weight}-`).replace(/\}$/, `;unicode-range:${ranges}}`);
+      return `${rule}\n${twin}`;
+    });
+    for (const m of html.matchAll(/__FONT:([a-z0-9-]+?)-(latin-ext|latin|cyrillic|greek|vietnamese)-(\d+)-(normal|italic)\.woff2__/g)) {
+      if (!fs.existsSync(path.join(film, 'fonts', m[0].slice(7, -2)))) font(m[1], m[0].slice(7, -2));
+    }
+    fs.writeFileSync(path.join(film, 'src', 'film.html'), html);
+    const run = spawnSync(process.execPath, [path.join(engine, 'shared/scripts/build.mjs'), film], {encoding: 'utf8'});
+    if (run.status !== 0) throw new Error(`Launch build failed: ${run.stderr || run.stdout}`);
+    let page = fs.readFileSync(path.join(film, 'film.html'), 'utf8');
+    const tail = page.lastIndexOf('</body>');
+    page = page.slice(0, tail) + `<script>
+    (function () {
+      // the film booted above: keep its renderFrame(n) until its fonts and layout are ready
+      const draw = window.renderFrame;
+      window.renderFrame = undefined;
+      window.ready.then(() => {
+        window.FILM_INFO = {W: window.WIDTH, H: window.HEIGHT, FPS: window.FPS, frames: Math.round(window.DURATION * window.FPS)};
+        window.renderFrame = (t) => { draw(Math.round(t * window.FPS)); };
+      });
+    })();
+  </script>
+` + page.slice(tail);
+    fs.writeFileSync(path.join(film, 'film.html'), page);
+    const query = {capture: '1'};
+    if (entry.build.format) query.format = String(entry.build.format).replace(':', 'x');
+    return {dir, page: 'film/film.html', query};
+  },
+  /**
    * kaventro/motion-designer film templates: shared/ plus one kind (blank, overlay, mobile, desktop,
    * story), assembled the way its new_film.sh does. The page draws on window.seek(t) with ?render.
    */
