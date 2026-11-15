@@ -4,7 +4,7 @@ Every engine in FrameMotion, whether a bundled copy or our own code, follows thi
 
 ## Rules
 
-1. **A pure function of time.** `seek(t)` draws the state at `t` seconds, for any `t` in `[0, duration]`. No wall clock, no `requestAnimationFrame` loop that carries state, no state from the previous frame. Forward, backward and direct seeks give the same picture. Frames are `0 … totalFrames − 1` and frame `f` shows `t = f / fps`, so `t = duration` is the end state but never a frame of its own; a motion-blur sample may still land on it.
+1. **A pure function of time.** `seek(t)` draws the state at `t` seconds, for any `t` in `[0, duration]`. No wall clock, no `requestAnimationFrame` loop that carries state, no state from the previous frame. Forward, backward and direct seeks give the same picture, byte for byte, whatever frames were drawn before: a state the timeline sets at `t = 0` is already the page's starting state, and nothing keeps a layer rasterised at an earlier scale (no `will-change` on text). Test it by drawing a frame after a later one, as the Stickman test does. Frames are `0 … totalFrames − 1` and frame `f` shows `t = f / fps`, so `t = duration` is the end state but never a frame of its own; a motion-blur sample may still land on it.
 2. **Seeded randomness.** Use `createRng(seed)`; never `Math.random`. Simulations are precomputed or rebuilt deterministically before seeking.
 3. **One clock.** In HyperFrames, register the timeline from `bindToGsap(engine, gsap)`; never run a second clock.
 4. **Input as JSON.** Copy, colours, fonts, assets and timing come in one JSON object the brief fills; no brand is built in.

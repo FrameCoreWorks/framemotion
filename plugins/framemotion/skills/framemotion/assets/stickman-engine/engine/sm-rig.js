@@ -109,6 +109,7 @@
       const H = (o.size || 300 * u) * (o.height || 1);
       this.H = H;
       this.S = Math.max(3, (o.stroke || 0.03) * H * (H < 200 * u ? 1.15 : 1));
+      // FrameMotion change: headScale (o.headScale) scales the head; see integrations/stickman-kino/source-manifest.json
       this.L = { torso: 0.315 * H, sh: 0.29 * H, ua: 0.195 * H, fa: 0.185 * H, th: 0.24 * H, shin: 0.235 * H, head: 0.1 * H * (o.headScale || 1) };
       this.legLen = this.L.th + this.L.shin;
       this.ink = o.color === "ink" || !o.color ? th.ink : o.color;

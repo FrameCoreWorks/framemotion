@@ -44,13 +44,25 @@ class StickmanEngineTest(unittest.TestCase):
         self.assertIn('Prerit Ahuja', (ROOT / 'integrations/stickman-kino/LICENSE').read_text())
         self.assertIn('Artem Novitckii', (ROOT / 'integrations/claude-animation-skills/LICENSE').read_text())
 
-    def test_additions_are_ours_and_offline(self):
+    def test_additions_are_ours(self):
         reel = (ENGINE / 'framemotion/reel.js').read_text()
         self.assertIn('Apache-2.0', reel)
         self.assertIn('5dbea55c23aa6a5c93dc3cfb5583840513b56b94', reel)
-        for path in [*ENGINE.rglob('*.js'), *ENGINE.rglob('*.mjs')]:
-            text = path.read_text()
-            self.assertIsNone(re.search(r'\bfetch\(|XMLHttpRequest|WebSocket|sendBeacon', text), path.name)
+        fonts = ENGINE / 'framemotion/fonts'
+        for name in ('OFL-inter.txt', 'OFL-caveat.txt'):
+            self.assertIn('SIL Open Font License', (fonts / name).read_text())
+        css = (ENGINE / 'framemotion/reel.css').read_text()
+        for font in fonts.glob('*.woff2'):
+            self.assertIn(f'fm-fonts/{font.name}', css)
+
+    def test_page_code_makes_no_requests(self):
+        # The renderer blocks the network anyway; the engine's page code should not even try.
+        bad = re.compile(r'\bfetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|new\s+Worker\(|importScripts|https?://')
+        pages = [*ENGINE.glob('engine/*.js'), *ENGINE.glob('framemotion/*.js'), *ENGINE.rglob('scenes.js')]
+        self.assertGreater(len(pages), 10)
+        for path in pages:
+            text = re.sub(r'/\*.*?\*/|//[^\n]*', '', path.read_text(), flags=re.S)
+            self.assertIsNone(bad.search(text), path.relative_to(ENGINE))
 
     def test_registered_films_exist(self):
         registry = json.loads((ROOT / 'skills/framemotion/assets/engines/engines.json').read_text())

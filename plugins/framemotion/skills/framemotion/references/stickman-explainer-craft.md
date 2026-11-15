@@ -86,22 +86,33 @@ not someone's identity. Any channel the user points to is a reference to learn f
 ## Vertical cartoon reel
 
 A 9:16 reel of 30 to 45 s that answers one surprising question: a bright world, stick people with big white heads,
-a camera that never stops, short captions and cartoon sound. In the Stickman engine it is theme `cartoon`, the
-`bighead` character, `sc.drift()` for the moving camera and `sc.reelCaptions()` for the captions (the
-`stickman-reel` sample shows all four).
+a camera that never stops, short captions and cartoon sound. The values below (word count, shot lengths, caption
+band, effect level) follow the stick-figure reel method credited above; the wording is FrameMotion's. In the
+Stickman engine it is theme `cartoon`, the `bighead` characters, `sc.reelGround()`, `sc.drift()`, `sc.reelCaptions()`,
+`sc.hit()`, `sc.shadow()` and `sc.reelLook()`; the `stickman-reel` sample (40 s, 11 set-ups) uses all of them.
 
-- **Script.** About 110 to 120 words for 38 to 40 s, one idea per sentence, in this order: a "what if" question,
-  what most people believe, a turn on "but", examples that build, one shot that shows how it works, and an ending
-  that answers the opening question. Show the script before animating, and check every claim; hedge a theory.
-- **Shots.** About 10 to 12 set-ups, most 2 to 4 s, the mechanism shot longer; a new idea gets a new set-up. Open
-  mid-action on frame 1. Keep faces and key props clear of the caption band and inside the safe area of the platform
-  the user names.
-- **Camera.** A slow push with a little handheld drift in every shot, a whip pan with blur between topics, and an
-  impact made of a burst, a short shake and a flash.
-- **Captions.** One or two lowercase words at a time, popped in on the voice, without punctuation or dashes (digits
-  and % stay). For this look that replaces the one-line rule below; every other piece keeps one-line captions.
-- **Sound.** Effects sit under the voice, and the music is a quiet plucked bed ducked under it, never a loud loop at
-  the start.
+- **Script.** Aim for 110 to 120 words in about 40 s and give every sentence a single job. Open with a question
+  that sounds wrong ("what if..."), state what most viewers assume, turn it on "but", stack two or three examples
+  that grow, give one shot to the mechanism itself, and let the last line answer the first. The user approves the
+  script before any animation, and every claim is checked; a theory is said as a theory.
+- **Shots.** Roughly a dozen set-ups, most between 2 and 4 s, the mechanism allowed longer; a new idea always gets a
+  new set-up. Something is already moving on the first frame. One sentence per clip in `film.json` gives this cut
+  for free.
+- **Frame.** Figures and props stand on the raised ground (60% down); the caption band sits below it at about 70%,
+  so the bottom 20% stays empty for the platform's interface. Check the named platform's own safe area too.
+- **Camera.** Every shot pushes in slowly with a little handheld drift; a whip with blur changes topic; an impact is
+  a burst, a short shake and a white flash on the same frame (`sc.hit`). This look is the exception to the
+  push-then-hold rule elsewhere: the camera may push to the cut, or hold its last second with `hold: 1`.
+- **Big heads.** Turn a big-headed figure with `face()` rather than `lookAt()`, which bends the neck under a large
+  head, and keep pointed-at props at chest height so the head does not cover the arm.
+- **Captions.** One or two lowercase words on screen at a time, popped on the voice, never two at once, without
+  punctuation or dashes (digits, % and accented letters stay). For this look that replaces the one-line rule below;
+  every other piece keeps one-line captions.
+- **Voice timing.** Time captions and cues from the real take: put `words.json` (Whisper's word timestamps per
+  clip) next to `film.json` and `assets/audio.json` with each clip's take and length; without them the engine
+  estimates from the text, which is good to about 0.2 s.
+- **Sound.** Effects sit clearly under the voice (about 0.4 of its level), and the music is a quiet plucked bed ducked
+  under the narration, never a loud loop at the start. FrameMotion's sound route makes and mixes them.
 
 ## Captions and checks
 

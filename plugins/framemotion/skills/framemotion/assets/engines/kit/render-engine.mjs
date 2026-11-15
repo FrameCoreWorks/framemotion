@@ -249,7 +249,8 @@ export async function renderFrames(id, {frames, out = null, params = {}, gpu = f
   try {
     const info = await page.evaluate(() => { const e = window.__framemotion.engine; return {id: e.id, fps: e.fps, totalFrames: e.totalFrames, width: e.width, height: e.height, duration: e.duration}; });
     const retimed = Object.keys(params).some((key) => entry.params?.[key]?.timing);
-    const expected = {id: entry.id, fps: retimed ? undefined : entry.fps, duration: retimed ? undefined : entry.duration,
+    // "duration": "page" takes the length the page reports (a Stickman film timed from its voice lines).
+    const expected = {id: entry.id, fps: retimed ? undefined : entry.fps, duration: retimed || entry.duration === 'page' ? undefined : entry.duration,
       width: params.width ?? entry.size?.width, height: params.height ?? entry.size?.height};
     for (const [key, value] of Object.entries(expected)) {
       if (value !== undefined && info[key] !== value) throw new Error(`Page engine ${key} ${info[key]} differs from registry ${value}`);

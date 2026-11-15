@@ -96,3 +96,6 @@ a source-manifest.json with the pinned commit):
   "Vertical cartoon reel" section of references/stickman-explainer-craft.md) is FrameCore Works' own code and words,
   following the stick-figure reel method of artemnovitckii/claude-animation-skills (commit
   5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii); no file of it is copied.
+  framemotion/fonts holds unchanged Latin Extended subsets of Inter (@fontsource/inter 5.2.8, Copyright 2016 The
+  Inter Project Authors) and Caveat (@fontsource/caveat 5.2.8, Copyright 2014 The Caveat Project Authors), SIL Open
+  Font License 1.1, with their licence texts (OFL-inter.txt, OFL-caveat.txt).

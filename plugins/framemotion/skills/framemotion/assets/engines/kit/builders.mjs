@@ -22,6 +22,24 @@ function sibling(enginesRoot, name) {
 
 const temp = (id) => fs.mkdtempSync(path.join(os.tmpdir(), `framemotion-${id}-`));
 
+/**
+ * Measured word times of a Stickman film, from words.json in its folder: per clip id, either a list of
+ * {word, start, end} (seconds from the start of that clip's voice take) or Whisper's JSON for that take
+ * ({segments: [{words: [...]}]}). Null when the film has none.
+ */
+function wordTimes(dir) {
+  const file = path.join(dir, 'words.json');
+  if (!fs.existsSync(file)) return null;
+  const raw = JSON.parse(fs.readFileSync(file, 'utf8'));
+  const out = {};
+  for (const [clip, take] of Object.entries(raw)) {
+    const list = Array.isArray(take) ? take : (take.segments ?? []).flatMap((s) => s.words ?? []);
+    out[clip] = list.map((w) => ({word: String(w.word ?? w.text ?? '').trim(), start: +w.start, end: +w.end}))
+      .filter((w) => w.word && Number.isFinite(w.start) && Number.isFinite(w.end));
+  }
+  return out;
+}
+
 export const BUILDERS = {
   /** Animate engine: copy a piece and assemble its single index.html with the engine's own build tool. */
   async animate(entry, enginesRoot) {
@@ -80,11 +98,19 @@ export const BUILDERS = {
       encoding: 'utf8', env: {...process.env, NODE_PATH: path.join(enginesRoot, 'node_modules')}});
     if (run.status !== 0) throw new Error(`Stickman compose failed: ${run.stderr || run.stdout}`);
     const {W, H, total} = JSON.parse(run.stdout.trim().split('\n').pop());
-    fs.copyFileSync(path.join(engine, 'framemotion/reel.js'), path.join(dir, '.sm/fm-reel.js'));
+    const ours = path.join(engine, 'framemotion');
+    fs.copyFileSync(path.join(ours, 'reel.js'), path.join(dir, '.sm/fm-reel.js'));
+    fs.copyFileSync(path.join(ours, 'reel.css'), path.join(dir, '.sm/fm-reel.css'));
+    fs.cpSync(path.join(ours, 'fonts'), path.join(dir, '.sm/fm-fonts'), {recursive: true});
+    const words = wordTimes(dir);
     const fps = entry.fps ?? 30;
     let html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
-    html = html.replace('<script src="film.js"></script>', '<script src="film.js"></script>\n  <script src=".sm/fm-reel.js"></script>');
-    html = html.replace('</body>', `<script>
+    html = html.replace('<link rel="stylesheet" href=".sm/sm.css">', '<link rel="stylesheet" href=".sm/sm.css">\n  <link rel="stylesheet" href=".sm/fm-reel.css">');
+    html = html.replace('<script src="film.js"></script>', () => '<script src="film.js"></script>\n' +
+      (words ? `  <script>window.SM_WORDS = ${JSON.stringify(words).replace(/</g, '\\u003c')};</script>\n` : '') +
+      '  <script src=".sm/fm-reel.js"></script>');
+    const tail = html.lastIndexOf('</body>');
+    html = html.slice(0, tail) + `<script>
     window.FILM_INFO = {W: ${W}, H: ${H}, FPS: ${fps}, frames: ${Math.round(total * fps)}};
     // HyperFrames shows one clip section at a time from its data-start and data-duration; outside
     // HyperFrames the seek does the same, then moves the film's one timeline.
@@ -98,7 +124,7 @@ export const BUILDERS = {
       window.__timelines.stickman.seek(t);
     };
   </script>
-</body>`);
+` + html.slice(tail);
     fs.writeFileSync(path.join(dir, 'index.html'), html);
     return {dir, page: 'index.html'};
   },

@@ -10,27 +10,142 @@
       "id": "hook",
       "label": "Hook",
       "duration": "auto",
+      "voStart": 0.15,
       "tail": 0.3,
-      "vo": "What if every popcorn kernel is a tiny pressure cooker?",
+      "vo": "What if every popcorn kernel is a tiny bomb?",
       "sfx": [
         {
-          "at": 1.3,
-          "name": "pop",
+          "at": 1.6,
+          "name": "boom",
           "volume": 0.4
         }
       ]
     },
     {
+      "id": "belief",
+      "label": "Belief",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "Most people think the heat just cooks it.",
+      "sfx": []
+    },
+    {
       "id": "turn",
+      "label": "Turn",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "But inside each kernel hides a drop of water.",
+      "sfx": [
+        {
+          "at": 1.6,
+          "name": "pop",
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "steam",
+      "label": "Steam",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "Heat turns that water into steam.",
+      "sfx": [
+        {
+          "at": 0.9,
+          "name": "whoosh",
+          "volume": 0.3
+        }
+      ]
+    },
+    {
+      "id": "trapped",
+      "label": "Trapped",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "The steam has nowhere to go.",
+      "sfx": []
+    },
+    {
+      "id": "shell",
+      "label": "Shell",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "The hard shell holds it in.",
+      "sfx": [
+        {
+          "at": 0.8,
+          "name": "thud",
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "pressure",
+      "label": "Pressure",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "Pressure climbs, higher and higher.",
+      "sfx": [
+        {
+          "at": 0.3,
+          "name": "riser",
+          "volume": 0.3
+        }
+      ]
+    },
+    {
+      "id": "burst",
+      "label": "Burst",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "Until the shell gives way.",
+      "sfx": [
+        {
+          "at": 1.0,
+          "name": "boom",
+          "volume": 0.5
+        }
+      ]
+    },
+    {
+      "id": "mechanism",
       "label": "Mechanism",
       "duration": "auto",
-      "tail": 0.4,
-      "vo": "Inside is a drop of water, and the heat turns it into steam.",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "The starch inside puffs into foam and flips the kernel inside out.",
+      "sfx": [
+        {
+          "at": 1.4,
+          "name": "pop",
+          "volume": 0.4
+        },
+        {
+          "at": 2.6,
+          "name": "pop",
+          "volume": 0.35
+        }
+      ]
+    },
+    {
+      "id": "dry",
+      "label": "Dry kernels",
+      "duration": "auto",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "That is why old, dry kernels barely pop.",
       "sfx": [
         {
           "at": 2.2,
           "name": "boing",
-          "volume": 0.35
+          "volume": 0.3
         }
       ]
     },
@@ -38,11 +153,12 @@
       "id": "payoff",
       "label": "Payoff",
       "duration": "auto",
-      "tail": 0.8,
-      "vo": "The shell holds until it bursts, and the kernel flips inside out.",
+      "voStart": 0.15,
+      "tail": 0.3,
+      "vo": "So yes, every kernel really is a tiny bomb.",
       "sfx": [
         {
-          "at": 1.8,
+          "at": 1.9,
           "name": "success",
           "volume": 0.4
         }

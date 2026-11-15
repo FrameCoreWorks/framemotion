@@ -788,7 +788,7 @@
     },
     {
       "id": "stickman-reel",
-      "title": "Stickman engine: FrameMotion's vertical cartoon reel (big heads, drift, short captions)",
+      "title": "Stickman engine: FrameMotion's 40 s vertical cartoon reel (11 set-ups, big heads, drift, short captions)",
       "status": "ready",
       "kind": "svg",
       "build": {
@@ -802,7 +802,7 @@
         "height": 1920
       },
       "fps": 30,
-      "duration": 17,
+      "duration": "page",
       "readme": "../stickman-engine/README.md",
       "sources": [
         "stickman-kino",

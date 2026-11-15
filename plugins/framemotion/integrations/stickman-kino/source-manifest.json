@@ -115,8 +115,8 @@
       "destination_path": "../../skills/framemotion/assets/stickman-engine/engine/sm-rig.js",
       "sha256": "da3384d70868aab54c02687b9a0610f021d2e336f90ac38ad101d60518cfeb95",
       "changed": true,
-      "current_sha256": "fc5ec0afb408cbf455d6729dbddfe40008b6d719cfc070e0dac40a7c09eae2a0",
-      "change": "headScale option on a figure (one line in the Figure constructor)"
+      "current_sha256": "7dbd9b4c0ce6ca52bae4e7192620ac77611b95776fe62f96238b0706fd099874",
+      "change": "headScale option on a figure (one line in the Figure constructor, marked by a FrameMotion comment line)"
     },
     {
       "source_path": "engine/sm-titles.js",

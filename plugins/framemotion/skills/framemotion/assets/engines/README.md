@@ -22,7 +22,7 @@ Registered engines:
 | `kaventro-blank`, `-overlay`, `-mobile`, `-desktop`, `-story` | The bundled [kaventro film templates](../kaventro-engine/README.md) | builder `kaventro`, adapter `seek` |
 | `hairline-spice-rack` | The [Hairline](../hairline/README.md) example | builder `folder`, adapter `renderFrame` |
 | `paper-shader`, `pixi-filter`, `css-doodle`, `torph-text`, `tsparticles`, `p5-brush` | [Library engines](libraries/README.md) | own page, library from `node_modules` |
-| `stickman-hello`, `stickman-vertical`, `stickman-reel` | The bundled [Stickman engine](../stickman-engine/README.md): two of its sample films and FrameMotion's vertical cartoon reel | builder `stickman` (the engine's own `compose`), adapter `seek` |
+| `stickman-hello`, `stickman-vertical`, `stickman-reel` | The bundled [Stickman engine](../stickman-engine/README.md): two of its sample films and FrameMotion's vertical cartoon reel | builder `stickman` (the engine's own `compose`), adapter `seek`; `"duration": "page"` takes the film's length from its voice lines |
 
 Bundled engines stay byte-identical in their own folders (a test checks their hashes); a builder in `kit/builders.mjs` makes their page in a temporary folder and an adapter wraps the page's own clock (`window.renderFrame(seconds)` or `window.seek(t)`). Any Animate piece, Anatomy page, kaventro film or Stickman film folder renders the same way: add an entry with its piece folder, page options or template kind. A page may list files that are allowed to be missing in `optional` (a film's music in a silent render); any other missing file fails the render, and outside requests are blocked and listed in the report.
 
