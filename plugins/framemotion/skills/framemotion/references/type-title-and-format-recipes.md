@@ -187,7 +187,7 @@ A method for a showreel-quality piece from a theme and a few materials, built in
   - Keep linear easing for mechanical motion only.
   - Seed any random stagger order rather than using a library's random.
 - **Transitions are transformations.** The shapes of one scene become the next, for example text, then a line, then a chart, then a 3D grid, then a tunnel, then the logo. Keep the elements that survive across scenes in one composition and tween them on; split into sub-compositions only at hard cuts.
-- **Type as picture.** Use huge type, type bleeding off the frame, type broken apart, masked, rotated or stretched. Prefer short strong words over many small lines. An intended bleed carries `data-text-clip-ok="<reason>"` on the element, so the [frame review](../assets/motion-review/README.md) lists it as a deliberate cut for a pixel check instead of an error.
+- **Type as picture.** Use huge type, type bleeding off the frame, type broken apart, masked, rotated or stretched. Prefer short strong words over many small lines. Type that bleeds off the frame on purpose carries `data-text-clip-ok="<reason>"` on the element, so the [frame review](../assets/motion-review/README.md) lists it as a deliberate cut for a pixel check instead of an error.
 - **Avoid:**
   - slide-show transitions or text that only slides left to right;
   - fade after fade;

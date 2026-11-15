@@ -16,7 +16,7 @@ Full API pages: [core](https://github.com/greensock/gsap-skills/blob/aed9cfd3277
 
 ### One paused timeline
 
-- **One master timeline, created paused.** The renderer seeks it; nothing plays it. In HyperFrames, register it as HyperFrames requires; in an own engine, bind it with `bindToGsap(engine, gsap)` so there is only one clock.
+- **One master timeline, created paused.** The renderer seeks it; nothing plays it. In an own engine that uses GSAP inside, keep one paused master timeline and have `seek(t)` call `master.seek(t)`. To place that engine in HyperFrames, register the timeline returned by `bindToGsap(engine, gsap)`: it is a new timeline that calls `engine.seek(t)`, not a way to attach an existing one ([engine contract](engine-contract.md)). Either way there is only one clock.
 - **Place tweens with the position parameter,** not with `delay`: an absolute time (`1.5`), a label (`"reveal"`, `"reveal+=0.3"`), or relative to the previous tween (`"<"` same start, `">"` its end, `"<0.2"` 0.2 s after its start, `"-=0.2"` overlapping its end). Name sections with `addLabel()` and compute beat times from the beat table, so a change of tempo moves everything together.
 - **Shared values as timeline defaults:** `gsap.timeline({ paused: true, defaults: { duration: 0.5, ease: "power2.out" } })`. A timeline's length comes from its children; there is no timeline duration to set.
 - **Nest timelines** for scenes (`master.add(scene, "scene2")`) and keep each scene's tweens local to it.
@@ -24,15 +24,15 @@ Full API pages: [core](https://github.com/greensock/gsap-skills/blob/aed9cfd3277
 
 ### State that survives any seek
 
-- **Never put visual state in callbacks.** `onStart`, `onComplete` and `onUpdate` are for live pages: a seek skips callbacks by default, so a class added in `onComplete` is missing on a direct seek. Put every visible change in a tween or a `set` at its time on the timeline.
+- **Never put visual state in callbacks.** `onStart`, `onComplete` and `onUpdate` are for live pages: `seek()` skips callbacks by default, while `time()`, `progress()` and `totalTime()` fire them unless `suppressEvents` is passed, so a class added in `onComplete` may or may not be there depending on how the frame was reached. Put every visible change in a tween or a `set` at its time on the timeline.
 - **`from()` and `fromTo()` apply their start values when they are created.** When several of them animate the same property of the same element, give the later ones `immediateRender: false`, or the first tween's end state is overwritten before it plays. A `from()` reads the element's current state as its end, so set the resting state in CSS first.
-- **Relative values (`"+=20"`) and function values** are read once, the first time the tween renders. On a fresh seek that is the first frame drawn, which may be in the middle: prefer absolute values computed from the parameters.
+- **Relative values (`"+=20"`) and function values** are read once, the first time the tween renders. GSAP renders earlier tweens in order on a fresh seek, so this usually works, but absolute values computed from the parameters are easier to check: prefer them.
 - **No unseeded randomness.** `gsap.utils.random()`, `gsap.utils.shuffle()`, a stagger with `from: "random"` and the random type of CustomWiggle use the browser's random, so two renders differ. Draw the values from FrameMotion's seeded random once, before building the timeline, and pass them as a function stagger (`stagger: i => order[i] * 0.05`) or as explicit values.
 - **Fonts before measuring.** Wait for `document.fonts.ready` before splitting text (SplitText) or measuring anything, or line breaks differ between the preview and the render.
 
 ### Values and properties
 
-- **Transform aliases** (`x`, `y`, `xPercent`, `yPercent`, `scale`, `rotation`, `rotationX`, `rotationY`, `skewX`) instead of a raw `transform` string: GSAP applies them in a fixed order (translate, scale, rotate, skew). Move with `x` and `y`, never with `left`, `top`, `width` or `height`, which force layout every frame.
+- **Transform aliases** (`x`, `y`, `xPercent`, `yPercent`, `scale`, `rotation`, `rotationX`, `rotationY`, `skewX`) instead of a raw `transform` string: GSAP applies them in a fixed order (translation, scale, rotationX and rotationY, skew, then rotation last). Move with `x` and `y`, never with `left`, `top`, `width` or `height`, which force layout every frame.
 - **`autoAlpha`** instead of `opacity` for fades: at 0 it also hides the element, so nothing invisible is left drawn.
 - **CSS variables** animate directly (`"--hue": 180`), which lets one tween drive CSS and a canvas that reads the same variable.
 - **SVG.** `svgOrigin` rotates or scales several SVG elements around one point in the SVG's own coordinates; use it or `transformOrigin`, never both. Rotation suffixes choose the direction: `"_short"`, `"_cw"`, `"_ccw"`.
@@ -82,7 +82,7 @@ Full API pages: [fundamentals](https://github.com/CloudAI-X/threejs-skills/blob/
 - **Colour spaces.** The output is sRGB by default (`renderer.outputColorSpace`; the old `outputEncoding` no longer exists). Colour textures need `texture.colorSpace = THREE.SRGBColorSpace`, or they render washed out. Data textures (normal, roughness, metalness, ambient occlusion, alpha, displacement) keep the default `NoColorSpace`.
 - **Physical light units are always on.** Point and spot lights are in candela with inverse-square falloff, so useful values are in the hundreds (`new THREE.PointLight(0xffffff, 100, 20)`); an old intensity of 1 gives almost nothing. The `physicallyCorrectLights` and `useLegacyLights` switches are gone.
 - **Environment light.** Load an HDR with `HDRLoader`, set `mapping = THREE.EquirectangularReflectionMapping`, and assign it to `scene.environment` (and `scene.background` if it should show); without the mapping it draws as a flat picture. The renderer prefilters it, so a manual PMREM step adds nothing. Dim it with `scene.environmentIntensity`; a material's `envMapIntensity` scales only its own map.
-- **Shadows.** `THREE.PCFShadowMap` (already soft); `PCFSoftShadowMap` is deprecated since r182. Tighten a directional light's shadow camera around the subject. A contact shadow under a product is a soft blob texture on a plane; three.js has no contact-shadow class.
+- **Shadows.** `THREE.PCFShadowMap` (already soft); `PCFSoftShadowMap` is removed in r187 (it only logs a warning and falls back). Tighten a directional light's shadow camera around the subject. A contact shadow under a product is a soft blob texture on a plane; three.js has no contact-shadow class.
 - **Reflections from a cube camera:** hide the reflective mesh while the cube camera renders, or it reflects itself.
 
 ### Post-processing

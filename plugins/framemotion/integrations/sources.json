@@ -457,7 +457,7 @@
       "pack": "P4",
       "status": "adapted",
       "conditions": [
-        "Remotion parts rewritten for HyperFrames",
+        "Remotion parts rewritten for FrameMotion's engines",
         "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
       "bundled_commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
@@ -545,8 +545,7 @@
       "pack": "P4",
       "status": "adapted",
       "conditions": [
-        "method only: no Remotion code, no AI-made backgrounds",
-        "OFL fonts keep their licence text",
+        "method only: no Remotion code, no AI-made backgrounds, no fonts copied",
         "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
       ],
       "bundled_commit": "ff8223abc8136cc09e8d7e9b62ecb5d080c389e1",
