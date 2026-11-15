@@ -66,4 +66,4 @@ a source-manifest.json with the pinned commit):
   (c) 2025 Lochie Axon); tsparticles/tsparticles (@tsparticles/slim 4.6.0, commit 8c572f3f979a0115f6ff489cbedecffd8dec68ef,
   MIT, Copyright (c) 2020 Matteo Bruni); acamposuribe/p5.brush (p5.brush 3.0.0, commit
   75c89fd8e0a0b63d9a88b51983c0738e132e82a5, MIT, Copyright (c) 2023-2026 Alejandro Campos Uribe; its standalone build
-  only, so p5.js is not used).
+  only: p5.js (LGPL-2.1) is not used, and .npmrc keeps npm from installing it as a peer).

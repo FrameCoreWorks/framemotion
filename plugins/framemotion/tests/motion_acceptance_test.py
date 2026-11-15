@@ -259,20 +259,25 @@ class QualityGates(unittest.TestCase):
             self.assertEqual(json.loads(done.stdout)['text_overflow'][0]['text'], 'Najnowocześniejszy')
             self.assertFalse(os.path.exists(os.path.join(temp, 'c.mp4')), 'nothing is rendered')
 
-    def render_line(self, text, temp):
+    def render_line(self, text, temp, bundled_font=False):
         scene = {'id': 's', 'kind': 'line-reveal', 'start': 0, 'end': 30, 'holds': [[10, 30]], 'params': {'lines': ['w'], 'sizes': [40], 'weights': [700]}}
         path = os.path.join(temp, 'c.json')
-        pathlib.Path(path).write_text(json.dumps(small_contract([scene], 30, {'w': text}), ensure_ascii=False))
+        contract = small_contract([scene], 30, {'w': text})
+        if bundled_font:
+            # The plugin's own Inter files: the same font on every machine, whatever the system has installed.
+            contract['tokens']['fontFamily'] = 'Inter'
+            contract['fonts'] = [{'family': 'Inter', 'weight': w, 'file': f'inter/Inter-{n}.ttf'} for w, n in ((400, 'Regular'), (700, 'Bold'))]
+        pathlib.Path(path).write_text(json.dumps(contract, ensure_ascii=False))
         return subprocess.run([sys.executable, '-B', str(PLUGIN / 'skills/framemotion/assets/motion-render/render.py'), path, os.path.join(temp, 'c.mp4')],
                               capture_output=True, text=True)
 
     def test_renderer_refuses_characters_the_font_cannot_draw(self):
         # Research intake 2026-11-11 (DR-01 P0-3): a missing glyph would render as an empty box; block before rendering.
         with tempfile.TemporaryDirectory() as temp:
-            # U+1D2E0 (Mayan numeral zero) is in no common font, emoji fonts included, so the test holds on any machine.
-            done = self.render_line('Cena \U0001D2E0 49', temp)
+            # The bundled Inter has no CJK letters; a system font could have any glyph (Unifont has nearly all).
+            done = self.render_line('Cena \u4e2d 49', temp, bundled_font=True)
             self.assertEqual(done.returncode, 4, done.stderr)
-            self.assertEqual(json.loads(done.stdout)['missing_glyphs'][0]['missing'], '\U0001D2E0')
+            self.assertEqual(json.loads(done.stdout)['missing_glyphs'][0]['missing'], '\u4e2d')
             self.assertFalse(os.path.exists(os.path.join(temp, 'c.mp4')), 'nothing is rendered')
 
     def test_decomposed_polish_copy_is_drawn_composed(self):

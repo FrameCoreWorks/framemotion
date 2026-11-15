@@ -30,7 +30,7 @@ Bundled engines stay byte-identical in their own folders (a test checks their ha
 Copy this folder to the workspace as `engines` (see [first setup](../../references/first-setup.md#runtimes)), then:
 
 ```bash
-npm ci
+npm ci --ignore-scripts   # .npmrc keeps unused peer packages (p5.js) out
 node kit/render-engine.mjs --engine photoreal-demo --frames 0,30,59 --out frames
 ```
 

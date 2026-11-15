@@ -10,8 +10,9 @@
 <script type="module">
 // PixiJS filters (MIT) on the FrameMotion clock, used unchanged from node_modules; this page is ours.
 // Settings (JSON in ?params): effect, seed, title. Pixi's own ticker never runs: seek(t) sets every
-// time-driven setting from t and renders once. The glitch's random slices come from the seed and
-// change 12 times a second, so a frame always shows the same slices.
+// time-driven setting from t and renders once. The glitch's random slices and the CRT noise come
+// from the seed and change 12 and 24 times a second, counted from the frame number, so a frame
+// always shows the same picture. Pixel sizes scale with the frame (shorter side / 540).
 import * as PIXI from 'pixi.js';
 import * as F from 'pixi-filters';
 import {defineEngine} from '../../kit/engine-kit.mjs';
@@ -44,11 +45,13 @@ label.anchor.set(0.5); label.position.set(width * 0.5, height * 0.5);
 scene.addChild(shapes, label);
 app.stage.addChild(scene);
 
-const fx = withSeededRandom(seed, () => make(F, {width, height}));
+const fps = params.fps ?? 30, k = Math.min(width, height) / 540;
+const fx = withSeededRandom(seed, () => make(F, {width, height, k, fps, seed}));
 scene.filters = fx.filters;
-const engine = defineEngine({id: 'pixi-filter', width, height, fps: params.fps ?? 30, duration: params.duration ?? 4,
+const engine = defineEngine({id: 'pixi-filter', width, height, fps, duration: params.duration ?? 4,
   seek(t) {
-    withSeededRandom(seed + Math.floor(t * 12) * 7919, () => fx.at(t));
+    const f = Math.round(t * fps);   // the runner seeks f / fps; counting from f keeps random steps exact
+    withSeededRandom(seed + Math.floor((f * 12) / fps) * 7919, () => fx.at(t, f));
     app.renderer.render(app.stage);
   }});
 engine.seek(0);

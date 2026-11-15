@@ -70,8 +70,13 @@ class EnginesRegistryTest(unittest.TestCase):
         for e in REGISTRY['engines']:
             for name, spec in e.get('params', {}).items():
                 with self.subTest(f"{e['id']}.{name}"):
-                    self.assertIn(spec['type'], {'integer', 'number', 'boolean', 'string', 'object'})
+                    self.assertIn(spec['type'], {'integer', 'number', 'boolean', 'string', 'object', 'array'})
                     self.assertIn('default', spec)
+                    if 'enum' in spec:
+                        self.assertIn(spec['default'], spec['enum'])
+                    if spec['type'] == 'array':
+                        self.assertIsInstance(spec['default'], list)
+                        self.assertTrue(all(isinstance(v, str) for v in spec['default']) or spec.get('items') != 'string')
                     if 'min' in spec:
                         self.assertLessEqual(spec['min'], spec['default'])
                     if 'max' in spec:

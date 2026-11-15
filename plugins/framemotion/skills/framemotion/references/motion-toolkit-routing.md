@@ -41,6 +41,8 @@ The reference cards describe supported implementation patterns. Release verifica
 
 ## Toolbox motion entries
 
+Before offering an entry, check FrameMotion's built-in library engines ([library engines](../assets/engines/libraries/README.md), one renderer, exact frames): a moving gradient, grain or light-ray background is `paper-shader`; an effect over a picture (shockwave, CRT, glitch, god rays) is `pixi-filter`; a pattern grid is `css-doodle`; one word turning into the next is `torph-text`; confetti, dust or a point network is `tsparticles` (also as a transparent overlay); a drawing that draws itself is `p5-brush`. `pixi-filter` and `p5-brush` are experimental: they work on their own demo picture and drawing until scenes from other engines can feed them.
+
 FrameCore Works Toolbox lists reviewed third-party motion tools. FrameMotion keeps the brief, concept, copy locks, board, motion language and review; an entry only does the step it is good at ([using and installing an entry](#using-and-installing-a-toolbox-entry)). Check this host's skill list for the entry first; when it is there, say in one line that FrameMotion uses it for this step and read its skill. When it is not, FrameMotion's own route below does the job; offer the entry once, in the user's terms, only when it clearly improves this result, and install nothing before the user agrees. Names, pins and host support are in [Toolbox's catalog](https://github.com/FrameCoreWorks/framecore-works-toolbox/blob/main/plugins/toolbox/skills/toolbox/SKILL.md#catalog); this table is FrameMotion's routing judgment, checked against Toolbox 1.14.0.
 
 | Request | FrameMotion's own route | Toolbox entry worth offering | Why the entry helps |

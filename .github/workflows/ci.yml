@@ -30,7 +30,7 @@ jobs:
       - name: Install the engines (exact versions) and a headless Chromium for the render tests
         timeout-minutes: 15
         run: |
-          npm ci --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/engines
+          npm ci --ignore-scripts --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/engines
           npm ci --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/animate-engine
           cd plugins/framemotion/skills/framemotion/assets/animate-engine && npx --no-install playwright install --with-deps chromium
       - name: Source, tests and package

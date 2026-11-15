@@ -348,7 +348,13 @@
         "shader": {
           "type": "string",
           "default": "mesh-gradient",
-          "about": "mesh-gradient, grain-gradient, warp or god-rays"
+          "about": "mesh-gradient, grain-gradient, warp or god-rays",
+          "enum": [
+            "mesh-gradient",
+            "grain-gradient",
+            "warp",
+            "god-rays"
+          ]
         },
         "look": {
           "type": "object",
@@ -390,7 +396,7 @@
     {
       "id": "pixi-filter",
       "title": "PixiJS filters: shockwave, god rays, CRT and glitch on the clock",
-      "status": "ready",
+      "status": "experimental",
       "kind": "canvas",
       "page": "libraries/pixi-filters/index.html",
       "size": {
@@ -412,14 +418,20 @@
         "effect": {
           "type": "string",
           "default": "shockwave",
-          "about": "shockwave, godrays, crt or glitch"
+          "about": "shockwave, godrays, crt or glitch",
+          "enum": [
+            "shockwave",
+            "godrays",
+            "crt",
+            "glitch"
+          ]
         },
         "seed": {
           "type": "integer",
           "default": 7,
           "min": 0,
           "max": 4294967295,
-          "about": "random slices and noise"
+          "about": "glitch slices and CRT noise"
         },
         "title": {
           "type": "string",
@@ -469,7 +481,11 @@
         "doodle": {
           "type": "string",
           "default": "tiles",
-          "about": "tiles or rings"
+          "about": "tiles or rings",
+          "enum": [
+            "tiles",
+            "rings"
+          ]
         },
         "rules": {
           "type": "string",
@@ -500,7 +516,10 @@
           "about": "seconds"
         }
       },
-      "css_animations": "seeked"
+      "css_animations": "seeked",
+      "flat_frames": [
+        0
+      ]
     },
     {
       "id": "torph-text",
@@ -525,14 +544,19 @@
       ],
       "params": {
         "words": {
-          "type": "object",
+          "type": "array",
           "default": [
             "Idea",
             "Sketch",
             "Motion",
             "Film"
           ],
-          "about": "the texts in order (a list)"
+          "about": "the texts in order (a list; the film lasts words × hold unless duration is given)",
+          "items": "string",
+          "minItems": 1,
+          "maxItems": 50,
+          "maxLength": 60,
+          "timing": true
         },
         "hold": {
           "type": "number",
@@ -570,7 +594,7 @@
           "min": 0.1,
           "max": 600,
           "timing": true,
-          "about": "seconds (default words \u00d7 hold)"
+          "about": "seconds (default words × hold)"
         }
       }
     },
@@ -598,7 +622,12 @@
         "preset": {
           "type": "string",
           "default": "confetti",
-          "about": "confetti, drift or links"
+          "about": "confetti, drift or links",
+          "enum": [
+            "confetti",
+            "drift",
+            "links"
+          ]
         },
         "options": {
           "type": "object",
@@ -634,13 +663,18 @@
           "max": 120,
           "timing": true,
           "about": "seconds"
+        },
+        "background": {
+          "type": "string",
+          "default": "#0d0f14",
+          "about": "a CSS colour painted under the particles, or \"transparent\" for an overlay with alpha"
         }
       }
     },
     {
       "id": "p5-brush",
       "title": "p5.brush: a drawing that builds itself with pencil, watercolour and hatching",
-      "status": "ready",
+      "status": "experimental",
       "kind": "canvas",
       "page": "libraries/brush/index.html",
       "size": {
@@ -661,7 +695,10 @@
         "drawing": {
           "type": "string",
           "default": "still-life",
-          "about": "still-life"
+          "about": "still-life",
+          "enum": [
+            "still-life"
+          ]
         },
         "seed": {
           "type": "integer",
@@ -686,7 +723,10 @@
           "timing": true,
           "about": "seconds"
         }
-      }
+      },
+      "flat_frames": [
+        0
+      ]
     }
   ]
 }

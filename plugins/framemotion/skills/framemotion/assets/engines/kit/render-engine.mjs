@@ -85,8 +85,18 @@ export function validateParams(entry, params) {
     const spec = entry.params[key];
     if (!spec) throw new RangeError(`${entry.id} has no setting "${key}" (known: ${Object.keys(entry.params).join(', ')}).`);
     const ok = {integer: Number.isInteger(value), number: Number.isFinite(value), boolean: typeof value === 'boolean', string: typeof value === 'string',
-      object: value !== null && typeof value === 'object' && !Array.isArray(value)}[spec.type];
+      object: value !== null && typeof value === 'object' && !Array.isArray(value), array: Array.isArray(value)}[spec.type];
     if (!ok) throw new TypeError(`${entry.id}.${key} must be ${spec.type}.`);
+    if (spec.enum && !spec.enum.includes(value)) throw new RangeError(`${entry.id}.${key} must be one of: ${spec.enum.join(', ')}.`);
+    if (spec.type === 'array') {
+      if ((spec.minItems !== undefined && value.length < spec.minItems) || (spec.maxItems !== undefined && value.length > spec.maxItems)) {
+        throw new RangeError(`${entry.id}.${key} must have ${spec.minItems ?? 0} to ${spec.maxItems ?? 'any'} items.`);
+      }
+      if (spec.items && !value.every((v) => typeof v === spec.items && (spec.items !== 'string' || spec.maxLength === undefined || v.length <= spec.maxLength))) {
+        throw new TypeError(`${entry.id}.${key} must hold ${spec.items} items${spec.maxLength ? ` of at most ${spec.maxLength} characters` : ''}.`);
+      }
+      continue;
+    }
     if ((spec.min !== undefined && value < spec.min) || (spec.max !== undefined && value > spec.max)) {
       throw new RangeError(`${entry.id}.${key} must be in [${spec.min ?? '-inf'}, ${spec.max ?? 'inf'}].`);
     }
@@ -108,6 +118,8 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
+  // A page that fails while starting (a wrong setting) reports it at once instead of after the timeout.
+  const failed = new Promise((resolve) => { page.once('pageerror', resolve); });
   // Missing files are reported by the router below with their path; the browser's own
   // "Failed to load resource" line carries no path, so it is not counted twice.
   page.on('console', (m) => { if (m.type() === 'error' && !m.text().startsWith('Failed to load resource')) errors.push(m.text()); });
@@ -135,7 +147,7 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   await page.goto(`${ORIGIN}/${pagePath}?${query}`);
   if (ADAPTERS[entry.adapter]) {
     const fn = ADAPTERS[entry.adapter];
-    await page.waitForFunction((name) => typeof window[name] === 'function', fn, {timeout: 120000}).catch(() => {});
+    await Promise.race([page.waitForFunction((name) => typeof window[name] === 'function', fn, {timeout: 120000}), failed]).catch(() => {});
     // A page may report its own size and timing (kaventro films set window.FILM_INFO); the
     // adapter uses those, so the runner's registry check catches a registry that disagrees.
     await page.addScriptTag({type: 'module', content: `
@@ -147,7 +159,7 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
       window.__framemotion = {engine: fromRenderFrame({...spec, renderFrame: window[${JSON.stringify(fn)}]}), canvas, element: ${JSON.stringify(entry.screenshot ?? null)}, ready: true};
     `});
   }
-  await page.waitForFunction(() => window.__framemotion?.ready === true, null, {timeout: 120000}).catch(() => {});
+  await Promise.race([page.waitForFunction(() => window.__framemotion?.ready === true, null, {timeout: 120000}), failed]).catch(() => {});
   const close = async () => { await browser.close(); if (built) fs.rmSync(built.dir, {recursive: true, force: true}); };
   if (errors.length) { await close(); throw new Error(`Engine page errors: ${errors.join(' | ')}`); }
   // Web fonts and the first layout must settle before frame 0, or frame 0 differs from its repeat.
@@ -253,7 +265,8 @@ export async function renderFrames(id, {frames, out = null, params = {}, gpu = f
       const second = once ? first : await capture(page, frame);
       fail(`at frame ${frame} (repeat)`);
       const {hash, png, ...stats} = first;
-      report.frames.push({frame, seconds, hash: hashOf(hash), deterministic: once ? null : hash === second.hash, flat: stats.max - stats.min < FLAT_SPREAD, ...stats});
+      report.frames.push({frame, seconds, hash: hashOf(hash), deterministic: once ? null : hash === second.hash, flat: stats.max - stats.min < FLAT_SPREAD,
+        ...((entry.flat_frames ?? []).includes(frame) ? {flatExpected: true} : {}), ...stats});
       if (out) {
         fs.mkdirSync(out, {recursive: true});
         fs.writeFileSync(path.join(out, `${entry.id}-${String(frame).padStart(5, '0')}.png`), Buffer.from(png.split(',')[1], 'base64'));
@@ -294,7 +307,8 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const report = await renderFrames(o.engine, o);
   console.log(JSON.stringify(report, null, 2));
   if (report.frames.some((f) => f.deterministic === false)) process.exit(3);
-  if (!o.allowFlat && report.frames.some((f) => f.flat)) {
+  // Registry "flat_frames" lists frames that are one colour by design (a drawing that starts on blank paper).
+  if (!o.allowFlat && report.frames.some((f) => f.flat && !f.flatExpected)) {
     console.error('A frame is flat (one colour). Pass --allow-flat when that is intended, such as a fade from black.');
     process.exit(4);
   }

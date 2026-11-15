@@ -23,7 +23,8 @@ import {DOODLES} from './doodles.mjs';
 
 const params = readParams();
 const {width = 540, height = 960, doodle = 'tiles', seed = 2026} = params;
-const rules = (params.rules || DOODLES[doodle])?.replaceAll('var(--w)', `${width}px`).replaceAll('var(--h)', `${height}px`);
+const rules = (params.rules || DOODLES[doodle])?.replaceAll('var(--w)', `${width}px`).replaceAll('var(--h)', `${height}px`)
+  .replaceAll('var(--k)', String(Math.min(width, height) / 540));
 if (!rules) throw new Error(`unknown doodle "${doodle}" (known: ${Object.keys(DOODLES).join(', ')})`);
 const stage = document.getElementById('stage');
 Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});

@@ -16,8 +16,9 @@
 import * as paper from '@paper-design/shaders';
 import {defineEngine} from '../../kit/engine-kit.mjs';
 import {PRESETS, uniformsFor} from './presets.mjs';
+import {readParams, frames} from '../library-kit.mjs';
 
-const params = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+const params = readParams();
 const {width = 540, height = 960, shader = 'mesh-gradient', look = {}, speed = 1, start = 0} = params;
 const preset = PRESETS[shader];
 if (!preset) throw new Error(`unknown shader "${shader}" (known: ${Object.keys(PRESETS).join(', ')})`);
@@ -27,9 +28,10 @@ for (const value of Object.values(uniforms)) if (value instanceof HTMLImageEleme
 // speed 0: no animation loop of its own; minPixelRatio 1: the canvas has the frame's own pixel size.
 const mount = new paper.ShaderMount(mountEl, paper[preset.fragment], uniforms,
   {preserveDrawingBuffer: true, antialias: false}, 0, start, 1);
-// The canvas gets its size from a ResizeObserver; wait for it before the first frame.
-while (mount.canvasElement.width !== width || mount.canvasElement.height !== height) {
-  await new Promise((resolve) => requestAnimationFrame(resolve));
+// The canvas gets its size from a ResizeObserver; wait for it before the first frame (at most 5 s).
+for (let i = 0; mount.canvasElement.width !== width || mount.canvasElement.height !== height; i++) {
+  if (i > 300) throw new Error(`the shader canvas never reached ${width}×${height} (it is ${mount.canvasElement.width}×${mount.canvasElement.height})`);
+  await frames(1);
 }
 const engine = defineEngine({id: 'paper-shader', width, height, fps: params.fps ?? 30, duration: params.duration ?? 4,
   seek(t) { mount.setFrame(start + t * 1000 * speed); }});

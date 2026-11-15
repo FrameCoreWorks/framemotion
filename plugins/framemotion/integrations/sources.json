@@ -272,7 +272,7 @@
       "status": "dependency",
       "conditions": [
         "npm dependency pinned exactly (tag v3.0.0 = this commit); installed by npm ci, never bundled",
-        "only the standalone build is used, so p5.js (LGPL-2.1) is not needed and not installed"
+        "only the standalone build is used, so p5.js (LGPL-2.1) is not needed; p5.brush lists p5 as a peer dependency, and assets/engines/.npmrc (legacy-peer-deps) keeps npm from installing it (a test checks the lock)"
       ],
       "package": "p5.brush",
       "version": "3.0.0"

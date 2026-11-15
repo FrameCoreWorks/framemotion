@@ -28,6 +28,7 @@ const {width = 540, height = 960, words = ['Idea', 'Sketch', 'Motion', 'Film'], 
 if (!Array.isArray(words) || words.length < 1 || !words.every((w) => typeof w === 'string' && w.length > 0)) {
   throw new TypeError('words must be a list of non-empty texts');
 }
+if (!(morph > 0 && morph <= hold)) throw new RangeError(`morph (${morph} s) must be more than 0 and at most hold (${hold} s): a change must end before the next begins`);
 const size = params.size ?? Math.round(width * 0.16);
 const stage = document.getElementById('stage');
 Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
