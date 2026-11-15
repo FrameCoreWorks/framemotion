@@ -225,7 +225,14 @@ test('a launch film draws Polish letters and its frames do not depend on the fra
   }
   assert.equal(forward.engine.width, 1080);
   assert.equal(forward.engine.height, 1920);
+  assert.deepEqual(forward.critique.filter((c) => c.status === 'FAIL'), [], 'the engine\'s own check passes (letter gaps, margins, loop)');
   const back = await kit.renderFrames('launch-type-pl', {frames: [479, 348, 131, 0], once: true});
   const hash = (r) => Object.fromEntries(r.frames.map((f) => [f.frame, f.hash]));
   assert.deepEqual(hash(back), hash(forward));
+});
+
+test('a launch film\'s planned one-colour wipe is a listed flat frame, not a failed draw', {skip: browserSkip, timeout: 240000}, async () => {
+  const report = await kit.renderFrames('launch-shapes', {frames: [300], once: true});
+  assert.ok(report.frames[0].flat && report.frames[0].flatExpected);
+  await assert.rejects(kit.renderFrames('launch-shapes', {frames: [600], once: true}), /has 600 frames \(0 to 599\)/);
 });

@@ -900,7 +900,7 @@
       "title": "Launch film, kinetic type: a launch bumper or identity sting, big type on springs",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -916,14 +916,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-type-pl",
       "title": "Launch film, the kinetic type bumper with Polish copy, laid out for 9:16 (FrameMotion's sample)",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -941,14 +942,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-shapes",
       "title": "Launch film, flat 2D shapes: icons, draw-ons, ripples, wipes, an animated logo",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -964,14 +966,18 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique",
+      "flat_frames": [
+        300
+      ]
     },
     {
       "id": "launch-cartoon",
       "title": "Launch film, an original cartoon mascot on twos that hops, waves and shows a sign",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -987,14 +993,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-3d",
       "title": "Launch film, extruded 3D type and primitives with soft shadows and a moving camera (WebGL2)",
       "status": "ready",
       "kind": "three",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1010,14 +1017,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-charts",
       "title": "Launch film, animated charts from sourced numbers: counters, bars, lines, donuts",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1033,14 +1041,23 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique",
+      "flat_frames": [
+        180,
+        181,
+        182,
+        183,
+        184,
+        185
+      ]
     },
     {
       "id": "launch-pixel",
       "title": "Launch film, a pixel-art loop: sprites, tiles, parallax, a bitmap font",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1056,14 +1073,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-particles",
       "title": "Launch film, particle swarms that form a word or logo, burst and reform",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1079,14 +1097,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-ui",
       "title": "Launch film, an app UI demo in a device frame with callouts",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1102,14 +1121,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-photo",
       "title": "Launch film, a product reel from your own photos: crops, cutouts, carousels, before/after, tags",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1125,14 +1145,18 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique",
+      "flat_frames": [
+        473
+      ]
     },
     {
       "id": "launch-overlays",
       "title": "Launch film, a lower third for editors, drawn on a transparent canvas",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1152,14 +1176,15 @@
       "flat_frames": [
         0,
         314
-      ]
+      ],
+      "critique": "critique"
     },
     {
       "id": "launch-globe",
       "title": "Launch film, a data globe: a dotted Earth, a flying camera, routes, beams and counting cards",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1175,14 +1200,15 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-story",
-      "title": "Launch film, a 9:16 second-person story short with drawn sets and word captions (silent: add the voice through the sound route)",
+      "title": "Launch film, a 9:16 second-person story short with drawn sets and word captions (example content: a crime story to replace; silent until a voice is added through the sound route)",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1198,14 +1224,15 @@
       },
       "fps": 30,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     },
     {
       "id": "launch-ui-vertical",
       "title": "Launch film, the app UI demo laid out for 9:16 (the same film, --format 9:16)",
       "status": "ready",
       "kind": "canvas",
-      "adapter": "renderFrame",
+      "adapter": "renderFrameAt",
       "capture": "#c",
       "sources": [
         "motion-launch-videos"
@@ -1222,7 +1249,8 @@
       },
       "fps": 60,
       "duration": "page",
-      "readme": "../launch-engine/README.md"
+      "readme": "../launch-engine/README.md",
+      "critique": "critique"
     }
   ]
 }

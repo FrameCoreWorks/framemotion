@@ -4,8 +4,10 @@
 // there is no HTTP server, and nothing a page sends can run a command or read outside it.
 //
 //   node kit/render-engine.mjs --engine photoreal-demo [--frames 0,30,59] [--out DIR]
-//                              [--params '{"samples":16}'] [--gpu] [--allow-flat] [--once]
+//                              [--params '{"samples":16}'] [--gpu] [--allow-flat] [--allow-critique] [--once]
 //   --frames all renders every frame (for an MP4); --once skips the repeat check (half the time).
+//   A registry "critique" names a page function that checks the film itself (the launch films);
+//   its FAILs stop the command (exit 5) unless --allow-critique.
 //
 // The engine page must set window.__framemotion = {engine, canvas, ready: true, checks?}
 // where engine comes from defineEngine() and canvas is what it draws on. Every frame is
@@ -31,7 +33,7 @@ const OFFLINE_ARGS = ['--host-resolver-rules=MAP * ~NOTFOUND', '--no-proxy-serve
   '--disable-component-update', '--disable-domain-reliability', '--disable-sync', '--no-pings',
   '--force-webrtc-ip-handling-policy=disable_non_proxied_udp'];   // no WebRTC over UDP: routes cover HTTP and WebSockets only
 /** Bundled engines' own clock functions, by registry adapter name. */
-const ADAPTERS = {renderFrame: 'renderFrame', seek: 'seek'};
+const ADAPTERS = {renderFrame: 'renderFrame', renderFrameAt: 'renderFrameAt', seek: 'seek'};
 const SOFTWARE_GL = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'];
 
 /** True only for the engines folder's own origin: scheme, host and port must all match. */
@@ -257,7 +259,17 @@ export async function renderFrames(id, {frames, out = null, params = {}, gpu = f
     }
     const list = frames === 'all' ? Array.from({length: info.totalFrames}, (_, i) => i)
       : frames ?? [0, Math.floor(info.totalFrames / 2), info.totalFrames - 1];
+    const outside = list.filter((f) => !Number.isInteger(f) || f < 0 || f >= info.totalFrames);
+    if (outside.length) throw new Error(`${entry.id} has ${info.totalFrames} frames (0 to ${info.totalFrames - 1}); not a frame: ${outside.join(', ')}`);
     const report = {engine: info, frames: []};
+    // An engine with its own quality check (the launch films' critique: letter gaps, margins, contrast,
+    // the loop) runs it once; its failures go into the report, and the command line stops on them.
+    if (entry.critique) {
+      const checks = await page.evaluate((name) => window[name]().map(({name, status, detail}) => ({name, status, detail: String(detail ?? '')})), entry.critique);
+      fail('in its own check');
+      const known = new Set(entry.critique_allowed ?? []);
+      report.critique = checks.filter((c) => c.status !== 'PASS').map((c) => (known.has(c.name) ? {...c, allowed: true} : c));
+    }
     for (const frame of list) {
       const t0 = Date.now();
       const first = await capture(page, frame, {png: Boolean(out)});
@@ -292,7 +304,7 @@ function parseArgs(argv) {
   const o = {};
   for (let i = 0; i < argv.length; i++) {
     const key = argv[i].replace(/^--/, '');
-    const flags = {gpu: 'gpu', 'allow-flat': 'allowFlat', once: 'once'};
+    const flags = {gpu: 'gpu', 'allow-flat': 'allowFlat', once: 'once', 'allow-critique': 'allowCritique'};
     if (key in flags) { o[flags[key]] = true; continue; }
     const value = argv[++i];
     if (key === 'frames') o.frames = value === 'all' ? 'all' : value.split(',').map(Number);
@@ -304,7 +316,7 @@ function parseArgs(argv) {
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const o = parseArgs(process.argv.slice(2));
-  if (!o.engine) { console.error('Usage: node kit/render-engine.mjs --engine <id> [--frames 0,30] [--out DIR] [--params JSON] [--gpu] [--allow-flat] [--once]'); process.exit(2); }
+  if (!o.engine) { console.error('Usage: node kit/render-engine.mjs --engine <id> [--frames 0,30] [--out DIR] [--params JSON] [--gpu] [--allow-flat] [--allow-critique] [--once]'); process.exit(2); }
   if (!o.gpu) {
     const entry = JSON.parse(fs.readFileSync(path.join(ENGINES_ROOT, 'engines.json'), 'utf8')).engines.find((e) => e.id === o.engine);
     if (entry?.gpu_recommended) console.error(`${o.engine} is heavy in software rendering (from about 30 s to minutes a frame); pass --gpu on a machine with a graphics card.`);
@@ -313,6 +325,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   console.log(JSON.stringify(report, null, 2));
   if (report.frames.some((f) => f.deterministic === false)) process.exit(3);
   // Registry "flat_frames" lists frames that are one colour by design (a drawing that starts on blank paper).
+  const failed = (report.critique ?? []).filter((c) => c.status === 'FAIL' && !c.allowed);
+  if (failed.length && !o.allowCritique) {
+    console.error(`The engine's own check failed:\n${failed.map((c) => `  ${c.name}: ${c.detail}`).join('\n')}\nFix the film, or pass --allow-critique for a draft.`);
+    process.exit(5);
+  }
   if (!o.allowFlat && report.frames.some((f) => f.flat && !f.flatExpected)) {
     console.error('A frame is flat (one colour). Pass --allow-flat when that is intended, such as a fade from black.');
     process.exit(4);

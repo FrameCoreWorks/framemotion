@@ -28,7 +28,7 @@ class EnginesRegistryTest(unittest.TestCase):
                     self.assertIn(f"id: '{e['id']}'", self._page_scripts(page))
                 else:
                     self.assertIn(e['build']['tool'], BUILDERS)
-                    self.assertIn(e['adapter'], {'renderFrame', 'seek'})
+                    self.assertIn(e['adapter'], {'renderFrame', 'renderFrameAt', 'seek'})
                     self.assertTrue(e['fps'] > 0)
                     if e['duration'] == 'page':   # a Stickman film follows its voice lines, a teardown its spec, a launch film its FILM config
                         self.assertIn(e['build']['tool'], {'stickman', 'cutaway', 'launch'})

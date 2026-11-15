@@ -86,9 +86,9 @@ const FILM = {
       id: 'every', world: 0, t0: bar(1) + beat(1), t1: bar(2) + beat(1), in: 'cut',
       punch: { at: bar(2), z: 1.08 },
       lines: [
-        { id: 'EVERY', text: 'KAŻDEGO', font: 'display', fit: true, track: -20, baseline: 400, color: 'fg',
+        { id: 'EVERY', text: 'KAŻDEGO', font: 'display', fit: true, track: -20, pairs: { KA: 38, 'AŻ': 30 }, baseline: 400, color: 'fg',
           enter: { at: beat(5), from: 0, spring: 'LAND', blur: 8, stagger: 0, pop: true }, scramble: { snap: beat(6.5), dir: 1 }, mis: 'snap' },
-        { id: 'MORNING', text: 'RANKA.', font: 'display', fit: true, track: -20, baseline: 600, color: 'fg',
+        { id: 'MORNING', text: 'RANKA.', font: 'display', fit: true, track: -20, pairs: { RA: 19, KA: 38 }, baseline: 600, color: 'fg',
           enter: { at: beat(5.5), from: 96, spring: 'LAND', blur: 12, stagger: 32 } },
       ],
       crumbs: [
@@ -114,10 +114,11 @@ const FILM = {
   //   16:9  a 1504 px measure, so every line grows by 1.72 and each pair fills the height, centred.
   formats: {
     '9:16': {
+      mono: { size: 40, track: 20 },   // FrameMotion: small print readable on a phone
       scenes: [
         { id: 'lockup', wrap: { dy: -1480 } },
         { id: 'hook', lines: [{ id: 'NOTES', baseline: 488, enter: { from: 1100 } }, { id: 'SORTED', baseline: 744, enter: { from: 1100 } }] },
-        { id: 'every', lines: [{ id: 'EVERY', baseline: 504 }, { id: 'MORNING', baseline: 736 }], crumbs: [{ id: 'DEMO', baseline: 760, pin: 'b' }] },
+        { id: 'every', lines: [{ id: 'EVERY', baseline: 504 }, { id: 'MORNING', baseline: 736 }], crumbs: [{ id: 'DEMO', baseline: 608, pin: 'b' }] },   // FrameMotion: above the bottom 20% of a 9:16 frame
         { id: 'ready', lines: [{ id: 'READY', baseline: 480 }, { id: 'TODAY', baseline: 784 }] },   // FrameMotion: room for the accent of Ś
       ],
     },

@@ -54,7 +54,7 @@ class LaunchEngineTest(unittest.TestCase):
         self.assertEqual(len(films), 14)
         for e in films:
             with self.subTest(e['id']):
-                self.assertEqual((e['adapter'], e['capture'], e['duration']), ('renderFrame', '#c', 'page'))
+                self.assertEqual((e['adapter'], e['capture'], e['duration'], e['critique']), ('renderFrameAt', '#c', 'page', 'critique'))
                 folder = ENGINES / e['build']['film'] if 'film' in e['build'] else ENGINE / 'styles' / e['build']['style'] / 'templates'
                 self.assertTrue((folder / 'film.html').is_file())
                 if e['build'].get('format') == '9:16':

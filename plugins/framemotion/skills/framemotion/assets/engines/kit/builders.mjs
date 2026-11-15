@@ -115,7 +115,7 @@ export const BUILDERS = {
    * Launch engine (bundled Kimeur/motion-launch-videos): a style's film.html (its template, or the user's
    * own film folder holding film.html and assets/) with its fonts from this engines folder's @fontsource
    * packages, assembled into one offline page by the engine's own build.mjs. The page's renderFrame(n)
-   * (a frame number, with its motion blur) is exposed as renderFrame(t) once the fonts and layout are ready.
+   * (a frame number, with its motion blur) is exposed as renderFrameAt(t) once the fonts and layout are ready.
    */
   async launch(entry, enginesRoot) {
     const engine = sibling(enginesRoot, 'launch-engine');
@@ -158,12 +158,11 @@ export const BUILDERS = {
     const tail = page.lastIndexOf('</body>');
     page = page.slice(0, tail) + `<script>
     (function () {
-      // the film booted above: keep its renderFrame(n) until its fonts and layout are ready
-      const draw = window.renderFrame;
-      window.renderFrame = undefined;
+      // the film's own renderFrame(n) takes a frame number and stays as it is (its critique calls it);
+      // renderFrameAt(t) appears once the fonts and layout are ready
       window.ready.then(() => {
         window.FILM_INFO = {W: window.WIDTH, H: window.HEIGHT, FPS: window.FPS, frames: Math.round(window.DURATION * window.FPS)};
-        window.renderFrame = (t) => { draw(Math.round(t * window.FPS)); };
+        window.renderFrameAt = (t) => { window.renderFrame(Math.round(t * window.FPS)); };
       });
     })();
   </script>
