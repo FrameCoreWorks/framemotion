@@ -26,11 +26,13 @@ The three spec styles are single beats to cut into a longer reel. For a launch f
 
    Then encode with sound as the [engine contract](../../references/engine-contract.md#from-frames-to-an-mp4-with-sound) says.
 
-A spec may name its own copy of a style's template with `"template": "<file next to the spec>"`, as upstream allows. Do that for words baked into a template: the map's "Arrived", "min" and "to go", and the graph's English number format (`6.8`, `6,800`). For Polish numbers, keep the graph's `decimals` at 0 and its values under 1,000, as the `graph-pl` sample does, or change the format in a copy.
+A spec may name its own copy of a style's template with `"template": "<file next to the spec>"`, as upstream allows. Keep the graph's axis labels short: they are about 25 px high and read small on a phone. Do that for words baked into a template: the map's "Arrived", "min" and "to go", and the graph's English number format (`6.8`, `6,800`). For Polish numbers, keep the graph's `decimals` at 0 and its values under 1,000, as the `graph-pl` sample does, or change the format in a copy.
 
 ## Make a 3D "what if" reel
 
 The example in `styles/what-if-3d/engine/` is a finished 29.5 s film ("Could ancient armour stop a bullet?", 9 shots, 720×1280). Make a new one as its `method.md` says, in a copy of the `engine` folder in the workspace: write the question and the turn, plan a shot every 2 to 4 s, edit `src/shots.js` (`CAPTIONS`, `FADES`, `DURATION` and one function per shot). Then register the copy with `"build": {"tool": "reels", "style": "what-if-3d", "film": "<folder, from the engines folder>"}`, `"adapter": "seek"`, `"screenshot": "#stage"` and `"duration": "page"`, and render it like any engine. A frame takes about 4 s without a GPU; pass `--gpu` when the machine has one.
+
+The 3D style renders at upstream's 720×1280 only, to keep a frame's cost down. For a 1080×1920 delivery, scale the frames up when encoding (for example `-vf scale=1080:1920:flags=lanczos` in FFmpeg) and say so to the client; there is no native 1080×1920 entry yet.
 
 Every shot's `update(t)` must depend on `t` alone, because a render can start anywhere. The example's shot 7 kept the arrow's release point from the frames drawn before it; FrameMotion's copy works it out from the same moment every time (the one changed line). Copy that pattern, not the original one.
 
@@ -38,13 +40,13 @@ In FrameMotion, skip these steps of `method.md`: `setup.sh`, `npm install` and `
 
 ## Rules for every style
 
-**Words and fonts.** The kit's fonts are basic Latin subsets. When a spec has letters beyond it (ą, ę, ł, ś, ż …), the builder adds each face's Latin Extended subset from the engines folder's `@fontsource` packages, with its OFL text; the 3D style always gets it for its captions. Cyrillic, Greek or Vietnamese copy falls back to a system font.
+**Words and fonts.** The kit's fonts are basic Latin subsets. When a spec has letters beyond it (ą, ę, ł, ś, ż …), the builder adds each face's Latin Extended subset from the engines folder's `@fontsource` packages, with its OFL text; the 3D style always gets it for its captions. Cyrillic, Greek or Vietnamese copy falls back to a system font. Only the graph has a Polish sample (`reels-graph-pl`); the minimal style (Poppins) and the 3D captions (Montserrat) get the same Latin Extended faces, but no Polish sample checks them yet, so look at a contact sheet of Polish copy before a full render.
 
 **Safe area.** Upstream keeps text inside Instagram's uncovered area (`kit/anim.py`: 220 px from the top, 420 px from the bottom of 1920). FrameMotion's rule is the same or stricter: no word in the top 10% or the bottom 20% of a 9:16 frame. The 3D style's captions sit at 76 to 80% of the height, just inside it; keep faces and key props out of that band.
 
 **Truth.** Numbers, places and claims come from the user. The 3D style's people and props are generic cartoons: no real person's likeness, no other company's logo. "The style" means the format (a question, a misconception, a turn, building examples and a payoff), not another creator's look.
 
-**Frames.** Every frame is drawn from its time alone, in any order. Known limit: in `reels-graph`, a frame drawn after other frames can differ from the same frame drawn first by one level in one or two antialiased edge pixels of the big number (Chromium's glyph cache). Nothing a viewer can see; the test allows that one level.
+**Frames.** Every frame is drawn from its time alone, in any order. For the graph and minimal styles the builder plays the GSAP timeline through once in small steps and then reaches every frame forward from 0, because overlapping tweens on one property (the minimal ball's squash and settle) otherwise drew a different ball depending on the frames drawn before; the test checks the hop frames forward, backward and alone. Known limit: in `reels-graph` and `reels-graph-pl`, most frames drawn after other frames differ from the same frame drawn first by one grey level in up to a few antialiased edge pixels of the text (Chromium's glyph cache). Nothing a viewer can see, and nothing after compression, so the order test leaves the graph out.
 
 ## What is here
 

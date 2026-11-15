@@ -324,7 +324,14 @@ export const BUILDERS = {
       return finish(dir, html, "(t) => { window.__hfThreeTime = t; window.dispatchEvent(new CustomEvent('hf-seek', {detail: {time: t}})); }", 1080, 1920, frames);
     }
     link(path.join(nm, 'gsap/dist/gsap.min.js'), path.join(dir, 'vendor/gsap.min.js'));
-    return finish(dir, html, '(t) => { window.__timelines.main.seek(t, false); }', 1080, 1920, frames);
+    // GSAP records a `to` tween's start values the first time it renders, and when tweens on one
+    // property overlap (the hopping ball's squash and settle), the one that wins depends on the
+    // direction of the jump. So play the timeline once through, in small steps, to record every start
+    // as a straight playback would, then reach each frame forward from 0: a frame no longer depends on
+    // the frames drawn before it.
+    const seek = '(t) => { const tl = window.__timelines.main; if (!window.__fmWarm) { window.__fmWarm = true; ' +
+      'for (let s = 0; s <= tl.duration() + 1e-9; s += 1 / 240) tl.seek(s, false); } tl.seek(0, true); tl.seek(t, false); }';
+    return finish(dir, html, seek, 1080, 1920, frames);
   },
   /**
    * Art engine (bundled huashu-art-motion): an era film (the speedrun, FrameMotion's gallery of the bundled

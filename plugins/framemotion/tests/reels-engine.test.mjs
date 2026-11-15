@@ -44,12 +44,14 @@ test('Polish copy gets Latin Extended faces, English copy does not', {skip: pyth
   }
 });
 
-for (const [id, frames] of [['reels-minimal-line-art', [0, 50, 113]], ['reels-map-route', [0, 60, 119]], ['reels-what-if-3d', [590, 640]]]) {
+for (const [id, frames] of [['reels-minimal-line-art', [0, 45, 50, 57, 70, 113]], ['reels-map-route', [0, 60, 119]], ['reels-what-if-3d', [590, 640]]]) {
   test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip, timeout: 300000}, async () => {
     const first = await kit.renderFrames(id, {frames, once: true});
     const back = await kit.renderFrames(id, {frames: [...frames].reverse(), once: true});
     const hash = (r, f) => r.frames.find((x) => x.frame === f).hash;
     for (const f of frames) assert.equal(hash(first, f), hash(back, f), `frame ${f}`);
+    const alone = await kit.renderFrames(id, {frames: [frames[frames.length >> 1]], once: true});
+    assert.equal(hash(alone, frames[frames.length >> 1]), hash(first, frames[frames.length >> 1]), 'a frame drawn alone');
     assert.deepEqual(first.blocked, []);
   });
 }
