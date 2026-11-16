@@ -7,7 +7,7 @@ One folder for every engine FrameMotion renders frame by frame: our own engines 
 | `kit/` | [Engine kit](kit/README.md): time, seeded randomness, sub-frames, the GSAP/HyperFrames bridge and the renderer `render-engine.mjs` |
 | `engines.json` | The registry: id, page, size, sources, reusable blocks |
 | `package.json`, `package-lock.json` | The one dependency set of all engines, pinned exactly (three.js 0.187.0) |
-| `photoreal/` | [Photoreal three.js blocks](photoreal/README.md): accumulation camera and film grade, with a demo scene |
+| `photoreal/` | [Photoreal three.js blocks](photoreal/README.md): accumulation camera, film grade, baked window light, procedural materials and props, with demo, room and studio scenes |
 | `gl-transitions/` | [gl-transitions engine](gl-transitions/README.md): 236 transitions between two pictures (unchanged shaders, our wrapper) |
 | `libraries/` | [Library engines](libraries/README.md): Paper Shaders, PixiJS filters, css-doodle, torph, tsParticles and p5.brush on our clock (npm packages, not copied) |
 
@@ -16,6 +16,8 @@ Registered engines:
 | Id | Engine | How it is wired |
 | --- | --- | --- |
 | `photoreal-demo` | Our [photoreal blocks](photoreal/README.md) on a demo scene | own page |
+| `photoreal-room` | Baked window light on a plain room (test scene) | own page |
+| `photoreal-studio` | Procedural materials and props in the baked room (test scene) | own page |
 | `gl-transition` | [gl-transitions](gl-transitions/README.md), any of 236 shaders | own page, unchanged shaders |
 | `animate-starter` | The bundled [Animate engine](../animate-engine/ENGINE.md), its starter piece | builder `animate`, adapter `renderFrame` |
 | `anatomy-svg` | The bundled [Anatomy engine](../anatomy-engine/README.md), its SVG fixture | builder `anatomy`, adapter `renderFrame` |

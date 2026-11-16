@@ -42,7 +42,7 @@ a source-manifest.json with the pinned commit):
   integrations/open-design/, integrations/earshot/, integrations/rea/ and integrations/awesome-opus-videos/.
 - Leonxlnx/room-at-dawn, commit aab8be218aa051bbb2e22b82916962619c951747, Copyright (c) 2026 Leon Lin, MIT: parts
   adapted and rewritten on the FrameMotion engine kit in skills/framemotion/assets/engines/photoreal/
-  (accum-camera.mjs, film-grade.mjs, bake.mjs, gi-material.mjs; the file headers name the source; licence in
+  (accum-camera.mjs, film-grade.mjs, bake.mjs, gi-material.mjs, proc-materials.mjs; the file headers name the source; licence in
   integrations/room-at-dawn/).
   The grain hash in film-grade.mjs is "Hash without Sine" by David Hoskins (MIT, shadertoy.com/view/4djSRW).
 - gl-transitions/gl-transitions, commit 5a8788c96c45966ce4667e206df6415d494917cc, Copyright (c) 2017-present

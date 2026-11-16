@@ -4,10 +4,7 @@
 // (room.gi.bin, made with photoreal/bake-node.mjs from bakeSetup below).
 // Original FrameCore Works teaching asset (Apache-2.0). Everything is a function of time.
 import * as THREE from 'three';
-import {defineEngine} from '../../kit/engine-kit.mjs';
-import {createAccumCamera} from '../accum-camera.mjs';
-import {createFilmGrade} from '../film-grade.mjs';
-import {createGi} from '../gi-material.mjs';
+import {createBakedDemo} from '../baked-demo.mjs';
 
 export const ROOM = Object.freeze({min: [-2, 0, -2], max: [2, 2.8, 2]});
 export const WINDOW = Object.freeze({y: [0.9, 2.1], z: [-0.7, 0.7], depth: 0.15});
@@ -89,58 +86,17 @@ export function buildRoom(T = THREE) {
 export function bakeSetup(T) { return {root: buildRoom(T), lights: LIGHTS}; }
 
 export async function createRoomDemo({canvas, width = 540, height = 960, fps = 30, duration = 3, samples = 16, aperture = 0.004, bake = 'room.gi.bin'}) {
-  const renderer = new THREE.WebGLRenderer({canvas, antialias: false, preserveDrawingBuffer: true});
-  renderer.setPixelRatio(1);
-  renderer.setSize(width, height, false);
-  renderer.toneMapping = THREE.NoToneMapping;
-  renderer.shadowMap.enabled = true;
-  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color().setRGB(...LIGHTS.sky.horizon, THREE.LinearSRGBColorSpace);
   const room = buildRoom();
-  scene.add(room);
-  room.traverse((o) => { if (o.isMesh) { o.castShadow = o.name !== 'floor'; o.receiveShadow = !o.name.startsWith('shell'); } });
-  const sun = new THREE.DirectionalLight(new THREE.Color().setRGB(1, LIGHTS.sun.irradiance[1] / LIGHTS.sun.irradiance[0], LIGHTS.sun.irradiance[2] / LIGHTS.sun.irradiance[0], THREE.LinearSRGBColorSpace), LIGHTS.sun.irradiance[0]);
-  sun.position.copy(SUN_DIR).multiplyScalar(8).add(new THREE.Vector3(-2, 1, -0.3));
-  sun.target.position.set(-1, 0.5, -0.3);
-  sun.castShadow = true;
-  sun.shadow.mapSize.set(4096, 4096);
-  sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.01;
-  Object.assign(sun.shadow.camera, {left: -2.6, right: 2.6, top: 2.2, bottom: -2.2, near: 2, far: 16});
-  scene.add(sun, sun.target);
-
-  const gi = createGi(THREE);
-  gi.guard(renderer);
-  // same-origin only: the bake file next to this module.
-  const res = await fetch(new URL(bake, import.meta.url));
-  if (!res.ok) throw new Error(`light bake ${bake} not found (make it with photoreal/bake-node.mjs)`);
-  const applied = gi.apply(room, await res.arrayBuffer());
-  if (applied.stale.length) throw new Error(`light bake is stale for ${applied.stale.join(', ')}: bake the scene again`);
-  gi.captureEnv(renderer, scene, {position: [0, 1.4, 0.4], boxMin: ROOM.min, boxMax: ROOM.max});
-
-  const camera = new THREE.PerspectiveCamera(42, width / height, 0.05, 30);
-  renderer.compile(scene, camera);   // compile up front; a broken patched shader stops the page through the guard at the latest on the first frame
-  const sphere = room.getObjectByName('sphere');
   const ease = (x) => { const k = Math.min(1, Math.max(0, x)); return k * k * (3 - 2 * k); };
-  function place(t) {
-    const k = ease(t / (duration * 0.85));
-    camera.position.set(1.15 - 0.35 * k, 1.45 - 0.12 * k, 1.5 - 0.55 * k);
-    camera.lookAt(-0.2, 0.8, -0.66);
-  }
-  const accum = createAccumCamera({THREE, renderer, width, height});
-  const grade = createFilmGrade({THREE, renderer, width, height});
-  const eye = new THREE.Vector3(), axis = new THREE.Vector3(), to = new THREE.Vector3();
-  const engine = defineEngine({
-    id: 'photoreal-room', width, height, fps, duration,
-    seek(t) {
-      const frame = Math.min(Math.round(t * fps), Math.round(duration * fps) - 1);
-      place(frame / fps);
-      camera.updateMatrixWorld(true);
-      const focus = to.subVectors(sphere.position, camera.getWorldPosition(eye)).dot(camera.getWorldDirection(axis));
-      const hdr = accum.render({scene, camera, frame, fps, samples, shutter: 0.5, aperture, focus, duration, prepare: place});
-      grade.render(hdr, LOOK, {seed: frame});
+  return createBakedDemo({
+    canvas, width, height, fps, duration, samples, aperture, id: 'photoreal-room', root: room, lights: LIGHTS, look: LOOK,
+    bakeUrl: new URL(bake, import.meta.url), box: ROOM, probe: [0, 1.4, 0.4],
+    shadow: {target: [-1, 0.5, -0.3], position: SUN_DIR.clone().multiplyScalar(8).add(new THREE.Vector3(-2, 1, -0.3)).toArray(), left: -2.6, right: 2.6, top: 2.2, bottom: -2.2, near: 2, far: 16},
+    focus: room.getObjectByName('sphere'),
+    place(t, camera) {
+      const k = ease(t / (duration * 0.85));
+      camera.position.set(1.15 - 0.35 * k, 1.45 - 0.12 * k, 1.5 - 0.55 * k);
+      camera.lookAt(-0.2, 0.8, -0.66);
     },
   });
-  return {engine, renderer, scene, room, gi, applied};
 }

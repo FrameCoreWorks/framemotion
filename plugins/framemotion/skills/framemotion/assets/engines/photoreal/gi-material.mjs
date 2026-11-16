@@ -77,7 +77,11 @@ export function createGi(THREE) {
       shader.fragmentShader = edit(shader.fragmentShader, '#include <envmap_physical_pars_fragment>', envPars, 'the fragment shader');
       shader.fragmentShader = edit(shader.fragmentShader, '#include <lights_fragment_maps>', maps + GI_LIGHT, 'the fragment shader');
     };
-    material.customProgramCacheKey = () => 'framemotion-gi';
+    // keep the material's own program key, so two materials with different onBeforeCompile hooks of their own
+    // do not share one compiled program
+    const ownKey = Object.prototype.hasOwnProperty.call(material, 'customProgramCacheKey') ? material.customProgramCacheKey : null;
+    const prevSource = previous ? previous.toString() : '';
+    material.customProgramCacheKey = () => `framemotion-gi|${ownKey ? ownKey.call(material) : prevSource}`;
     material.userData.giPatched = true;
     material.needsUpdate = true;
     return material;

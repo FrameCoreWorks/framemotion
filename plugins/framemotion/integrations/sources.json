@@ -234,7 +234,7 @@
       "pack": "P1",
       "status": "adapted",
       "conditions": [
-        "parts adapted and rewritten on the engine kit: blocks 3 and 4 (accum-camera, film-grade) on 2026-11-14, blocks 1 and 2 (bake, gi-material) on 2026-11-16; file headers name the source",
+        "parts adapted and rewritten on the engine kit: blocks 3 and 4 (accum-camera, film-grade) on 2026-11-14, blocks 1 and 2 (bake, gi-material) and the material recipes (proc-materials) on 2026-11-16; file headers name the source",
         "never the ffmpeg helper server, the scene or the sound"
       ],
       "bundled_commit": "aab8be218aa051bbb2e22b82916962619c951747"

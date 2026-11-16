@@ -65,10 +65,58 @@
         "photoreal/film-grade.mjs",
         "photoreal/bake.mjs",
         "photoreal/gi-file.mjs",
-        "photoreal/gi-material.mjs"
+        "photoreal/gi-material.mjs",
+        "photoreal/baked-demo.mjs"
       ],
       "gpu_recommended": true,
       "duration": 3,
+      "params": {
+        "samples": {
+          "type": "integer",
+          "default": 16,
+          "min": 1,
+          "max": 256,
+          "about": "sub-frames averaged per frame"
+        },
+        "aperture": {
+          "type": "number",
+          "default": 0.004,
+          "min": 0,
+          "max": 0.1,
+          "about": "lens radius in metres (0 = no depth of field)"
+        }
+      }
+    },
+    {
+      "id": "photoreal-studio",
+      "title": "Photoreal three.js: procedural materials and props (studio test scene)",
+      "status": "ready",
+      "kind": "three",
+      "page": "photoreal/studio/index.html",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "readme": "photoreal/README.md",
+      "sources": [
+        "room-at-dawn",
+        "three",
+        "three-mesh-bvh"
+      ],
+      "blocks": [
+        "photoreal/lens.mjs",
+        "photoreal/accum-camera.mjs",
+        "photoreal/film-grade.mjs",
+        "photoreal/bake.mjs",
+        "photoreal/gi-file.mjs",
+        "photoreal/gi-material.mjs",
+        "photoreal/baked-demo.mjs",
+        "photoreal/proc-materials.mjs",
+        "photoreal/props.mjs"
+      ],
+      "gpu_recommended": true,
+      "duration": 4,
       "params": {
         "samples": {
           "type": "integer",
