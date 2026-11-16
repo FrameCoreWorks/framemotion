@@ -197,12 +197,15 @@
       "copyright": "Copyright (c) 2026 Lemomo (LemoLab)",
       "kind": "engine",
       "pack": "P9",
-      "status": "planned",
+      "status": "bundled",
       "conditions": [
-        "code under core/, tools/, styleboard/ and demo code only (MIT)",
-        "never any .md file or prompt (CC BY-NC 4.0)",
-        "no Clawd, no demo voice tracks"
-      ]
+        "bundled as the Lemo engine (assets/lemo-engine): 24 styles and the shared core in upstream's layout, unchanged except one marked file (tilt-shift sky.js); MIT code, data and configuration and SIL OFL fonts only",
+        "never any .md file or prompt (CC BY-NC 4.0); no films, stills, posters or subtitles (CC BY 4.0)",
+        "no Clawd, no Mascot Screencast, no demo voice, music or mix files",
+        "styles with third-party footage, photos, maps, data or models, or fetched asset packs, are not bundled",
+        "credit 'Lemo-Opuscar by Lemomo (LemoLab)' with the repository link; FrameMotion's builder is our own"
+      ],
+      "bundled_commit": "3a7132b996be0241c1ea0ab180d519f06e6f10b6"
     },
     {
       "name": "rea-video",

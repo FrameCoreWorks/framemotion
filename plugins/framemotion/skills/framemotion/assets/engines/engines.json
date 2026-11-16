@@ -1638,6 +1638,560 @@
       "fps": 30,
       "duration": "page",
       "readme": "../pixel-engine/README.md"
+    },
+    {
+      "id": "lemo-art-deco",
+      "title": "Lemo style film, gold geometry, sunbursts and stepped frames on black, a 1930s grand-hotel story (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "art-deco"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-ascii-crt",
+      "title": "Lemo style film, a green phosphor terminal drawn in text characters, with scanlines and screen curve (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "ascii-crt"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-backrooms",
+      "title": "Lemo style film, liminal found footage: empty yellow rooms, camcorder grain and timecode (three.js) (16:9)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrameAt",
+      "screenshot": "body",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "backrooms"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-blueprint",
+      "title": "Lemo style film, white technical line drawing on blueprint blue, parts drawn and dimensioned live (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "blueprint"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-crayon-book",
+      "title": "Lemo style film, a children's picture book in wax crayon on paper, with crayon-written titles (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#gl",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "crayon-book"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-engraving",
+      "title": "Lemo style film, copperplate engraving: hatched line shading on cream paper, museum-label type (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "engraving"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-glass-product",
+      "title": "Lemo style film, a glass product render: refraction, studio light and clean launch type (three.js) (16:9)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrameAt",
+      "screenshot": "body",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "glass-product"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-hologram-hud",
+      "title": "Lemo style film, a sci-fi hologram HUD: cyan wireframes, scan rings and spec read-outs (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "hologram-hud"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-impasto",
+      "title": "Lemo style film, thick oil paint with visible brush strokes and slow painted camera moves (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "impasto"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-iso-infographic",
+      "title": "Lemo style film, an isometric infographic: flat blocks, flows and labelled process steps (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "iso-infographic"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-lowpoly-island",
+      "title": "Lemo style film, a low-poly isometric island world with soft light and a slow orbit (three.js) (16:9)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrameAt",
+      "screenshot": "body",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "lowpoly-island"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-midcentury-toon",
+      "title": "Lemo style film, a 1950s cartoon: limited animation, flat colour and starburst backgrounds (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "midcentury-toon"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-one-line",
+      "title": "Lemo style film, one continuous line that draws each scene and morphs into the next (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "one-line",
+        "warm": true
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-papercut-red",
+      "title": "Lemo style film, red paper-cut silhouettes with layered folk patterns on light (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#cv",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "papercut-red"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-risograph",
+      "title": "Lemo style film, risograph print: two or three spot inks, misregistration and grain (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "risograph",
+        "warm": true
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-rubber-hose",
+      "title": "Lemo style film, a 1930s rubber-hose cartoon in black and white, animated on twos (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "rubber-hose"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-shadow-puppet",
+      "title": "Lemo style film, shadow puppets behind a lit screen, with jointed silhouettes (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#gl",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "shadow-puppet"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-spy-titles",
+      "title": "Lemo style film, a 1960s spy title sequence: bold shapes, silhouettes and big type (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "spy-titles"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-stained-glass",
+      "title": "Lemo style film, stained glass: lead lines, glowing coloured panes and slow light (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#gl",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "stained-glass"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-swiss-motion",
+      "title": "Lemo style film, Swiss motion graphics: grid, Helvetica-like type and primary blocks (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "swiss-motion"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-tilt-shift",
+      "title": "Lemo style film, a tilt-shift miniature city with shallow focus and toy-like traffic (three.js) (16:9)",
+      "status": "ready",
+      "kind": "three",
+      "adapter": "renderFrameAt",
+      "screenshot": "body",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "tilt-shift"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-ukiyoe",
+      "title": "Lemo style film, an ukiyo-e woodblock print: flat colour, outline and wood grain (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "ukiyoe"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-urban-sketch",
+      "title": "Lemo style film, an urban sketch in pen and watercolour wash, drawn on location (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "urban-sketch"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lemo-whiteboard",
+      "title": "Lemo style film, a whiteboard explainer drawn by hand with marker, step by step (16:9)",
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrameAt",
+      "capture": "#c",
+      "sources": [
+        "lemo-opuscar"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "lemo",
+        "style": "whiteboard"
+      },
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../lemo-engine/README.md"
     }
   ]
 }

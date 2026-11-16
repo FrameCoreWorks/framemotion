@@ -454,6 +454,80 @@ document.write('<script>window.ERAS = window.ERAS.filter((e) => ${JSON.stringify
     fs.writeFileSync(path.join(dir, page), html);
     return {dir, page, query};
   },
+  /**
+   * Lemo engine (bundled Lemo-Opuscar styles): one style's demo page with the shared core, as upstream lays them out.
+   * build: {style: "art-deco", film?: "path/to/film.js", scene?: "file.fn"}. The demo draws a frame with
+   * window.render(t) once window.READY is set; FrameMotion's clock calls it for every frame.
+   */
+  async lemo(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'lemo-engine');
+    const style = entry.build.style;
+    if (typeof style !== 'string' || !/^[a-z0-9-]+$/.test(style) || !fs.existsSync(path.join(engine, 'styles', style, 'demo/index.html'))) {
+      throw new Error(`${entry.id}: unknown Lemo style "${style}" (see lemo-engine/README.md)`);
+    }
+    const dir = temp(entry.id);
+    fs.cpSync(path.join(engine, 'core'), path.join(dir, 'core'), {recursive: true});
+    fs.cpSync(path.join(engine, 'styles', style), path.join(dir, 'styles', style), {recursive: true});
+    const demo = path.join(dir, 'styles', style, 'demo');
+    if (entry.build.film) {
+      // A film written for this style replaces the demo's own film.js; it imports the style's modules as the demo does.
+      const film = path.resolve(enginesRoot, entry.build.film);
+      if (!fs.existsSync(film)) throw new Error(`${entry.id}: film "${entry.build.film}" not found`);
+      fs.copyFileSync(film, path.join(demo, 'film.js'));
+    }
+    // Upstream serves the library from its own root, so pages ask for /core/...; here the build folder is /_build/.
+    const walk = (d) => fs.readdirSync(d, {withFileTypes: true}).flatMap((e) => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
+    for (const file of walk(dir).filter((f) => /\.(m?js|html|css)$/.test(f))) {
+      const text = fs.readFileSync(file, 'utf8');
+      const moved = text.replace(/(["'`(])\/core\//g, '$1/_build/core/');
+      if (moved !== text) fs.writeFileSync(file, moved);
+    }
+    const fps = entry.fps ?? 30;
+    // A fixed-size body, so a page that layers a three.js canvas and an overlay canvas can be captured as one element.
+    const ready = `<style>html, body { width: 1920px; height: 1080px; position: relative; }</style>
+<script>
+(() => { const wait = () => {
+  if (window.READY !== true || typeof window.render !== 'function') { setTimeout(wait, 20); return; }
+  window.FILM_INFO = {W: 1920, H: 1080, FPS: ${fps}, frames: Math.round((window.DUR || 1) * ${fps})};
+  // A style whose first draw of some words or ink differs from every repeat (One-line: its end card and ink halo)
+  // sets build.warm: the first call draws the film once a second, so a frame is the same however the render starts.
+  // build.warm: true steps one second; a number sets the step in seconds (a slow 3D style warms at a few times).
+  let warm = ${entry.build.warm ? 'false' : 'true'};
+  const step = ${typeof entry.build.warm === 'number' && entry.build.warm > 0 ? entry.build.warm : 1};
+  window.renderFrameAt = async (t) => {
+    if (!warm) { warm = true; for (let s = 0; s <= (window.DUR || 1); s += step) await window.render(s); }
+    await window.render(t);
+  };
+}; wait(); })();
+</script>`;
+    const page = `styles/${style}/demo/index.html`;
+    let html = fs.readFileSync(path.join(dir, page), 'utf8');
+    // Math.random at load (three.js GTAO's noise texture in Tilt-Shift) differed on every page load, so a frame
+    // depended on which load drew it: here it is a fixed-seed generator, the same on every load.
+    const seeded = `<script>(() => { let a = 0x9e3779b9; Math.random = () => { a |= 0; a = a + 0x6D2B79F5 | 0;
+  let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; })();</script>`;
+    {
+      const head = html.search(/<head[^>]*>/);
+      const at = head < 0 ? 0 : head + html.slice(head).indexOf('>') + 1;
+      html = html.slice(0, at) + seeded + html.slice(at);
+    }
+    if (entry.kind === 'three') {
+      // three.js computes a geometry's bounds on its first draw and culls by them after, so instances and dynamic
+      // geometry that move later (Tilt-Shift's traffic, trails and lights) vanished or not depending on the first
+      // frame drawn. Never cull: every frame shows what its own time places in it. Runs before the page's modules.
+      const noCull = `<script type="module">import * as THREE from 'three';
+Object.defineProperty(THREE.Object3D.prototype, 'frustumCulled', {get: () => false, set() {}, configurable: true});</script>`;
+      const body = html.search(/<body[^>]*>/);
+      if (body < 0) throw new Error(`${entry.id}: the style page has no <body>`);
+      const at = body + html.slice(body).indexOf('>') + 1;
+      html = html.slice(0, at) + noCull + html.slice(at);
+    }
+    const tail = html.lastIndexOf('</body>');
+    html = tail < 0 ? html + ready : html.slice(0, tail) + ready + '\n' + html.slice(tail);
+    fs.writeFileSync(path.join(dir, page), html);
+    const query = entry.build.scene ? {scene: String(entry.build.scene)} : {};
+    return {dir, page, query};
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {

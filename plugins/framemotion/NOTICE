@@ -122,6 +122,16 @@ a source-manifest.json with the pinned commit):
   all rights reserved), the gallery tools, the showcase GIFs. framemotion/ (the player, adapted from upstream's
   tools/lib/fxlib.mjs) is FrameCore Works' own, credited there; file list and hashes in
   integrations/pixelfx/source-manifest.json.
+- Lemo engine (skills/framemotion/assets/lemo-engine): lemomo-ai/lemo-opuscar 2.0.0 (commit
+  3a7132b996be0241c1ea0ab180d519f06e6f10b6, MIT, Copyright (c) 2026 Lemomo (LemoLab)), "Lemo-Opuscar by Lemomo
+  (LemoLab)": 24 styles and the shared core bundled in upstream's layout, unchanged except styles/tilt-shift/demo/sky.js
+  (environment map per frame; both hashes in the manifest), with upstream's LICENSE,
+  REUSE.toml and licence texts. Only MIT code, data and configuration and the fonts are bundled; the fonts are SIL
+  Open Font License 1.1, each named in its style's demo/CREDITS with its OFL text. Not bundled: every Markdown file
+  and the image prompts (CC BY-NC 4.0), the films, posters, stills and subtitles (CC BY 4.0), voice, music and mix
+  files, Clawd (Anthropic's character, not licensed by upstream) and the Mascot Screencast style, and the styles
+  built on third-party material. File list, licences, hashes and the pinned font URLs in
+  integrations/lemo-opuscar/source-manifest.json; the builder is FrameCore Works' own.
 - Reels engine (skills/framemotion/assets/reels-engine): artemnovitckii/claude-animation-skills (commit
   5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii), its kit and four reel styles
   bundled unchanged except styles/what-if-3d/engine/src/shots.js (one line in shot 7; original and current hashes in
