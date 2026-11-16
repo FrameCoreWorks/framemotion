@@ -1,0 +1,4 @@
+{"schema":"film-plan/1","fps":30,"size":{"width":1080,"height":1920},
+ "scenes":[{"engine":"launch-type","duration":1.5,"fit":"contain"},
+  {"engine":"gl-transition","duration":1,"transition_in":{"type":"wipeleft","duration":0.25}},
+  {"engine":"lemo-swiss-motion","start":2,"duration":1}]}

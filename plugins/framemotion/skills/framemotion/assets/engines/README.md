@@ -4,7 +4,7 @@ One folder for every engine FrameMotion renders frame by frame: our own engines 
 
 | Path | What it is |
 | --- | --- |
-| `kit/` | [Engine kit](kit/README.md): time, seeded randomness, sub-frames, the GSAP/HyperFrames bridge and the renderer `render-engine.mjs` |
+| `kit/` | [Engine kit](kit/README.md): time, seeded randomness, sub-frames, the GSAP/HyperFrames bridge, the renderer `render-engine.mjs` and `compose.mjs`, which joins scenes from several engines into one film |
 | `engines.json` | The registry: id, page, size, sources, reusable blocks |
 | `package.json`, `package-lock.json` | The one dependency set of all engines, pinned exactly (three.js 0.187.0) |
 | `photoreal/` | [Photoreal three.js blocks](photoreal/README.md): accumulation camera, film grade, baked window light, procedural materials and props, with demo, room and studio scenes |

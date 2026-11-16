@@ -106,6 +106,11 @@ class EnginesRegistryTest(unittest.TestCase):
                 self.assertIn("from 'node:worker_threads'", text)
                 self.assertEqual(re.findall(r'new Worker\(([^,]*),', text), ['fileURLToPath(import.meta.url)'])
                 text = text.replace('new Worker(', 'same_file_worker(')
+            if path.relative_to(ENGINES).as_posix() == 'kit/compose.mjs':
+                # The film joiner runs in Node and starts only ffmpeg, with an argument list (no shell).
+                self.assertEqual(re.findall(r"spawnSync\(([^,]*),", text), ["'ffmpeg'"])
+                self.assertNotIn('shell', text)
+                text = text.replace("import {spawnSync} from 'node:child_process';", '')
             self.assertIsNone(bad.search(text), f'{path.relative_to(ENGINES)} reaches the network or a process')
 
 if __name__ == '__main__':
