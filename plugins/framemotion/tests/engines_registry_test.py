@@ -101,6 +101,11 @@ class EnginesRegistryTest(unittest.TestCase):
                 for call in re.findall(r'new URL\(([^;]*?)\)', text):
                     self.assertIn('import.meta.url', call, f'{path.relative_to(ENGINES)}: {call}')
                 text = text.replace('fetch(', 'same_origin_read(')
+            if path.relative_to(ENGINES).as_posix() == 'photoreal/bake-node.mjs':
+                # The light bake runs in Node on worker threads, and each worker is this same file.
+                self.assertIn("from 'node:worker_threads'", text)
+                self.assertEqual(re.findall(r'new Worker\(([^,]*),', text), ['fileURLToPath(import.meta.url)'])
+                text = text.replace('new Worker(', 'same_file_worker(')
             self.assertIsNone(bad.search(text), f'{path.relative_to(ENGINES)} reaches the network or a process')
 
 if __name__ == '__main__':

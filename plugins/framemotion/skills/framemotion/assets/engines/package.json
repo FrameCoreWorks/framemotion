@@ -33,6 +33,7 @@
     "pixi-filters": "6.1.5",
     "pixi.js": "8.23.0",
     "three": "0.187.0",
+    "three-mesh-bvh": "0.9.18",
     "torph": "0.1.4"
   },
   "engines": {

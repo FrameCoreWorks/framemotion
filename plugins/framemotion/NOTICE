@@ -42,7 +42,8 @@ a source-manifest.json with the pinned commit):
   integrations/open-design/, integrations/earshot/, integrations/rea/ and integrations/awesome-opus-videos/.
 - Leonxlnx/room-at-dawn, commit aab8be218aa051bbb2e22b82916962619c951747, Copyright (c) 2026 Leon Lin, MIT: parts
   adapted and rewritten on the FrameMotion engine kit in skills/framemotion/assets/engines/photoreal/
-  (accum-camera.mjs, film-grade.mjs; the file headers name the source; licence in integrations/room-at-dawn/).
+  (accum-camera.mjs, film-grade.mjs, bake.mjs, gi-material.mjs; the file headers name the source; licence in
+  integrations/room-at-dawn/).
   The grain hash in film-grade.mjs is "Hash without Sine" by David Hoskins (MIT, shadertoy.com/view/4djSRW).
 - gl-transitions/gl-transitions, commit 5a8788c96c45966ce4667e206df6415d494917cc, Copyright (c) 2017-present
   gl-transitions contributors, MIT: 238 shaders copied unchanged to skills/framemotion/assets/engines/gl-transitions/shaders/,
@@ -55,6 +56,8 @@ a source-manifest.json with the pinned commit):
 - mrdoob/three.js (MIT, Copyright (c) 2010-2026 three.js authors) is installed from npm at exactly 0.187.0
   (tag r187, commit 7e89746a687bb88271253698fa108b1dd59825d0) and never bundled. GSAP 3.15.0, used only by the
   engine tests, is installed the same way under its own GreenSock licence and never bundled.
+  gkjohnson/three-mesh-bvh (MIT, Copyright (c) 2018 Garrett Johnson), used by the light bake in Node, is installed
+  from npm at exactly 0.9.18 (tag v0.9.18, commit 1d92383233482f12512ef0804748de45ad7f2f60) and never bundled.
 - Library engines (assets/engines/libraries/) install these npm packages at exact versions; none is bundled:
   paper-design/shaders (@paper-design/shaders 0.0.82, commit 14c06ef5c8c7863e8efec89f85243e118c747ca9,
   Apache-2.0, Copyright 2026 Paper). Powered by Paper Shaders: https://shaders.paper.design

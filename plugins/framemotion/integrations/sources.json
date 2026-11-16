@@ -234,23 +234,10 @@
       "pack": "P1",
       "status": "adapted",
       "conditions": [
-        "parts adapted and rewritten on the engine kit: blocks 3 and 4 (accum-camera, film-grade) on 2026-11-14; file headers name the source",
+        "parts adapted and rewritten on the engine kit: blocks 3 and 4 (accum-camera, film-grade) on 2026-11-14, blocks 1 and 2 (bake, gi-material) on 2026-11-16; file headers name the source",
         "never the ffmpeg helper server, the scene or the sound"
       ],
       "bundled_commit": "aab8be218aa051bbb2e22b82916962619c951747"
-    },
-    {
-      "name": "three-mesh-bvh",
-      "repo": "gkjohnson/three-mesh-bvh",
-      "commit": "65d069f1d8728272704e6127ad29a6cb86ad632b",
-      "licence": "MIT",
-      "copyright": "Copyright (c) 2018 Garrett Johnson",
-      "kind": "library",
-      "pack": "P5",
-      "status": "planned",
-      "conditions": [
-        "dependency of bake, pinned npm version"
-      ]
     },
     {
       "name": "three",
@@ -265,6 +252,21 @@
         "npm dependency pinned exactly in assets/engines/package.json (tag r187 = this commit); installed by npm ci, never bundled"
       ],
       "version": "0.187.0"
+    },
+    {
+      "name": "three-mesh-bvh",
+      "repo": "gkjohnson/three-mesh-bvh",
+      "commit": "1d92383233482f12512ef0804748de45ad7f2f60",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2018 Garrett Johnson",
+      "kind": "library",
+      "pack": "P5",
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly in assets/engines/package.json (tag v0.9.18 = this commit); used only by the light bake in Node, installed by npm ci, never bundled"
+      ],
+      "version": "0.9.18",
+      "package": "three-mesh-bvh"
     },
     {
       "name": "paper-shaders",
