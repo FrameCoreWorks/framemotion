@@ -101,6 +101,8 @@ test('the shipped room bake matches the room scene, and a changed mesh is report
   assert.ok(room.getObjectByName('floor').material.userData.giPatched);
   const {collectScene} = await import('../skills/framemotion/assets/engines/photoreal/bake.mjs');
   assert.equal(result.meta.scene, collectScene(THREE, buildRoom(THREE)).hash, 'the room scene changed since room.gi.bin was baked: bake it again');
+  const {bakeSetup} = await import('../skills/framemotion/assets/engines/photoreal/room/scene.mjs');
+  assert.deepEqual(result.meta.lights, JSON.parse(JSON.stringify(bakeSetup(THREE).lights)), 'the room lights changed since room.gi.bin was baked: bake it again');
   const changed = buildRoom(THREE);
   changed.getObjectByName('cube').geometry = new THREE.BoxGeometry(0.16, 0.16, 0.16, 2, 2, 2);
   assert.deepEqual(createGi(THREE).apply(changed, buffer).stale, ['cube#0']);

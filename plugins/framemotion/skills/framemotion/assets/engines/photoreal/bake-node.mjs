@@ -27,6 +27,9 @@ if (!isMainThread) {
 
 /** Bake a scene module to a file. Returns {points, seconds, file, bytes}. */
 export async function bakeScene({scene: modulePath, out, spp = 256, seed = 1, workers = Math.max(1, os.availableParallelism() - 1), smooth = 2, log = () => {}}) {
+  for (const [name, value, min] of [['spp', spp, 1], ['seed', seed, 0], ['workers', workers, 1], ['smooth', smooth, 0]]) {
+    if (!Number.isInteger(value) || value < min) throw new RangeError(`bakeScene: ${name} must be a whole number of at least ${min} (got ${value})`);
+  }
   const t0 = Date.now();
   const mod = await import(pathToFileURL(path.resolve(modulePath)).href);
   const {root, lights} = mod.bakeSetup(THREE);
@@ -34,6 +37,7 @@ export async function bakeScene({scene: modulePath, out, spp = 256, seed = 1, wo
   const n = scene.samples.length / 6;
   log(`[bake] ${scene.list.length} lit meshes, ${n} points, ${scene.idx.length / 3} triangles, ${spp} samples, ${workers} workers`);
   for (const w of scene.warnings) log(`[bake] note: ${w}`);
+  log('[bake] note: light is gathered on front faces only, and each path is capped at 30 (see photoreal/README.md)');
   const data = {pos: scene.pos, idx: scene.idx, triMat: scene.triMat, albedo: scene.albedo, samples: scene.samples};
   const R = new Float32Array(n * 7);
   const jobs = [];

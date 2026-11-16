@@ -77,7 +77,7 @@ export function buildRoom(T = THREE) {
   table.position.set(-0.2, 0, -0.6);
   const steel = new T.MeshPhysicalMaterial({color: 0x9aa0a6, metalness: 1, roughness: 0.28}); steel.userData.albedo = [0.55, 0.56, 0.58];
   const plate = new T.Mesh(new T.CylinderGeometry(0.2, 0.2, 0.015, 48, 1), steel); plate.name = 'plate'; plate.position.set(-0.45, 0.785, -0.62); root.add(plate);
-  const white = new T.MeshPhysicalMaterial({color: 0xeeeeea, roughness: 0.12, clearcoat: 1, clearcoatRoughness: 0.08});
+  const white = new T.MeshPhysicalMaterial({color: 0xeeeeea, roughness: 0.45, clearcoat: 1, clearcoatRoughness: 0.08});
   const sphere = new T.Mesh(new T.SphereGeometry(0.13, 48, 24), white); sphere.name = 'sphere'; sphere.position.set(0.05, 0.905, -0.5); root.add(sphere);
   const orange = mat(0xe8541c, {roughness: 0.45}); orange.userData.albedo = [0.75, 0.18, 0.04];
   const cube = new T.Mesh(new T.BoxGeometry(0.16, 0.16, 0.16, 4, 4, 4), orange); cube.name = 'cube'; cube.position.set(0.32, 0.855, -0.78); cube.rotation.y = 0.5; root.add(cube);
@@ -120,7 +120,7 @@ export async function createRoomDemo({canvas, width = 540, height = 960, fps = 3
   gi.captureEnv(renderer, scene, {position: [0, 1.4, 0.4], boxMin: ROOM.min, boxMax: ROOM.max});
 
   const camera = new THREE.PerspectiveCamera(42, width / height, 0.05, 30);
-  renderer.compile(scene, camera);   // every patched shader compiles now, or the guard stops the page
+  renderer.compile(scene, camera);   // compile up front; a broken patched shader stops the page through the guard at the latest on the first frame
   const sphere = room.getObjectByName('sphere');
   const ease = (x) => { const k = Math.min(1, Math.max(0, x)); return k * k * (3 - 2 * k); };
   function place(t) {
