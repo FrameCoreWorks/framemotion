@@ -1,0 +1,7 @@
+# rea-video attribution
+
+[JuneYaooo/rea-video](https://github.com/JuneYaooo/rea-video) by JuneYaooo, version 0.1.0 at `751596967f58b8949124d291e59bdc40fc04486e`, Apache License 2.0. [LICENSE](LICENSE) and [NOTICE](NOTICE) are upstream's, unchanged; both also travel in the bundled folder.
+
+FrameMotion bundles the `rea_video` package with `pyproject.toml` at [assets/reference-breakdown/rea-video](../../skills/framemotion/assets/reference-breakdown/rea-video/) ([how to use it](../../skills/framemotion/assets/reference-breakdown/README.md#shot-by-shot-breakdown-with-rea-video)). Six files are changed, each marked by a "FrameMotion: changed" comment and recorded with the upstream and current SHA-256 in [source-manifest.json](source-manifest.json): `cli.py` and `memory.py` drop the capsule-cinema commands and the eval command, and `audio.py`, `pipeline.py`, `playbook.py` and `sound_source.py` no longer name capsule-cinema tools in their advice. `evaluate.py` is left out. Not bundled: the docs (with the TikTok and Douyin clips in docs/cases), the READMEs, the agent skill, the capsule-cinema integrations, the evaluation set and scripts, and the `[asr]` extra. Models are downloaded on first use and checked against pinned hashes; none is bundled.
+
+Credit: "rea-video by JuneYaooo", https://github.com/JuneYaooo/rea-video, Apache-2.0, changed files marked.

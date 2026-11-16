@@ -1,0 +1,374 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/JuneYaooo/rea-video",
+  "source_commit": "751596967f58b8949124d291e59bdc40fc04486e",
+  "version": "0.1.0",
+  "retrieved_on": "2026-11-16",
+  "license": "Apache-2.0",
+  "attribution": "rea-video, Copyright 2026 JuneYaooo, Apache License 2.0 (NOTICE kept)",
+  "activation": "python_package_run_from_its_folder_after_the_user_installs_the_pinned_dependencies_no_installer",
+  "layout": "upstream's package layout (rea_video/, LICENSE, NOTICE, pyproject.toml) under assets/reference-breakdown/rea-video, next to FrameMotion's breakdown.py",
+  "models": "downloaded on first use into $REA_VIDEO_MODELS, each checked against the SHA-256 pinned in its module, never bundled: UVR MDX-Net Inst HQ 3 (stems.py, licence not verified: NOT_RUN), BandIt v2 multilingual (effects.py, weights CC BY-SA 4.0 per upstream), YuNet 2023mar (faces.py, opencv_zoo, MIT), RapidOCR PP-OCR Japanese and Korean recognizers (overlay.py, Apache-2.0); the SenseVoice and speaker models (speech.py, speakers.py) only with the [asr] extra, which FrameMotion does not install",
+  "not_bundled": [
+    "docs/ (with docs/cases: TikTok and Douyin clips outside the repository licence), README.md and i18n/ READMEs, AGENTS.md",
+    "skills/rea-video (the agent skill; FrameMotion writes its own instructions)",
+    "rea_video/integrations/ (capsule-cinema bridges: paid generations through another product)",
+    "rea_video/evaluate.py, eval/ and scripts/ (evaluation set and maintainer scripts)",
+    "the [asr] extra (unpinned sherpa-onnx)"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/LICENSE",
+      "sha256": "2beb280b855389587b12dfda5f61a7baf09d1c4a20aac833b1c96f9569c5e458"
+    },
+    {
+      "source_path": "NOTICE",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/NOTICE",
+      "sha256": "abffceeef67cb20d0fd6cf997eec7c7ac4b2de19f389a08b67a1f75bc7dd025b"
+    },
+    {
+      "source_path": "pyproject.toml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/pyproject.toml",
+      "sha256": "9c0d5d75293d4dc1c53c30706ebfe368f2624825a717a2d76f1cad808a786277"
+    },
+    {
+      "source_path": "rea_video/__init__.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/__init__.py",
+      "sha256": "df786baf372c97dd35364378168bbd1444da2e309e9cde171c3ca465a7fbd3cb"
+    },
+    {
+      "source_path": "rea_video/__main__.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/__main__.py",
+      "sha256": "935a1c1166b0c1ea35a82256345000bf2c73ded718d77773bc27a71ecce28f7d"
+    },
+    {
+      "source_path": "rea_video/aspects/__init__.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/__init__.py",
+      "sha256": "a6922f2bb00cd040a39da7c0b0dadca746dec1940b64af441dae25426430a763"
+    },
+    {
+      "source_path": "rea_video/aspects/base.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/base.py",
+      "sha256": "73402ce34b0efe7b79d53f82f422fa3e0454f19ef345e28f05d65cc301f10e59"
+    },
+    {
+      "source_path": "rea_video/aspects/camera.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/camera.py",
+      "sha256": "a4448e56a112d86536d472159e7de67202d0c7c47b199d78152d2e6d2f952d75"
+    },
+    {
+      "source_path": "rea_video/aspects/editing.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/editing.py",
+      "sha256": "ff20242e0308768ad4051445eebb6a16c757d72f15b3d9cc3b17fd7b261ca031"
+    },
+    {
+      "source_path": "rea_video/aspects/fmt.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/fmt.py",
+      "sha256": "f3c5508d25fc72d5080c6c58aa17ca536f925112c160b8f02ab6eb81b0829c10"
+    },
+    {
+      "source_path": "rea_video/aspects/framing.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/framing.py",
+      "sha256": "51bea3248e57c4c5bc07b5ead7335bae2e39ee635c6603ca2109971ac355cdb1"
+    },
+    {
+      "source_path": "rea_video/aspects/grade.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/grade.py",
+      "sha256": "a150221854a9ae46d5340a36bef24dec3e958c145ac68bc064ac38aa339cb4e4"
+    },
+    {
+      "source_path": "rea_video/aspects/lighting.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/lighting.py",
+      "sha256": "d6329f87e61ff727b498301f8e2e360c6daae6447e40fa92da614669e83f5568"
+    },
+    {
+      "source_path": "rea_video/aspects/subject.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/subject.py",
+      "sha256": "c9e3d0091a2f95564ee30fb0c67ad4c1307b458fa9d210da583624a84dcf4071"
+    },
+    {
+      "source_path": "rea_video/aspects/vocab.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/aspects/vocab.py",
+      "sha256": "ba2f01ab0511545a6b22fbd6ed89d88e12e5f0a425f231a0b82374e6feecb2cc"
+    },
+    {
+      "source_path": "rea_video/assets.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/assets.py",
+      "sha256": "96ae15d14d684dc8402c31f4e8b89e68ef71591db805754a59b82b24214be292"
+    },
+    {
+      "source_path": "rea_video/audio.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/audio.py",
+      "sha256": "958592a213f297e5e1754f0fa11afa12474dd512d3532e25e6d4447bca5f82d4",
+      "changed": true,
+      "current_sha256": "afb8872c6d52553ca5d958fa2323aa88a21d864c78de6f556cb08986ea77c416",
+      "change": "remake advice names no capsule-cinema tool; marked on line 1"
+    },
+    {
+      "source_path": "rea_video/capabilities/MATRIX.md",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/MATRIX.md",
+      "sha256": "695e07bf49020402a04e6a53e1ae7d998618e1ce64087bd3f93b9af7e433f4d8"
+    },
+    {
+      "source_path": "rea_video/capabilities/README.md",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/README.md",
+      "sha256": "90fe4808addb0d235678200c20b31c68dbd19432408ff9a278ec8138d7db5691"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/analysis.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/analysis.yaml",
+      "sha256": "a501361f463e4783156ae744b6c761279c0bb7a58ff13375eedcdd2aae8f09de"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/audio.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/audio.yaml",
+      "sha256": "2b4086b7f4186c40c41a5f656a36737d2a2f37b33756ab7f4146651f38970ce7"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/character.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/character.yaml",
+      "sha256": "bd3c28e4fe7384c9c4970f2cd0d23a2d5a56d97755b45f16870c8f18c65d5a8e"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/image.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/image.yaml",
+      "sha256": "3b58f39fb18576644ac45304b0009b7ef516bbc8be3bb43e2ef06fcb35811569"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/render-post.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/render-post.yaml",
+      "sha256": "0a00ddab8adba6a562501a75eed3fac98a69d6a661c73296e31f82c3271be94e"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/threed.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/threed.yaml",
+      "sha256": "7679a813386a61d588b2e171ae50734b87e9ccd4a83e97e17b8d4a3a8520c525"
+    },
+    {
+      "source_path": "rea_video/capabilities/models/video.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/models/video.yaml",
+      "sha256": "0db94692e7e05cacc33c6e8a7dacaaa9df512d1c5514f385e989d185fce39cd0"
+    },
+    {
+      "source_path": "rea_video/capabilities/primitives.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/primitives.yaml",
+      "sha256": "69e54533bfb767cbf96e6524e45eacc8db2c7bbd673966b297215e435cd57d1b"
+    },
+    {
+      "source_path": "rea_video/capabilities/prompting.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/prompting.yaml",
+      "sha256": "e3a78b54cd6392c5503576289b1a70fec223c1737c57ddf49a607017d47c7d25"
+    },
+    {
+      "source_path": "rea_video/capabilities/routing.yaml",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/routing.yaml",
+      "sha256": "b1bc975e3d13f932addfd566e367b157042e978c3409167fa85459623fd3276b"
+    },
+    {
+      "source_path": "rea_video/capabilities/schema.json",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/capabilities/schema.json",
+      "sha256": "bc8e3edf29518ba769e4a8a0044500eb29ff46e7c7be03575104cc8584b9646f"
+    },
+    {
+      "source_path": "rea_video/classify.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/classify.py",
+      "sha256": "63691690c184bdb63206d23b9774ccdc04e3edf89d3a64df247f0949a3cebd73"
+    },
+    {
+      "source_path": "rea_video/cli.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/cli.py",
+      "sha256": "7af0359b29048cf13b94737166efefd52a7c6d77e1a91f23d777b7525d134be7",
+      "changed": true,
+      "current_sha256": "7b65f23faea88e968f95e677054c25b4b4696bf52d8beb3efeca677a7f6211c3",
+      "change": "the capsule, remake-plan, remake-run and capsule-draft commands and their bridge removed (paid generations through capsule-cinema), and the eval command (its sample set is not bundled); marked by a FrameMotion comment"
+    },
+    {
+      "source_path": "rea_video/code_remake.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/code_remake.py",
+      "sha256": "80622cf6e310dd7e50bf8c86ca5b00a4dac619c03d4cb9a07f821d1c19405373"
+    },
+    {
+      "source_path": "rea_video/effects.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/effects.py",
+      "sha256": "e74a9485b468deece4d347338f2a69282d037e14dac899bacc961f14b9aaf3f8"
+    },
+    {
+      "source_path": "rea_video/entities.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/entities.py",
+      "sha256": "84aca83bd25d6a01c6e9c8c93a8d99013ed54b2de644fe8a7a1be68b95c14fd1"
+    },
+    {
+      "source_path": "rea_video/faces.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/faces.py",
+      "sha256": "c348fb3aae784a724f7176fbc22ff7737f5adf85f9070fbdbcce82c203072bb7"
+    },
+    {
+      "source_path": "rea_video/features.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/features.py",
+      "sha256": "ade02cf41bf3a54b8389cce55fe611f406d7203d57f1aca5fab6a48d558090ab"
+    },
+    {
+      "source_path": "rea_video/i18n.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/i18n.py",
+      "sha256": "809a25ff7aaa8496bea494443bbf5df35956581bc313cca29afc19298e2a6de4"
+    },
+    {
+      "source_path": "rea_video/layers.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/layers.py",
+      "sha256": "0c6eb62e62a63ac00c2b39b556c9a02e30b1cb483fad13a4351e6b5146353c3e"
+    },
+    {
+      "source_path": "rea_video/media.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/media.py",
+      "sha256": "c2f14221ae503c29b82584854228d16e21ce9a33dbb41008ebe786a4c2eb4b44"
+    },
+    {
+      "source_path": "rea_video/memory.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/memory.py",
+      "sha256": "4bb3067d9ab329f41f858d053c08b2677ebddc2df1dd21275c4e7cf9411c962c",
+      "changed": true,
+      "current_sha256": "26b1583b5c833b7146865756fc5f6d7711e60faa384a0b3106b889bca18576cd",
+      "change": "the capsule_root preference and its lookup removed; marked"
+    },
+    {
+      "source_path": "rea_video/motion.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/motion.py",
+      "sha256": "440a42a5ffd986c9cfdac6445563fdacceb14b5c456a74f3c97e53375d55c1c7"
+    },
+    {
+      "source_path": "rea_video/narrative.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/narrative.py",
+      "sha256": "27d3aec03334f3edccbe7b85f0291e65d7116adefa4a2a524a92342ceed0398a"
+    },
+    {
+      "source_path": "rea_video/overlay.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/overlay.py",
+      "sha256": "a2e23181274f80ea3b7bad17378fe2e1ce135525382ae5637fe410b1d88f6bb7"
+    },
+    {
+      "source_path": "rea_video/packaging.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/packaging.py",
+      "sha256": "f297ba836d3b25e2e35376df770fb676b2a4fa228b9cb5b0b0cec05b56d98e59"
+    },
+    {
+      "source_path": "rea_video/pdf.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/pdf.py",
+      "sha256": "07ca83f4c160ff8a63ab1a7d662d04d815deceb4c39a0069c23b63c549dfd6f9"
+    },
+    {
+      "source_path": "rea_video/performance.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/performance.py",
+      "sha256": "bbedfade3baa8a2c79f63cd00f1b86ce17b3152d7939287a14a8c0a730ad963f"
+    },
+    {
+      "source_path": "rea_video/pipeline.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/pipeline.py",
+      "sha256": "63d03d5a34d096c7bc2f8bfe304959da61f01fcc4d2626f15bd0b33f651bf1c0",
+      "changed": true,
+      "current_sha256": "8afe403bf4593b65532499852ce1deba9a8bada121bd6415eec0e46d053980fb",
+      "change": "remake advice names no capsule-cinema tool; marked on line 1"
+    },
+    {
+      "source_path": "rea_video/plan.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/plan.py",
+      "sha256": "137ca0e6bf5b8ca65728b262cb1c46185d8b762504219e90df7eb156594e757a"
+    },
+    {
+      "source_path": "rea_video/playbook.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/playbook.py",
+      "sha256": "ed3be19b5d9f7d9a6d62a233a4e01be1eac11111cb36cc76e20b476e910e1417",
+      "changed": true,
+      "current_sha256": "161f2a2c29a606181f3605d0654ce772bf3d5a1c0b32b5f847d4ef6930fa2aa4",
+      "change": "remake advice no longer offers running generations through capsule-cinema; marked on line 1"
+    },
+    {
+      "source_path": "rea_video/probe.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/probe.py",
+      "sha256": "e1ceeb9ab937efe78bac5b486bbd9c1fec041e754d1e1e1da4beae6d55621b6c"
+    },
+    {
+      "source_path": "rea_video/production.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/production.py",
+      "sha256": "419a5bb8a3d8cc39f03e0a116b5879cbe4f0928b40adb9a5b077e214275a283b"
+    },
+    {
+      "source_path": "rea_video/prosody.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/prosody.py",
+      "sha256": "abcfd58149f6604aa9cceba690fbb29bfab58b70324dcb1570bb12daad970336"
+    },
+    {
+      "source_path": "rea_video/redraw.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/redraw.py",
+      "sha256": "1c75e0f4a9d0b9787df7a34c3bc9f90d7be213bf5e61c235d7f2d272c65006bd"
+    },
+    {
+      "source_path": "rea_video/remake.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/remake.py",
+      "sha256": "d35bd83a94977cd9b04ba640fb76319585e16092280ae6d661c72a0a731ec82a"
+    },
+    {
+      "source_path": "rea_video/report.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/report.py",
+      "sha256": "891510a96be458c955149b4d4d5d5bbc244904cd9c276411fe456dea32a097f8"
+    },
+    {
+      "source_path": "rea_video/review.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/review.py",
+      "sha256": "215eb564403b4835c8abfefbb5aae9e4db0ccb514dbe1df6205c6452cc28a2c8"
+    },
+    {
+      "source_path": "rea_video/shots.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/shots.py",
+      "sha256": "db871831a88ce357fcb793f2efba6d02a16357e4304e6366cd70c370632ada30"
+    },
+    {
+      "source_path": "rea_video/sound_source.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/sound_source.py",
+      "sha256": "6984d7247f36dfa330a0efd8591e390608de10399ad2ce306f79418b6f5f2731",
+      "changed": true,
+      "current_sha256": "ec988e5cddb104e864e7b9a948856124eeecf08937b3f4b82627031b6725176f",
+      "change": "evidence line names no capsule-cinema recipe; marked on line 1"
+    },
+    {
+      "source_path": "rea_video/speakers.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/speakers.py",
+      "sha256": "db1da6ccb2ef4cf6fc47d664fe40f19c3ca4164ad82474f9e1a7f5e5e12afee1"
+    },
+    {
+      "source_path": "rea_video/speech.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/speech.py",
+      "sha256": "96822a843187f435b7f27fc3be8c5a97318159d9c1c5a47ed2bfcf204456d958"
+    },
+    {
+      "source_path": "rea_video/stems.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/stems.py",
+      "sha256": "4ffee1371d8cc6b35ccae711e7e65a4fdae3cf7cd999ee5e59db9edfa8b5c790"
+    },
+    {
+      "source_path": "rea_video/transitions.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/transitions.py",
+      "sha256": "591e23319f14f34789caa1fa950749ebc5625814eadbfb10a2fb96689c88c0d1"
+    },
+    {
+      "source_path": "rea_video/util.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/util.py",
+      "sha256": "c25fd41d9b855952544efa904cd0ca95beaff4658daa5099be8b382c9782d46a"
+    },
+    {
+      "source_path": "rea_video/videomd.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/videomd.py",
+      "sha256": "0e09d3fd366a6e8971619288e26b4f12842d4d187eae262f715a66639e15e811"
+    },
+    {
+      "source_path": "rea_video/visual.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/visual.py",
+      "sha256": "634027be3b29eb957c160ddd0324489309c9839a14ff0ac97beef3ed4d361a68"
+    },
+    {
+      "source_path": "rea_video/vlm.py",
+      "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/vlm.py",
+      "sha256": "ac7f247c8d3152d2605c00999f9e41328cdbf6d5ebb999666b6f774b3cb2dfc1"
+    }
+  ]
+}
