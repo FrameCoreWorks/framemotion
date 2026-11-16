@@ -40,7 +40,10 @@ function boxRoom(THREE) {
 const mean = (m) => { let s = 0; for (let i = 0; i < m.count; i++) s += m.gi[i * 3]; return s / m.count; };
 
 test('an open floor under an even sky receives exactly the sky; a sun at 45 degrees gives E cos / pi', {skip}, async () => {
-  const {THREE, MeshBVH, bakeHere} = await load();
+  const {THREE, MeshBVH, bakeHere, collectScene} = await load();
+  const inst = floor(THREE);
+  inst.add(new THREE.InstancedMesh(new THREE.BoxGeometry(), new THREE.MeshStandardMaterial(), 2));
+  assert.match(collectScene(THREE, inst).warnings.join(' '), /InstancedMesh gets no baked light/);
   const sky = bakeHere({THREE, MeshBVH, root: floor(THREE), lights: {sky: UNIFORM}, spp: 16});
   for (const v of sky.meshes[0].gi) assert.ok(Math.abs(v - 1) < 1e-6, `sky ${v}`);
   const sun = bakeHere({THREE, MeshBVH, root: floor(THREE), lights: {sky: DARK, sun: {direction: [0, 1, 1], irradiance: [3, 3, 3]}}, spp: 8});
@@ -96,6 +99,8 @@ test('the shipped room bake matches the room scene, and a changed mesh is report
   assert.deepEqual(result.stale, []);
   assert.ok(result.applied >= 20);
   assert.ok(room.getObjectByName('floor').material.userData.giPatched);
+  const {collectScene} = await import('../skills/framemotion/assets/engines/photoreal/bake.mjs');
+  assert.equal(result.meta.scene, collectScene(THREE, buildRoom(THREE)).hash, 'the room scene changed since room.gi.bin was baked: bake it again');
   const changed = buildRoom(THREE);
   changed.getObjectByName('cube').geometry = new THREE.BoxGeometry(0.16, 0.16, 0.16, 2, 2, 2);
   assert.deepEqual(createGi(THREE).apply(changed, buffer).stale, ['cube#0']);
@@ -113,6 +118,12 @@ test('the material patch stops when three.js changed the shader code it edits', 
   const broken = {...THREE, ShaderChunk: {...THREE.ShaderChunk, lights_fragment_maps: '/* changed */'}};
   assert.throws(() => createGi(broken), /three\.js changed lights_fragment_maps/);
   assert.throws(() => createGi(THREE).patch(new THREE.MeshBasicMaterial()), /MeshStandardMaterial/);
+  // a patched shader that fails to compile stops the render instead of drawing nothing
+  const renderer = {debug: {}};
+  createGi(THREE).guard(renderer);
+  assert.equal(renderer.debug.checkShaderErrors, true);
+  const gl = {getProgramInfoLog: () => 'ERROR: undeclared identifier', getShaderInfoLog: () => ''};
+  assert.throws(() => renderer.debug.onShaderError(gl, {}, {}, {}), /did not compile.*undeclared identifier/);
 });
 
 test('the baked-light room renders the same frame in any order', {skip, timeout: 900000}, async (t) => {

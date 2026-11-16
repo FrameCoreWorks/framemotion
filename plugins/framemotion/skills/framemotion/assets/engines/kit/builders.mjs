@@ -544,7 +544,9 @@ Object.defineProperty(THREE.Object3D.prototype, 'frustumCulled', {get: () => fal
    * index.html and its TypeScript entry) bundled by esbuild into one page. The upstream loop already has a
    * ?debug mode that steps the scene in exact 1/60 s steps; renderFrame(t) steps forward to t, and to go
    * back it rebuilds the scene from zero. Math.random is a seeded generator while the scene runs, reset at each
-   * rebuild, so the villagers, birds and ripples come out the same in any frame order.
+   * rebuild, so the villagers, birds and ripples come out the same in any frame order. Each frame is the SVG
+   * drawn as one image into a canvas (#fm-canvas), which the renderer captures. Every rebuild leaves the old
+   * scene's listeners and its 14 s hint timer behind; they draw nothing.
    */
   async lineart(entry, enginesRoot) {
     const engine = sibling(enginesRoot, 'line-art-engine');
@@ -561,7 +563,8 @@ Object.defineProperty(THREE.Object3D.prototype, 'frustumCulled', {get: () => fal
     const {build} = await import(pathToFileURL(path.join(enginesRoot, 'node_modules/esbuild/lib/main.js')).href);
     const out = await build({entryPoints: [path.join(source, tag[1])], bundle: true, write: false, format: 'iife', target: 'es2020', logLevel: 'silent'});
     const code = out.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
-    const seed = Number.isInteger(entry.build.seed) ? entry.build.seed : 11;
+    const seed = entry.build.seed ?? 11;
+    if (!Number.isInteger(seed) || seed < 1 || seed > 2147483646) throw new Error(`${entry.id}: build.seed must be a whole number from 1 to 2147483646`);
     const fit = entry.build.fit === 'meet' ? 'xMidYMid meet' : 'xMidYMid slice';
     const page = `<style>
   /* FrameMotion capture: the card fills the frame, without the page around it */
@@ -584,10 +587,43 @@ ${code}
   let steps = -1;
   function boot() {
     s = ${seed};
+    for (let i = 0; i < 8; i++) seeded();   // a small seed's first numbers sit near zero
     stage.replaceChildren();
     scene();
     stage.querySelector('svg')?.setAttribute('preserveAspectRatio', ${JSON.stringify(fit)});
     steps = 0;
+  }
+  // The frame is the scene's SVG drawn as one image into a canvas. A screenshot of the live page
+  // depended on which parts the browser repainted before (the ink filter over the canal water moved
+  // up to a few thousand pixels by a few levels); one whole-image draw repeats byte for byte.
+  const canvas = document.createElement('canvas');
+  canvas.id = 'fm-canvas';
+  canvas.width = innerWidth; canvas.height = innerHeight;
+  canvas.style.cssText = 'position:fixed;inset:0;z-index:10';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  // the page's rules for elements inside the SVG (".pp" paper fills), rewritten to start at the svg
+  const rules = [];
+  for (const sheet of document.styleSheets) for (const r of sheet.cssRules) {
+    if (!r.selectorText) continue;
+    const parts = r.selectorText.split(',').map((p) => p.trim()).map((p) => p.slice(p.indexOf('svg'))).filter((p) => p.startsWith('svg') && p !== 'svg');
+    if (parts.length) rules.push(parts.join(',') + '{' + r.style.cssText + '}');
+  }
+  async function paint() {
+    const svg = stage.querySelector('svg');
+    const copy = svg.cloneNode(true);
+    copy.setAttribute('width', canvas.width); copy.setAttribute('height', canvas.height);
+    const style = document.createElementNS('http://www.w3.org/2000/svg', 'style');
+    style.textContent = rules.join(' ');
+    copy.insertBefore(style, copy.firstChild);
+    const url = URL.createObjectURL(new Blob([new XMLSerializer().serializeToString(copy)], {type: 'image/svg+xml'}));
+    try {
+      const img = new Image();
+      img.src = url;
+      await img.decode();
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    } finally { URL.revokeObjectURL(url); }
   }
   window.renderFrame = (t) => {
     const want = Math.round(t * 60);
@@ -596,6 +632,7 @@ ${code}
       if (steps < 0 || want < steps) boot();
       if (want > steps) { window.__step((want - steps) / 60); steps = want; }
     } finally { Math.random = native; }
+    return paint();
   };
 })();
 </script>`;

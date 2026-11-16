@@ -33,6 +33,7 @@ export async function bakeScene({scene: modulePath, out, spp = 256, seed = 1, wo
   const scene = collectScene(THREE, root);
   const n = scene.samples.length / 6;
   log(`[bake] ${scene.list.length} lit meshes, ${n} points, ${scene.idx.length / 3} triangles, ${spp} samples, ${workers} workers`);
+  for (const w of scene.warnings) log(`[bake] note: ${w}`);
   const data = {pos: scene.pos, idx: scene.idx, triMat: scene.triMat, albedo: scene.albedo, samples: scene.samples};
   const R = new Float32Array(n * 7);
   const jobs = [];
@@ -42,18 +43,22 @@ export async function bakeScene({scene: modulePath, out, spp = 256, seed = 1, wo
     const pool = Array.from({length: Math.min(workers, jobs.length) || 1}, () => new Worker(fileURLToPath(import.meta.url), {workerData: {scene: data, lights, spp, seed}}));
     if (!jobs.length) { pool.forEach((w) => w.terminate()); resolve(); return; }
     const give = (w) => { if (next < jobs.length) w.postMessage(jobs[next++]); };
+    let finished = false;
+    const stop = (error) => { if (finished) return; finished = true; pool.forEach((x) => x.terminate()); if (error) reject(error); else resolve(); };
     for (const w of pool) {
-      w.on('error', (e) => { pool.forEach((x) => x.terminate()); reject(e); });
+      w.on('error', (e) => stop(e));
+      // a worker that dies without an error (out of memory) would otherwise leave the bake waiting forever
+      w.on('exit', (code) => stop(new Error(`a bake worker stopped (exit code ${code}) before the bake finished`)));
       w.on('message', ({from, out: part}) => {
         R.set(part, from * 7); done++;
         if (done % 20 === 0) log(`[bake] ${Math.round((100 * done) / jobs.length)}%`);
-        if (done === jobs.length) { pool.forEach((x) => x.terminate()); resolve(); } else give(w);
+        if (done === jobs.length) stop(); else give(w);
       });
       give(w);
     }
   });
   const {E, D} = smoothResult(R, scene.samples, scene.edges, smooth);
-  const buf = packBake(THREE, meshAttributes(scene.list, E, D), {spp, seed, smooth, lights, points: n});
+  const buf = packBake(THREE, meshAttributes(scene.list, E, D), {spp, seed, smooth, lights, points: n, scene: scene.hash});
   if (out) { fs.mkdirSync(path.dirname(path.resolve(out)), {recursive: true}); fs.writeFileSync(out, Buffer.from(buf)); }
   const seconds = (Date.now() - t0) / 1000;
   log(`[bake] done in ${seconds.toFixed(1)} s`);
@@ -64,7 +69,12 @@ if (isMainThread && process.argv[1] && path.resolve(process.argv[1]) === fileURL
   const arg = (name, def) => { const i = process.argv.indexOf(`--${name}`); return i > 0 ? process.argv[i + 1] : def; };
   const scene = arg('scene'), out = arg('out');
   if (!scene || !out) { console.error('Usage: node photoreal/bake-node.mjs --scene <module> --out <file.gi.bin> [--spp 256] [--seed 1] [--workers N] [--smooth 2]'); process.exit(2); }
-  const r = await bakeScene({scene, out, spp: Number(arg('spp', 256)), seed: Number(arg('seed', 1)), smooth: Number(arg('smooth', 2)),
-    workers: Number(arg('workers', Math.max(1, os.availableParallelism() - 1))), log: (m) => console.log(m)});
+  const whole = (name, def, min) => {
+    const v = Number(arg(name, def));
+    if (!Number.isInteger(v) || v < min) { console.error(`--${name} must be a whole number of at least ${min}`); process.exit(2); }
+    return v;
+  };
+  const r = await bakeScene({scene, out, spp: whole('spp', 256, 1), seed: whole('seed', 1, 0), smooth: whole('smooth', 2, 0),
+    workers: whole('workers', Math.max(1, os.availableParallelism() - 1), 1), log: (m) => console.log(m)});
   console.log(JSON.stringify({points: r.points, seconds: r.seconds, file: r.file, bytes: r.bytes}));
 }

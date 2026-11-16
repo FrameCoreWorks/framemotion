@@ -49,7 +49,7 @@ function edit(source, find, replace, what) {
 }
 
 /**
- * createGi(THREE) -> {uniforms, patch(material, {box}), apply(root, buffer), placeholder(root), captureEnv(renderer, scene, opts)}
+ * createGi(THREE) -> {uniforms, patch(material), apply(root, buffer), placeholder(root), captureEnv(renderer, scene, opts), guard(renderer)}
  * uniforms: giScale (bake brightness), giNormalK (normal-map strength on baked light), giSpecOcc
  * (reflections fade where the bake is darker than this), giFloor (light added everywhere).
  */
@@ -64,7 +64,7 @@ export function createGi(THREE) {
   envPars = edit(envPars, 'reflectVec = transformDirectionByInverseViewMatrix( reflectVec, viewMatrix );',
     'reflectVec = transformDirectionByInverseViewMatrix( reflectVec, viewMatrix );\n\t\t\treflectVec = giBoxProject( reflectVec );', 'getIBLRadiance');
 
-  /** Patch a Standard or Physical material in place. box: false for things outside the room (no box projection). */
+  /** Patch a Standard or Physical material in place. */
   function patch(material) {
     if (!material.isMeshStandardMaterial) throw new TypeError('gi-material patches MeshStandardMaterial or MeshPhysicalMaterial');
     const previous = material.onBeforeCompile;
@@ -126,5 +126,18 @@ export function createGi(THREE) {
     uniforms.giBoxOn.value = 1;
     return env;
   }
-  return {uniforms, patch, apply, placeholder, captureEnv};
+  /**
+   * Make a shader that fails to compile stop the render. The patch checks that the code it edits is
+   * there, but a renamed variable (three.js renaming irradiance or nonPerturbedNormal) only breaks the
+   * compile, which three.js reports in the console and then draws nothing. Call it before the first
+   * render, then renderer.compile(scene, camera) to compile everything up front.
+   */
+  function guard(renderer) {
+    renderer.debug.checkShaderErrors = true;
+    renderer.debug.onShaderError = (gl, program, vs, fs) => {
+      const log = [gl.getProgramInfoLog(program), gl.getShaderInfoLog(vs), gl.getShaderInfoLog(fs)].filter(Boolean).join(' | ').trim();
+      throw new Error(`gi-material: a patched shader did not compile; the baked-light patch needs updating for this three.js (${log.slice(0, 400)})`);
+    };
+  }
+  return {uniforms, patch, apply, placeholder, captureEnv, guard};
 }

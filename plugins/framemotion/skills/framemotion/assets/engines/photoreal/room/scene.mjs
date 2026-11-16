@@ -13,12 +13,12 @@ export const ROOM = Object.freeze({min: [-2, 0, -2], max: [2, 2.8, 2]});
 export const WINDOW = Object.freeze({y: [0.9, 2.1], z: [-0.7, 0.7], depth: 0.15});
 const SUN_DIR = new THREE.Vector3(-1, 0.62, 0.42).normalize();          // towards the sun
 export const LIGHTS = Object.freeze({
-  sky: {zenith: [0.55, 0.72, 1.15], horizon: [1.5, 1.4, 1.25], ground: [0.22, 0.2, 0.17]},
+  sky: {zenith: [1.4, 1.8, 2.9], horizon: [3.75, 3.5, 3.1], ground: [0.22, 0.2, 0.17]},
   sun: {direction: SUN_DIR.toArray(), irradiance: [7.0, 5.4, 3.7], angle: 0.0047, direct: 'realtime'},
   portals: [{center: [ROOM.min[0] - WINDOW.depth, 1.5, 0], u: [0, 0, 0.7], v: [0, 0.6, 0]}],
   maxDepth: 5,
 });
-export const LOOK = Object.freeze({exposure: 1.35, vignette: 0.28, bloom: 0.22});
+export const LOOK = Object.freeze({exposure: 2.3, vignette: 0.28, bloom: 0.22});
 
 const mat = (color, o = {}) => new THREE.MeshStandardMaterial({color, roughness: 0.85, ...o});
 
@@ -111,6 +111,7 @@ export async function createRoomDemo({canvas, width = 540, height = 960, fps = 3
   scene.add(sun, sun.target);
 
   const gi = createGi(THREE);
+  gi.guard(renderer);
   // same-origin only: the bake file next to this module.
   const res = await fetch(new URL(bake, import.meta.url));
   if (!res.ok) throw new Error(`light bake ${bake} not found (make it with photoreal/bake-node.mjs)`);
@@ -119,6 +120,7 @@ export async function createRoomDemo({canvas, width = 540, height = 960, fps = 3
   gi.captureEnv(renderer, scene, {position: [0, 1.4, 0.4], boxMin: ROOM.min, boxMax: ROOM.max});
 
   const camera = new THREE.PerspectiveCamera(42, width / height, 0.05, 30);
+  renderer.compile(scene, camera);   // every patched shader compiles now, or the guard stops the page
   const sphere = room.getObjectByName('sphere');
   const ease = (x) => { const k = Math.min(1, Math.max(0, x)); return k * k * (3 - 2 * k); };
   function place(t) {

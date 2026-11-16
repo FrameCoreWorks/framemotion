@@ -1,6 +1,7 @@
 """The bundled Line-art engine matches its upstream files, and its films are registered."""
 import hashlib
 import json
+import re
 from pathlib import Path
 import unittest
 
@@ -42,6 +43,13 @@ class LineArtEngineTest(unittest.TestCase):
         self.assertIn('JDhruv14/line-art-animation', notice)
         self.assertIn(MANIFEST['source_commit'], notice)
 
+    def test_scene_code_makes_no_requests(self):
+        # scripts/clip.ts runs a local ffmpeg on the user's clip (a measuring tool, never part of a render)
+        bad = re.compile(r'\bfetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|new\s+Worker\(|importScripts|child_process|https?://')
+        for path in list(ENGINE.glob('lib/*.ts')) + list(ENGINE.glob('examples/**/*.ts')) + list(ENGINE.glob('examples/**/*.html')):
+            text = re.sub(r'/\*.*?\*/|//[^\n]*', '', path.read_text(), flags=re.S).replace("'http://www.w3.org/2000/svg'", '')
+            self.assertIsNone(bad.search(text), path.relative_to(ENGINE))
+
     def test_registered_films(self):
         films = [e for e in REGISTRY['engines'] if e.get('build', {}).get('tool') == 'lineart']
         self.assertEqual({e['id'] for e in films}, {'lineart-walker', 'lineart-village'})
@@ -50,6 +58,7 @@ class LineArtEngineTest(unittest.TestCase):
                 self.assertEqual(60 % e['fps'], 0)
                 self.assertTrue((ENGINE / 'examples' / e['build']['example'] / 'index.html').exists())
                 self.assertEqual(e['sources'], ['line-art-animation'])
+                self.assertEqual(e['capture'], '#fm-canvas')
 
 
 if __name__ == '__main__':

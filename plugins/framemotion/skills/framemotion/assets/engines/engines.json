@@ -2279,14 +2279,13 @@
         "example": "walker",
         "mount": "#stage"
       },
-      "screenshot": "#stage",
       "size": {
         "width": 1920,
         "height": 1080
       },
       "fps": 30,
       "duration": 12,
-      "raster": "cpu"
+      "capture": "#fm-canvas"
     },
     {
       "id": "lineart-village",
@@ -2313,14 +2312,13 @@
           "day": 108
         }
       },
-      "screenshot": "#village",
       "size": {
         "width": 1920,
         "height": 1080
       },
       "fps": 30,
       "duration": 20,
-      "raster": "cpu"
+      "capture": "#fm-canvas"
     }
   ]
 }

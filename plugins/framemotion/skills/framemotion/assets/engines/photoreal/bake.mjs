@@ -74,10 +74,16 @@ export function collectScene(THREE, root) {
   root.updateMatrixWorld(true);
   const occ = [];
   let nV = 0, nI = 0;
+  // What the bake leaves out or simplifies, said once per mesh so the log shows it.
+  const warnings = [];
   root.traverse((o) => {
-    if (!o.isMesh || o.isInstancedMesh || !visible(o) || o.userData.occluder === false) return;
+    if (!o.isMesh || !visible(o)) return;
+    if (o.isInstancedMesh) { warnings.push(`${o.name || 'mesh'}: an InstancedMesh gets no baked light and casts no shadow in the bake`); return; }
+    if (o.userData.occluder === false) return;
     const mat = firstMaterial(o);
     if (!mat) return;
+    if (Array.isArray(o.material) && o.material.length > 1) warnings.push(`${o.name || 'mesh'}: ${o.material.length} materials; the bake and the patch use only the first`);
+    if (mat.map && !mat.userData?.albedo) warnings.push(`${o.name || 'mesh'}: a colour texture without userData.albedo; the bounce colour comes from material.color only`);
     const g = o.geometry;
     occ.push(o); nV += g.attributes.position.count; nI += g.index ? g.index.count : g.attributes.position.count;
   });
@@ -141,7 +147,19 @@ export function collectScene(THREE, root) {
       if (a !== b) edges.push(a, b); if (b !== c) edges.push(b, c); if (c !== a) edges.push(c, a);
     }
   }
-  return {pos, idx, triMat, albedo: new Float32Array(albedo), samples: new Float32Array(S), edges: new Uint32Array(edges), list};
+  const out = {pos, idx, triMat, albedo: new Float32Array(albedo), samples: new Float32Array(S), edges: new Uint32Array(edges), list, warnings};
+  out.hash = sceneHash(out);
+  return out;
+}
+
+/** FNV-1a over the geometry, materials and light points: a bake file records it, so a changed scene is caught. */
+export function sceneHash({pos, idx, triMat, albedo, samples}) {
+  let h = 0x811c9dc5;
+  for (const a of [pos, idx, triMat, albedo, samples]) {
+    const b = new Uint8Array(a.buffer, a.byteOffset, a.byteLength);
+    for (let i = 0; i < b.length; i++) h = Math.imul(h ^ b[i], 16777619) >>> 0;
+  }
+  return h.toString(16).padStart(8, '0');
 }
 
 /**
@@ -372,5 +390,5 @@ export function bakeHere({THREE, MeshBVH, root, lights, spp = 64, seed = 1, smoo
   const scene = collectScene(THREE, root);
   const R = createTracer({THREE, MeshBVH, scene, lights, spp, seed}).trace(scene.samples, 0, scene.samples.length / 6);
   const {E, D} = smoothResult(R, scene.samples, scene.edges, smooth);
-  return {meshes: meshAttributes(scene.list, E, D), points: scene.samples.length / 6, raw: R};
+  return {meshes: meshAttributes(scene.list, E, D), points: scene.samples.length / 6, raw: R, warnings: scene.warnings, scene: scene.hash};
 }
