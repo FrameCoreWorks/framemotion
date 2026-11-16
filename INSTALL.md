@@ -41,7 +41,7 @@ codex plugin marketplace add FrameCoreWorks/framemotion
 codex plugin add framemotion@framemotion
 ```
 
-`codex plugin list` then shows FrameMotion `installed, enabled`; a new session loads the skill. Update with `codex plugin marketplace upgrade framemotion` and the same `codex plugin add`. Without a plugin manager, use the host's native plugin flow with the complete `plugins/framemotion` folder. Codex installation: NOT_RUN.
+`codex plugin list` then shows FrameMotion `installed, enabled`; a new session loads the skill. Update with `codex plugin marketplace upgrade framemotion` and the same `codex plugin add`. Without a plugin manager, use the host's native plugin flow with the complete `plugins/framemotion` folder. Codex is not a tested host: FrameMotion is tested in Claude only (Codex: NOT_TESTED, by policy).
 
 ## ChatGPT Work
 
@@ -52,7 +52,7 @@ ChatGPT Work saves plugins only through OpenAI's **Plugin Creator** (side menu >
 3. Check every file against its git blob hash (`sha1(b'blob <size>\0' + bytes)`), re-read any mismatch, and zip the folder only when all match.
 4. `create_plugin` (first installation) or `update_plugin` with the release guard, then read back the saved manifests and `skills/framemotion/SKILL.md`. Report the save, the file check and the first check separately.
 
-The package is large (about 12 MB, 470 files), mostly the bundled engines and starters. ChatGPT Work installation: NOT_RUN.
+The package is large (about 12 MB, 470 files), mostly the bundled engines and starters. ChatGPT Work is not a tested host: FrameMotion is tested in Claude only (Work: NOT_TESTED, by policy).
 
 ## First check
 
