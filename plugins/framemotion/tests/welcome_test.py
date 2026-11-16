@@ -14,6 +14,12 @@ class WelcomeTest(unittest.TestCase):
         asset = (SKILL / 'assets' / 'startup-welcome.en.md').read_text(encoding='utf-8')
         self.assertEqual(found[0] + '\n', asset)
 
+    def test_embedded_polish_welcome_matches_asset(self):
+        text = (SKILL / 'SKILL.md').read_text(encoding='utf-8')
+        found = re.findall(r'<!-- welcome-pl:start -->\n(.*?)\n<!-- welcome-pl:end -->', text, re.S)
+        self.assertEqual(len(found), 1)
+        self.assertEqual(found[0] + '\n', (SKILL / 'assets' / 'startup-welcome.pl.md').read_text(encoding='utf-8'))
+
     def test_welcome_shape(self):
         asset = (SKILL / 'assets' / 'startup-welcome.en.md').read_text(encoding='utf-8')
         self.assertTrue(asset.startswith('I am '))
