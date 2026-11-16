@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0 (2026-11-16)
+
+- **Own engines** (owner plan of 2026-11-14, packs P1 to P11, each reviewed and fixed before the next): FrameMotion renders every engine frame by frame on the shared clock of the [engine contract](skills/framemotion/references/engine-contract.md), with the sources pinned in `integrations/sources.json` and credited in `NOTICE`.
+  - Photoreal three.js engine (P1, P5, P10): blocks, accumulation camera, film grade, baked light, procedural materials, props and a studio test scene.
+  - Light and library engines (P2, P6): Paper Shaders, PixiJS filters, css-doodle, torph, tsParticles and p5.brush.
+  - Knowledge (P3, P4): three FrameMotion references rewritten from the knowledge packs, cut-paper rules and `bindToGsap` examples.
+  - Stickman (P7a), Cutaway with FrameMotion's teardown (P7b), Launch (P8a), Reels (P8b), Art (P8c), Pixel (P9a), Lemo film styles (P9b), the rea-video shot-by-shot breakdown (P9c) and Line-art (P9d).
+- **Earshot bundled** (P11): the local sound engine ships inside FrameMotion (copied from Toolbox 1.15.1, `integrations/earshot/source-manifest.json`); first setup offers the full engine once, remembers "not now" and reuses a runtime Toolbox already installed.
+- **Welcome with two starts** and ten engine groups built from the registry (`assets/engines/menu.py`, `references/engine-routing.md`); the approved Polish welcome is embedded in `SKILL.md` next to the English one.
+- **Films from several engines** (W4, W5): `kit/compose.mjs` joins scenes from different engines into one film from a `film-plan/1` plan (shared fps and size, fit, xfade transitions, optional audio).
+- **Testing:** FrameMotion is tested in Claude only; ChatGPT Work and Codex stay installable but are untested there.
+
 ## 0.2.0 (2026-11-14)
 
 - **Engine foundation** (owner decision 2026-11-14, "Startujemy", first pack of the own-engines plan): the [engine contract](skills/framemotion/references/engine-contract.md) every engine follows (a pure function of time, seeded randomness, one HyperFrames timeline, JSON input, sub-frames, local and safe, credited), and the dependency-free [engine kit](skills/framemotion/assets/engines/kit/README.md) (`createRng`, `halton`, `subframeTimes`, `defineEngine`, `bindToGsap`) with `tests/engine-kit.test.mjs`. Per the owner's choice of 2026-11-14, upstream engines enter as 1:1 copies with an adapter, and only the photoreal three.js blocks, stickman-kino and cutaway are rewritten.
