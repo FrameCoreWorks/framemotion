@@ -1,7 +1,7 @@
 // Test scene for the procedural materials and props: the room test scene's shell (same window, sun
 // and sky) dressed with them. Painted woodchip walls, an oak plank floor, a window unit with glazing
 // bars that throw their shadow into the room, a light walnut table with satin steel legs, a cloth-bound book,
-// a green lacquered box and a brushed steel canister, and a brushed steel plaque with a mark on the
+// a green lacquered box and a polished steel canister, and a brushed steel plaque with a mark on the
 // back wall; a slow 16:9 push-in from the corner towards the window and the table. Sky and bounces are baked (studio.gi.bin).
 // Original FrameCore Works teaching asset (Apache-2.0). Everything is a function of time.
 import * as THREE from 'three';
@@ -58,9 +58,9 @@ export function buildStudio(T = THREE, {logo = null} = {}) {
   }
   book.position.set(-0.55, 0.767, -0.5); book.rotation.y = 0.25;
   const lid = new T.Mesh(metricUV(new T.BoxGeometry(0.16, 0.1, 0.16, 4, 3, 4)), M.lacquer({color: [0.05, 0.24, 0.17], roughness: 0.4}));
-  lid.name = 'box'; lid.position.set(0.12, 0.8, -0.75); lid.rotation.y = -0.4; root.add(lid);
-  const can = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.2, 48, 4), M.steel({finish: 'brushed'}));
-  can.name = 'canister'; can.position.set(0.32, 0.85, -0.52); root.add(can);
+  lid.name = 'box'; lid.position.set(0.28, 0.8, -0.82); lid.rotation.y = -0.4; root.add(lid);
+  const can = new T.Mesh(new T.CylinderGeometry(0.05, 0.05, 0.2, 48, 4), M.steel({finish: 'polished'}));
+  can.name = 'canister'; can.position.set(0.12, 0.85, -0.3); root.add(can);
   // UVs in metres: around the side by height, across on the caps
   { const p = can.geometry.attributes.position, n = can.geometry.attributes.normal, uv = can.geometry.attributes.uv;
     for (let i = 0; i < uv.count; i++) {

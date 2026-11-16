@@ -206,3 +206,25 @@ test('the room window reveal lines the opening', {skip}, async () => {
     assert.ok(Math.abs(n.y - ny) < 1e-9, `${name} faces into the opening`);
   }
 });
+
+test('the sun shadow map frames the whole room, and the left wall is one mesh around the opening', {skip}, async () => {
+  const THREE = await three();
+  const {shadowFit} = await mod('baked-demo.mjs');
+  const {ROOM, LIGHTS, WINDOW, buildRoom} = await mod('room/scene.mjs');
+  const dir = new THREE.Vector3(...LIGHTS.sun.direction);
+  const fit = shadowFit(THREE, dir, ROOM, {margin: 0.5});
+  const cam = new THREE.OrthographicCamera(fit.frustum.left, fit.frustum.right, fit.frustum.top, fit.frustum.bottom, fit.frustum.near, fit.frustum.far);
+  cam.position.copy(fit.position); cam.lookAt(fit.target); cam.updateMatrixWorld(); cam.updateProjectionMatrix();
+  for (let i = 0; i < 8; i++) {
+    const p = new THREE.Vector3(i & 1 ? ROOM.max[0] : ROOM.min[0], i & 2 ? ROOM.max[1] : ROOM.min[1], i & 4 ? ROOM.max[2] : ROOM.min[2]).project(cam);
+    assert.ok(Math.abs(p.x) < 1 && Math.abs(p.y) < 1 && Math.abs(p.z) < 1, `room corner ${i} inside the shadow map`);
+  }
+  const toSun = new THREE.Vector3().subVectors(fit.position, fit.target).normalize();
+  assert.ok(toSun.angleTo(dir.normalize()) < 1e-6, 'the shadow comes from the bake\'s sun direction');
+  const left = buildRoom(THREE).getObjectByName('left');
+  assert.ok(left && !buildRoom(THREE).getObjectByName('left-low'));
+  // grid lines through the opening's edges
+  const zs = new Set(), p = left.geometry.attributes.position;
+  for (let i = 0; i < p.count; i++) zs.add(Math.round(-p.getX(i) * 1e4) / 1e4);
+  for (const z of WINDOW.z) assert.ok(zs.has(z), `a grid line at z = ${z}`);
+});

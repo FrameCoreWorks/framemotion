@@ -97,7 +97,7 @@ test('the shipped room bake matches the room scene, and a changed mesh is report
   const room = buildRoom(THREE);
   const result = createGi(THREE).apply(room, buffer);
   assert.deepEqual(result.stale, []);
-  assert.ok(result.applied >= 20);
+  assert.ok(result.applied >= 17);
   assert.ok(room.getObjectByName('floor').material.userData.giPatched);
   const {collectScene} = await import('../skills/framemotion/assets/engines/photoreal/bake.mjs');
   assert.equal(result.meta.scene, collectScene(THREE, buildRoom(THREE)).hash, 'the room scene changed since room.gi.bin was baked: bake it again');

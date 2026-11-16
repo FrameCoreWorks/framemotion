@@ -35,11 +35,29 @@ export function buildRoom(T = THREE) {
   plane('right', D, H, 48, 32, wall, (m) => { m.rotation.y = -Math.PI / 2; m.position.set(x1, H / 2, 0); });
   // left wall around the window opening, and the opening's four reveals
   const [wy0, wy1] = WINDOW.y, [wz0, wz1] = WINDOW.z, dep = WINDOW.depth;
-  const left = (name, za, zb, ya, yb, sw, sh) => plane(name, zb - za, yb - ya, sw, sh, wall, (m) => { m.rotation.y = Math.PI / 2; m.position.set(x0, (ya + yb) / 2, (za + zb) / 2); });
-  left('left-low', z0, z1, y0, wy0, 48, 12);
-  left('left-high', z0, z1, wy1, y1, 48, 10);
-  left('left-back', z0, wz0, wy0, wy1, 16, 14);
-  left('left-front', wz1, z1, wy0, wy1, 16, 14);
+  // One mesh with a hole: its grid lines run through the opening's edges, so the light baked on either side
+  // of a line is smoothed together (separate panels met with different point spacing and showed steps).
+  const steps = (cuts, cell) => {
+    const out = [cuts[0]];
+    for (let k = 1; k < cuts.length; k++) { const n = Math.max(1, Math.round((cuts[k] - cuts[k - 1]) / cell)); for (let i = 1; i <= n; i++) out.push(cuts[k - 1] + ((cuts[k] - cuts[k - 1]) * i) / n); }
+    return out;
+  };
+  {
+    // local x = -z (the plane is turned to face +x), local y = height
+    const xs = steps([-z1, -wz1, -wz0, -z0], 1 / 12), ys = steps([y0, wy0, wy1, y1], 1 / 12), nx = xs.length;
+    const pos = [], nor = [], uv = [], idx = [];
+    for (const y of ys) for (const x of xs) { pos.push(x, y, 0); nor.push(0, 0, 1); uv.push(x, y); }
+    for (let j = 0; j < ys.length - 1; j++) for (let i = 0; i < nx - 1; i++) {
+      const cx = (xs[i] + xs[i + 1]) / 2, cy = (ys[j] + ys[j + 1]) / 2;
+      if (cx > -wz1 && cx < -wz0 && cy > wy0 && cy < wy1) continue;             // the opening
+      const a = j * nx + i, b = a + 1, c = a + nx, d = c + 1;
+      idx.push(a, b, c, b, d, c);
+    }
+    const g = new T.BufferGeometry();
+    g.setAttribute('position', new T.Float32BufferAttribute(pos, 3)); g.setAttribute('normal', new T.Float32BufferAttribute(nor, 3)); g.setAttribute('uv', new T.Float32BufferAttribute(uv, 2));
+    g.setIndex(idx);
+    const m = new T.Mesh(g, wall); m.name = 'left'; m.rotation.y = Math.PI / 2; m.position.set(x0, 0, 0); root.add(m);
+  }
   const reveal = (name, w, h, place) => plane(name, w, h, 6, 12, wall, place);
   reveal('sill', dep, wz1 - wz0, (m) => { m.rotation.x = -Math.PI / 2; m.position.set(x0 - dep / 2, wy0, 0); });
   reveal('lintel', dep, wz1 - wz0, (m) => { m.rotation.x = Math.PI / 2; m.position.set(x0 - dep / 2, wy1, 0); });
