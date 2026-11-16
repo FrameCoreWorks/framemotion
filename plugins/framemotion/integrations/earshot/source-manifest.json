@@ -1,0 +1,215 @@
+{
+  "repository": "https://github.com/FrameCoreWorks/framecore-works-toolbox",
+  "commit": "1e82404aba0ddb41369a4cca843a11d8c704b974",
+  "toolbox_version": "1.15.1",
+  "engine": {
+    "repository": "https://github.com/Leonxlnx/earshot",
+    "version": "0.4.0",
+    "licence": "MIT",
+    "note": "downloaded only after the user accepts the setup plan, pinned in skills/framemotion/assets/earshot/upstream.json"
+  },
+  "reviewed": "2026-11-16",
+  "scope": "The Toolbox Earshot launcher, locks, upstream pins, instructions and tests. Files marked changed are adapted to FrameMotion (plugin root, version source, provider name, message prefix, paths); every other file is byte-identical to Toolbox at the commit.",
+  "excluded": [
+    "Toolbox catalog, index skill and other capabilities",
+    "capabilities.json entries other than earshot (FrameMotion keeps its own file)"
+  ],
+  "files": [
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/CHANGELOG.md",
+      "path": "skills/framemotion/assets/earshot/CHANGELOG.md",
+      "source_sha256": "e5d1d058ccf7313d335c0f79fa293bfc6a4e32dab0b42489bc63de4f458c16fe",
+      "sha256": "e5d1d058ccf7313d335c0f79fa293bfc6a4e32dab0b42489bc63de4f458c16fe",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/LICENSE",
+      "path": "skills/framemotion/assets/earshot/LICENSE",
+      "source_sha256": "61d8ff2bd4c16c33e00ddd807cf63e53d5a483e78f76963e0aea7c39493f74ee",
+      "sha256": "61d8ff2bd4c16c33e00ddd807cf63e53d5a483e78f76963e0aea7c39493f74ee",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/NOTICE",
+      "path": "skills/framemotion/assets/earshot/NOTICE",
+      "source_sha256": "67070b076a000531adbd0722ab88c807afb4dde1a95b45f5027f62c2914f4876",
+      "sha256": "67070b076a000531adbd0722ab88c807afb4dde1a95b45f5027f62c2914f4876",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/UPSTREAM.md",
+      "path": "skills/framemotion/assets/earshot/UPSTREAM.md",
+      "source_sha256": "faca00a3cec6476b0a6d5d63a5a1b2206bc1da2c20618f3401b4bf57dd75479c",
+      "sha256": "faca00a3cec6476b0a6d5d63a5a1b2206bc1da2c20618f3401b4bf57dd75479c",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/requirements/build.in",
+      "path": "skills/framemotion/assets/earshot/requirements/build.in",
+      "source_sha256": "fe0911c383eeaabbc2f8e3aee523b647da82564a3483e7566920cf5de29c52d1",
+      "sha256": "fe0911c383eeaabbc2f8e3aee523b647da82564a3483e7566920cf5de29c52d1",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/requirements/build.txt",
+      "path": "skills/framemotion/assets/earshot/requirements/build.txt",
+      "source_sha256": "b61332f331776b9ca29ca1f9d3014119597b0817bacfae7d4bac347503799cca",
+      "sha256": "b61332f331776b9ca29ca1f9d3014119597b0817bacfae7d4bac347503799cca",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/requirements/full.in",
+      "path": "skills/framemotion/assets/earshot/requirements/full.in",
+      "source_sha256": "99e2ac280c14f7ac5b31768120503000c6d94268638afa4a7cfc756655d0061e",
+      "sha256": "99e2ac280c14f7ac5b31768120503000c6d94268638afa4a7cfc756655d0061e",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/requirements/full.txt",
+      "path": "skills/framemotion/assets/earshot/requirements/full.txt",
+      "source_sha256": "0dfdf48b2bf650afdc07e8147588a3c2068518ee95346b6effb512798066884f",
+      "sha256": "0dfdf48b2bf650afdc07e8147588a3c2068518ee95346b6effb512798066884f",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/requirements/light.in",
+      "path": "skills/framemotion/assets/earshot/requirements/light.in",
+      "source_sha256": "799eadccc1669d83f69c19696499f68c782ad9525fe5eaa2d615a03795ed13e6",
+      "sha256": "799eadccc1669d83f69c19696499f68c782ad9525fe5eaa2d615a03795ed13e6",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/requirements/light.txt",
+      "path": "skills/framemotion/assets/earshot/requirements/light.txt",
+      "source_sha256": "07009154bce75ccf38f1d103671d45398025240ba66d545a512a0144c83c1d85",
+      "sha256": "07009154bce75ccf38f1d103671d45398025240ba66d545a512a0144c83c1d85",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/scripts/contract.py",
+      "path": "skills/framemotion/assets/earshot/scripts/contract.py",
+      "source_sha256": "dc65e4abfbcd5defa6f3ba28dd701ec3b664be2a08aaae21f85667909eaf0682",
+      "sha256": "7aaba9ab6a98c83ab50f2720c0cee5fc5246b56d4856fa418196b6e35c86e7f0",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/scripts/envelope.py",
+      "path": "skills/framemotion/assets/earshot/scripts/envelope.py",
+      "source_sha256": "99c2892c3ba16dbaab144639c32fb753b0faf282df0a42ffc68cd4d52a49fb8d",
+      "sha256": "5e815a4f757c49ba1fb3e8023e301c80c9cc68a6cab7e1cc108bf583ad2e3220",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/scripts/import_open_assets.py",
+      "path": "skills/framemotion/assets/earshot/scripts/import_open_assets.py",
+      "source_sha256": "cfe47a285c91ba55598c8d6980d71ead5ddb100cbddd67842e1c471826c988f1",
+      "sha256": "cfe47a285c91ba55598c8d6980d71ead5ddb100cbddd67842e1c471826c988f1",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/scripts/import_source_record.py",
+      "path": "skills/framemotion/assets/earshot/scripts/import_source_record.py",
+      "source_sha256": "6ee75444277882024d89b816a3c6a0affb483323ba96396e9416a158f0b96209",
+      "sha256": "c75cfb33a0403d53265db622b09ef30ef9690104f95acbd05ed5568b5b2af350",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/scripts/runtime.py",
+      "path": "skills/framemotion/assets/earshot/scripts/runtime.py",
+      "source_sha256": "a99084722516e0fa87a9b9a5a058ae1e8621de9dd5bf792d28f80a13ea750856",
+      "sha256": "e3d1fd66fe4e644261a892fcca3959d23cd72f9801cf25207c4bf718841958e4",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/capabilities/earshot/upstream.json",
+      "path": "skills/framemotion/assets/earshot/upstream.json",
+      "source_sha256": "2374c98bba264c4413851b903fb816c2cbf96c4cfe57cbc085a8b4bb06cd6269",
+      "sha256": "2374c98bba264c4413851b903fb816c2cbf96c4cfe57cbc085a8b4bb06cd6269",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/skills/toolbox/references/earshot/earshot.md",
+      "path": "skills/framemotion/references/earshot/earshot.md",
+      "source_sha256": "dc8d86349302c9f03b082d3f5f7b9f19f836d8fd54d0b8a804b86ce14998bf59",
+      "sha256": "83dc2ccf397a519595c68312069a3a5866e8ac2e78151cf7e119d63620227f27",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/skills/toolbox/references/earshot/handoff.md",
+      "path": "skills/framemotion/references/earshot/handoff.md",
+      "source_sha256": "65cef705f643fa76da429741b2b9e5eddae92cc43cf220fb79c67ef55b73f0e5",
+      "sha256": "65cef705f643fa76da429741b2b9e5eddae92cc43cf220fb79c67ef55b73f0e5",
+      "changed": false
+    },
+    {
+      "source_path": "plugins/toolbox/skills/toolbox/references/earshot/listening.md",
+      "path": "skills/framemotion/references/earshot/listening.md",
+      "source_sha256": "3d15fe86b6e3092cf64721559357f3b3a27b633bdbbe1afddb7c038b86398638",
+      "sha256": "22cf1a6a620d43495589c28af6602e207b9f04e7d4873f5e9becbe5e823ed7d7",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/skills/toolbox/references/earshot/runtime-and-evidence.md",
+      "path": "skills/framemotion/references/earshot/runtime-and-evidence.md",
+      "source_sha256": "740698582409dfabb557b26f0b1fcd8d7d3adcbfa76ac65435c68cb380c50cc4",
+      "sha256": "9528ae562f7bc9d0f0646b936a3bc31a65b89bf27eb199365f0102f211009065",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/skills/toolbox/references/earshot/source-records.md",
+      "path": "skills/framemotion/references/earshot/source-records.md",
+      "source_sha256": "c36d3873d663f8c5478bd3f180570f88cf77a6abe7226ec0190528b90c0085e7",
+      "sha256": "2bb0a777197d562e026f63336e32d974ce094aa8da9a0880c5c198d1f1625968",
+      "changed": true
+    },
+    {
+      "source_path": "plugins/toolbox/skills/toolbox/references/earshot/written-critique.md",
+      "path": "skills/framemotion/references/earshot/written-critique.md",
+      "source_sha256": "bc56c790a9bade03e8d3916cc544d6f939d28b2103f0c4fcca81192a35aab2eb",
+      "sha256": "b10524553e269edbee01422d19f21d39aaa26f5f7e41df33ea2e7d0459fdedc3",
+      "changed": true
+    },
+    {
+      "source_path": "tests/earshot/capability_test.py",
+      "path": "tests/earshot/capability_test.py",
+      "source_sha256": "d83a53e09df9b6f0021c07674668e79e38a593e579ab79382365371f9a9bff8f",
+      "sha256": "975d80bd4d61d5c36387671be13d339503a1d3a1c3779adc9d11b1786c0a1e77",
+      "changed": true
+    },
+    {
+      "source_path": "tests/earshot/envelope_test.py",
+      "path": "tests/earshot/envelope_test.py",
+      "source_sha256": "f66ea0d093c62e7187e9c5b590d109dcabdcff4cdeb91b4d94c8b696a044da21",
+      "sha256": "8cb2d55b7640105e14171648ac3e14e81a981d688406f40bbacdf41ac5e1f50a",
+      "changed": true
+    },
+    {
+      "source_path": "tests/earshot/independence_test.py",
+      "path": "tests/earshot/independence_test.py",
+      "source_sha256": "134b1036acc941fb5c7e002cfa0a461624d8f9a35cc2cce99450774582e1d193",
+      "sha256": "d577e85da0333adefd46436b02fbd150044dfd669b940d81f6d956222930f1c4",
+      "changed": true
+    },
+    {
+      "source_path": "tests/earshot/runtime_test.py",
+      "path": "tests/earshot/runtime_test.py",
+      "source_sha256": "3adc39c89700d893e3c6247fb9655e67d53efcbfb208564ae46f171ebac9247a",
+      "sha256": "c4dd5c422a750eb8d7b9bb1676b8d53193f22238bebdaf28e5ca2fd1d801f1f2",
+      "changed": true
+    },
+    {
+      "source_path": "tests/earshot/source_record_test.py",
+      "path": "tests/earshot/source_record_test.py",
+      "source_sha256": "ff6e38e2580327b413d51fa22f618bec766519d226029cad5df0710cedfed0ff",
+      "sha256": "76784b0c4f591037c685b96334c4feb7f47518a46030366d8388ab66c775f9d5",
+      "changed": true
+    },
+    {
+      "source_path": "tests/earshot/transformers_compat_test.py",
+      "path": "tests/earshot/transformers_compat_test.py",
+      "source_sha256": "21e815155bc6291ca5d805a92826b3d83f8b042d00007ae25b219bb2659e8b08",
+      "sha256": "dfcb4003d7ddcef5eb863776a721d8bd2cec4fbe0764f099497df2916e8877d5",
+      "changed": true
+    }
+  ]
+}

@@ -113,8 +113,8 @@ class ListenTests(unittest.TestCase):
         self.assertEqual(bad.returncode, 3)
 
     def test_earshot_commands_are_handed_to_toolbox_and_never_run_an_engine(self):
-        # Owner decision 2026-10-29 (C-2.6): Studio never resolves or starts an Earshot engine; those readings come
-        # from the Earshot capability built into FrameCore Works Toolbox. llm and mcp stay refused.
+        # listen.py never resolves or starts an Earshot engine; those readings come from FrameMotion's own Earshot
+        # launcher (P11, 2026-11-16; before that, Toolbox's). llm and mcp stay refused.
         env = {'EARSHOT_BIN': str(self.dir / 'earshot'), 'EARSHOT_NATIVE_ROOT': str(self.dir)}
         (self.dir / 'earshot').write_text('#!/bin/sh\nexit 0\n')
         with mock.patch.object(self.listen.subprocess, 'call') as call, \
@@ -128,7 +128,7 @@ class ListenTests(unittest.TestCase):
         run.assert_not_called()
         r = subprocess.run([sys.executable, str(KIT / 'listen.py'), 'describe', 'a.wav'], capture_output=True, text=True)
         self.assertEqual(r.returncode, 4)
-        self.assertIn('Toolbox', r.stderr)
+        self.assertIn('assets/earshot/scripts/runtime.py', r.stderr)
         source = open(KIT / 'listen.py', encoding='utf-8').read()
         for gone in ('find_earshot', 'EARSHOT_BIN', '.framecore-studio/extensions/earshot', 'earshot-audio', 'EARSHOT_HOME'):
             self.assertNotIn(gone, source)

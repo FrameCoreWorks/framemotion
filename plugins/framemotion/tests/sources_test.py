@@ -10,7 +10,7 @@ LICENCES = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause'}
 STATUSES = {'bundled', 'adapted', 'patterns', 'planned', 'dependency'}
 ENGINES_PACKAGE = json.loads((ROOT / 'skills/framemotion/assets/engines/package.json').read_text())
 KINDS = {'engine', 'knowledge', 'library', 'technique'}
-PACKS = {f'P{n}' for n in range(1, 11)}
+PACKS = {f'P{n}' for n in range(1, 12)}
 
 
 class SourcesTest(unittest.TestCase):

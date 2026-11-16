@@ -590,6 +590,22 @@
         "never the preview media or capture.ts (it starts its own Chrome); the FrameMotion builder seeds Math.random and steps the upstream ?debug loop"
       ],
       "bundled_commit": "c43d698913cf0ad44f984c7ae14c5348010594d3"
+    },
+    {
+      "name": "earshot",
+      "repo": "Leonxlnx/earshot",
+      "commit": "591fa3e028032e6dce56620a20e932e35667e8d8",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Leon Lin",
+      "kind": "engine",
+      "pack": "P11",
+      "status": "adapted",
+      "conditions": [
+        "the FrameCore Works launcher from Toolbox 1.15.1 (commit 1e82404aba0ddb41369a4cca843a11d8c704b974) is bundled in assets/earshot/; changed files are marked in integrations/earshot/source-manifest.json",
+        "the engine itself downloads only after the user's yes, pinned and hash-locked, into the runtime root shared with Toolbox",
+        "never llm (audio upload) or mcp"
+      ],
+      "bundled_commit": "591fa3e028032e6dce56620a20e932e35667e8d8"
     }
   ]
 }

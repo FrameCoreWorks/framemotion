@@ -39,6 +39,92 @@
         "default": "none",
         "optional": "npm registry for pinned engine packages, only after the user agrees"
       }
+    },
+    {
+      "id": "earshot",
+      "kind": "built-in",
+      "path": "skills/framemotion/assets/earshot",
+      "instructions": "skills/framemotion/references/earshot/earshot.md",
+      "launcher": "skills/framemotion/assets/earshot/scripts/runtime.py",
+      "envelope": "skills/framemotion/assets/earshot/scripts/envelope.py",
+      "operations": [
+        "status",
+        "plan_install",
+        "install",
+        "plan_fetch_models",
+        "fetch_models",
+        "plan_reuse_models",
+        "reuse_models",
+        "plan_attach_source",
+        "attach_source",
+        "run",
+        "real_sound_script"
+      ],
+      "user_only_operations": [
+        "exec"
+      ],
+      "run_commands": [
+        "ab",
+        "compare",
+        "critique",
+        "describe",
+        "doctor",
+        "find",
+        "fit",
+        "forge",
+        "gallery",
+        "kit",
+        "match",
+        "measure",
+        "profile",
+        "rank",
+        "realness",
+        "sfx",
+        "sheet",
+        "timeline"
+      ],
+      "readiness_command": "python3 skills/framemotion/assets/earshot/scripts/runtime.py status --json",
+      "readiness_states": [
+        "ready_full",
+        "ready_light",
+        "unlocked_legacy",
+        "unavailable",
+        "blocked_host"
+      ],
+      "consent_required": [
+        "install",
+        "fetch_models",
+        "reuse_models",
+        "attach_source",
+        "run on unlocked_legacy (--allow-unlocked)"
+      ],
+      "upstream": {
+        "repository": "https://github.com/Leonxlnx/earshot",
+        "tag": "v0.4.0",
+        "commit": "591fa3e028032e6dce56620a20e932e35667e8d8"
+      },
+      "requirements": {
+        "launcher": "any python3 (standard library)",
+        "setup": "CPython 3.12",
+        "light": "about 470 MB",
+        "full": "about 1.5 GB plus about 1.1 GB models",
+        "api_keys": "none"
+      },
+      "network": {
+        "status": "none",
+        "runs": "offline",
+        "setup": "GitHub, PyPI and files.pythonhosted.org; full tier download.pytorch.org; models Hugging Face",
+        "refused": [
+          "llm (audio upload)",
+          "mcp (server)",
+          "doctor --fetch",
+          "audit.py --fetch"
+        ]
+      },
+      "separate_tools": {
+        "import_source_record": "skills/framemotion/assets/earshot/scripts/import_source_record.py"
+      },
+      "shared_runtime_root": "~/.framecore-works/earshot (the same root as FrameCore Works Toolbox)"
     }
   ]
 }

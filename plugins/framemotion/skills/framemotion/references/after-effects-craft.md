@@ -36,7 +36,7 @@ When Studio plans a piece, write down, before any code, what a lead designer wou
 | Blocking | Key poses with hold or linear keys, timing only | first render of positions and timing, no easing polish |
 | Curves | Every move reshaped in the speed graph | named eases from the motion language applied per move |
 | Polish | Overlap, follow-through, secondary action, motion blur, texture | the second pass, then the craft critique |
-| Sound | Picture and sound designed together, hits on the motion | the motion sound engine or Earshot through Toolbox, cues at frames |
+| Sound | Picture and sound designed together, hits on the motion | the motion sound engine or Earshot, cues at frames |
 | Render and QC | Frame sweep, safe areas, loudness, codecs | frame sweep with safe lines, `critique.py`, delivery checks |
 
 Studios fix timing before final art: do not polish a scene whose timing has not been seen.

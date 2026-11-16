@@ -11,13 +11,14 @@ NumPy and FFmpeg (Pillow draws the sheet).
   python listen.py profile refs/*.mp4 -o refs.json        your own reference ranges
   python listen.py sheet film.mp4 -o sheet.png            an annotated picture of the soundtrack
   python listen.py describe|match|rank|find|compare|realness|forge|fit|sfx|kit|gallery|doctor ...
-                                                          not here: Earshot readings come from FrameCore Works Toolbox
+                                                          not here: Earshot readings come from FrameMotion's Earshot launcher
 
 Every command prints a plain summary first; --json prints the whole result. Nothing here uses a model, so it
 measures and never says what a sound "is": that is `describe` or `match` in Earshot, which runs only as the
-capability built into FrameCore Works Toolbox. This tool never looks for or starts an Earshot engine; those command
-names exit 4 with that pointer. `llm` and `mcp` are refused (exit 2). Exit codes: 0 done, 1 a problem was found
-(critique or check), 2 refused, 3 bad input, 4 the reading needs Earshot through Toolbox.
+Earshot launcher bundled in FrameMotion (assets/earshot/, the same launcher as FrameCore Works Toolbox's).
+This tool never looks for or starts an Earshot engine; those command names exit 4 with that pointer. `llm` and
+`mcp` are refused (exit 2). Exit codes: 0 done, 1 a problem was found (critique or check), 2 refused, 3 bad input,
+4 the reading needs Earshot.
 
 Adapted from earshot by Leon Lin (MIT, notice in integrations/earshot/): its definitions of salient hits,
 stop-downs, the picture-event detector, the launch scorecard and the sound audit, rewritten in Studio's own code
@@ -724,7 +725,7 @@ def critique_of(a, m, sy, ref=None):
     return {'verdict': verdict, 'score': round(100 * share), 'critical': critical, 'rows': rows,
             'actions': [f'[{w}] {t}' for w, t in actions],
             'tips': ([f'no stop-downs: 4 of 7 references drop the sound out for 0.2 to 1 s right before a big hit'] if not custom and not a['stopdowns'] and a['duration'] >= 6 else []),
-            'partial': 'realness and music presence need Earshot through FrameCore Works Toolbox; this verdict is partial'}
+            'partial': 'realness and music presence need Earshot (assets/earshot/scripts/runtime.py); this verdict is partial'}
 
 
 def check_of(path):
@@ -933,14 +934,15 @@ def sheet_png(a, m, sy, out):
 
 
 def delegate(command):
-    """Earshot command names: refused or handed to Toolbox; no engine is resolved or started here."""
+    """Earshot command names: refused or pointed to the Earshot launcher; no engine is resolved or started here."""
     if command in EARSHOT_REFUSED:
         print(f'listen: `{command}` is outside Studio: Earshot runs locally only (no audio upload, no MCP server).',
               file=sys.stderr)
         return 2
-    print(f'listen: `{command}` needs Earshot, the capability built into FrameCore Works Toolbox. Ask Toolbox for it '
-          '(a framecore-task-request/1 with capability earshot); its readiness check and any setup are Toolbox\'s, '
-          'after the user agrees.\nThe measurements and checks in this tool run without it.', file=sys.stderr)
+    print(f'listen: `{command}` needs Earshot. Run it with FrameMotion\'s launcher '
+          '(python3 assets/earshot/scripts/runtime.py run {command} ...) after its status check; setup happens only '
+          'after the user agrees (the same launcher as FrameCore Works Toolbox\'s Earshot, one shared runtime).'
+          '\nThe measurements and checks in this tool run without it.', file=sys.stderr)
     return 4
 
 

@@ -72,7 +72,7 @@ The labels number the parts in screen order, top first, and stay in a column rig
 
 `cutaway-piranha` renders the bundled piranha film (`1600 × 900`, 60 fps, 21.2 s). The tarantula and wasp films and the three short versions build the same way: register `"sim": "../cutaway-engine/sims/<name>"` with the size, `"fps": 60` and the `duration` from its `timeline.json` (a short version whose timeline has `"film"` plays its scene faster; register its `film` length only after checking a frame). A sim folder is code that runs in the renderer's browser: build only folders from this engine or from the user, never one sent by someone else unread. A new object follows `docs/method.md` and `docs/JOB_DESCRIPTION.md`: one reference picture, a checklist, a still the user approves, then the film ported from the closest example. That is long work for a GPU machine; say so before starting.
 
-The score: `python3 run_sfx.py sims/piranha-shared/score.py` (Python 3, standard library only) writes the film's sound from its own timeline. In FrameMotion the final mix and loudness follow the sound route (Earshot through Toolbox, or `sound.py`).
+The score: `python3 run_sfx.py sims/piranha-shared/score.py` (Python 3, standard library only) writes the film's sound from its own timeline. In FrameMotion the final mix and loudness follow the sound route (Earshot, or `sound.py`).
 
 ## How it is wired
 

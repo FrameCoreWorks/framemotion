@@ -19,7 +19,7 @@ Stick-figure explainers, short stories and faceless channel videos drawn as code
 
 The one change: `engine/sm-rig.js` accepts `headScale` on a figure (`sc.figure({ headScale: 1.9 })`), marked by a comment line in the file. A bigger head grows upwards, so the figure is taller than its `size`. The [source manifest](../../../../integrations/stickman-kino/source-manifest.json) records the original hash and the new one; every other file matches the upstream byte for byte, and a test checks both.
 
-Not bundled: the `stickman` command line, its set-up of Kokoro, ffmpeg and HyperFrames, its music and voice tools, and the upstream agent skills. In FrameMotion the voice, music and final mix follow FrameMotion's sound route (Earshot through Toolbox, or `sound.py`); the effects that `compose()` synthesises for the `sfx` entries of `film.json` are placeholders on the timeline.
+Not bundled: the `stickman` command line, its set-up of Kokoro, ffmpeg and HyperFrames, its music and voice tools, and the upstream agent skills. In FrameMotion the voice, music and final mix follow FrameMotion's sound route (Earshot, or `sound.py`); the effects that `compose()` synthesises for the `sfx` entries of `film.json` are placeholders on the timeline.
 
 ## Make a film
 

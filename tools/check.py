@@ -9,6 +9,7 @@ import json
 import os
 from pathlib import Path
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -86,6 +87,18 @@ def main():
             print((run.stdout + run.stderr)[-4000:])
             run.check_returncode()
         print(f'PASS {test.name}', flush=True)
+    # The bundled Earshot launcher's tests (pack P11) need Python 3.12, like Toolbox's copy.
+    py312 = shutil.which('python3.12')
+    require(py312 is not None or not os.environ.get('CI'), 'Python 3.12 is needed for tests/earshot')
+    if py312:
+        run = subprocess.run([py312, '-m', 'unittest', 'discover', '-s', 'tests/earshot', '-p', '*_test.py'],
+                             cwd=PLUGIN, capture_output=True, text=True)
+        if run.returncode != 0:
+            print((run.stdout + run.stderr)[-4000:])
+            run.check_returncode()
+        print('PASS tests/earshot (python3.12)', flush=True)
+    else:
+        print('SKIP tests/earshot: python3.12 not found', flush=True)
     if not fast:
         run = subprocess.run(['node', '--test', '--test-reporter=tap', *sorted(str(p) for p in (PLUGIN / 'tests').glob('*.test.mjs'))],
                              cwd=PLUGIN, capture_output=True, text=True)

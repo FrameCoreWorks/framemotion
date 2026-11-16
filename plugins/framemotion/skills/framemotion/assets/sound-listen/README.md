@@ -25,7 +25,7 @@ python listen.py sheet film.mp4 -o sheet.png       # an annotated picture: frame
 
 - LUFS, LRA and true peak follow ITU-R BS.1770 (K-weighting through FFmpeg, true peak on a 4x oversampled signal). Against earshot on the same film they agreed to a few tenths of a unit. Band levels, onset counts and tempo differ by a few dB or a few percent because the detectors differ; earshot is the reference when the two disagree.
 - The scorecard ranges come from seven professional launch films earshot measured (SaaS and AI product launch style). They are a useful default for a short product film, a poor one for a meditative film, a documentary or a music video: pass `--profile` with films like yours, or ignore a row that does not fit the genre.
-- Nothing here uses a model, so it says what a sound measures like, never what it is ("a door slam"). `describe`, `match`, `rank`, `find`, `compare` and `realness` are Earshot's, through Toolbox.
+- Nothing here uses a model, so it says what a sound measures like, never what it is ("a door slam"). `describe`, `match`, `rank`, `find`, `compare` and `realness` are Earshot's (FrameMotion's Earshot launcher).
 - Optimising for the scorecard alone is Goodhart's law: a film can pass every row and still sound wrong. The numbers find faults (a hit 80 ms late, a silent cut, a harsh mid band); a listener decides taste.
 
 ## Place samples on the frames
@@ -38,7 +38,7 @@ A cue file lists `t` (seconds) or `frame` (with `fps`), `file`, optional `align`
 
 ## The Earshot engine for the models and the sound bank
 
-Earshot (v0.4.0) adds the neural commands and its bank of 252 code-made sound effects (`sfx`, `kit`, `forge`, `fit`, `gallery`). It has one route: the Earshot capability built into FrameCore Works Toolbox, which installs the pinned engine after the user agrees, light (measurements, `critique --fast`, `sfx`, `kit`; no models) or full (adds `timeline`, `sheet` and the model commands; CPU PyTorch and about 1.1 GB of models). Studio asks Toolbox for those readings (sound through Toolbox (Creative Studio: `skills/pipeline-core/references/companion-routing.md`)) and never starts an engine itself: `listen.py describe ...` and the other model command names exit 4 with that pointer; `llm` and `mcp` are refused.
+Earshot (v0.4.0) adds the neural commands and its bank of 252 code-made sound effects (`sfx`, `kit`, `forge`, `fit`, `gallery`). It runs through FrameMotion's own Earshot launcher ([`assets/earshot/`](../earshot/UPSTREAM.md), the same launcher as FrameCore Works Toolbox's, one shared runtime), which installs the pinned engine after the user agrees, light (measurements, `critique --fast`, `sfx`, `kit`; no models) or full (adds `timeline`, `sheet` and the model commands; CPU PyTorch and about 1.1 GB of models). How to use it: [Earshot in FrameMotion](../../references/earshot/earshot.md). `listen.py` never starts an engine itself: `listen.py describe ...` and the other model command names exit 4 with that pointer; `llm` and `mcp` are refused.
 
 ## Verification boundary
 
