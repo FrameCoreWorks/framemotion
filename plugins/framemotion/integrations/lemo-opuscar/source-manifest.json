@@ -36,29 +36,47 @@
   ],
   "fonts_note": "fonts that upstream keeps out of git are fetched by each demo's tools/fonts.sh from a pinned google/fonts commit or a versioned Google Fonts or JetBrains file; FrameMotion bundles the same files, with fetched_from and their SHA-256 here",
   "not_bundled": [
-    "every Markdown file (guides, STYLE.md, DEMO.md, FACTS.md, READMEs, the skill) and the image-generation prompts: CC BY-NC 4.0",
+    "every Markdown file except core/fonts/OFL.md (the fonts' OFL notice) (guides, STYLE.md, DEMO.md, FACTS.md, READMEs, the skill) and the image-generation prompts: CC BY-NC 4.0",
     "the demo films, posters, stills and subtitles (CC BY 4.0) and all voice, music and mix files; Clawd and the Mascot Screencast style",
     "the other 77 styles: those built on third-party footage, photos, maps, data, models or fetched asset packs (voice, HDRI, instruments), those whose fonts are subset by a script, the two Python-rendered styles, Chinese Ink Wash (its strokes are Chinese characters), Sci-Fi Sitcom Toon (it imitates a known television franchise), and those FrameMotion already covers (Stickman, Cutaway, Teardown, Pixel, Launch and Art engines)",
     "core/render (upstream's renderer; FrameMotion renders with its own kit), core/audio, core/tts, core/image, core/assets, tools/, styleboard/, plugin/ and each demo's tools/, build.sh and Python scripts"
   ],
   "retained_files": [
     {
-      "source_path": "core/lib.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/lib.js",
-      "sha256": "f6aafa10a156d52b066a39b9445b4d23f3261b326042a92b95bdea4ba71bac24",
-      "license": "MIT"
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSE",
+      "sha256": "aee72797af4389583c0f531f7fc89c87c87cb939bdba43d888926dd8aaea8d26",
+      "license": "notice"
     },
     {
-      "source_path": "core/post/crt.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/post/crt.js",
-      "sha256": "19d5385b5df36026dd13075a7a0fef2bc7c8763e8f3d719316dbf62ad4872a5c",
-      "license": "MIT"
+      "source_path": "LICENSES/CC-BY-4.0.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSES/CC-BY-4.0.txt",
+      "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
+      "license": "notice"
     },
     {
-      "source_path": "core/three/post.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/three/post.js",
-      "sha256": "531c3eca482dadeac5dc5255449aaaf52d69fc755b1c27f1ad3207590a546750",
-      "license": "MIT"
+      "source_path": "LICENSES/MIT.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSES/MIT.txt",
+      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
+      "license": "notice"
+    },
+    {
+      "source_path": "LICENSES/OFL-1.1.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSES/OFL-1.1.txt",
+      "sha256": "8eea8287e5876b539670cadb82e99f9a7afddec6f6730811be1daf25d2e9bcfd",
+      "license": "notice"
+    },
+    {
+      "source_path": "REUSE.toml",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/REUSE.toml",
+      "sha256": "bec581527f3021773990b5733de8a5519d10e529b31fef3ba175e950bbcd349c",
+      "license": "notice"
+    },
+    {
+      "source_path": "core/fonts/OFL.md",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/fonts/OFL.md",
+      "sha256": "e0ed9609f4ec312bfbc5b10d7fb74199bd4c836d1ebf34eae2ef3bd5e8267bc8",
+      "license": "OFL-1.1"
     },
     {
       "source_path": "core/fonts/f0.woff2",
@@ -115,39 +133,21 @@
       "license": "MIT"
     },
     {
-      "source_path": "LICENSE",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSE",
-      "sha256": "aee72797af4389583c0f531f7fc89c87c87cb939bdba43d888926dd8aaea8d26",
-      "license": "notice"
+      "source_path": "core/lib.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/lib.js",
+      "sha256": "f6aafa10a156d52b066a39b9445b4d23f3261b326042a92b95bdea4ba71bac24",
+      "license": "MIT"
     },
     {
-      "source_path": "LICENSES/MIT.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSES/MIT.txt",
-      "sha256": "b05785f9f18e6716bab63424b11454513b9943a222595b70411009202fc592b5",
-      "license": "notice"
+      "source_path": "core/post/crt.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/post/crt.js",
+      "sha256": "19d5385b5df36026dd13075a7a0fef2bc7c8763e8f3d719316dbf62ad4872a5c",
+      "license": "MIT"
     },
     {
-      "source_path": "LICENSES/OFL-1.1.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSES/OFL-1.1.txt",
-      "sha256": "8eea8287e5876b539670cadb82e99f9a7afddec6f6730811be1daf25d2e9bcfd",
-      "license": "notice"
-    },
-    {
-      "source_path": "LICENSES/CC-BY-4.0.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/LICENSES/CC-BY-4.0.txt",
-      "sha256": "9ba9550ad48438d0836ddab3da480b3b69ffa0aac7b7878b5a0039e7ab429411",
-      "license": "notice"
-    },
-    {
-      "source_path": "REUSE.toml",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/REUSE.toml",
-      "sha256": "bec581527f3021773990b5733de8a5519d10e529b31fef3ba175e950bbcd349c",
-      "license": "notice"
-    },
-    {
-      "source_path": "styles/art-deco/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/style.json",
-      "sha256": "cebba14f36583aa1bd432324b5bc032daa84e5742ae43c162331d1e4dba92fa9",
+      "source_path": "core/three/post.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/core/three/post.js",
+      "sha256": "531c3eca482dadeac5dc5255449aaaf52d69fc755b1c27f1ad3207590a546750",
       "license": "MIT"
     },
     {
@@ -160,84 +160,6 @@
       "source_path": "styles/art-deco/demo/chars.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/chars.js",
       "sha256": "a8662f0bcb1d6c785adfd146e1cafdeeecc55a2d22449db4447548a4940fd9eb",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/film.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/film.js",
-      "sha256": "3f2b16a0d4487ff135d07e1eb88efa732f1ae7fbe61b6b2aae93f213c6575966",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/frames.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/frames.js",
-      "sha256": "248a8d564c38a41180e96d8f0f25bbd0372a017430e494e0213cad6ac2e579f3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/index.html",
-      "sha256": "4bcec8f994190d3522f759c3a17f2fd3ae4be4a0d57bb52b4702af19de240c86",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/lines.json",
-      "sha256": "833af59bc4b391efb9394af41bcb2fe355c1aff6ba98940358ac7a57c67aa7b5",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/main.js",
-      "sha256": "52c9985e1d81ac162ba818e80f80a24a30d3f32702ffb9c295ea393ae1229e70",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/shots_kitchen.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_kitchen.js",
-      "sha256": "b2c9af29f39afa114974291172948bbab1222dd27b5eadd095d0b271fb86d3ac",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/shots_lobby.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_lobby.js",
-      "sha256": "086b4879c645650c1cf988614e6ede21917f550dba5acd342c3d5badfbae0620",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/shots_misc.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_misc.js",
-      "sha256": "67e9ed4034721a74cbb16677f894b219be4ec6c755b28c8bcce4c1d5a85b257d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/shots_out.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_out.js",
-      "sha256": "873149d840fac91e8a5791c904d44af23f426ea8a5b784d2be2228e08cbd3d70",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/shots_roof.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_roof.js",
-      "sha256": "c43b124066f4cbeffeea03cb0956a621a92e05d1405aa0e2dd94739beabf8d26",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/shots_stairs.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_stairs.js",
-      "sha256": "ca9aa990494299b6403d80a8bfd98005fa1362fd137fade64adb32acb264c12d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/timeline.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/timeline.js",
-      "sha256": "7eaa8b9fc733006a2237745dbc0c897089b894dfe8c2f53f0a1ba2544325a380",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/art-deco/demo/timeline.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/timeline.json",
-      "sha256": "e2da937f9361fd02d52f0a49b00637957a23ca9662782630456cf272d2c2093f",
       "license": "MIT"
     },
     {
@@ -262,6 +184,12 @@
       "source_path": "styles/art-deco/demo/engine/type.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/engine/type.js",
       "sha256": "9e0fca667d1d83cf8344abec286cd356bf50dfb1f54a383f461dd48a0fc816f5",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/film.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/film.js",
+      "sha256": "3f2b16a0d4487ff135d07e1eb88efa732f1ae7fbe61b6b2aae93f213c6575966",
       "license": "MIT"
     },
     {
@@ -323,6 +251,30 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/art-deco/demo/frames.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/frames.js",
+      "sha256": "248a8d564c38a41180e96d8f0f25bbd0372a017430e494e0213cad6ac2e579f3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/index.html",
+      "sha256": "4bcec8f994190d3522f759c3a17f2fd3ae4be4a0d57bb52b4702af19de240c86",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/lines.json",
+      "sha256": "833af59bc4b391efb9394af41bcb2fe355c1aff6ba98940358ac7a57c67aa7b5",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/main.js",
+      "sha256": "52c9985e1d81ac162ba818e80f80a24a30d3f32702ffb9c295ea393ae1229e70",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/art-deco/demo/music/CREDITS_music.txt",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/music/CREDITS_music.txt",
       "sha256": "97471f81202e828105ed518a811ac4e466e7b61b78b3f625ff2114174f8f9416",
@@ -359,6 +311,54 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/art-deco/demo/shots_kitchen.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_kitchen.js",
+      "sha256": "b2c9af29f39afa114974291172948bbab1222dd27b5eadd095d0b271fb86d3ac",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/shots_lobby.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_lobby.js",
+      "sha256": "086b4879c645650c1cf988614e6ede21917f550dba5acd342c3d5badfbae0620",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/shots_misc.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_misc.js",
+      "sha256": "67e9ed4034721a74cbb16677f894b219be4ec6c755b28c8bcce4c1d5a85b257d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/shots_out.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_out.js",
+      "sha256": "873149d840fac91e8a5791c904d44af23f426ea8a5b784d2be2228e08cbd3d70",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/shots_roof.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_roof.js",
+      "sha256": "c43b124066f4cbeffeea03cb0956a621a92e05d1405aa0e2dd94739beabf8d26",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/shots_stairs.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/shots_stairs.js",
+      "sha256": "ca9aa990494299b6403d80a8bfd98005fa1362fd137fade64adb32acb264c12d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/timeline.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/timeline.js",
+      "sha256": "7eaa8b9fc733006a2237745dbc0c897089b894dfe8c2f53f0a1ba2544325a380",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/art-deco/demo/timeline.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/timeline.json",
+      "sha256": "e2da937f9361fd02d52f0a49b00637957a23ca9662782630456cf272d2c2093f",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/art-deco/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/demo/voices/dur.json",
       "sha256": "6d1ef8ed6c7023fc2a43d4d394b947d9be39468cc1cf3d52092fa17bfec4ed21",
@@ -371,9 +371,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/ascii-crt/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/style.json",
-      "sha256": "eb5797a6fea92d5d851fa474cbc4ed342aa7e962bb8eefc72212f78ddaa07d81",
+      "source_path": "styles/art-deco/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/art-deco/style.json",
+      "sha256": "cebba14f36583aa1bd432324b5bc032daa84e5742ae43c162331d1e4dba92fa9",
       "license": "MIT"
     },
     {
@@ -401,30 +401,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/ascii-crt/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/index.html",
-      "sha256": "28d1398c8a44632461443505aa04f8afc98883ade0fb3ba64a8bb86088a25728",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ascii-crt/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/lines.json",
-      "sha256": "576f85afba31b8e43c23f5c799c9fa3ee87e7fc3fdedd65ca36d48df485b50ea",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ascii-crt/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/main.js",
-      "sha256": "a0d5073e93c544d607bedeee785a33f4bd24641de4c1b7b4a2f6fa2a4faf566a",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ascii-crt/demo/term.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/term.js",
-      "sha256": "cdc00c8481d777203da50d1619e907c2e87268e44826d73fba00ec528c24c04e",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/ascii-crt/demo/fonts/OFL-VT323.txt",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/fonts/OFL-VT323.txt",
       "sha256": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298",
@@ -444,9 +420,33 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/ascii-crt/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/index.html",
+      "sha256": "28d1398c8a44632461443505aa04f8afc98883ade0fb3ba64a8bb86088a25728",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ascii-crt/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/lines.json",
+      "sha256": "576f85afba31b8e43c23f5c799c9fa3ee87e7fc3fdedd65ca36d48df485b50ea",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ascii-crt/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/main.js",
+      "sha256": "a0d5073e93c544d607bedeee785a33f4bd24641de4c1b7b4a2f6fa2a4faf566a",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/ascii-crt/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/music/score.json",
       "sha256": "8f33c134551d015c93f165e7407f09d6445c746c30fd6c8fa5c8e7f8995fa278",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ascii-crt/demo/term.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/demo/term.js",
+      "sha256": "cdc00c8481d777203da50d1619e907c2e87268e44826d73fba00ec528c24c04e",
       "license": "MIT"
     },
     {
@@ -468,9 +468,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/backrooms/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/style.json",
-      "sha256": "4a3567a7d4e734f429f939f9f29f5a675ecc806937640d25bc01f8634b4431ee",
+      "source_path": "styles/ascii-crt/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ascii-crt/style.json",
+      "sha256": "eb5797a6fea92d5d851fa474cbc4ed342aa7e962bb8eefc72212f78ddaa07d81",
       "license": "MIT"
     },
     {
@@ -489,6 +489,61 @@
       "source_path": "styles/backrooms/demo/figures.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/figures.js",
       "sha256": "a660e13fa767f0c261c7ae647711ef9e7b5f560fa83ff90323928bce4b931d21",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexMono-500.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexMono-500.woff2",
+      "sha256": "a76f53ca6612e7b3828eec2311098675b7f9849ae4169a8bcef6302aec02a6c0",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgsAXHNk.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexMono-600.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexMono-600.woff2",
+      "sha256": "ad4580d8cb4b5f627c2d18457656732f7f7b070f7837fbc380e08054157e6f6c",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgsAXHNk.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexSans-400.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSans-400.woff2",
+      "sha256": "056e4e2459f57a0033c8c9c844ff19d6e42ac8602027803d4345823bcc939818",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYbSB4Zh.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexSans-600.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSans-600.woff2",
+      "sha256": "056e4e2459f57a0033c8c9c844ff19d6e42ac8602027803d4345823bcc939818",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYbSB4Zh.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexSans-700.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSans-700.woff2",
+      "sha256": "056e4e2459f57a0033c8c9c844ff19d6e42ac8602027803d4345823bcc939818",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYbSB4Zh.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexSansCondensed-600.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSansCondensed-600.woff2",
+      "sha256": "63e486a9c9ec9fb7459a4239d1e538c87239a261b26444ca8ae8017f52c5e282",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsanscondensed/v15/Gg8gN4UfRSqiPg7Jn2ZI12V4DCEwkj1E4LVeHY527LvspYYnFBq4.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/IBMPlexSansCondensed-700.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSansCondensed-700.woff2",
+      "sha256": "308af9f2ec9f6477d59b588b6c01fab214775b65bcf9ba2c1122149308dad9b4",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsanscondensed/v15/Gg8gN4UfRSqiPg7Jn2ZI12V4DCEwkj1E4LVeHY4S7bvspYYnFBq4.woff2"
+    },
+    {
+      "source_path": "styles/backrooms/demo/fonts/fonts.css",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/fonts.css",
+      "sha256": "5cdedae4ef5108318c214d741dcfbec89125da93db7a82a51cc975b185864e27",
       "license": "MIT"
     },
     {
@@ -552,67 +607,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/backrooms/demo/world.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/world.js",
-      "sha256": "72d1648344ba47df82f8f5657cd95fa8f26e43f9327b8c3a28c2cb64616d98ef",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexMono-500.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexMono-500.woff2",
-      "sha256": "a76f53ca6612e7b3828eec2311098675b7f9849ae4169a8bcef6302aec02a6c0",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3twJwlBFgsAXHNk.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexMono-600.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexMono-600.woff2",
-      "sha256": "ad4580d8cb4b5f627c2d18457656732f7f7b070f7837fbc380e08054157e6f6c",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexmono/v20/-F6qfjptAgt5VM-kVkqdyU8n3vAOwlBFgsAXHNk.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexSans-400.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSans-400.woff2",
-      "sha256": "056e4e2459f57a0033c8c9c844ff19d6e42ac8602027803d4345823bcc939818",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYbSB4Zh.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexSans-600.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSans-600.woff2",
-      "sha256": "056e4e2459f57a0033c8c9c844ff19d6e42ac8602027803d4345823bcc939818",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYbSB4Zh.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexSans-700.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSans-700.woff2",
-      "sha256": "056e4e2459f57a0033c8c9c844ff19d6e42ac8602027803d4345823bcc939818",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsans/v23/zYXzKVElMYYaJe8bpLHnCwDKr932-G7dytD-Dmu1syxeKYbSB4Zh.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexSansCondensed-600.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSansCondensed-600.woff2",
-      "sha256": "63e486a9c9ec9fb7459a4239d1e538c87239a261b26444ca8ae8017f52c5e282",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsanscondensed/v15/Gg8gN4UfRSqiPg7Jn2ZI12V4DCEwkj1E4LVeHY527LvspYYnFBq4.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/IBMPlexSansCondensed-700.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/IBMPlexSansCondensed-700.woff2",
-      "sha256": "308af9f2ec9f6477d59b588b6c01fab214775b65bcf9ba2c1122149308dad9b4",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/ibmplexsanscondensed/v15/Gg8gN4UfRSqiPg7Jn2ZI12V4DCEwkj1E4LVeHY4S7bvspYYnFBq4.woff2"
-    },
-    {
-      "source_path": "styles/backrooms/demo/fonts/fonts.css",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/fonts/fonts.css",
-      "sha256": "5cdedae4ef5108318c214d741dcfbec89125da93db7a82a51cc975b185864e27",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/backrooms/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/voices/dur.json",
       "sha256": "b1f000868848bbdecbad2b47ca06f815b403ecfc1e8bad0316f6bf011786828e",
@@ -631,9 +625,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/blueprint/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/style.json",
-      "sha256": "45b623d588615ffe6f6d629f1374d081815afbeb6622b40602fc73dd3a7c5129",
+      "source_path": "styles/backrooms/demo/world.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/demo/world.js",
+      "sha256": "72d1648344ba47df82f8f5657cd95fa8f26e43f9327b8c3a28c2cb64616d98ef",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/backrooms/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/backrooms/style.json",
+      "sha256": "4a3567a7d4e734f429f939f9f29f5a675ecc806937640d25bc01f8634b4431ee",
       "license": "MIT"
     },
     {
@@ -658,48 +658,6 @@
       "source_path": "styles/blueprint/demo/film.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/film.js",
       "sha256": "3d146a7cd7373b0d07ecb27fad43d19cd2163fc68fc91d9ad0c1fb1557b1b340",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/index.html",
-      "sha256": "363656cc02058402df3a02546fd24fd07437985fad3c53f8d9a7efa325577d1e",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/lines.json",
-      "sha256": "74178c223b2e9521c99d397ec3e1a02408bcd0c837e8ea1eae3ccc19f91da08b",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/machine.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/machine.js",
-      "sha256": "4d436ac9f4df915096817eafc160e7fa56b43a89057b275a4c2d42ea30ff4f78",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/main.js",
-      "sha256": "662340c1776db54bec35bb651c599c258eef0f92cc51d1999f1b07311d80f246",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/paper.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/paper.js",
-      "sha256": "3843e20887221146a86fb66ed2d9b7d6117c77202019cfcf728ca6b7cfffa691",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/sheet.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/sheet.js",
-      "sha256": "c5314a1669e2f65779bb218c0d2388e8e53a9b5eab1c2cc2b097fb71f3ed8ce3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/blueprint/demo/subs.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/subs.json",
-      "sha256": "9aeedc0a24ab06c88e8dc12206716a07a96aaa72cae76101a054bdaf17e012df",
       "license": "MIT"
     },
     {
@@ -750,9 +708,51 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/blueprint/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/index.html",
+      "sha256": "363656cc02058402df3a02546fd24fd07437985fad3c53f8d9a7efa325577d1e",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/blueprint/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/lines.json",
+      "sha256": "74178c223b2e9521c99d397ec3e1a02408bcd0c837e8ea1eae3ccc19f91da08b",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/blueprint/demo/machine.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/machine.js",
+      "sha256": "4d436ac9f4df915096817eafc160e7fa56b43a89057b275a4c2d42ea30ff4f78",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/blueprint/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/main.js",
+      "sha256": "662340c1776db54bec35bb651c599c258eef0f92cc51d1999f1b07311d80f246",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/blueprint/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/music/score.json",
       "sha256": "9f708293e3abfc8e5eaa06bfb0e29d950a87b768a1ac7abfcde7e3e9ef9921d6",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/blueprint/demo/paper.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/paper.js",
+      "sha256": "3843e20887221146a86fb66ed2d9b7d6117c77202019cfcf728ca6b7cfffa691",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/blueprint/demo/sheet.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/sheet.js",
+      "sha256": "c5314a1669e2f65779bb218c0d2388e8e53a9b5eab1c2cc2b097fb71f3ed8ce3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/blueprint/demo/subs.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/demo/subs.json",
+      "sha256": "9aeedc0a24ab06c88e8dc12206716a07a96aaa72cae76101a054bdaf17e012df",
       "license": "MIT"
     },
     {
@@ -768,9 +768,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/crayon-book/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/style.json",
-      "sha256": "1c3c8c23752a2da808e6b61a849718eeb7cf2411950a4833fa26ecf0e7cf882b",
+      "source_path": "styles/blueprint/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/blueprint/style.json",
+      "sha256": "45b623d588615ffe6f6d629f1374d081815afbeb6622b40602fc73dd3a7c5129",
       "license": "MIT"
     },
     {
@@ -807,72 +807,6 @@
       "source_path": "styles/crayon-book/demo/film.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/film.js",
       "sha256": "8ee5c1cccaec4d437b71d0b38988d8abca84833504988795e6c3897d3db88a10",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/gl.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/gl.js",
-      "sha256": "71c7ed1e949ab42826b21fbd288999b8bcbaf7889ab1496f6643cabfa4979a57",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/index.html",
-      "sha256": "7386fd82e2197ee5366b6eba5bca197226e810ec341137592ffb2d475e2c78b8",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/lines.json",
-      "sha256": "3089bd75ce3a717f06a180ce9a032a43c4b5ef462a0662fe645d747131393512",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/main.js",
-      "sha256": "ce73e905e9eeaaa41546996b60c3a1d588e6246eb8117a868a2df708628eba23",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/pal.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/pal.js",
-      "sha256": "ad62075dcb089180924feaebb2c447aecd0eec77a7169a472637fe2315f14b92",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/rig.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/rig.js",
-      "sha256": "975f24b3357c8256968a5cf48764499652b1c5f6534ab70346175ff6df786196",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/sheet.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/sheet.js",
-      "sha256": "6b2fd4f8a6590292561635a040e888965139de61685641b3c74fe941a79fa7ff",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/subs.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/subs.json",
-      "sha256": "f6ea59fab09488811a39cb9f24c38275250a35cbebf43da90d664857788cbd25",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/subs.mjs",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/subs.mjs",
-      "sha256": "38c4f7c0b6de26496468c0dee4f35257ba951771922d4d45f4229ff539d80d4f",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/test.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/test.js",
-      "sha256": "a4c4d3cb06859e8369f4abee3617f74cf8e71663adb9a18beea450fe8cf732a7",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/crayon-book/demo/world.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/world.js",
-      "sha256": "35b269edd47070129acca6d07458408fc2138cb40829dd5ee50474b67eb2cef9",
       "license": "MIT"
     },
     {
@@ -967,9 +901,69 @@
       "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/sniglet/Sniglet-Regular.ttf"
     },
     {
+      "source_path": "styles/crayon-book/demo/gl.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/gl.js",
+      "sha256": "71c7ed1e949ab42826b21fbd288999b8bcbaf7889ab1496f6643cabfa4979a57",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/index.html",
+      "sha256": "7386fd82e2197ee5366b6eba5bca197226e810ec341137592ffb2d475e2c78b8",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/lines.json",
+      "sha256": "3089bd75ce3a717f06a180ce9a032a43c4b5ef462a0662fe645d747131393512",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/main.js",
+      "sha256": "ce73e905e9eeaaa41546996b60c3a1d588e6246eb8117a868a2df708628eba23",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/crayon-book/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/music/score.json",
       "sha256": "6e776c6137a2011391ba9174a3c465de10b691d3a8dd00a7d747eacd97eca344",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/pal.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/pal.js",
+      "sha256": "ad62075dcb089180924feaebb2c447aecd0eec77a7169a472637fe2315f14b92",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/rig.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/rig.js",
+      "sha256": "975f24b3357c8256968a5cf48764499652b1c5f6534ab70346175ff6df786196",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/sheet.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/sheet.js",
+      "sha256": "6b2fd4f8a6590292561635a040e888965139de61685641b3c74fe941a79fa7ff",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/subs.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/subs.json",
+      "sha256": "f6ea59fab09488811a39cb9f24c38275250a35cbebf43da90d664857788cbd25",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/subs.mjs",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/subs.mjs",
+      "sha256": "38c4f7c0b6de26496468c0dee4f35257ba951771922d4d45f4229ff539d80d4f",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/demo/test.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/test.js",
+      "sha256": "a4c4d3cb06859e8369f4abee3617f74cf8e71663adb9a18beea450fe8cf732a7",
       "license": "MIT"
     },
     {
@@ -985,9 +979,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/engraving/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/style.json",
-      "sha256": "d6b267bf1c7cd95b16af48aed36e2a46b7f6908c39f001b4fe0dac548daaf49f",
+      "source_path": "styles/crayon-book/demo/world.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/demo/world.js",
+      "sha256": "35b269edd47070129acca6d07458408fc2138cb40829dd5ee50474b67eb2cef9",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/crayon-book/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/crayon-book/style.json",
+      "sha256": "1c3c8c23752a2da808e6b61a849718eeb7cf2411950a4833fa26ecf0e7cf882b",
       "license": "MIT"
     },
     {
@@ -1006,36 +1006,6 @@
       "source_path": "styles/engraving/demo/content_alt.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/content_alt.json",
       "sha256": "678f54662ab8937e0a8ac2939cab80e0c2a1c20886ed2f715c16e21b952af58b",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/engraving/demo/events.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/events.json",
-      "sha256": "87be8ca79fee3ad5b63730048910f9293b51e148c506f189aac81f21c718d0e3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/engraving/demo/film.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/film.js",
-      "sha256": "2584571f559ff168001d0e647bab568182964db7c1b6fdae98d03fc397841002",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/engraving/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/index.html",
-      "sha256": "1c36203f39f0da816325b321b3616c538b043b3abf9175840cdf7d37972dfff4",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/engraving/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/lines.json",
-      "sha256": "133c4ecad31771f9a3da892cf2307049307efdfcaf8e643eeac0f8c2506d5b36",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/engraving/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/main.js",
-      "sha256": "a2cc920bd11147f4ce84f9ffb4105045518286f2d4747f3bad9a4cc9cf42914f",
       "license": "MIT"
     },
     {
@@ -1069,9 +1039,21 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/engraving/demo/events.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/events.json",
+      "sha256": "87be8ca79fee3ad5b63730048910f9293b51e148c506f189aac81f21c718d0e3",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/engraving/demo/example/index.html",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/example/index.html",
       "sha256": "f72d01a27371a7053fd9075d553d1b87967ae4750f8c13c136502d5445630207",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/engraving/demo/film.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/film.js",
+      "sha256": "2584571f559ff168001d0e647bab568182964db7c1b6fdae98d03fc397841002",
       "license": "MIT"
     },
     {
@@ -1105,6 +1087,24 @@
       "source_path": "styles/engraving/demo/fonts/fonts.css",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/fonts/fonts.css",
       "sha256": "069583a9ccbfc267cc74298d4077af8a882c5ef6f87c1b15524032e71d1660b8",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/engraving/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/index.html",
+      "sha256": "1c36203f39f0da816325b321b3616c538b043b3abf9175840cdf7d37972dfff4",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/engraving/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/lines.json",
+      "sha256": "133c4ecad31771f9a3da892cf2307049307efdfcaf8e643eeac0f8c2506d5b36",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/engraving/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/demo/main.js",
+      "sha256": "a2cc920bd11147f4ce84f9ffb4105045518286f2d4747f3bad9a4cc9cf42914f",
       "license": "MIT"
     },
     {
@@ -1150,9 +1150,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/glass-product/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/style.json",
-      "sha256": "8cd632c6b7ca25c6e2623779541d115f0ad55f545d34af20f3ecae793f27a2be",
+      "source_path": "styles/engraving/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/engraving/style.json",
+      "sha256": "d6b267bf1c7cd95b16af48aed36e2a46b7f6908c39f001b4fe0dac548daaf49f",
       "license": "MIT"
     },
     {
@@ -1174,6 +1174,19 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/glass-product/demo/fonts/InterTight-var.woff2",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/fonts/InterTight-var.woff2",
+      "sha256": "83d548cd73ef2e039167db3adb5ea9d7a7870466ffc8a162c9820bc348938aaf",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/intertight/v9/NGSwv5HMAFg6IuGlBNMjxLsH8ahuQ2e8.woff2"
+    },
+    {
+      "source_path": "styles/glass-product/demo/fonts/fonts.css",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/fonts/fonts.css",
+      "sha256": "135f6b421204a907623cef9bdb7296b4c4adf791d875e90b216eb4a8cd0df000",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/glass-product/demo/index.html",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/index.html",
       "sha256": "51d694f1aedd7afd29b7613efc7800c03a7966771089c768493077b8d323b0d4",
@@ -1189,6 +1202,12 @@
       "source_path": "styles/glass-product/demo/main.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/main.js",
       "sha256": "6246099f4fa5af05be31cff2185c199c6705eba41c147fa92ed76f50f5d0d6b5",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/glass-product/demo/music/score.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/music/score.json",
+      "sha256": "41d777fc3eaf1e26640f15e78eb76983c0b9f54b0998ded7041af530f4e84415",
       "license": "MIT"
     },
     {
@@ -1210,25 +1229,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/glass-product/demo/fonts/InterTight-var.woff2",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/fonts/InterTight-var.woff2",
-      "sha256": "83d548cd73ef2e039167db3adb5ea9d7a7870466ffc8a162c9820bc348938aaf",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/intertight/v9/NGSwv5HMAFg6IuGlBNMjxLsH8ahuQ2e8.woff2"
-    },
-    {
-      "source_path": "styles/glass-product/demo/fonts/fonts.css",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/fonts/fonts.css",
-      "sha256": "135f6b421204a907623cef9bdb7296b4c4adf791d875e90b216eb4a8cd0df000",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/glass-product/demo/music/score.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/music/score.json",
-      "sha256": "41d777fc3eaf1e26640f15e78eb76983c0b9f54b0998ded7041af530f4e84415",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/glass-product/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/demo/voices/dur.json",
       "sha256": "63b5f2a61596eb05802e63fcc7c4a2d3b29311148b5306e8770e6a2400f41eb2",
@@ -1241,9 +1241,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/hologram-hud/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/style.json",
-      "sha256": "a5efa1a7dcd4089dde08579a287413872a5a5d7e1f99c4ba763f2e95f3ee3fb8",
+      "source_path": "styles/glass-product/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/glass-product/style.json",
+      "sha256": "8cd632c6b7ca25c6e2623779541d115f0ad55f545d34af20f3ecae793f27a2be",
       "license": "MIT"
     },
     {
@@ -1265,48 +1265,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/hologram-hud/demo/events.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/events.json",
-      "sha256": "694c243257ddb34452b886765aa716d7229955336e204238bf21e7e278906ab3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/hologram-hud/demo/film.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/film.js",
-      "sha256": "ff1cd142ae35d04cedcdeef2747a876710e73b63112a4739cc87e02e79dbdc89",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/hologram-hud/demo/frames.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/frames.js",
-      "sha256": "4d8402e2e3d4542700da29ae94d453a9951919a01617a0b3791b2cbc10e68a93",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/hologram-hud/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/index.html",
-      "sha256": "0245235547b1489691fe92a72f6876dded1cdeac0d68277182cdcd0616b9a9c9",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/hologram-hud/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/lines.json",
-      "sha256": "eef580f810fc8a01cdd7950121a17a956c397e16e555e27aa82fb216af0a0936",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/hologram-hud/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/main.js",
-      "sha256": "30e7e69fcdab958205d4a1a0cdd8f542c9a0acd07f3f666a35cce4d15f8e9b80",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/hologram-hud/demo/timeline.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/timeline.json",
-      "sha256": "0357a595f65d90ba484be51c6dcdcc79859f7b6361ea2a666832278f828ba0aa",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/hologram-hud/demo/engine/holo.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/engine/holo.js",
       "sha256": "751ca132624d48a46e8047c735228e1fd7abb8fee29dae11518a1ad12f441ee7",
@@ -1316,6 +1274,18 @@
       "source_path": "styles/hologram-hud/demo/engine/hud.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/engine/hud.js",
       "sha256": "47a6ca1773952fb7b8ce23c42d9495f3cb976e600389e31079cc1e9ae748171b",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/hologram-hud/demo/events.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/events.json",
+      "sha256": "694c243257ddb34452b886765aa716d7229955336e204238bf21e7e278906ab3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/hologram-hud/demo/film.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/film.js",
+      "sha256": "ff1cd142ae35d04cedcdeef2747a876710e73b63112a4739cc87e02e79dbdc89",
       "license": "MIT"
     },
     {
@@ -1372,6 +1342,30 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/hologram-hud/demo/frames.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/frames.js",
+      "sha256": "4d8402e2e3d4542700da29ae94d453a9951919a01617a0b3791b2cbc10e68a93",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/hologram-hud/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/index.html",
+      "sha256": "0245235547b1489691fe92a72f6876dded1cdeac0d68277182cdcd0616b9a9c9",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/hologram-hud/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/lines.json",
+      "sha256": "eef580f810fc8a01cdd7950121a17a956c397e16e555e27aa82fb216af0a0936",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/hologram-hud/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/main.js",
+      "sha256": "30e7e69fcdab958205d4a1a0cdd8f542c9a0acd07f3f666a35cce4d15f8e9b80",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/hologram-hud/demo/models/gen_kite.mjs",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/models/gen_kite.mjs",
       "sha256": "7419386a5b6a9ed5005a6c74d8ac79405f3031ed9a72776b8e19faf3cd38ead1",
@@ -1414,6 +1408,12 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/hologram-hud/demo/timeline.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/timeline.json",
+      "sha256": "0357a595f65d90ba484be51c6dcdcc79859f7b6361ea2a666832278f828ba0aa",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/hologram-hud/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/demo/voices/dur.json",
       "sha256": "5ac30ac51d357b87dd640bea600aa549fc7c81c75d84bd433f6d45873c2410d7",
@@ -1426,45 +1426,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/impasto/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/style.json",
-      "sha256": "b74d52e05b9f3185b94de7e9ee8e9c12820767ff30a615d7dab4ecde3270ff05",
+      "source_path": "styles/hologram-hud/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/hologram-hud/style.json",
+      "sha256": "a5efa1a7dcd4089dde08579a287413872a5a5d7e1f99c4ba763f2e95f3ee3fb8",
       "license": "MIT"
     },
     {
       "source_path": "styles/impasto/demo/CREDITS",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/CREDITS",
       "sha256": "0d6c7780b75fcf9db6f2d978ebe6887070299d897df0b3261ef2c17483b38564",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/impasto/demo/film.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/film.js",
-      "sha256": "622f7b960df7cc3d88ee191f932654a4cfeeb69d3b36031624a4d066a4a8c1ae",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/impasto/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/index.html",
-      "sha256": "9c43f15703c8b20d30e3f8df9fba2d394bc85bee96bfc5717341010f0c00aecb",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/impasto/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/main.js",
-      "sha256": "a02d67a8fba2d5a9ddb830f29eb0c0e6160c36db9553c03a5020550d8cda90c9",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/impasto/demo/test.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/test.js",
-      "sha256": "5b1ba4ec1d33dd46b44ead6f5afbe27f6c02383a784107514072cc6c745db263",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/impasto/demo/timeline.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/timeline.js",
-      "sha256": "fe2d540f5e89db8afa00dc14ed1d0f8b916e5d230c9e1354e18853240574d0c0",
       "license": "MIT"
     },
     {
@@ -1477,6 +1447,12 @@
       "source_path": "styles/impasto/demo/engine/plate.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/engine/plate.js",
       "sha256": "7120f53f1827481c97ea7204f4ef269c46339c0b87181c7f56603d0150964567",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/impasto/demo/film.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/film.js",
+      "sha256": "622f7b960df7cc3d88ee191f932654a4cfeeb69d3b36031624a4d066a4a8c1ae",
       "license": "MIT"
     },
     {
@@ -1503,6 +1479,18 @@
       "source_path": "styles/impasto/demo/fonts/fonts.css",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/fonts/fonts.css",
       "sha256": "039b06646099605ab034f67e5c256f2dfe0f0d24dd91271249a101a9f4241e1f",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/impasto/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/index.html",
+      "sha256": "9c43f15703c8b20d30e3f8df9fba2d394bc85bee96bfc5717341010f0c00aecb",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/impasto/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/main.js",
+      "sha256": "a02d67a8fba2d5a9ddb830f29eb0c0e6160c36db9553c03a5020550d8cda90c9",
       "license": "MIT"
     },
     {
@@ -1560,9 +1548,21 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/iso-infographic/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/style.json",
-      "sha256": "d97a992c4294c2d277ae28686fb24069f8b6626b2e08caba8f7f6e3d86ef84d6",
+      "source_path": "styles/impasto/demo/test.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/test.js",
+      "sha256": "5b1ba4ec1d33dd46b44ead6f5afbe27f6c02383a784107514072cc6c745db263",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/impasto/demo/timeline.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/demo/timeline.js",
+      "sha256": "fe2d540f5e89db8afa00dc14ed1d0f8b916e5d230c9e1354e18853240574d0c0",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/impasto/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/impasto/style.json",
+      "sha256": "b74d52e05b9f3185b94de7e9ee8e9c12820767ff30a615d7dab4ecde3270ff05",
       "license": "MIT"
     },
     {
@@ -1590,6 +1590,19 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/iso-infographic/demo/fonts/Jost-OFL.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/fonts/Jost-OFL.txt",
+      "sha256": "1af3438a4d5f0ed2bdbc5751a5a67ebf6d537334161184b7fbb68503ef0ea0c5",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/iso-infographic/demo/fonts/Jost.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/fonts/Jost.ttf",
+      "sha256": "6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/jost/Jost[wght].ttf"
+    },
+    {
       "source_path": "styles/iso-infographic/demo/hero.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/hero.js",
       "sha256": "3865cd23a64f4c8a2498f48f9c84320f3892777eb4be8a173a06e560a0a01b0f",
@@ -1614,6 +1627,12 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/iso-infographic/demo/music/score.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/music/score.json",
+      "sha256": "9967093cb222019c2ebda067db50abe8ee022bc5cb1c591a409fca3364be9372",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/iso-infographic/demo/tests.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/tests.js",
       "sha256": "b5274803b52b7e56b90198d43e55f9530cc2400865d270847b49b88631dd6d6a",
@@ -1623,31 +1642,6 @@
       "source_path": "styles/iso-infographic/demo/timeline.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/timeline.js",
       "sha256": "7b96865c9cf886581353818fe7c96e0a2273117d78fbc4ac9759a9fc1b742e79",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/iso-infographic/demo/world.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/world.js",
-      "sha256": "d4396537628d37e1fd3209871ff854fb31b1e5b73572e3e36cbac4a3cca5aa6d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/iso-infographic/demo/fonts/Jost-OFL.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/fonts/Jost-OFL.txt",
-      "sha256": "1af3438a4d5f0ed2bdbc5751a5a67ebf6d537334161184b7fbb68503ef0ea0c5",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/iso-infographic/demo/fonts/Jost.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/fonts/Jost.ttf",
-      "sha256": "6343b70971000b04c5d401c96ae08ce371086135e999d5e1e1413039c0213076",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/jost/Jost[wght].ttf"
-    },
-    {
-      "source_path": "styles/iso-infographic/demo/music/score.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/music/score.json",
-      "sha256": "9967093cb222019c2ebda067db50abe8ee022bc5cb1c591a409fca3364be9372",
       "license": "MIT"
     },
     {
@@ -1663,9 +1657,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/lowpoly-island/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/style.json",
-      "sha256": "4b26ddd08f6adb908879a4d6f9bbd2ad0c885d806b14cb92fa236586c1528412",
+      "source_path": "styles/iso-infographic/demo/world.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/demo/world.js",
+      "sha256": "d4396537628d37e1fd3209871ff854fb31b1e5b73572e3e36cbac4a3cca5aa6d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/iso-infographic/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/iso-infographic/style.json",
+      "sha256": "d97a992c4294c2d277ae28686fb24069f8b6626b2e08caba8f7f6e3d86ef84d6",
       "license": "MIT"
     },
     {
@@ -1678,48 +1678,6 @@
       "source_path": "styles/lowpoly-island/demo/events.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/events.json",
       "sha256": "23dcc9e4ab5a38ffd942186b3e31440896d88141358241b01568743e15af2fcc",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/index.html",
-      "sha256": "5072303a6c1eae89bdc9cdc883c9d90e0c70f5e91650bdbfb527c07d9ed0052a",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/lines.json",
-      "sha256": "d473758c41e705f2ee0a28f43b4fa36dca2bb5ef7241629948afd1498561fd3e",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/main.js",
-      "sha256": "3ef57798fe1a47add8f010612e2dfe0fad56a8c359265c12afdfcea0371105e4",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/post.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/post.js",
-      "sha256": "7f65ab5a1ac8ae7c15acdfa3f205d592395ce4d72629a2d0b3233c2e2d8b45c8",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/sea.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/sea.js",
-      "sha256": "e61e0908dc63d71742b29c36ce47689434d809ea7d4e9c4b8546eabdf8ab0818",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/story.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/story.js",
-      "sha256": "06c16213f64743ab6ced38418120184d5f4bd9d78f0d7f7ed8808924c71a4d42",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/lowpoly-island/demo/world.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/world.js",
-      "sha256": "e821b56fe75b29e262ed73d9e8672dacbeff6f8daa983cff44976884b582a7dd",
       "license": "MIT"
     },
     {
@@ -1743,6 +1701,24 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/lowpoly-island/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/index.html",
+      "sha256": "5072303a6c1eae89bdc9cdc883c9d90e0c70f5e91650bdbfb527c07d9ed0052a",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/lowpoly-island/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/lines.json",
+      "sha256": "d473758c41e705f2ee0a28f43b4fa36dca2bb5ef7241629948afd1498561fd3e",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/lowpoly-island/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/main.js",
+      "sha256": "3ef57798fe1a47add8f010612e2dfe0fad56a8c359265c12afdfcea0371105e4",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/lowpoly-island/demo/music/CREDITS_music.txt",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/music/CREDITS_music.txt",
       "sha256": "d6aab8f1a8843f1f814058a5ed597db43d9e381f60de38b5ec3fe5b8ae5ec165",
@@ -1752,6 +1728,24 @@
       "source_path": "styles/lowpoly-island/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/music/score.json",
       "sha256": "34ffebe2cd2af8e739184c4ca2d806a592ebc95807e1ff75df313312b8f65622",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/lowpoly-island/demo/post.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/post.js",
+      "sha256": "7f65ab5a1ac8ae7c15acdfa3f205d592395ce4d72629a2d0b3233c2e2d8b45c8",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/lowpoly-island/demo/sea.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/sea.js",
+      "sha256": "e61e0908dc63d71742b29c36ce47689434d809ea7d4e9c4b8546eabdf8ab0818",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/lowpoly-island/demo/story.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/story.js",
+      "sha256": "06c16213f64743ab6ced38418120184d5f4bd9d78f0d7f7ed8808924c71a4d42",
       "license": "MIT"
     },
     {
@@ -1767,9 +1761,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/midcentury-toon/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/style.json",
-      "sha256": "a09109c67e360503af378dd16be2de7ceeb1e7ffda1e8d73e889b994cc605bb7",
+      "source_path": "styles/lowpoly-island/demo/world.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/demo/world.js",
+      "sha256": "e821b56fe75b29e262ed73d9e8672dacbeff6f8daa983cff44976884b582a7dd",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/lowpoly-island/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/lowpoly-island/style.json",
+      "sha256": "4b26ddd08f6adb908879a4d6f9bbd2ad0c885d806b14cb92fa236586c1528412",
       "license": "MIT"
     },
     {
@@ -1791,42 +1791,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/midcentury-toon/demo/events.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/events.json",
-      "sha256": "c608cb8cf072ddd7437baff778d45d1391125aaadbf9b63a9589a673d0495453",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/midcentury-toon/demo/film.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/film.js",
-      "sha256": "08a00f0b55ccdef7201dd03ffd4db7fbba0da2075bbf353b3732a055b094ac77",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/midcentury-toon/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/index.html",
-      "sha256": "d15af43907f637b48a987ac0058c798ebe53c6d827282d9602835c8d5596bc51",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/midcentury-toon/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/lines.json",
-      "sha256": "cba8f8dc3d4b0e2d9608d123f6c426898d09d3d67ee75e168be196b319b03f5f",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/midcentury-toon/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/main.js",
-      "sha256": "9457590fc7d528d7c51c22dac4b681d6ac0694e0aab853f419ba375cb8051c29",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/midcentury-toon/demo/sheet.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/sheet.js",
-      "sha256": "a76ac17ada11d4aa0ec8195dd86758a43e69331c54357266d13d6fafce21fc6c",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/midcentury-toon/demo/engine/chars.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/engine/chars.js",
       "sha256": "ba0cc26c92935caaa5a64556e424e7ed5f0cdad616f644de276b365ed4c97d1a",
@@ -1842,6 +1806,18 @@
       "source_path": "styles/midcentury-toon/demo/engine/toon.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/engine/toon.js",
       "sha256": "261c79fa7aff5489a98d9e44f91659eae10e90d3bcb13a6e23e84098b709b0bf",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/midcentury-toon/demo/events.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/events.json",
+      "sha256": "c608cb8cf072ddd7437baff778d45d1391125aaadbf9b63a9589a673d0495453",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/midcentury-toon/demo/film.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/film.js",
+      "sha256": "08a00f0b55ccdef7201dd03ffd4db7fbba0da2075bbf353b3732a055b094ac77",
       "license": "MIT"
     },
     {
@@ -1897,6 +1873,24 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/midcentury-toon/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/index.html",
+      "sha256": "d15af43907f637b48a987ac0058c798ebe53c6d827282d9602835c8d5596bc51",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/midcentury-toon/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/lines.json",
+      "sha256": "cba8f8dc3d4b0e2d9608d123f6c426898d09d3d67ee75e168be196b319b03f5f",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/midcentury-toon/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/main.js",
+      "sha256": "9457590fc7d528d7c51c22dac4b681d6ac0694e0aab853f419ba375cb8051c29",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/midcentury-toon/demo/music/CREDITS_music.txt",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/music/CREDITS_music.txt",
       "sha256": "a4813edaa4c228d85f011b7a6dd82bd08a3db95a57e624f62cafe58a8e3031ab",
@@ -1906,6 +1900,12 @@
       "source_path": "styles/midcentury-toon/demo/music/hits.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/music/hits.json",
       "sha256": "95acc820ec1fddf58661b48670f37da4ccb65ed12c655f723c0349bd6c0082a2",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/midcentury-toon/demo/sheet.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/demo/sheet.js",
+      "sha256": "a76ac17ada11d4aa0ec8195dd86758a43e69331c54357266d13d6fafce21fc6c",
       "license": "MIT"
     },
     {
@@ -1921,9 +1921,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/one-line/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/style.json",
-      "sha256": "1e5d6b9e1afd182b799304db5b96e160455298f5172d757c3f525777923676ad",
+      "source_path": "styles/midcentury-toon/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/midcentury-toon/style.json",
+      "sha256": "a09109c67e360503af378dd16be2de7ceeb1e7ffda1e8d73e889b994cc605bb7",
       "license": "MIT"
     },
     {
@@ -1955,6 +1955,32 @@
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/face.js",
       "sha256": "75d99fb535af1d0aebccabd7446fe2dd6ea55d80d71ef1b24e2fd1828c5d0953",
       "license": "MIT"
+    },
+    {
+      "source_path": "styles/one-line/demo/fonts/Caveat.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/Caveat.ttf",
+      "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveat/Caveat[wght].ttf"
+    },
+    {
+      "source_path": "styles/one-line/demo/fonts/OFL-Caveat.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/OFL-Caveat.txt",
+      "sha256": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/one-line/demo/fonts/OFL-Sacramento.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/OFL-Sacramento.txt",
+      "sha256": "2e2cb5a98da665f2ab82a9fd01fb18c2337f845761b0c163f690ed65f3b94677",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/one-line/demo/fonts/Sacramento-Regular.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/Sacramento-Regular.ttf",
+      "sha256": "9341fda10adbfeb7efc94302b34507a3e227d7e7f5c432df3f5ac8753ff73d24",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/sacramento/Sacramento-Regular.ttf"
     },
     {
       "source_path": "styles/one-line/demo/geom.js",
@@ -1993,6 +2019,12 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/one-line/demo/music/cues.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/music/cues.json",
+      "sha256": "e32aa3d618977dbbbe5dd3efec9ed424a8c788d5c639be52c3fe0d84f242319f",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/one-line/demo/paper.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/paper.js",
       "sha256": "9f8cefb64d5fccd49d656d4275e46d1f33413a3b011d0405ffbbfad8eb056473",
@@ -2017,38 +2049,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/one-line/demo/fonts/Caveat.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/Caveat.ttf",
-      "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveat/Caveat[wght].ttf"
-    },
-    {
-      "source_path": "styles/one-line/demo/fonts/OFL-Caveat.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/OFL-Caveat.txt",
-      "sha256": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/one-line/demo/fonts/OFL-Sacramento.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/OFL-Sacramento.txt",
-      "sha256": "2e2cb5a98da665f2ab82a9fd01fb18c2337f845761b0c163f690ed65f3b94677",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/one-line/demo/fonts/Sacramento-Regular.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/fonts/Sacramento-Regular.ttf",
-      "sha256": "9341fda10adbfeb7efc94302b34507a3e227d7e7f5c432df3f5ac8753ff73d24",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/sacramento/Sacramento-Regular.ttf"
-    },
-    {
-      "source_path": "styles/one-line/demo/music/cues.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/music/cues.json",
-      "sha256": "e32aa3d618977dbbbe5dd3efec9ed424a8c788d5c639be52c3fe0d84f242319f",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/one-line/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/demo/voices/dur.json",
       "sha256": "c012aabd70fb538e4593292dfab2fe5a34e0cdf9f6a589a666f72c719e738de8",
@@ -2061,9 +2061,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/papercut-red/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/style.json",
-      "sha256": "8304b23c47c97d61435ee4dafd004dec02517a42fc2785168e293fdff5fe8492",
+      "source_path": "styles/one-line/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/one-line/style.json",
+      "sha256": "1e5d6b9e1afd182b799304db5b96e160455298f5172d757c3f525777923676ad",
       "license": "MIT"
     },
     {
@@ -2088,6 +2088,38 @@
       "source_path": "styles/papercut-red/demo/fold.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fold.js",
       "sha256": "a109c8a9c91f6254854d1c5e9972f781ef3b8de96666b69389aeb46df1a03134",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/fonts/Fraunces.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/Fraunces.ttf",
+      "sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/fonts/MaShanZheng-Regular.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/MaShanZheng-Regular.ttf",
+      "sha256": "7aeadc89ef360fd53085a83a08c0062b08dae43d0b70c367c4170bf1f1f53696",
+      "license": "OFL-1.1",
+      "fetched_from": "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMQ.ttf"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/fonts/OFL-Fraunces.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/OFL-Fraunces.txt",
+      "sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/fonts/OFL-MaShanZheng.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/OFL-MaShanZheng.txt",
+      "sha256": "d7bdb1cee215b689e23c2f95672a6084c790542170648267a55114103d756a08",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/fonts/fonts.css",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/fonts.css",
+      "sha256": "c7e59923db62c5ae6fd5df9582f69b1fb775885736c0615079de59cdbf21c942",
       "license": "MIT"
     },
     {
@@ -2130,6 +2162,18 @@
       "source_path": "styles/papercut-red/demo/motifs.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/motifs.js",
       "sha256": "285e661112856c29e4ba9bcd7c6194b4d29d907eacec6c26ecba3418c10f79c3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/music/CREDITS.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/music/CREDITS.txt",
+      "sha256": "3f6b87f43125731f23fdf97a12b4baacb1bf2a5414d72d73567c41dea5292b28",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/papercut-red/demo/music/score.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/music/score.json",
+      "sha256": "1acbbebd0c0fca7985440a1a036b62afd5f5f99be6f0094bad0c500b9b8971f5",
       "license": "MIT"
     },
     {
@@ -2181,56 +2225,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/papercut-red/demo/world.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/world.js",
-      "sha256": "69569ef381ad8a5f0856ef11bbb4b456fb485521ccd38ee465bdd6567f7d8e2c",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/fonts/Fraunces.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/Fraunces.ttf",
-      "sha256": "177ff6c0f14e5550a3c624247cd1189611d4eb65d000b14944c63d967958abbb",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/fonts/MaShanZheng-Regular.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/MaShanZheng-Regular.ttf",
-      "sha256": "7aeadc89ef360fd53085a83a08c0062b08dae43d0b70c367c4170bf1f1f53696",
-      "license": "OFL-1.1",
-      "fetched_from": "https://fonts.gstatic.com/s/mashanzheng/v18/NaPecZTRCLxvwo41b4gvzkXaRMQ.ttf"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/fonts/OFL-Fraunces.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/OFL-Fraunces.txt",
-      "sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/fonts/OFL-MaShanZheng.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/OFL-MaShanZheng.txt",
-      "sha256": "d7bdb1cee215b689e23c2f95672a6084c790542170648267a55114103d756a08",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/fonts/fonts.css",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/fonts/fonts.css",
-      "sha256": "c7e59923db62c5ae6fd5df9582f69b1fb775885736c0615079de59cdbf21c942",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/music/CREDITS.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/music/CREDITS.txt",
-      "sha256": "3f6b87f43125731f23fdf97a12b4baacb1bf2a5414d72d73567c41dea5292b28",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/papercut-red/demo/music/score.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/music/score.json",
-      "sha256": "1acbbebd0c0fca7985440a1a036b62afd5f5f99be6f0094bad0c500b9b8971f5",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/papercut-red/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/voices/dur.json",
       "sha256": "8fa5bd34511931e8da0890329466e328e78c656373f36c49ef30c59421ee6735",
@@ -2243,9 +2237,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/risograph/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/style.json",
-      "sha256": "56940108d2acee6957896e305d0ae15cb85070bf13adeb2609fb74ac385ea545",
+      "source_path": "styles/papercut-red/demo/world.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/demo/world.js",
+      "sha256": "69569ef381ad8a5f0856ef11bbb4b456fb485521ccd38ee465bdd6567f7d8e2c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/papercut-red/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/papercut-red/style.json",
+      "sha256": "8304b23c47c97d61435ee4dafd004dec02517a42fc2785168e293fdff5fe8492",
       "license": "MIT"
     },
     {
@@ -2270,54 +2270,6 @@
       "source_path": "styles/risograph/demo/film.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/film.js",
       "sha256": "ab3ea1a8ba5cb0159e95999940c84aadfbd49d8b602a7b6d3b24a6fce4ea3cd6",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/index.html",
-      "sha256": "26b2c841049a32aa533fb5cb6ad9585f72372bc05133c27204daa5aa612e0a0a",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/lines.json",
-      "sha256": "2c8b01ce0fcd24b0882eb614d96f9c2a450894906aa75af5493674fa54df4049",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/main.js",
-      "sha256": "cce75b8e4c249cbd63490cc284f3e5c5355d241c6c74aadbffc91b537a69d0cb",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/rider.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/rider.js",
-      "sha256": "cd74417d14f6a3d6c930e53df020af74f721d87f58b6c17e897d5e49b4972de3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/riso.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/riso.js",
-      "sha256": "4a2af3e7b53bbf1d737ca74c806721d3cf8059d198585f020ed2bdb9db756b0a",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/scenes.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/scenes.js",
-      "sha256": "71ff857be99f248705d4935bc49c145a40d4cc2462624ac0ec5d18841258f0bc",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/scenes2.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/scenes2.js",
-      "sha256": "cead36f4dffb0265a6ba75598192ca83a103445b1cc7b05a43dd45489d24e24c",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/risograph/demo/sheet.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/sheet.js",
-      "sha256": "30ae6dbd12347d0f153e2f50258270ca0dd19e83a90c7e473add54267db9d729",
       "license": "MIT"
     },
     {
@@ -2353,9 +2305,57 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/risograph/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/index.html",
+      "sha256": "26b2c841049a32aa533fb5cb6ad9585f72372bc05133c27204daa5aa612e0a0a",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/lines.json",
+      "sha256": "2c8b01ce0fcd24b0882eb614d96f9c2a450894906aa75af5493674fa54df4049",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/main.js",
+      "sha256": "cce75b8e4c249cbd63490cc284f3e5c5355d241c6c74aadbffc91b537a69d0cb",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/risograph/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/music/score.json",
       "sha256": "6474924c8d01a7c58293e429b9d8e606038728dec1fec7e5ba709d0733afad79",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/rider.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/rider.js",
+      "sha256": "cd74417d14f6a3d6c930e53df020af74f721d87f58b6c17e897d5e49b4972de3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/riso.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/riso.js",
+      "sha256": "4a2af3e7b53bbf1d737ca74c806721d3cf8059d198585f020ed2bdb9db756b0a",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/scenes.js",
+      "sha256": "71ff857be99f248705d4935bc49c145a40d4cc2462624ac0ec5d18841258f0bc",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/scenes2.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/scenes2.js",
+      "sha256": "cead36f4dffb0265a6ba75598192ca83a103445b1cc7b05a43dd45489d24e24c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/risograph/demo/sheet.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/demo/sheet.js",
+      "sha256": "30ae6dbd12347d0f153e2f50258270ca0dd19e83a90c7e473add54267db9d729",
       "license": "MIT"
     },
     {
@@ -2371,9 +2371,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/rubber-hose/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/style.json",
-      "sha256": "5909ba6c1614a272d2204f6b4b5074d1cd641097cf6c711e656e80cfd4a54539",
+      "source_path": "styles/risograph/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/risograph/style.json",
+      "sha256": "56940108d2acee6957896e305d0ae15cb85070bf13adeb2609fb74ac385ea545",
       "license": "MIT"
     },
     {
@@ -2416,54 +2416,6 @@
       "source_path": "styles/rubber-hose/demo/film.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/film.js",
       "sha256": "d9483941582c388e991a6636f337287dde77486d84721efaaf1d7d642a3c7fb3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/index.html",
-      "sha256": "d1a16ca6e8665ef532f0c5a676f4aa483965d0479d1a7698484ac6f9549aecf3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/lines.json",
-      "sha256": "82169b6408931f502b8f2b1f83b9f887c4c8208759d0a0e8b73693c54bb15b83",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/main.js",
-      "sha256": "02bf6cf14eafa584969682e3c348ddb1026950cff4c0aeadee9a2f8804b1fb17",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/scenes.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/scenes.js",
-      "sha256": "50b852af549b4fc21e14075b7d2cc5d5f99222772d3b64d13e986c097320c16d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/sheet.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/sheet.js",
-      "sha256": "d6b1fb9e651bf674948c6402e6e682ea12ec465dbeb600244c8ffd9c747cfab8",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/story.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/story.js",
-      "sha256": "f264660dadd975f99fdfc5fce4cade82108389d781f19d2e216dd77256b6df5b",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/toon.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/toon.js",
-      "sha256": "95ef47209d3ea05bec786e5839a94b1320459f3eb0b4aca4297b3f8643b98202",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/rubber-hose/demo/ui.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/ui.js",
-      "sha256": "082e0dfcafae0644a1216efe5e881f9565482b89282df04b31db2f3b9bbc0635",
       "license": "MIT"
     },
     {
@@ -2512,9 +2464,57 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/rubber-hose/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/index.html",
+      "sha256": "d1a16ca6e8665ef532f0c5a676f4aa483965d0479d1a7698484ac6f9549aecf3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/lines.json",
+      "sha256": "82169b6408931f502b8f2b1f83b9f887c4c8208759d0a0e8b73693c54bb15b83",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/main.js",
+      "sha256": "02bf6cf14eafa584969682e3c348ddb1026950cff4c0aeadee9a2f8804b1fb17",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/rubber-hose/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/music/score.json",
       "sha256": "17f678670804adf96d6243956670dd958d9bd345c5116546c23a2ea4e6724833",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/scenes.js",
+      "sha256": "50b852af549b4fc21e14075b7d2cc5d5f99222772d3b64d13e986c097320c16d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/sheet.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/sheet.js",
+      "sha256": "d6b1fb9e651bf674948c6402e6e682ea12ec465dbeb600244c8ffd9c747cfab8",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/story.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/story.js",
+      "sha256": "f264660dadd975f99fdfc5fce4cade82108389d781f19d2e216dd77256b6df5b",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/toon.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/toon.js",
+      "sha256": "95ef47209d3ea05bec786e5839a94b1320459f3eb0b4aca4297b3f8643b98202",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/rubber-hose/demo/ui.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/demo/ui.js",
+      "sha256": "082e0dfcafae0644a1216efe5e881f9565482b89282df04b31db2f3b9bbc0635",
       "license": "MIT"
     },
     {
@@ -2530,9 +2530,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/shadow-puppet/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/style.json",
-      "sha256": "89ff9e16858067e53c7bdca6e99dabeaaa34792deba93580a853f3881d9216e4",
+      "source_path": "styles/rubber-hose/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/rubber-hose/style.json",
+      "sha256": "5909ba6c1614a272d2204f6b4b5074d1cd641097cf6c711e656e80cfd4a54539",
       "license": "MIT"
     },
     {
@@ -2557,78 +2557,6 @@
       "source_path": "styles/shadow-puppet/demo/events.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/events.json",
       "sha256": "ca537fce6f78b03ac83212f1adb7a1e6ac9dda52941c802e676dd8782cb40875",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/gl.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/gl.js",
-      "sha256": "2b43c47ee00c491ebe10e3a2fa85be28a730599b6113694288eb5c66ec45e264",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/houyi.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/houyi.js",
-      "sha256": "153049aea76d083b6b07a1c916d590c83bdb22b76986bebfbfb7c24ce58279d9",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/hud.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/hud.js",
-      "sha256": "67a8f4afea92068406d0cf12a4b3dfd5a4fdb0ec4807d9904c93180b1fea8ce4",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/index.html",
-      "sha256": "8b05155d6863b0c6e8123d88543e5b7bdac0bb0a16d6a422a86ce148ec8fe1a8",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/lines.json",
-      "sha256": "e81d3e85955e6434a132d3c3a1777d5926c9eb3734b96a00a817b3ac76fcee5c",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/main.js",
-      "sha256": "f2991918c584180b68f15c24efe98254ca53b2b304ea1f0a792e229998f1b46d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/poses.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/poses.js",
-      "sha256": "013778e1ff43fef1946aad1b7681198bd59194b4d507f440286ec0403ecea3c7",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/scenery.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/scenery.js",
-      "sha256": "d082cc9ff989d3569ebb373c5f8d32099ca398480d0f171e11a9df6e6c29291d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/stage.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/stage.js",
-      "sha256": "49a19d4de7426326b684274c443c4a656595fd5350a7204e43a9c4bcceeb6439",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/story.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/story.js",
-      "sha256": "48d7e5c8345e75ceca6fa951d8412133b5f7dd3fc1c89bbfce123ba620541b37",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/suns.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/suns.js",
-      "sha256": "72c4fc151444d7d13bbc2e68adb333ba28492925c403995a4210014b9951eaa4",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/shadow-puppet/demo/test.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/test.js",
-      "sha256": "864c5c6929a96bffdd021dc12b9f89a7264f9dda83d1b7a5727f3a632b4df61c",
       "license": "MIT"
     },
     {
@@ -2685,6 +2613,42 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/shadow-puppet/demo/gl.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/gl.js",
+      "sha256": "2b43c47ee00c491ebe10e3a2fa85be28a730599b6113694288eb5c66ec45e264",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/houyi.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/houyi.js",
+      "sha256": "153049aea76d083b6b07a1c916d590c83bdb22b76986bebfbfb7c24ce58279d9",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/hud.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/hud.js",
+      "sha256": "67a8f4afea92068406d0cf12a4b3dfd5a4fdb0ec4807d9904c93180b1fea8ce4",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/index.html",
+      "sha256": "8b05155d6863b0c6e8123d88543e5b7bdac0bb0a16d6a422a86ce148ec8fe1a8",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/lines.json",
+      "sha256": "e81d3e85955e6434a132d3c3a1777d5926c9eb3734b96a00a817b3ac76fcee5c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/main.js",
+      "sha256": "f2991918c584180b68f15c24efe98254ca53b2b304ea1f0a792e229998f1b46d",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/shadow-puppet/demo/music/credits.txt",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/music/credits.txt",
       "sha256": "59fa56a0ea9954d73e75da0b10dd9c08ff7bb0a7524be0854f13bde4c514519b",
@@ -2694,6 +2658,42 @@
       "source_path": "styles/shadow-puppet/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/music/score.json",
       "sha256": "4903e2a2fddc5213ab833a0e6c66e6515097b290feb194f94a11424d5a97cd0e",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/poses.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/poses.js",
+      "sha256": "013778e1ff43fef1946aad1b7681198bd59194b4d507f440286ec0403ecea3c7",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/scenery.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/scenery.js",
+      "sha256": "d082cc9ff989d3569ebb373c5f8d32099ca398480d0f171e11a9df6e6c29291d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/stage.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/stage.js",
+      "sha256": "49a19d4de7426326b684274c443c4a656595fd5350a7204e43a9c4bcceeb6439",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/story.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/story.js",
+      "sha256": "48d7e5c8345e75ceca6fa951d8412133b5f7dd3fc1c89bbfce123ba620541b37",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/suns.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/suns.js",
+      "sha256": "72c4fc151444d7d13bbc2e68adb333ba28492925c403995a4210014b9951eaa4",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/shadow-puppet/demo/test.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/demo/test.js",
+      "sha256": "864c5c6929a96bffdd021dc12b9f89a7264f9dda83d1b7a5727f3a632b4df61c",
       "license": "MIT"
     },
     {
@@ -2709,9 +2709,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/spy-titles/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/style.json",
-      "sha256": "06fac661b3b892e61df25b4f25fec16012e25415a74d1ee9cae9617ae980227f",
+      "source_path": "styles/shadow-puppet/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/shadow-puppet/style.json",
+      "sha256": "89ff9e16858067e53c7bdca6e99dabeaaa34792deba93580a853f3881d9216e4",
       "license": "MIT"
     },
     {
@@ -2736,66 +2736,6 @@
       "source_path": "styles/spy-titles/demo/film.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/film.js",
       "sha256": "e343ed2c4f1bb4e1a2065db4c9d765e53dc0c5ed4943b94ae8d8b04bffc620b1",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/frames.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/frames.js",
-      "sha256": "1f883768c7d5b35ce4ca5d3b970484796d434f24e46a87b01e5a721e0c5deb8c",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/glyph.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/glyph.js",
-      "sha256": "4890e2be65e84c161507f5ddc0b70d87c3de031e751deb006f582e78ed3161ee",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/index.html",
-      "sha256": "2bb14cfe7a7b6739cd6e6320efb09714ba2284783ca00beb99c61914e0a8f29c",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/lines.json",
-      "sha256": "f1ace3aa17d24b3b9f4687f091329f8103483e064ed47bd8f581d7a538cd4ff0",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/main.js",
-      "sha256": "841bae43ad489b01469f340e9bf1c88dd3b6314426adaad8e47d010f1924b80e",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/paper.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/paper.js",
-      "sha256": "2281e0e2a0e9d9bbcb0266771d84f813742fe7cdf0b7d6c4ab8a33681da64ab7",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/scenes.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/scenes.js",
-      "sha256": "b9e0fa980f01131cf845e9f36e0cfbcf07abe633af4828242285fb288ecb81d0",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/sheet.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/sheet.js",
-      "sha256": "985cbc14a955d1e6c258832120d9d8d4612e1efbad2b97e8549b00e755526436",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/story.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/story.js",
-      "sha256": "0022329cd4a59e9bbd45bbad13f6868357813c17e489d16e40cb2a8c74d0b39f",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/spy-titles/demo/title.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/title.js",
-      "sha256": "aa80f45d678db9ae0da050d7b7e91142f47a09ffea6b9766e5f717a7b8d701cb",
       "license": "MIT"
     },
     {
@@ -2831,6 +2771,36 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/spy-titles/demo/frames.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/frames.js",
+      "sha256": "1f883768c7d5b35ce4ca5d3b970484796d434f24e46a87b01e5a721e0c5deb8c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/glyph.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/glyph.js",
+      "sha256": "4890e2be65e84c161507f5ddc0b70d87c3de031e751deb006f582e78ed3161ee",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/index.html",
+      "sha256": "2bb14cfe7a7b6739cd6e6320efb09714ba2284783ca00beb99c61914e0a8f29c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/lines.json",
+      "sha256": "f1ace3aa17d24b3b9f4687f091329f8103483e064ed47bd8f581d7a538cd4ff0",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/main.js",
+      "sha256": "841bae43ad489b01469f340e9bf1c88dd3b6314426adaad8e47d010f1924b80e",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/spy-titles/demo/music/CREDITS_music.txt",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/music/CREDITS_music.txt",
       "sha256": "4ec7638b34ad4fd02e712e7e0e1d7dd3c3a7baaa0cc45b54cae14e8709d27ebf",
@@ -2840,6 +2810,36 @@
       "source_path": "styles/spy-titles/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/music/score.json",
       "sha256": "9e3095e85a76b3c56ba394117da76bd344bf6613e393c438530bc7c7cae6bba4",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/paper.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/paper.js",
+      "sha256": "2281e0e2a0e9d9bbcb0266771d84f813742fe7cdf0b7d6c4ab8a33681da64ab7",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/scenes.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/scenes.js",
+      "sha256": "b9e0fa980f01131cf845e9f36e0cfbcf07abe633af4828242285fb288ecb81d0",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/sheet.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/sheet.js",
+      "sha256": "985cbc14a955d1e6c258832120d9d8d4612e1efbad2b97e8549b00e755526436",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/story.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/story.js",
+      "sha256": "0022329cd4a59e9bbd45bbad13f6868357813c17e489d16e40cb2a8c74d0b39f",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/spy-titles/demo/title.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/demo/title.js",
+      "sha256": "aa80f45d678db9ae0da050d7b7e91142f47a09ffea6b9766e5f717a7b8d701cb",
       "license": "MIT"
     },
     {
@@ -2867,9 +2867,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/stained-glass/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/style.json",
-      "sha256": "e8fa8ccba5b6918dcc81bfd835e6b154ffd0a9f8f9bd0953a0dcc7080a1d64b6",
+      "source_path": "styles/spy-titles/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/spy-titles/style.json",
+      "sha256": "06fac661b3b892e61df25b4f25fec16012e25415a74d1ee9cae9617ae980227f",
       "license": "MIT"
     },
     {
@@ -2900,72 +2900,6 @@
       "source_path": "styles/stained-glass/demo/events.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/events.json",
       "sha256": "5d6581d624c024e0d687d012b7e91eec23c06db2f0b624be52614f4c62126c23",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/frames.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/frames.js",
-      "sha256": "058b7727ffe70cb1760054457157da176ea5e3c1c694dcf037cc5df295a9214d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/glass.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/glass.js",
-      "sha256": "29d861e749ae0c879a3257564d22a9cbd2fac0617d02ab3f7e592ffe1f541fe0",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/index.html",
-      "sha256": "2d9fd1151d96370017fe2544e8d9e702f2ec32676a2eb2df3a54908a44a48502",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/knight.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/knight.js",
-      "sha256": "a70038d85e19e9084b4be16755dc0623d4416f6d608246c0c24cbaef66e6129d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/lines.json",
-      "sha256": "03d538b5e370da35835094a44542022a8661ebab25c884a3efeb7c15cb0678ab",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/main.js",
-      "sha256": "92286ebdbf9364163a32ab12fc849f9c4aad0ec90813e79f3d5c941ff6455d14",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/scene.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/scene.js",
-      "sha256": "a39f434596fe7e97abf63c2093e3dd62ac20389bbea72c0a8bf6f6ced39fb58d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/story.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/story.js",
-      "sha256": "573dfa3edc9682dd04824bd866c7b8bd48a111dc93115e5d6bfffea4760aabbc",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/subs.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/subs.js",
-      "sha256": "fb7a8a56091535309e3c2b1c1b1e397adacda2ed2adc0f37d314d051c609dda9",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/test.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/test.js",
-      "sha256": "1b0325497aae796c71e508d586bb6f72dc96b21fcc00349c712d9fda06c95b2d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/stained-glass/demo/window.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/window.js",
-      "sha256": "fc2d6903c0152c092ec6e66a3fe17578754c8a17d5232732c263d2ef0a4ef33c",
       "license": "MIT"
     },
     {
@@ -3027,9 +2961,69 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/stained-glass/demo/frames.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/frames.js",
+      "sha256": "058b7727ffe70cb1760054457157da176ea5e3c1c694dcf037cc5df295a9214d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/glass.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/glass.js",
+      "sha256": "29d861e749ae0c879a3257564d22a9cbd2fac0617d02ab3f7e592ffe1f541fe0",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/index.html",
+      "sha256": "2d9fd1151d96370017fe2544e8d9e702f2ec32676a2eb2df3a54908a44a48502",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/knight.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/knight.js",
+      "sha256": "a70038d85e19e9084b4be16755dc0623d4416f6d608246c0c24cbaef66e6129d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/lines.json",
+      "sha256": "03d538b5e370da35835094a44542022a8661ebab25c884a3efeb7c15cb0678ab",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/main.js",
+      "sha256": "92286ebdbf9364163a32ab12fc849f9c4aad0ec90813e79f3d5c941ff6455d14",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/stained-glass/demo/music/cues.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/music/cues.json",
       "sha256": "4b9f2281d8821fcc41daa93c21f85186ef440a33be8643970f64521eafb95828",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/scene.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/scene.js",
+      "sha256": "a39f434596fe7e97abf63c2093e3dd62ac20389bbea72c0a8bf6f6ced39fb58d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/story.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/story.js",
+      "sha256": "573dfa3edc9682dd04824bd866c7b8bd48a111dc93115e5d6bfffea4760aabbc",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/subs.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/subs.js",
+      "sha256": "fb7a8a56091535309e3c2b1c1b1e397adacda2ed2adc0f37d314d051c609dda9",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/demo/test.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/test.js",
+      "sha256": "1b0325497aae796c71e508d586bb6f72dc96b21fcc00349c712d9fda06c95b2d",
       "license": "MIT"
     },
     {
@@ -3045,9 +3039,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/swiss-motion/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/style.json",
-      "sha256": "05e99867600f38c0b443870c2e7e883893608da55ea3b8d9dfb6d65b7692b8f7",
+      "source_path": "styles/stained-glass/demo/window.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/demo/window.js",
+      "sha256": "fc2d6903c0152c092ec6e66a3fe17578754c8a17d5232732c263d2ef0a4ef33c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/stained-glass/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/stained-glass/style.json",
+      "sha256": "e8fa8ccba5b6918dcc81bfd835e6b154ffd0a9f8f9bd0953a0dcc7080a1d64b6",
       "license": "MIT"
     },
     {
@@ -3072,30 +3072,6 @@
       "source_path": "styles/swiss-motion/demo/film.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/film.js",
       "sha256": "fda8d390e51be2c9407c96b34b16f7fd6328d89ed2be62d3c4cd78c1d6ab2558",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/swiss-motion/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/index.html",
-      "sha256": "ad41b5fbbb455619aa254be566f25b84d27f5a98f5c438a8d54a933952e5ed59",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/swiss-motion/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/lines.json",
-      "sha256": "87991ca9962cc58f0eab42579dfeddadb6674cd3a902491c456593ded25868e3",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/swiss-motion/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/main.js",
-      "sha256": "fb7ad0b24ac2744ac98d2ff94e92467d2a7dfcc6910113808e08dba0de2b4adc",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/swiss-motion/demo/score.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/score.json",
-      "sha256": "52874af6f42ce4e19b4471e496c6b0c3cc6a64da8bc3e8de3c280b9235fe3afe",
       "license": "MIT"
     },
     {
@@ -3144,9 +3120,33 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/swiss-motion/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/index.html",
+      "sha256": "ad41b5fbbb455619aa254be566f25b84d27f5a98f5c438a8d54a933952e5ed59",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/swiss-motion/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/lines.json",
+      "sha256": "87991ca9962cc58f0eab42579dfeddadb6674cd3a902491c456593ded25868e3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/swiss-motion/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/main.js",
+      "sha256": "fb7ad0b24ac2744ac98d2ff94e92467d2a7dfcc6910113808e08dba0de2b4adc",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/swiss-motion/demo/music/score_meta.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/music/score_meta.json",
       "sha256": "d0be9ce76ce3b9b40381706bef35fb31e5f9bdad9534409b96f90bd173dbad6c",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/swiss-motion/demo/score.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/demo/score.json",
+      "sha256": "52874af6f42ce4e19b4471e496c6b0c3cc6a64da8bc3e8de3c280b9235fe3afe",
       "license": "MIT"
     },
     {
@@ -3168,9 +3168,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/tilt-shift/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/style.json",
-      "sha256": "e0ffbee27ce5c600c29eabd359c599a6f22dd0f9420421aad239a9304d8e3eb9",
+      "source_path": "styles/swiss-motion/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/swiss-motion/style.json",
+      "sha256": "05e99867600f38c0b443870c2e7e883893608da55ea3b8d9dfb6d65b7692b8f7",
       "license": "MIT"
     },
     {
@@ -3204,6 +3204,32 @@
       "license": "MIT"
     },
     {
+      "source_path": "styles/tilt-shift/demo/fonts/OFL-Overpass.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/OFL-Overpass.txt",
+      "sha256": "86e5ff25c701ec446d20b1a85b02ee6d36de8503a7288a4c948f5459809af1f0",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/tilt-shift/demo/fonts/Overpass-var.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/Overpass-var.ttf",
+      "sha256": "970717df17a7f9911dee45f60695d05bfa9d745fa0a11fc5c348371fa21f0073",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/overpass/Overpass[wght].ttf"
+    },
+    {
+      "source_path": "styles/tilt-shift/demo/fonts/OverpassMono-var.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/OverpassMono-var.ttf",
+      "sha256": "49f230e10251608f0ae1a2ce46be768d7b9ddcbe5cdca2e9f6b762fcbce1ae4f",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/overpassmono/OverpassMono[wght].ttf"
+    },
+    {
+      "source_path": "styles/tilt-shift/demo/fonts/fonts.css",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/fonts.css",
+      "sha256": "4e766d2de694e68d163c854e4e7fa19a5f9b61f6cbc027aafcc58c0a2aaee3fc",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/tilt-shift/demo/geo.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/geo.js",
       "sha256": "d11b3f218362d27270651158e5fbf93952ea20c471d2e5837731eee59771ebb6",
@@ -3225,6 +3251,18 @@
       "source_path": "styles/tilt-shift/demo/main.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/main.js",
       "sha256": "c6066add5f01002fb37d5c65f17134824e8b8757bad12ac14ab03a1d5bfab6b3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/tilt-shift/demo/music/CREDITS.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/music/CREDITS.txt",
+      "sha256": "591e7aede3e3d4b306bc24a81de3093a116f0b99cc7ae633b39718a0dacf6128",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/tilt-shift/demo/music/cues.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/music/cues.json",
+      "sha256": "2bbee66c23c7fe6696a8a23afe2a88e3f42a5f53836e67c3d1b58142c6af234a",
       "license": "MIT"
     },
     {
@@ -3267,44 +3305,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/tilt-shift/demo/fonts/OFL-Overpass.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/OFL-Overpass.txt",
-      "sha256": "86e5ff25c701ec446d20b1a85b02ee6d36de8503a7288a4c948f5459809af1f0",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/tilt-shift/demo/fonts/Overpass-var.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/Overpass-var.ttf",
-      "sha256": "970717df17a7f9911dee45f60695d05bfa9d745fa0a11fc5c348371fa21f0073",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/overpass/Overpass[wght].ttf"
-    },
-    {
-      "source_path": "styles/tilt-shift/demo/fonts/OverpassMono-var.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/OverpassMono-var.ttf",
-      "sha256": "49f230e10251608f0ae1a2ce46be768d7b9ddcbe5cdca2e9f6b762fcbce1ae4f",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/overpassmono/OverpassMono[wght].ttf"
-    },
-    {
-      "source_path": "styles/tilt-shift/demo/fonts/fonts.css",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/fonts/fonts.css",
-      "sha256": "4e766d2de694e68d163c854e4e7fa19a5f9b61f6cbc027aafcc58c0a2aaee3fc",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/tilt-shift/demo/music/CREDITS.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/music/CREDITS.txt",
-      "sha256": "591e7aede3e3d4b306bc24a81de3093a116f0b99cc7ae633b39718a0dacf6128",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/tilt-shift/demo/music/cues.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/music/cues.json",
-      "sha256": "2bbee66c23c7fe6696a8a23afe2a88e3f42a5f53836e67c3d1b58142c6af234a",
-      "license": "MIT"
-    },
-    {
       "source_path": "styles/tilt-shift/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/demo/voices/dur.json",
       "sha256": "b42d08339f9424d69c484b0c54ac0969eca5193efed150ee047d0d3ae753e52f",
@@ -3317,9 +3317,9 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/ukiyoe/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/style.json",
-      "sha256": "41b755cd671b390a6b82fc6c3e2988b5f7afe6c23a8b16aa07b0025eeba534d5",
+      "source_path": "styles/tilt-shift/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/tilt-shift/style.json",
+      "sha256": "e0ffbee27ce5c600c29eabd359c599a6f22dd0f9420421aad239a9304d8e3eb9",
       "license": "MIT"
     },
     {
@@ -3332,60 +3332,6 @@
       "source_path": "styles/ukiyoe/demo/events.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/events.json",
       "sha256": "c6fc75ea02294f6b3ca5d8a4fbb992e7c0ce0e998866e9778a3e614b281d9503",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/index.html",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/index.html",
-      "sha256": "a4ff7863a07fd5a6370112155b97e4f984321f3dd705174d383c39b5e8f4539d",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/lines.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/lines.json",
-      "sha256": "79b486b4257b5bf93fd6e157fb7ea591c32052db8b436378645d8877252fead0",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/main.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/main.js",
-      "sha256": "747d2d8ee4e1477cd7dcabf496bec1891d14026e029c904ac62d284be9050f83",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/nature.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/nature.js",
-      "sha256": "c0b2e597fd2f9de915a55030eece5e2c1aedd2c25c3aee6ae24924ed6d14b995",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/print.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/print.js",
-      "sha256": "8d418889dd727e748dac9003e031a51916dc79271e3a93ad9e1073a4fd2af597",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/story.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/story.js",
-      "sha256": "2dd8e2ea560ee1cfc34e1251717cbd47d5d94219a1499ced8357f67e0cd4034b",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/traveler.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/traveler.js",
-      "sha256": "5a214496906955cb88d2de7f3ca207a736ac3d39576dc62e283fc90ad5145af7",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/views.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/views.js",
-      "sha256": "fdd35003806b75b014c0db526a2d91b7c31d9cc634b733738fbb18f270e98c46",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/ukiyoe/demo/wave.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/wave.js",
-      "sha256": "c96f6e32ee806ff071aab3c8c39af5072abfb5e971836e2eb066d969f7fdf061",
       "license": "MIT"
     },
     {
@@ -3423,9 +3369,57 @@
       "fetched_from": "https://fonts.gstatic.com/l/font?kit=BngNUXdTV3vO6Lw5ApOPqPLgxKiB016imHlMp0YYi8XemWgmMW4qkeGyGCGeJldNtdeK0nam1Ei7yQhLaOgxngPhTHqCSBMwXg2wc_7rwvYBS5rRPhfWavKMIBqT&skey=9ffd14150d67040a&v=v9"
     },
     {
+      "source_path": "styles/ukiyoe/demo/index.html",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/index.html",
+      "sha256": "a4ff7863a07fd5a6370112155b97e4f984321f3dd705174d383c39b5e8f4539d",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/lines.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/lines.json",
+      "sha256": "79b486b4257b5bf93fd6e157fb7ea591c32052db8b436378645d8877252fead0",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/main.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/main.js",
+      "sha256": "747d2d8ee4e1477cd7dcabf496bec1891d14026e029c904ac62d284be9050f83",
+      "license": "MIT"
+    },
+    {
       "source_path": "styles/ukiyoe/demo/music/score.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/music/score.json",
       "sha256": "f4ac516c6d8e25b4c7991934884bf79ca2db6816894e5e66e07ce964dcd03495",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/nature.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/nature.js",
+      "sha256": "c0b2e597fd2f9de915a55030eece5e2c1aedd2c25c3aee6ae24924ed6d14b995",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/print.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/print.js",
+      "sha256": "8d418889dd727e748dac9003e031a51916dc79271e3a93ad9e1073a4fd2af597",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/story.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/story.js",
+      "sha256": "2dd8e2ea560ee1cfc34e1251717cbd47d5d94219a1499ced8357f67e0cd4034b",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/traveler.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/traveler.js",
+      "sha256": "5a214496906955cb88d2de7f3ca207a736ac3d39576dc62e283fc90ad5145af7",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/demo/views.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/views.js",
+      "sha256": "fdd35003806b75b014c0db526a2d91b7c31d9cc634b733738fbb18f270e98c46",
       "license": "MIT"
     },
     {
@@ -3441,9 +3435,15 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/urban-sketch/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/style.json",
-      "sha256": "e10711fd673d0d95371138439a999dcae91c8a1bf8d155f2958c514dc877a6ca",
+      "source_path": "styles/ukiyoe/demo/wave.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/demo/wave.js",
+      "sha256": "c96f6e32ee806ff071aab3c8c39af5072abfb5e971836e2eb066d969f7fdf061",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/ukiyoe/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/ukiyoe/style.json",
+      "sha256": "41b755cd671b390a6b82fc6c3e2988b5f7afe6c23a8b16aa07b0025eeba534d5",
       "license": "MIT"
     },
     {
@@ -3456,6 +3456,18 @@
       "source_path": "styles/urban-sketch/demo/api.js",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/api.js",
       "sha256": "9c1dab37a0c82f962c00d9b5bac227bc74ae172a98975c6832065ffbf64e34e8",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/urban-sketch/demo/audio/cues.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/audio/cues.json",
+      "sha256": "48a35a046d12875adf2fce9bb13f9e71b746aba989243a858906ecb70d56837a",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/urban-sketch/demo/audio/strokes.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/audio/strokes.json",
+      "sha256": "5d2946ddebe3511c201cdda042cb9520d6459f6c856de077ead4ec669b811db1",
       "license": "MIT"
     },
     {
@@ -3475,6 +3487,32 @@
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/film.js",
       "sha256": "f738cc56683a9fd4091756d2538c6449b805f52a146650caa84ae8dd46bc9f09",
       "license": "MIT"
+    },
+    {
+      "source_path": "styles/urban-sketch/demo/fonts/Caveat.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/Caveat.ttf",
+      "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveat/Caveat[wght].ttf"
+    },
+    {
+      "source_path": "styles/urban-sketch/demo/fonts/OFL-Caveat.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/OFL-Caveat.txt",
+      "sha256": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/urban-sketch/demo/fonts/OFL-ReenieBeanie.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/OFL-ReenieBeanie.txt",
+      "sha256": "fbb941b371c6348ee2572ce8c78fb66128a61885f960dec1906c4e44ca4b4d3c",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/urban-sketch/demo/fonts/ReenieBeanie.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/ReenieBeanie.ttf",
+      "sha256": "0ea608aa325bf9e11c9590cc0b63dcf7cd215e270784f1ebbe6fad4927b31ff8",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/reeniebeanie/ReenieBeanie.ttf"
     },
     {
       "source_path": "styles/urban-sketch/demo/index.html",
@@ -3519,53 +3557,21 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/urban-sketch/demo/audio/cues.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/audio/cues.json",
-      "sha256": "48a35a046d12875adf2fce9bb13f9e71b746aba989243a858906ecb70d56837a",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/urban-sketch/demo/audio/strokes.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/audio/strokes.json",
-      "sha256": "5d2946ddebe3511c201cdda042cb9520d6459f6c856de077ead4ec669b811db1",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/urban-sketch/demo/fonts/Caveat.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/Caveat.ttf",
-      "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/caveat/Caveat[wght].ttf"
-    },
-    {
-      "source_path": "styles/urban-sketch/demo/fonts/OFL-Caveat.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/OFL-Caveat.txt",
-      "sha256": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/urban-sketch/demo/fonts/OFL-ReenieBeanie.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/OFL-ReenieBeanie.txt",
-      "sha256": "fbb941b371c6348ee2572ce8c78fb66128a61885f960dec1906c4e44ca4b4d3c",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/urban-sketch/demo/fonts/ReenieBeanie.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/demo/fonts/ReenieBeanie.ttf",
-      "sha256": "0ea608aa325bf9e11c9590cc0b63dcf7cd215e270784f1ebbe6fad4927b31ff8",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/reeniebeanie/ReenieBeanie.ttf"
-    },
-    {
-      "source_path": "styles/whiteboard/style.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/style.json",
-      "sha256": "63d63af2f3a88af1f1ada8e0545539617cf4e142ace15f94358709d7efda2c4f",
+      "source_path": "styles/urban-sketch/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/urban-sketch/style.json",
+      "sha256": "e10711fd673d0d95371138439a999dcae91c8a1bf8d155f2958c514dc877a6ca",
       "license": "MIT"
     },
     {
       "source_path": "styles/whiteboard/demo/CREDITS",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/CREDITS",
       "sha256": "56a2e11ff6121d7f00d4f7c6e08ff24930dc8ca7f7b4077ff8125b1b256a54d3",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/whiteboard/demo/engine/wb.js",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/engine/wb.js",
+      "sha256": "66c01b55e1b07c13bf0f2edaee00a7ae73510e9151c1364400d63a2e97789a85",
       "license": "MIT"
     },
     {
@@ -3579,6 +3585,25 @@
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/film.js",
       "sha256": "7bddcbd94a689f63f65e69277dd048c9d0345a1c51455abb7ab265490863d08e",
       "license": "MIT"
+    },
+    {
+      "source_path": "styles/whiteboard/demo/fonts/ArchitectsDaughter-Regular.ttf",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/fonts/ArchitectsDaughter-Regular.ttf",
+      "sha256": "6159718a08898e34bc1cb7354086141a5f9a70b73e54dbec27ead0d59a697359",
+      "license": "OFL-1.1",
+      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/architectsdaughter/ArchitectsDaughter-Regular.ttf"
+    },
+    {
+      "source_path": "styles/whiteboard/demo/fonts/EMSTech.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/fonts/EMSTech.json",
+      "sha256": "33f85da146a78017a2305776d2a5fd6fc2fd13373f852d24dad4fa4ced5b016d",
+      "license": "OFL-1.1"
+    },
+    {
+      "source_path": "styles/whiteboard/demo/fonts/OFL-ArchitectsDaughter.txt",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/fonts/OFL-ArchitectsDaughter.txt",
+      "sha256": "0e441ae9f18ad0c294cc5b6ae3974c2db1614cab220598578b1b58c4cc334485",
+      "license": "OFL-1.1"
     },
     {
       "source_path": "styles/whiteboard/demo/index.html",
@@ -3605,31 +3630,6 @@
       "license": "MIT"
     },
     {
-      "source_path": "styles/whiteboard/demo/engine/wb.js",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/engine/wb.js",
-      "sha256": "66c01b55e1b07c13bf0f2edaee00a7ae73510e9151c1364400d63a2e97789a85",
-      "license": "MIT"
-    },
-    {
-      "source_path": "styles/whiteboard/demo/fonts/ArchitectsDaughter-Regular.ttf",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/fonts/ArchitectsDaughter-Regular.ttf",
-      "sha256": "6159718a08898e34bc1cb7354086141a5f9a70b73e54dbec27ead0d59a697359",
-      "license": "OFL-1.1",
-      "fetched_from": "https://raw.githubusercontent.com/google/fonts/86aced91de05cd4f96a06838124cca45be337b2b/ofl/architectsdaughter/ArchitectsDaughter-Regular.ttf"
-    },
-    {
-      "source_path": "styles/whiteboard/demo/fonts/EMSTech.json",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/fonts/EMSTech.json",
-      "sha256": "33f85da146a78017a2305776d2a5fd6fc2fd13373f852d24dad4fa4ced5b016d",
-      "license": "OFL-1.1"
-    },
-    {
-      "source_path": "styles/whiteboard/demo/fonts/OFL-ArchitectsDaughter.txt",
-      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/fonts/OFL-ArchitectsDaughter.txt",
-      "sha256": "0e441ae9f18ad0c294cc5b6ae3974c2db1614cab220598578b1b58c4cc334485",
-      "license": "OFL-1.1"
-    },
-    {
       "source_path": "styles/whiteboard/demo/voices/dur.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/voices/dur.json",
       "sha256": "53fecd9a1aa8be86fae3c6274b5b064c3e2d5cee48301b4437d47b5d37774e4f",
@@ -3639,6 +3639,12 @@
       "source_path": "styles/whiteboard/demo/voices/words.json",
       "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/demo/voices/words.json",
       "sha256": "9f7274cd40c3f440ed2c14698e98267d0b25d754650293c65bc617c5f7204e59",
+      "license": "MIT"
+    },
+    {
+      "source_path": "styles/whiteboard/style.json",
+      "destination_path": "../../skills/framemotion/assets/lemo-engine/styles/whiteboard/style.json",
+      "sha256": "63d63af2f3a88af1f1ada8e0545539617cf4e142ace15f94358709d7efda2c4f",
       "license": "MIT"
     }
   ]

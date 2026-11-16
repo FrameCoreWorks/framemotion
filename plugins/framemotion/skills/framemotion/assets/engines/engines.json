@@ -1706,7 +1706,11 @@
       },
       "fps": 30,
       "duration": "page",
-      "readme": "../lemo-engine/README.md"
+      "readme": "../lemo-engine/README.md",
+      "flat_frames": [
+        0,
+        1
+      ]
     },
     {
       "id": "lemo-blueprint",
@@ -1798,7 +1802,11 @@
       },
       "fps": 30,
       "duration": "page",
-      "readme": "../lemo-engine/README.md"
+      "readme": "../lemo-engine/README.md",
+      "flat_frames": [
+        0,
+        1
+      ]
     },
     {
       "id": "lemo-hologram-hud",
@@ -1882,7 +1890,8 @@
       "blocks": [],
       "build": {
         "tool": "lemo",
-        "style": "lowpoly-island"
+        "style": "lowpoly-island",
+        "warm": 53
       },
       "size": {
         "width": 1920,
@@ -1952,7 +1961,8 @@
       "blocks": [],
       "build": {
         "tool": "lemo",
-        "style": "papercut-red"
+        "style": "papercut-red",
+        "warm": true
       },
       "size": {
         "width": 1920,
@@ -1960,7 +1970,10 @@
       },
       "fps": 30,
       "duration": "page",
-      "readme": "../lemo-engine/README.md"
+      "readme": "../lemo-engine/README.md",
+      "flat_frames": [
+        0
+      ]
     },
     {
       "id": "lemo-risograph",
@@ -1999,7 +2012,8 @@
       "blocks": [],
       "build": {
         "tool": "lemo",
-        "style": "rubber-hose"
+        "style": "rubber-hose",
+        "warm": true
       },
       "size": {
         "width": 1920,
@@ -2045,7 +2059,8 @@
       "blocks": [],
       "build": {
         "tool": "lemo",
-        "style": "spy-titles"
+        "style": "spy-titles",
+        "warm": true
       },
       "size": {
         "width": 1920,
@@ -2076,7 +2091,11 @@
       },
       "fps": 30,
       "duration": "page",
-      "readme": "../lemo-engine/README.md"
+      "readme": "../lemo-engine/README.md",
+      "flat_frames": [
+        0,
+        1
+      ]
     },
     {
       "id": "lemo-swiss-motion",
@@ -2099,7 +2118,10 @@
       },
       "fps": 30,
       "duration": "page",
-      "readme": "../lemo-engine/README.md"
+      "readme": "../lemo-engine/README.md",
+      "flat_frames": [
+        0
+      ]
     },
     {
       "id": "lemo-tilt-shift",

@@ -43,7 +43,7 @@ class LemoEngineTest(unittest.TestCase):
 
     def test_left_out_parts_stay_out(self):
         bad = [p.relative_to(ENGINE).as_posix() for p in ENGINE.rglob('*')
-               if p.is_file() and p.suffix in MEDIA and p.relative_to(ENGINE).as_posix() != 'README.md']
+               if p.is_file() and p.suffix in MEDIA and p.relative_to(ENGINE).as_posix() not in {'README.md', 'core/fonts/OFL.md'}]
         self.assertEqual(bad, [])
         for part in ('prompts', 'stills', 'tools'):
             self.assertEqual([p for p in ENGINE.rglob(part) if p.is_dir()], [], part)
@@ -57,6 +57,7 @@ class LemoEngineTest(unittest.TestCase):
     def test_licences_and_credit(self):
         self.assertEqual(sha(ENGINE / 'LICENSE'), sha(INTEGRATION / 'LICENSE'))
         self.assertTrue((ENGINE / 'LICENSES/MIT.txt').is_file() and (ENGINE / 'LICENSES/OFL-1.1.txt').is_file())
+        self.assertIn('SIL Open Font License', (ENGINE / 'core/fonts/OFL.md').read_text())
         self.assertIn('Lemo engine (skills/framemotion/assets/lemo-engine)', (ROOT / 'NOTICE').read_text())
         self.assertIn('Lemo-Opuscar by Lemomo (LemoLab)', (ENGINE / 'README.md').read_text())
         for style in MANIFEST['styles']:

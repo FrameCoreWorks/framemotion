@@ -97,6 +97,11 @@ def fetch(url: str, dest: Path, timeout: float = 60.0) -> None:
     import shutil
     import urllib.request
 
+    # FrameMotion: changed. No model is downloaded until the user has agreed and REA_VIDEO_DOWNLOADS=1 is set;
+    # without it every caller goes on without that model (faces, Japanese/Korean OCR, stems).
+    if os.getenv("REA_VIDEO_DOWNLOADS") != "1":
+        raise OSError(f"download of {url.rsplit('/', 1)[-1]} not allowed (set REA_VIDEO_DOWNLOADS=1 after the user agrees)")
+
     with urllib.request.urlopen(url, timeout=timeout) as resp, open(dest, "wb") as f:
         shutil.copyfileobj(resp, f, 1 << 20)
 

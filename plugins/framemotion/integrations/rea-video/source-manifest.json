@@ -4,11 +4,12 @@
   "source_commit": "751596967f58b8949124d291e59bdc40fc04486e",
   "version": "0.1.0",
   "retrieved_on": "2026-11-16",
+  "dependencies": "exact versions of every installed package in ../../skills/framemotion/assets/reference-breakdown/rea-video-requirements.txt (tested on Python 3.13, Linux)",
   "license": "Apache-2.0",
   "attribution": "rea-video, Copyright 2026 JuneYaooo, Apache License 2.0 (NOTICE kept)",
   "activation": "python_package_run_from_its_folder_after_the_user_installs_the_pinned_dependencies_no_installer",
   "layout": "upstream's package layout (rea_video/, LICENSE, NOTICE, pyproject.toml) under assets/reference-breakdown/rea-video, next to FrameMotion's breakdown.py",
-  "models": "downloaded on first use into $REA_VIDEO_MODELS, each checked against the SHA-256 pinned in its module, never bundled: UVR MDX-Net Inst HQ 3 (stems.py, licence not verified: NOT_RUN), BandIt v2 multilingual (effects.py, weights CC BY-SA 4.0 per upstream), YuNet 2023mar (faces.py, opencv_zoo, MIT), RapidOCR PP-OCR Japanese and Korean recognizers (overlay.py, Apache-2.0); the SenseVoice and speaker models (speech.py, speakers.py) only with the [asr] extra, which FrameMotion does not install",
+  "models": "downloaded only when REA_VIDEO_DOWNLOADS=1 is set (after the user agrees) into $REA_VIDEO_MODELS, each checked against the SHA-256 pinned in its module, never bundled: UVR MDX-Net Inst HQ 3 (stems.py, licence not verified: NOT_RUN), BandIt v2 multilingual (effects.py, weights CC BY-SA 4.0 per upstream), YuNet 2023mar (faces.py, opencv_zoo, MIT), RapidOCR PP-OCR Japanese and Korean recognizers (overlay.py, Apache-2.0); the SenseVoice and speaker models (speech.py, speakers.py) only with the [asr] extra, which FrameMotion does not install",
   "not_bundled": [
     "docs/ (with docs/cases: TikTok and Douyin clips outside the repository licence), README.md and i18n/ READMEs, AGENTS.md",
     "skills/rea-video (the agent skill; FrameMotion writes its own instructions)",
@@ -180,8 +181,8 @@
       "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/cli.py",
       "sha256": "7af0359b29048cf13b94737166efefd52a7c6d77e1a91f23d777b7525d134be7",
       "changed": true,
-      "current_sha256": "7b65f23faea88e968f95e677054c25b4b4696bf52d8beb3efeca677a7f6211c3",
-      "change": "the capsule, remake-plan, remake-run and capsule-draft commands and their bridge removed (paid generations through capsule-cinema), and the eval command (its sample set is not bundled); marked by a FrameMotion comment"
+      "current_sha256": "ea7a851ade9b6c373869c5ee9e42b354c61e34a1752090163550b1707d9d03a0",
+      "change": "the capsule, remake-plan, remake-run and capsule-draft commands and their bridge removed (paid generations through capsule-cinema), and the eval command (its sample set is not bundled); the stem split runs only with --stems; marked by FrameMotion comments"
     },
     {
       "source_path": "rea_video/code_remake.py",
@@ -353,7 +354,10 @@
     {
       "source_path": "rea_video/util.py",
       "destination_path": "../../skills/framemotion/assets/reference-breakdown/rea-video/rea_video/util.py",
-      "sha256": "c25fd41d9b855952544efa904cd0ca95beaff4658daa5099be8b382c9782d46a"
+      "sha256": "c25fd41d9b855952544efa904cd0ca95beaff4658daa5099be8b382c9782d46a",
+      "changed": true,
+      "current_sha256": "d6a9286febdd5dfb6469e3faa952e623a5bb2d74ce39e9a1b9c7976d72ea7398",
+      "change": "fetch downloads nothing unless REA_VIDEO_DOWNLOADS=1 (set after the user agrees); marked"
     },
     {
       "source_path": "rea_video/videomd.py",

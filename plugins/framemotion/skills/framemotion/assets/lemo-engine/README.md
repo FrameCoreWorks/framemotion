@@ -2,25 +2,25 @@
 
 Twenty-four complete film styles from [Lemo-Opuscar](https://github.com/lemomo-ai/lemo-opuscar) by Lemomo (LemoLab), bundled at commit `3a7132b996be0241c1ea0ab180d519f06e6f10b6` (2.0.0) under the MIT licence. Each style is a demo film written in code on a small shared toolkit (`core/`): a page that draws any frame with `window.render(t)` once `window.READY` is set. FrameMotion renders it with its own engine kit, so a frame is a pure function of its time and every frame repeats byte for byte in any order.
 
-The styles, the shared core and the fonts sit in upstream's own layout (`core/`, `styles/<slug>/style.json`, `styles/<slug>/demo/`), so each demo keeps its relative paths. Only code, data, configuration and fonts are bundled, unchanged except one marked file (below): no Markdown, no prompts, no films, stills, voices or music. The file list with upstream paths and SHA-256 is in [the source manifest](../../../../integrations/lemo-opuscar/source-manifest.json).
+The styles, the shared core and the fonts sit in upstream's own layout (`core/`, `styles/<slug>/style.json`, `styles/<slug>/demo/`), so each demo keeps its relative paths. Only code, data, configuration and fonts are bundled, unchanged except one marked file (below): no Markdown except the fonts' OFL notice `core/fonts/OFL.md`, no prompts, no films, stills, voices or music. The file list with upstream paths and SHA-256 is in [the source manifest](../../../../integrations/lemo-opuscar/source-manifest.json).
 
 ## Styles
 
-Registry id `lemo-<slug>`; all are 1920×1080. "3D" pages use the engines folder's shared three.js and are captured as a screenshot of the page; the others are captured from their canvas.
+Registry id `lemo-<slug>`; all are 1920×1080 at 30 fps (the page body is fixed at that size; there is no 9:16 version, so for a vertical reel choose another engine or reframe the export). "3D" pages use the engines folder's shared three.js and are captured as a screenshot of the page; the others are captured from their canvas.
 
-| Slug | Look | Suits | Faces without Polish letters |
+| Slug | Look | Suits | Faces without Polish letters (checked with fontTools) |
 | --- | --- | --- | --- |
 | `art-deco` | Black lacquer, gold line and stepped geometry; bulbs switch on one by one | Luxury, hospitality, invitations | Italiana |
 | `ascii-crt` | Everything drawn as characters on a glowing monochrome terminal | Developer tools, sci-fi, tech | none |
-| `backrooms` (3D) | Camcorder footage of endless empty yellow rooms, timecode and grain | Horror, mystery, game teasers | not checked (WOFF2) |
+| `backrooms` (3D) | Camcorder footage of endless empty yellow rooms, timecode and grain | Horror, mystery, game teasers | all (Latin subsets; the builder stops on Polish words) |
 | `blueprint` | White technical drawing on blueprint blue, drawn and dimensioned live | Engineering, hardware, tech explainers | B612, B612 Mono |
 | `crayon-book` | Wax crayon on rough paper, a wash uncovering what the crayon resisted | Picture books, kids' learning | Gaegu, Gochi Hand, Short Stack, Sniglet |
 | `engraving` | Copperplate hatching and cross-hatching, then lettering and a light wash | Museums, science, brand heritage | none |
-| `glass-product` (3D) | A product in clear and frosted glass, strip lights and caustics | Product launches, consumer tech, beauty | not checked (WOFF2) |
+| `glass-product` (3D) | A product in clear and frosted glass, strip lights and caustics | Product launches, consumer tech, beauty | all (Latin subsets; the builder stops on Polish words) |
 | `hologram-hud` | A wireframe scan with lock-on boxes and rolling read-outs | Spec walkthroughs, launches, trade shows | Share Tech Mono |
-| `impasto` | Thick palette-knife paint under raking light | Music videos, art and culture, emotional ads | not checked (WOFF2) |
+| `impasto` | Thick palette-knife paint under raking light | Music videos, art and culture, emotional ads | all (Latin subsets; the builder stops on Polish words) |
 | `iso-infographic` | A flat three-tone isometric diorama that opens to show a process | Process explainers, supply chains, reports | none |
-| `lowpoly-island` (3D) | A faceted little island world under an orthographic lens | Game trailers, world building, calm content | not checked (WOFF2) |
+| `lowpoly-island` (3D) | A faceted little island world under an orthographic lens | Game trailers, world building, calm content | all (Latin subsets; the builder stops on Polish words) |
 | `midcentury-toon` | 1950s flat colour off a broken ink line, colour-block rooms | Set-up guides, help centres, how-to | Oleo Script |
 | `one-line` | One unbroken line draws each scene and morphs into the next | Brand stories, milestones, minimal ads | none |
 | `papercut-red` | Jointed red paper-cuts where the holes let the light through | Festive greetings, folk tales | Ma Shan Zheng (Chinese titles) |
@@ -31,9 +31,9 @@ Registry id `lemo-<slug>`; all are 1920×1080. "3D" pages use the engines folder
 | `stained-glass` | A window in a dark hall, alive only where the sun touches it | Legends, heritage, holiday stories | none |
 | `swiss-motion` | A modular grid, one typeface, one signal colour, exact movement | Brand identity, events, design education | Unifraktur Maguntia |
 | `tilt-shift` (3D) | A place from high above with a tilted focus band, so it reads as a model | City promos, real estate, transport | none |
-| `ukiyoe` | A woodblock print come alive, unrolled like a scroll | Travel, Japanese culture, poetry | not checked (WOFF2) |
+| `ukiyoe` | A woodblock print come alive, unrolled like a scroll | Travel, Japanese culture, poetry | all (Latin subsets; the builder stops on Polish words) |
 | `urban-sketch` | Sepia fineliner drawn on location, loose watercolour off the lines | City and travel, architecture, lifestyle | none |
-| `whiteboard` | Marker written stroke by stroke on a board, a camera travelling across | Explainers, courses, science | none |
+| `whiteboard` | Marker written stroke by stroke on a board, a camera travelling across | Explainers, courses, science | its stroke font has only ó and writes "?" for the others; the builder stops on Polish words |
 
 The [film style library](../../references/film-style-library.md) describes all 66 upstream looks in FrameMotion's words; the 24 above are the ones that can be rendered from this folder.
 
@@ -42,7 +42,9 @@ The [film style library](../../references/film-style-library.md) describes all 6
 - `node kit/render-engine.mjs --engine lemo-art-deco --frames 0,300,525` renders the style's own demo film (its length comes from the page's `window.DUR`).
 - A registry entry or a workspace copy may set `build.film` to a film module written for the style (a path from the engines folder); it replaces the demo's `film.js` in the build folder and imports the style's modules exactly as the demo's film does. Start from the demo's `film.js`, keep its exports (`renderFilm`, `DUR`, optional `init` and `events`) and change the story, words, timing and colours.
 - `build.scene: "file.fn"` renders one scene function on its own, as upstream's `?scene=` does.
-- Words go through the style's own faces. Where the table names a face without Polish letters, set Polish words in one of the style's other faces, or check the frame: the browser fills a missing letter from another font.
+- Words go through the style's own faces. Where the table names a face without Polish letters, set Polish words in one of the style's other faces, or check the frame: the browser fills a missing letter from another font. For the styles marked "all" and Whiteboard, the builder stops when a `build.film` has Polish letters.
+- The demo end cards' "LemoLab × Claude Opus 5.5" line is dropped from the build copy (with the separator before it), so no film carries the authors' or a model's name; the other credit lines stay. Upstream's files are unchanged.
+- Render time without a GPU (measured 2026-11-16 in a Linux container): a 2D style draws a frame in about 0.2 to 1 s; the 3D styles take much longer (Glass Product about 29 min for 33 frames), so render them on a machine with a GPU (`--gpu`) or keep the frame count low for previews.
 - Lemo's own guides (STYLE.md, DEMO.md) are not bundled (CC BY-NC 4.0); read them on GitHub for the look's rules, and write the direction in FrameMotion's own words.
 
 ## Not bundled
@@ -51,8 +53,8 @@ Every Markdown file and the image prompts (CC BY-NC 4.0); the demo films, poster
 
 ## Changes
 
-One upstream file is changed, marked by a FrameMotion comment and recorded with both hashes in the manifest: `styles/tilt-shift/demo/sky.js` renders its environment map from the current frame's sky every time (upstream cached it per half degree of sun height from whichever frame got there first, so a frame depended on the frames drawn before it). FrameMotion's builder (`lemo` in `engines/kit/builders.mjs`) copies `core/` and one style into a temporary folder, rewrites the absolute `/core/` paths there to the build folder, fixes the page body at 1920×1080 so a layered three.js page captures as one element, makes `Math.random` a fixed-seed generator (Tilt-Shift's ambient-occlusion noise was new on every page load), turns off three.js frustum culling on 3D pages (bounds computed on the first frame culled traffic that moved later), and adds the clock bridge (`window.FILM_INFO`, `window.renderFrameAt`). One-line and Risograph set `build.warm`: their first draw of some words and ink differs from every repeat, so the first call draws the film once a second before the asked frame, and every frame is the same in any order. Three.js comes from the engines folder (0.187.0; upstream pins ^0.170).
+One upstream file is changed, marked by a FrameMotion comment and recorded with both hashes in the manifest: `styles/tilt-shift/demo/sky.js` renders its environment map from the current frame's sky every time (upstream cached it per half degree of sun height from whichever frame got there first, so a frame depended on the frames drawn before it). FrameMotion's builder (`lemo` in `engines/kit/builders.mjs`) copies `core/` and one style into a temporary folder, rewrites the absolute `/core/` paths there to the build folder, fixes the page body at 1920×1080 so a layered three.js page captures as one element, makes `Math.random` a fixed-seed generator (Tilt-Shift's ambient-occlusion noise was new on every page load), turns off three.js frustum culling on 3D pages (bounds computed on the first frame culled traffic that moved later), and adds the clock bridge (`window.FILM_INFO`, `window.renderFrameAt`). One-line, Risograph, Papercut Red, Spy Titles and Rubber Hose set `build.warm`: their first draw of some words, ink or shapes differs from every repeat, so the first call draws the film once a second before the asked frame, and every frame is the same in any order. Lowpoly Island's subtitle shadow changed slightly once its end card had been drawn, so it warms on two draws only (`build.warm: 53`: the start and the end card), as a 3D page is too slow to warm every second. Backrooms, Glass Product and Stained Glass open on black for frames 0 and 1, Swiss Motion and Papercut Red for frame 0, listed as `flat_frames`. Three.js comes from the engines folder (0.187.0; upstream pins ^0.170).
 
 ## Licence and credit
 
-Code, data and small assets: MIT, Copyright (c) 2026 Lemomo (LemoLab); [LICENSE](LICENSE) and [REUSE.toml](REUSE.toml) are upstream's, unchanged, with the licence texts in `LICENSES/`. Fonts: SIL Open Font License 1.1, each named with its source in the style's `demo/CREDITS` and `OFL-*.txt`; fonts that upstream fetches at build time came from the pinned URLs recorded in the manifest. Credit: "Lemo-Opuscar by Lemomo (LemoLab)", https://github.com/lemomo-ai/lemo-opuscar, MIT, selected files bundled unchanged. Films you make with these styles are yours.
+Code, data and small assets: MIT, Copyright (c) 2026 Lemomo (LemoLab); [LICENSE](LICENSE) and [REUSE.toml](REUSE.toml) are upstream's, unchanged, with the licence texts in `LICENSES/`. Fonts: SIL Open Font License 1.1, each named with its source in the style's `demo/CREDITS` and `OFL-*.txt`, the core subsets in `core/fonts/OFL.md`; Backrooms, Glass Product, Lowpoly Island and Ukiyo-e ship no OFL text of their own, so the licence is `LICENSES/OFL-1.1.txt` with these copyright lines from the fonts: IBM Plex, Copyright 2017–2019 IBM Corp.; Inter Tight, Copyright 2022 The Inter Project Authors; Quicksand, Copyright 2019 The Quicksand Project Authors, Reserved Font Name "Quicksand"; Josefin Sans, Copyright 2010 The Josefin Sans Project Authors, Reserved Font Name "Josefin Sans"; Shippori Mincho, Copyright 2021 The Shippori Mincho Project Authors; Yuji Syuku, Copyright 2021 The Yuji Project Authors; fonts that upstream fetches at build time came from the pinned URLs recorded in the manifest. Credit: "Lemo-Opuscar by Lemomo (LemoLab)", https://github.com/lemomo-ai/lemo-opuscar, MIT, selected files bundled unchanged. Films you make with these styles are yours.

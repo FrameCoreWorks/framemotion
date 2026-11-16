@@ -473,13 +473,24 @@ document.write('<script>window.ERAS = window.ERAS.filter((e) => ${JSON.stringify
       // A film written for this style replaces the demo's own film.js; it imports the style's modules as the demo does.
       const film = path.resolve(enginesRoot, entry.build.film);
       if (!fs.existsSync(film)) throw new Error(`${entry.id}: film "${entry.build.film}" not found`);
+      // None of these styles' faces has the Polish letters (checked 2026-11-16 with fontTools); the browser would fill
+      // them from another font, or Whiteboard's stroke font would write "?". Stop rather than render that.
+      const noPolish = ['backrooms', 'glass-product', 'impasto', 'lowpoly-island', 'ukiyoe', 'whiteboard'];
+      const letters = fs.readFileSync(film, 'utf8').match(/[ąćęłńśźżĄĆĘŁŃŚŹŻ]/gu);
+      if (letters && noPolish.includes(style)) {
+        throw new Error(`${entry.id}: the film has ${[...new Set(letters)].join('')}, which no face of the ${style} style draws; ` +
+          'choose a style whose faces have Polish letters (lemo-engine/README.md) or write the words without them');
+      }
       fs.copyFileSync(film, path.join(demo, 'film.js'));
     }
     // Upstream serves the library from its own root, so pages ask for /core/...; here the build folder is /_build/.
     const walk = (d) => fs.readdirSync(d, {withFileTypes: true}).flatMap((e) => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
     for (const file of walk(dir).filter((f) => /\.(m?js|html|css)$/.test(f))) {
       const text = fs.readFileSync(file, 'utf8');
-      const moved = text.replace(/(["'`(])\/core\//g, '$1/_build/core/');
+      // The demos sign their end cards with the authors' and a model's name; a client film carries neither,
+      // so the build copy drops that credit line (with the separator before it). Upstream files stay unchanged.
+      const moved = text.replace(/(["'`(])\/core\//g, '$1/_build/core/')
+        .replace(/(\s*(?:·|\\u00b7|&nbsp;·&nbsp;|-)\s*)?LemoLab\s+(?:×|\\u00d7)\s+Claude Opus 5\.5/g, '');
       if (moved !== text) fs.writeFileSync(file, moved);
     }
     const fps = entry.fps ?? 30;

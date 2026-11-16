@@ -35,6 +35,29 @@ test('the build serves the core from its own folder and adds the clock bridge', 
   } finally { fs.rmSync(built.dir, {recursive: true, force: true}); }
 });
 
+test('the build copy drops the authors\' and model\'s credit line from every demo', async () => {
+  const styles = fs.readdirSync(path.join(ENGINES, '..', 'lemo-engine', 'styles'));
+  for (const style of styles) {
+    const built = await BUILDERS.lemo({...base, build: {tool: 'lemo', style}}, ENGINES);
+    try {
+      const walk = (d) => fs.readdirSync(d, {withFileTypes: true}).flatMap((e) => e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);
+      for (const file of walk(built.dir).filter((f) => /\.(m?js|html)$/.test(f))) {
+        assert.doesNotMatch(fs.readFileSync(file, 'utf8'), /Claude Opus/, file);
+      }
+    } finally { fs.rmSync(built.dir, {recursive: true, force: true}); }
+  }
+});
+
+test('Polish words in a film for a style whose faces lack them stop the build', async () => {
+  const film = path.join(fs.mkdtempSync(path.join(ENGINES, '..', '..', '..', '..', 'tests', '.lemo-')), 'film.js');
+  fs.writeFileSync(film, 'export const DUR = 2;\nexport const WORDS = "Zażółć gęślą jaźń";\n');
+  try {
+    await assert.rejects(BUILDERS.lemo({...base, build: {tool: 'lemo', style: 'glass-product', film: path.relative(ENGINES, film)}}, ENGINES), /no face of the glass-product style/);
+    const built = await BUILDERS.lemo({...base, build: {tool: 'lemo', style: 'spy-titles', film: path.relative(ENGINES, film)}}, ENGINES);
+    fs.rmSync(built.dir, {recursive: true, force: true});
+  } finally { fs.rmSync(path.dirname(film), {recursive: true, force: true}); }
+});
+
 test('a film written for the style replaces the demo film; a missing one stops the build', async () => {
   const film = path.join(fs.mkdtempSync(path.join(ENGINES, '..', '..', '..', '..', 'tests', '.lemo-')), 'film.js');
   fs.writeFileSync(film, 'export const DUR = 2;\nexport function renderFilm(g, t) { g.fillStyle = "#123"; g.fillRect(0, 0, 1920, 1080); }\n');
@@ -46,7 +69,9 @@ test('a film written for the style replaces the demo film; a missing one stops t
   } finally { fs.rmSync(path.dirname(film), {recursive: true, force: true}); }
 });
 
-for (const [id, frames] of [['lemo-art-deco', [30, 525, 1200]], ['lemo-one-line', [15, 1416, 600]], ['lemo-tilt-shift', [20, 684]]]) {
+// Frames the review found order-dependent or different on the first draw (papercut-red 367 and 1102, spy-titles 165 and 992).
+for (const [id, frames] of [['lemo-art-deco', [30, 525, 1200]], ['lemo-one-line', [15, 1416, 600]], ['lemo-tilt-shift', [20, 684]],
+  ['lemo-papercut-red', [367, 1102, 700]], ['lemo-spy-titles', [165, 992, 600]]]) {
   test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip, timeout: 1500000}, async () => {
     const first = await kit.renderFrames(id, {frames, once: true});
     const back = await kit.renderFrames(id, {frames: [...frames].reverse(), once: true});

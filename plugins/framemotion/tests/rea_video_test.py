@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = ROOT / 'skills/framemotion/assets/reference-breakdown/rea-video'
 INTEGRATION = ROOT / 'integrations/rea-video'
 MANIFEST = json.loads((INTEGRATION / 'source-manifest.json').read_text())
-CHANGED = {'rea_video/cli.py', 'rea_video/memory.py', 'rea_video/audio.py', 'rea_video/pipeline.py',
+CHANGED = {'rea_video/cli.py', 'rea_video/memory.py', 'rea_video/util.py', 'rea_video/audio.py', 'rea_video/pipeline.py',
            'rea_video/playbook.py', 'rea_video/sound_source.py'}
 
 
@@ -99,16 +99,20 @@ class ReaVideoRunTest(unittest.TestCase):
             inputs = []
             for src in ('testsrc', 'smptebars', 'rgbtestsrc'):
                 inputs += ['-f', 'lavfi', '-i', f'{src}=s=320x240:d=2:r=25']
-            subprocess.run(['ffmpeg', '-v', 'error', *inputs, '-filter_complex', 'concat=n=3:v=1:a=0',
-                            '-pix_fmt', 'yuv420p', str(clip)], check=True)
-            env = dict(os.environ, REA_VIDEO_HOME=str(Path(tmp) / 'home'),
-                       REA_VIDEO_MODELS=str(Path(tmp) / 'models'))
+            subprocess.run(['ffmpeg', '-v', 'error', *inputs, '-f', 'lavfi', '-i', 'sine=f=440:d=6',
+                            '-filter_complex', '[0:v][1:v][2:v]concat=n=3:v=1:a=0[v]', '-map', '[v]', '-map', '3:a',
+                            '-pix_fmt', 'yuv420p', '-shortest', str(clip)], check=True)
+            env = {k: v for k, v in os.environ.items() if k != 'REA_VIDEO_DOWNLOADS'}
+            env.update(REA_VIDEO_HOME=str(Path(tmp) / 'home'), REA_VIDEO_MODELS=str(Path(tmp) / 'models'))
             out = Path(tmp) / 'out'
             subprocess.run([PYTHON, '-E', '-s', '-m', 'rea_video', 'decompose', str(clip), '-o', str(out),
-                            '--no-stems', '--no-asr', '--no-speakers', '--no-vlm', '--no-ocr', '--lang', 'en'],
+                            '--no-asr', '--no-speakers', '--no-vlm', '--no-ocr', '--lang', 'en'],
                            cwd=PACKAGE, env=env, check=True, capture_output=True, timeout=600)
             data = json.loads((out / 'breakdown.json').read_text())
             self.assertEqual(len(data['shots']), 3)
+            # With sound and no --stems, and no download allowed, nothing is fetched and no stems are written.
+            self.assertFalse(any((Path(tmp) / 'models').rglob('*')), 'a model was downloaded')
+            self.assertFalse((out / 'stems' / 'vocals.wav').exists())
 
 
 if __name__ == '__main__':

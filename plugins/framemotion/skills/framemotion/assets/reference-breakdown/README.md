@@ -26,14 +26,12 @@ Verified on 2026-10-18 in a Linux container (`tests/reference_breakdown_test.py`
 
 [`rea-video/`](rea-video/) is [rea-video](https://github.com/JuneYaooo/rea-video) by JuneYaooo (Apache-2.0, commit `751596967f58b8949124d291e59bdc40fc04486e`, version 0.1.0), bundled as a Python package next to `breakdown.py`. Where `breakdown.py` measures cuts, a grid and motion, rea-video takes a reference apart shot by shot: how each shot was most likely made (live action, AI video, code render or mixed), camera, framing, light, grade and editing per shot, on-screen text with its timing (OCR), faces, transitions, the soundtrack split into voice, music and effects, a report (`report.html`) and a VIDEO.md pack a model can read, and for code-rendered shots a first remake plan. Use it when the user wants to know how a film was made or to rebuild a reference's structure; use `breakdown.py` when cuts and timing are enough.
 
-Install its dependencies once, after the user agrees (exact versions, all permissive licences), in a virtual environment:
+Install its dependencies once, after the user agrees, in a virtual environment. [`rea-video-requirements.txt`](rea-video-requirements.txt) pins every package it pulls in at the versions tested here (all permissive licences; certifi is MPL-2.0):
 
 ```sh
 python3 -m venv ~/.venvs/rea-video
 ~/.venvs/rea-video/bin/pip install \
-  numpy==2.5.3 opencv-python-headless==4.14.0.94 \
-  pillow==12.3.0 PyYAML==6.0.3 videomd==1.2.0 \
-  onnxruntime==1.29.0 rapidocr==3.10.0
+  -r rea-video-requirements.txt
 ```
 
 Run it from this folder, so the bundled package is the one imported, with FFmpeg on the PATH:
@@ -42,15 +40,16 @@ Run it from this folder, so the bundled package is the one imported, with FFmpeg
 cd rea-video
 ~/.venvs/rea-video/bin/python -E -s -m rea_video \
   decompose reference.mp4 -o breakdown \
-  --no-stems --no-asr --no-speakers --lang en
+  --no-asr --no-speakers --lang en
 ~/.venvs/rea-video/bin/python -E -s -m rea_video \
   summary breakdown
 ```
 
-- **Models are downloaded, never bundled**, into `$REA_VIDEO_MODELS` (default `~/.cache/rea-video/models`), each checked against the SHA-256 pinned in its module before use. The face detector (YuNet, MIT, about 0.2 MB) is fetched on the first run; if it cannot be fetched the run goes on without faces. The stem split needs UVR MDX-Net (about 67 MB, licence not verified) and BandIt v2 (about 149 MB, weights CC BY-SA 4.0): keep `--no-stems` unless the user agrees to that download. Japanese and Korean OCR fetch one PP-OCR recognizer (Apache-2.0) each.
+- **No download without a yes.** FrameMotion's copy downloads no model unless `REA_VIDEO_DOWNLOADS=1` is set, so ask first and name what will come: the face detector (YuNet, MIT, about 0.2 MB), one PP-OCR recognizer each for Japanese and Korean text (Apache-2.0), and, only with `--stems`, the voice/music/effects split (UVR MDX-Net, about 67 MB, licence not verified, and BandIt v2, about 149 MB, weights CC BY-SA 4.0). Without it the run goes on without faces, that OCR language or stems. Models land in `$REA_VIDEO_MODELS` (default `~/.cache/rea-video/models`) and each is checked against the SHA-256 pinned in its module. Latin and Chinese OCR use the models inside the rapidocr wheel.
+- **The stem split is off** unless `--stems` is given (upstream ran it on every video with sound).
 - **No speech recognition**: the `[asr]` extra installs an unpinned package, so FrameMotion always passes `--no-asr --no-speakers`. Read dialogue from the user's captions or from FrameCut's transcription instead.
 - **No model call by default.** A VLM is used only when the user sets `REA_VLM_*` variables (an OpenAI-compatible endpoint and key); frames then go to that endpoint. Without them, `review` and `apply-review` let the host model look at the shots instead.
 - **It writes** the output folder, the model cache and `~/.rea-video` (its preferences and the corrections the user gives with `correct`); change the last with `REA_VIDEO_HOME`.
-- The capsule, remake-plan, remake-run, capsule-draft and eval commands are removed (they run paid generations through another product, or need an evaluation set that is not bundled); `remake` and `code-remake` stay, for code-rendered shots.
+- Seven files are changed and marked (`util.py` and the download gate, `cli.py` and `--stems`, and the routes below); the capsule, remake-plan, remake-run, capsule-draft and eval commands are removed (they run paid generations through another product, or need an evaluation set that is not bundled); `remake` and `code-remake` stay, for code-rendered shots.
 
-Analyse only footage the user owns or may study, as above. Verified on 2026-11-16 in a Linux container with the versions above, by hand and in `tests/rea_video_test.py` (its run check needs `REA_VIDEO_PYTHON` pointing at that environment): a synthetic 6-second clip with three shots gave exactly its three cuts, and OCR read its title between 0.5 and 3.5 s. The face model download was refused by the container's proxy and the run went on without faces. NOT_RUN: real reference films, the stem split, VLM review and macOS.
+Analyse only footage the user owns or may study, as above. Verified on 2026-11-16 in a Linux container with the versions above, by hand and in `tests/rea_video_test.py` (its run check needs `REA_VIDEO_PYTHON` pointing at that environment): a synthetic 6-second clip with three shots gave exactly its three cuts, and OCR read its title between 0.5 and 3.5 s. The face model download was refused by the container's proxy and the run went on without faces. The run check also confirms that a clip with sound and no `--stems` downloads nothing and writes no stems. NOT_RUN: real reference films, the stem split, VLM review, hash-locked installs and macOS.

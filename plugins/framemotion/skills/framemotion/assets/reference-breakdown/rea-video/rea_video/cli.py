@@ -79,7 +79,8 @@ def cmd_decompose(args) -> int:
     use_vlm = args.vlm or (pref("vlm") == "on" and not args.no_vlm)
     if use_vlm:
         _check_vlm_config()
-    stems = not args.no_stems and pref("stems", "on") == "on"
+    # FrameMotion: changed. The stem split (about 216 MB of models) runs only when asked with --stems.
+    stems = args.stems and not args.no_stems
     lang = args.lang or pref("lang", "zh")
     if lang not in LANGS:
         raise SystemExit(f"错误：不支持的报告语言 {lang}（可选：{', '.join(LANGS)}）")
@@ -545,6 +546,7 @@ def main(argv: list[str] | None = None) -> int:
     d.add_argument("--no-asr", action="store_true", help="不做本地语音识别（装了 rea-video[asr] 才会做：在人声干声上识别台词和时间，首次使用下载约 160 MB 模型）")
     d.add_argument("--asr-lang", choices=ASR_LANGS, help="台词的语言：auto（默认，SenseVoice 自动识别中/英/日/韩/粤）、bn 孟加拉语（换用孟加拉语识别模型，首次使用自动下载约 90 MB）；也可用 prefs asr_lang 设成默认")
     d.add_argument("--no-speakers", action="store_true", help="不区分说话人（装了 rea-video[asr] 才会做：在人声干声上分出谁在什么时候说话，多人时每人输出一条 stems/voice_S1.wav；首次使用下载约 35 MB 模型）")
+    d.add_argument("--stems", action="store_true", help="separate voice, music and effects (downloads about 216 MB of models once; FrameMotion: off unless asked)")
     d.add_argument("--no-stems", action="store_true", help="不做人声/配乐分离（默认会输出 stems/original.wav、vocals.wav、music.wav）")
     d.set_defaults(func=cmd_decompose)
 

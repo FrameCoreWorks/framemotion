@@ -217,7 +217,7 @@
       "pack": "P9",
       "status": "bundled",
       "conditions": [
-        "keep NOTICE and mark changed files (six files, both hashes in the manifest)",
+        "keep NOTICE and mark changed files (seven files, both hashes in the manifest)",
         "no docs/cases clips",
         "models downloaded by pinned hash only, never bundled; the stem models only with the user's yes",
         "no ChatCut, capsule-cinema or [asr] extra"
