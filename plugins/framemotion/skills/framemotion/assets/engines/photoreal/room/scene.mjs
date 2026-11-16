@@ -41,8 +41,8 @@ export function buildRoom(T = THREE) {
   left('left-back', z0, wz0, wy0, wy1, 16, 14);
   left('left-front', wz1, z1, wy0, wy1, 16, 14);
   const reveal = (name, w, h, place) => plane(name, w, h, 6, 12, wall, place);
-  reveal('sill', dep, wz1 - wz0, (m) => { m.rotation.set(-Math.PI / 2, 0, Math.PI / 2); m.position.set(x0 - dep / 2, wy0, 0); });
-  reveal('lintel', dep, wz1 - wz0, (m) => { m.rotation.set(Math.PI / 2, 0, Math.PI / 2); m.position.set(x0 - dep / 2, wy1, 0); });
+  reveal('sill', dep, wz1 - wz0, (m) => { m.rotation.x = -Math.PI / 2; m.position.set(x0 - dep / 2, wy0, 0); });
+  reveal('lintel', dep, wz1 - wz0, (m) => { m.rotation.x = Math.PI / 2; m.position.set(x0 - dep / 2, wy1, 0); });
   reveal('jamb-back', dep, wy1 - wy0, (m) => { m.position.set(x0 - dep / 2, (wy0 + wy1) / 2, wz0); });
   reveal('jamb-front', dep, wy1 - wy0, (m) => { m.rotation.y = Math.PI; m.position.set(x0 - dep / 2, (wy0 + wy1) / 2, wz1); });
   // A thick black shell outside the walls, overlapping at the corners, so neither the bake's rays nor the
@@ -91,7 +91,6 @@ export async function createRoomDemo({canvas, width = 540, height = 960, fps = 3
   return createBakedDemo({
     canvas, width, height, fps, duration, samples, aperture, id: 'photoreal-room', root: room, lights: LIGHTS, look: LOOK,
     bakeUrl: new URL(bake, import.meta.url), box: ROOM, probe: [0, 1.4, 0.4],
-    shadow: {target: [-1, 0.5, -0.3], position: SUN_DIR.clone().multiplyScalar(8).add(new THREE.Vector3(-2, 1, -0.3)).toArray(), left: -2.6, right: 2.6, top: 2.2, bottom: -2.2, near: 2, far: 16},
     focus: room.getObjectByName('sphere'),
     place(t, camera) {
       const k = ease(t / (duration * 0.85));

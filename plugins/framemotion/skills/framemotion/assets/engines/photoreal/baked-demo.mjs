@@ -13,11 +13,11 @@ import {createGi} from './gi-material.mjs';
  * createBakedDemo({canvas, id, root, lights, look, bakeUrl, box, probe, shadow, place, focus, width, height,
  * fps, duration, samples, aperture, fov}): `root` is the scene's group (the same meshes the bake saw),
  * `lights` the bake's lights (its sun becomes a real-time light), `box` the room's {min, max} for the
- * box-projected reflections, `probe` the reflection probe's position, `shadow` the sun's shadow box
- * {left, right, top, bottom, near, far, target, and position or distance along the sun}, `place(t, camera)` the camera move and `focus`
+ * box-projected reflections, `probe` the reflection probe's position, `shadow` optional {margin, distance}
+ * (the shadow map frames the whole box grown by margin, 0.5 m by default), `place(t, camera)` the camera move and `focus`
  * the object kept sharp.
  */
-export async function createBakedDemo({canvas, id, root, lights, look, bakeUrl, box, probe, shadow, place, focus,
+export async function createBakedDemo({canvas, id, root, lights, look, bakeUrl, box, probe, shadow = {}, place, focus,
   width = 540, height = 960, fps = 30, duration = 3, samples = 16, aperture = 0.004, fov = 42}) {
   const renderer = new THREE.WebGLRenderer({canvas, antialias: false, preserveDrawingBuffer: true});
   renderer.setPixelRatio(1);
@@ -36,13 +36,25 @@ export async function createBakedDemo({canvas, id, root, lights, look, bakeUrl, 
   });
   const {sun: S} = lights, dir = new THREE.Vector3(...S.direction).normalize();
   const sun = new THREE.DirectionalLight(new THREE.Color().setRGB(1, S.irradiance[1] / S.irradiance[0], S.irradiance[2] / S.irradiance[0], THREE.LinearSRGBColorSpace), S.irradiance[0]);
-  sun.target.position.set(...shadow.target);
-  if (shadow.position) sun.position.set(...shadow.position);
-  else sun.position.copy(dir).multiplyScalar(shadow.distance ?? 8).add(sun.target.position);
+  // the shadow camera looks along the bake's sun direction at the middle of the room and frames the whole
+  // room (grown by `shadow.margin` for the walls' outer shell), so no wall is left outside the shadow map,
+  // where three.js would light it fully
+  const lo = new THREE.Vector3(...box.min), hi = new THREE.Vector3(...box.max), mid = lo.clone().add(hi).multiplyScalar(0.5);
+  const margin = shadow.margin ?? 0.5, distance = shadow.distance ?? 10;
+  sun.target.position.copy(mid);
+  sun.position.copy(dir).multiplyScalar(distance).add(mid);
+  const view = new THREE.Matrix4().lookAt(sun.position, mid, new THREE.Vector3(0, 1, 0)).setPosition(sun.position).invert();
+  const fit = {left: Infinity, right: -Infinity, bottom: Infinity, top: -Infinity, near: Infinity, far: -Infinity};
+  for (let i = 0; i < 8; i++) {
+    const p = new THREE.Vector3(i & 1 ? hi.x + margin : lo.x - margin, i & 2 ? hi.y + margin : lo.y - margin, i & 4 ? hi.z + margin : lo.z - margin).applyMatrix4(view);
+    fit.left = Math.min(fit.left, p.x); fit.right = Math.max(fit.right, p.x); fit.bottom = Math.min(fit.bottom, p.y); fit.top = Math.max(fit.top, p.y);
+    fit.near = Math.min(fit.near, -p.z); fit.far = Math.max(fit.far, -p.z);
+  }
   sun.castShadow = true;
   sun.shadow.mapSize.set(4096, 4096);
   sun.shadow.bias = -0.0004; sun.shadow.normalBias = 0.01;
-  Object.assign(sun.shadow.camera, {left: shadow.left, right: shadow.right, top: shadow.top, bottom: shadow.bottom, near: shadow.near, far: shadow.far});
+  Object.assign(sun.shadow.camera, fit);
+  sun.shadow.camera.updateProjectionMatrix();
   scene.add(sun, sun.target);
 
   const gi = createGi(THREE);

@@ -82,7 +82,7 @@ export function metricUV(geometry, scale = 1) {
 // ---------------------------------------------------------------- the library
 /**
  * createMaterials(THREE, {quality}) -> {wall, oakFloor, wood, lacquer, steel, fabric, plastic}.
- * quality 1 makes 512 px textures (1024 for the floor); 0.5 halves them (faster in a bake), 2 doubles
+ * quality 1 makes 512 px textures (2048 x 1024 for the floor); 0.5 halves them (faster in a bake), 2 doubles
  * them. Colours are sRGB triples 0..1. The same arguments give the same material object (cached).
  */
 export function createMaterials(THREE, {quality = 1} = {}) {
@@ -137,25 +137,27 @@ export function createMaterials(THREE, {quality = 1} = {}) {
   /** Oak planks laid along u: own tone and ring pattern per plank, a micro-bevel on every edge. */
   function oakFloor({plank = [1.2, 0.19], rows = 8, lengths = 3, tone = [0.784, 0.679, 0.543], gloss = 0.3, seed = 77} = {}) {
     return once(`oak|${plank}|${rows}|${lengths}|${tone}|${gloss}|${seed}`, () => {
-      const [PL, PW] = plank, TW = rows * PW, TL = lengths * PL, N = size(1024);
-      const H = new Float32Array(N * N), R = new Float32Array(N * N), col = new Uint8Array(N * N * 4), rnd = mulberry32(seed);
+      const [PL, PW] = plank, TW = rows * PW, TL = lengths * PL;
+      const X = size(2048), Y = size(1024), NN = X * Y;            // along the planks x across: texels about 1.8 x 1.5 mm
+      const H = new Float32Array(NN), R = new Float32Array(NN), col = new Uint8Array(NN * 4), rnd = mulberry32(seed);
       const off = Array.from({length: rows}, (_, r) => (r * 0.38 + rnd() * 0.2) % 1);     // end joints stepped across rows
       const P = Array.from({length: rows * lengths}, () => ({
         ox: rnd() * 256, oy: rnd() * 256, lum: (rnd() - 0.5) * 0.14, warm: rnd() * 2 - 1,
         c0: rnd() < 0.6 ? 0.03 + rnd() * 0.13 : -0.5 + rnd() * 0.38, h0: rnd() * 0.05, k: (rnd() * 0.08) * (rnd() < 0.5 ? -1 : 1),
         rw: 0.0048 + rnd() * 0.0037, ring: 0.07 + rnd() * 0.06, gloss: (rnd() - 0.5) * 0.06,
       }));
-      for (let y = 0; y < N; y++) {
-        const t0 = (y / N) * TW, row = Math.min(rows - 1, Math.floor(t0 / PW)), t = t0 - row * PW;   // across the plank (m)
-        for (let x = 0; x < N; x++) {
-          const vv = (x / N) * lengths + off[row], fl = Math.floor(vv), s = (vv - fl) * PL, p = P[row * lengths + (fl % lengths)];
+      for (let y = 0; y < Y; y++) {
+        const t0 = (y / Y) * TW, row = Math.min(rows - 1, Math.floor(t0 / PW)), t = t0 - row * PW;   // across the plank (m)
+        for (let x = 0; x < X; x++) {
+          const vv = (x / X) * lengths + off[row], fl = Math.floor(vv), s = (vv - fl) * PL, p = P[row * lengths + (fl % lengths)];
           const a0 = t - p.c0, b0 = p.h0 + p.k * (s - PL / 2);
           const w1 = pnoise(s * 2.6 + p.ox, t * 22 + p.oy, 3, 4096, 4096), fa = pnoise(s * 7 + p.ox, t * 260 + p.oy, 5, 4096, 4096);
           const r = Math.sqrt(a0 * a0 + b0 * b0) + (w1 - 0.5) * 0.016, ph = r / p.rw, f = ph - Math.floor(ph);
           const pore = (f < 0.14 ? f / 0.14 : 1) * (1 - sm((f - 0.18) / 0.6)) * (0.45 + fa);
           const g = (fa - 0.5) * 0.11 + (w1 - 0.5) * 0.09 - pore * p.ring;
-          const edge = Math.min(t, PW - t, s, PL - s), bev = edge < 0.0017 ? sm((0.0017 - edge) / 0.0013) : 0;
-          const L = (1 + p.lum) * (1 + g) * (1 - 0.42 * bev), dk = g < 0 ? -g : 0, i = y * N + x;
+          const et = Math.min(t, PW - t), es = Math.min(s, PL - s);                   // the end bevel is wider: texels are longer along the plank
+          const bev = Math.max(et < 0.0017 ? sm((0.0017 - et) / 0.0013) : 0, es < 0.003 ? sm((0.003 - es) / 0.0024) : 0);
+          const L = (1 + p.lum) * (1 + g) * (1 - 0.42 * bev), dk = g < 0 ? -g : 0, i = y * X + x;
           col[i * 4] = clamp(tone[0] * L * (1 + 0.012 * p.warm)) * 255 + 0.5;
           col[i * 4 + 1] = clamp(tone[1] * L * (1 - 0.1 * dk)) * 255 + 0.5;
           col[i * 4 + 2] = clamp(tone[2] * L * (1 - 0.28 * dk - 0.03 * p.warm)) * 255 + 0.5;
@@ -164,11 +166,11 @@ export function createMaterials(THREE, {quality = 1} = {}) {
           R[i] = clamp(gloss + p.gloss + pore * 0.045 + bev * 0.35 + (fa - 0.5) * 0.05, 0.12, 1);
         }
       }
-      // the texture is square but covers TL x TW metres: stretch the repeat per axis
+      // the texture covers TL x TW metres
       const mk = (t) => { t.repeat.set(1 / TL, 1 / TW); return t; };
       const m = new THREE.MeshStandardMaterial({
-        map: mk(tex(col, N, N, {color: true})), normalMap: mk(tex(normalBytes(H, N, N, N / (TL * 1000), N / (TW * 1000)), N, N)),
-        roughnessMap: mk(grey(R, N, N)), roughness: 1,
+        map: mk(tex(col, X, Y, {color: true})), normalMap: mk(tex(normalBytes(H, X, Y, X / (TL * 1000), Y / (TW * 1000)), X, Y)),
+        roughnessMap: mk(grey(R, X, Y)), roughness: 1,
       });
       return finish(m, average(col), 'oak-floor');
     });
@@ -216,7 +218,7 @@ export function createMaterials(THREE, {quality = 1} = {}) {
   function steel({finish: kind = 'brushed', tone = [0.78, 0.78, 0.79], tile = 0.3, seed = 13} = {}) {
     if (!['brushed', 'satin', 'polished'].includes(kind)) throw new RangeError(`proc-materials: steel finish "${kind}" is not brushed, satin or polished`);
     return once(`steel|${kind}|${tone}|${tile}|${seed}`, () => {
-      const base = {brushed: 0.3, satin: 0.42, polished: 0.08}[kind];
+      const base = {brushed: 0.22, satin: 0.36, polished: 0.06}[kind];
       const p = {color: srgb(tone), metalness: 1, roughness: base};
       if (kind !== 'polished') {
         const N = size(512), H = new Float32Array(N * N), R = new Float32Array(N * N), cross = kind === 'brushed' ? 400 : 60;
@@ -234,6 +236,7 @@ export function createMaterials(THREE, {quality = 1} = {}) {
 
   /** Plain-weave cloth with sheen. threads per tile; slub roughens the threads like linen. */
   function fabric({color = [0.35, 0.38, 0.45], threads = 96, tile = 0.12, slub = 0.3, sheen = 0.4} = {}) {
+    if (!(Number.isInteger(threads) && threads >= 2 && threads % 2 === 0)) throw new RangeError('proc-materials: fabric threads must be an even whole number (the weave repeats every two threads)');
     return once(`fab|${color}|${threads}|${tile}|${slub}|${sheen}`, () => {
       const N = size(512), H = new Float32Array(N * N), T = threads;
       for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {

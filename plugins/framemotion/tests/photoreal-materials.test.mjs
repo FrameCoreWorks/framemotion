@@ -36,6 +36,21 @@ test('the materials are seeded, cached, carry their bounce colour and check thei
   assert.equal(a.steel({finish: 'polished'}).normalMap, null);
   assert.throws(() => a.steel({finish: 'chrome'}), /brushed, satin or polished/);
   assert.throws(() => createMaterials(THREE, {quality: 0}), /quality/);
+  assert.throws(() => a.fabric({threads: 81}), /even whole number/);
+  assert.equal(oak.map.image.width, 2 * oak.map.image.height, 'floor texels are about square: twice as long as wide');
+});
+
+test('the default textures match the pinned hash (a Node or V8 change that alters them shows here)', {skip}, async () => {
+  const THREE = await three();
+  const crypto = await import('node:crypto');
+  const {createMaterials} = await mod('proc-materials.mjs');
+  const a = createMaterials(THREE, {quality: 0.25}), h = crypto.createHash('sha256');
+  for (const n of ['wall', 'oakFloor', 'wood', 'lacquer', 'steel', 'fabric', 'plastic']) {
+    const m = a[n]();
+    for (const k of ['map', 'normalMap', 'roughnessMap', 'clearcoatNormalMap']) if (m[k]) h.update(m[k].image.data);
+  }
+  // pinned 2026-11-16 with Node 22 in a cloud container; if it changes on purpose, rebake the scenes that use the library
+  assert.equal(h.digest('hex'), '168fd98be9b3961e4d3584b23dfaa89b91a63b90c5166b8f2d22124d28f4bd06');
 });
 
 test('metric UVs follow the mesh size, and a textured mesh warns only without an albedo', {skip}, async () => {
@@ -81,6 +96,13 @@ test('the table top stays inside its rounded outline and its edge is closed', {s
     assert.ok(n.getX(i) * p.getX(i) + n.getZ(i) * p.getZ(i) > 0, 'edge normals point outwards');
   }
   assert.equal(Math.min(...p.array.filter((_, i) => i % 3 === 1)), Math.fround(-T));
+  // the edge's u runs on around the band: no step longer than a grid cell (a seam squeezing the texture
+  // into one segment would jump by the whole perimeter)
+  const eu = edge.attributes.uv;
+  for (let i = 0; i < edge.index.count; i += 3) {
+    const us = [0, 1, 2].map((k) => eu.getX(edge.index.getX(i + k)));
+    assert.ok(Math.max(...us) - Math.min(...us) < 0.06, `edge triangle ${i / 3} spans ${Math.max(...us) - Math.min(...us)} m of texture`);
+  }
   // every triangle faces the way its vertex normals point (front faces are drawn and baked)
   for (const mesh of g.children) {
     const geo = mesh.geometry, P = geo.attributes.position, N = geo.attributes.normal, I = geo.index;
@@ -104,6 +126,9 @@ test('the window passes light, gives its portal in world space, and the plaque d
   const glass = win.getObjectByName('glass');
   assert.equal(glass.userData.gi, false); assert.equal(glass.userData.occluder, false);
   assert.ok(win.getObjectByName('bar-v2') && win.getObjectByName('bar-h1') && !win.getObjectByName('bar-v3'));
+  // the sill stays inside the opening in the reveal; only its nose in the room is wider
+  const sill = new THREE.Box3().setFromObject(win.getObjectByName('sill')), nose = new THREE.Box3().setFromObject(win.getObjectByName('sill-nose'));
+  assert.ok(sill.max.x <= 0.7 + 1e-6 && sill.max.z <= 1e-6 && nose.min.z >= -1e-6 && nose.max.x > 0.7);
   assert.ok(!litMeshes(win).some((e) => e.mesh === glass));
   win.rotation.y = Math.PI / 2; win.position.set(-2, 1.5, 0);
   const portal = portalOf(THREE, win);
@@ -116,6 +141,9 @@ test('the window passes light, gives its portal in world space, and the plaque d
   const tex = new THREE.DataTexture(new Uint8Array(16), 2, 2);
   const a = collectScene(THREE, make(null)), b = collectScene(THREE, make(tex));
   assert.equal(a.hash, b.hash, 'the plaque has the same geometry with and without the logo image');
+  const shared = new THREE.MeshStandardMaterial();
+  logoPlaque(THREE, {logo: tex, materials: {plate: m, pins: m, logo: shared}});
+  assert.equal(shared.map, null, 'the material passed in is not changed (it may be shared)');
   const plaque = make(tex), face = plaque.getObjectByName('logo');
   assert.equal(face.material.map, tex); assert.equal(face.material.alphaTest, 0.5);
   assert.ok(Math.abs(face.material.userData.albedo[0] - new THREE.Color(0x111111).r) < 1e-9);
@@ -163,4 +191,18 @@ test('the studio renders the same frame in any order', {skip, timeout: 900000}, 
   const back = await kit.renderFrames('photoreal-studio', {frames: [100, 10], params, once: true});
   assert.ok(first.frames.every((f) => f.deterministic && f.max - f.min > 40));
   for (const f of first.frames) assert.equal(back.frames.find((b) => b.frame === f.frame).hash, f.hash, `frame ${f.frame}`);
+});
+
+test('the room window reveal lines the opening', {skip}, async () => {
+  const THREE = await three();
+  const {buildRoom, WINDOW, ROOM} = await mod('room/scene.mjs');
+  const room = buildRoom(THREE);
+  for (const [name, y, ny] of [['sill', WINDOW.y[0], 1], ['lintel', WINDOW.y[1], -1]]) {
+    const o = room.getObjectByName(name), b = new THREE.Box3().setFromObject(o);
+    assert.ok(Math.abs(b.min.y - y) < 1e-6 && Math.abs(b.max.y - y) < 1e-6, `${name} is flat at the opening's height`);
+    assert.ok(b.min.x >= ROOM.min[0] - WINDOW.depth - 1e-6 && b.max.x <= ROOM.min[0] + 1e-6, `${name} stays in the wall's depth`);
+    assert.ok(Math.abs(b.min.z - WINDOW.z[0]) < 1e-6 && Math.abs(b.max.z - WINDOW.z[1]) < 1e-6, `${name} spans the opening`);
+    const n = new THREE.Vector3(0, 0, 1).applyQuaternion(o.quaternion);
+    assert.ok(Math.abs(n.y - ny) < 1e-9, `${name} faces into the opening`);
+  }
 });

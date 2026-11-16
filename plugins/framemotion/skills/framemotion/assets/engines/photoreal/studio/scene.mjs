@@ -1,8 +1,8 @@
 // Test scene for the procedural materials and props: the room test scene's shell (same window, sun
 // and sky) dressed with them. Painted woodchip walls, an oak plank floor, a window unit with glazing
-// bars that throw their shadow into the room, a walnut table with satin steel legs, a cloth-bound book,
+// bars that throw their shadow into the room, a light walnut table with satin steel legs, a cloth-bound book,
 // a green lacquered box and a brushed steel canister, and a brushed steel plaque with a mark on the
-// back wall; a slow push-in towards the table. Sky and bounces are baked (studio.gi.bin).
+// back wall; a slow 16:9 push-in from the corner towards the window and the table. Sky and bounces are baked (studio.gi.bin).
 // Original FrameCore Works teaching asset (Apache-2.0). Everything is a function of time.
 import * as THREE from 'three';
 import {createBakedDemo} from '../baked-demo.mjs';
@@ -37,7 +37,7 @@ export function buildStudio(T = THREE, {logo = null} = {}) {
 
   // table: walnut top, satin steel legs
   const table = new T.Group(); table.name = 'table'; root.add(table);
-  const top = tableTop(T, {width: 1.5, depth: 0.85, thickness: 0.04, radius: 0.06, material: M.wood({tone: [0.42, 0.28, 0.18], tile: 1.2})});
+  const top = tableTop(T, {width: 1.5, depth: 0.85, thickness: 0.04, radius: 0.06, material: M.wood({tone: [0.6, 0.42, 0.28], tile: 1.2, contrast: 1.3})});
   top.position.y = 0.75; table.add(top);
   const legM = M.steel({finish: 'satin'});
   for (const [i, [lx, lz]] of [[-0.66, -0.34], [0.66, -0.34], [-0.66, 0.34], [0.66, 0.34]].entries()) {
@@ -47,10 +47,15 @@ export function buildStudio(T = THREE, {logo = null} = {}) {
 
   // on the table
   const book = new T.Group(); book.name = 'book'; root.add(book);
-  const cover = new T.Mesh(metricUV(new T.BoxGeometry(0.24, 0.034, 0.17, 6, 1, 4)), M.fabric({color: [0.55, 0.16, 0.12], threads: 80, tile: 0.08}));
-  cover.name = 'cover'; book.add(cover);
-  const pages = new T.Mesh(metricUV(new T.BoxGeometry(0.232, 0.028, 0.163, 6, 1, 4)), M.plastic({color: [0.93, 0.91, 0.85], roughness: 0.85}));
-  pages.name = 'pages'; pages.position.x = 0.006; book.add(pages);
+  // hard covers in cloth on top, bottom and spine, the page block recessed 3 mm on the three open sides
+  const cloth = M.fabric({color: [0.55, 0.16, 0.12], threads: 80, tile: 0.08}), paper = M.plastic({color: [0.93, 0.91, 0.85], roughness: 0.85});
+  const [bw, bh, bd, ct] = [0.24, 0.034, 0.17, 0.003];
+  for (const [name, size, at, m] of [
+    ['cover-top', [bw, ct, bd], [0, bh / 2 - ct / 2, 0], cloth], ['cover-bottom', [bw, ct, bd], [0, -bh / 2 + ct / 2, 0], cloth],
+    ['spine', [ct, bh, bd], [-bw / 2 + ct / 2, 0, 0], cloth], ['pages', [bw - ct - 0.003, bh - 2 * ct, bd - 0.006], [ct / 2 - 0.0015, 0, 0], paper],
+  ]) {
+    const mesh = new T.Mesh(metricUV(new T.BoxGeometry(...size, 6, 1, 4)), m); mesh.name = name; mesh.position.set(...at); book.add(mesh);
+  }
   book.position.set(-0.55, 0.767, -0.5); book.rotation.y = 0.25;
   const lid = new T.Mesh(metricUV(new T.BoxGeometry(0.16, 0.1, 0.16, 4, 3, 4)), M.lacquer({color: [0.05, 0.24, 0.17], roughness: 0.4}));
   lid.name = 'box'; lid.position.set(0.12, 0.8, -0.75); lid.rotation.y = -0.4; root.add(lid);
@@ -99,19 +104,17 @@ export function markTexture(T, size = 256) {
   return t;
 }
 
-export async function createStudioDemo({canvas, width = 540, height = 960, fps = 30, duration = 4, samples = 16, aperture = 0.004, bake = 'studio.gi.bin'}) {
+export async function createStudioDemo({canvas, width = 960, height = 540, fps = 30, duration = 4, samples = 16, aperture = 0.004, bake = 'studio.gi.bin'}) {
   const root = buildStudio(THREE, {logo: markTexture(THREE)});
   const ease = (x) => { const k = Math.min(1, Math.max(0, x)); return k * k * (3 - 2 * k); };
-  const SUN = new THREE.Vector3(...ROOM_LIGHTS.sun.direction);
   return createBakedDemo({
     canvas, width, height, fps, duration, samples, aperture, id: 'photoreal-studio', root, lights: studioLights(THREE, root), look: LOOK,
     bakeUrl: new URL(bake, import.meta.url), box: ROOM, probe: [0, 1.4, 0.4],
-    shadow: {target: [-1, 0.5, -0.3], position: SUN.multiplyScalar(8).add(new THREE.Vector3(-2, 1, -0.3)).toArray(), left: -2.6, right: 2.6, top: 2.2, bottom: -2.2, near: 2, far: 16},
-    focus: root.getObjectByName('box'),
+    focus: root.getObjectByName('book'),
     place(t, camera) {
       const k = ease(t / (duration * 0.85));
-      camera.position.set(1.05 - 0.3 * k, 1.38 - 0.1 * k, 1.35 - 0.5 * k);
-      camera.lookAt(-0.02, 1.0, -1.0);
+      camera.position.set(1.55 - 0.35 * k, 1.42 - 0.08 * k, 1.25 - 0.3 * k);
+      camera.lookAt(-0.85, 1.0, -0.75);
     },
   });
 }

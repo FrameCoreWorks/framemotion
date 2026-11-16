@@ -63,10 +63,15 @@ export function tableTop(THREE, {width = 1.4, depth = 0.8, thickness = 0.04, rad
   for (let j = 1; j < nz; j++) ring.push(j * nx + nx - 1);
   for (let i = nx - 2; i >= 0; i--) ring.push((nz - 1) * nx + i);
   for (let j = nz - 2; j > 0; j--) ring.push(j * nx);
+  // start the band in the middle of a straight side and repeat that point at the end, so the texture's
+  // u runs on to the full length there instead of jumping back to 0 across one segment
+  const start = Math.floor(nx / 2);
+  ring.push(...ring.splice(0, start));
+  ring.push(ring[0]);
   const levels = [0, -thickness / 2, -thickness], R = ring.length, pos = new Float32Array(R * levels.length * 3), idx = [];
   levels.forEach((y, l) => ring.forEach((v, k) => pos.set([grid[v * 2], y, grid[v * 2 + 1]], (l * R + k) * 3)));
-  for (let l = 0; l < levels.length - 1; l++) for (let k = 0; k < R; k++) {
-    const a = l * R + k, b = l * R + ((k + 1) % R), c = a + R, d = b + R;
+  for (let l = 0; l < levels.length - 1; l++) for (let k = 0; k < R - 1; k++) {
+    const a = l * R + k, b = a + 1, c = a + R, d = b + R;
     idx.push(a, b, c, b, d, c);                                   // counter-clockwise seen from outside
   }
   const band = new THREE.BufferGeometry();
@@ -114,7 +119,10 @@ export function windowUnit(THREE, {width = 1.4, height = 1.2, depth = 0.07, fram
   if (sill) {
     const {depth: sd, thickness: st, overhang: so} = sill;
     // on the reveal's floor in front of the frame, reaching into the room by depth - inset
-    root.add(box(THREE, 'sill', [W + 2 * so, st, sd], [0, -H / 2 + st / 2, -inset + sd / 2], materials.sill, 0.05));
+    // a board on the reveal's floor in front of the frame (as wide as the opening), and its nose in the room,
+    // wider by the overhang on each side
+    root.add(box(THREE, 'sill', [W, st, inset], [0, -H / 2 + st / 2, -inset / 2], materials.sill, 0.05));
+    if (sd > inset) root.add(box(THREE, 'sill-nose', [W + 2 * so, st, sd - inset], [0, -H / 2 + st / 2, (sd - inset) / 2], materials.sill, 0.05));
   }
   root.userData.portal = {center: [0, 0, -inset - depth - 0.01], u: [iw / 2, 0, 0], v: [0, ih / 2, 0]};
   return root;
@@ -152,7 +160,7 @@ export function logoPlaque(THREE, {width = 0.6, height = 0.3, thickness = 0.01, 
     cap.name = `cap${i}`; cap.position.set(x, y, standoff + thickness + 0.003); root.add(cap);
   });
   const [lw, lh] = logoSize || [width * 0.62, height * 0.5];
-  const mat = materials.logo || new THREE.MeshStandardMaterial({color: new THREE.Color().setRGB(...logoColor, THREE.SRGBColorSpace), roughness: 0.35, metalness: 0});
+  const mat = materials.logo ? materials.logo.clone() : new THREE.MeshStandardMaterial({color: new THREE.Color().setRGB(...logoColor, THREE.SRGBColorSpace), roughness: 0.35, metalness: 0});
   if (logo) { mat.map = logo; mat.alphaTest = 0.5; mat.needsUpdate = true; }
   mat.userData.albedo ??= [mat.color.r, mat.color.g, mat.color.b];   // three keeps colours linear
   const face = new THREE.Mesh(metricUV(new THREE.PlaneGeometry(lw, lh, 8, 4)), mat);

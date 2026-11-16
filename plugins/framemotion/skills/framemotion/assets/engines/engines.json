@@ -94,8 +94,8 @@
       "kind": "three",
       "page": "photoreal/studio/index.html",
       "size": {
-        "width": 540,
-        "height": 960
+        "width": 960,
+        "height": 540
       },
       "fps": 30,
       "readme": "photoreal/README.md",
