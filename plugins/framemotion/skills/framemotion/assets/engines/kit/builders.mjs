@@ -539,6 +539,72 @@ Object.defineProperty(THREE.Object3D.prototype, 'frustumCulled', {get: () => fal
     const query = entry.build.scene ? {scene: String(entry.build.scene)} : {};
     return {dir, page, query};
   },
+  /**
+   * Line-art engine (bundled JDhruv14/line-art-animation): an example (or the user's own folder with an
+   * index.html and its TypeScript entry) bundled by esbuild into one page. The upstream loop already has a
+   * ?debug mode that steps the scene in exact 1/60 s steps; renderFrame(t) steps forward to t, and to go
+   * back it rebuilds the scene from zero. Math.random is a seeded generator while the scene runs, reset at each
+   * rebuild, so the villagers, birds and ripples come out the same in any frame order.
+   */
+  async lineart(entry, enginesRoot) {
+    const engine = sibling(enginesRoot, 'line-art-engine');
+    const source = entry.build.example ? path.join(engine, 'examples', entry.build.example) : path.resolve(enginesRoot, entry.build.folder ?? '');
+    const htmlFile = path.join(source, 'index.html');
+    if (!fs.existsSync(htmlFile)) throw new Error(`${entry.id}: no index.html in ${source}`);
+    let html = fs.readFileSync(htmlFile, 'utf8');
+    const tag = html.match(/<script type="module" src="\.\/([\w.-]+\.ts)"><\/script>/);
+    if (!tag) throw new Error(`${entry.id}: index.html needs <script type="module" src="./entry.ts">`);
+    const mount = entry.build.mount ?? '#stage';
+    if (!html.includes(`id="${mount.slice(1)}"`)) throw new Error(`${entry.id}: no ${mount} element in index.html`);
+    const fps = entry.fps;
+    if (60 % fps) throw new Error(`${entry.id}: the line-art loop steps 1/60 s, so fps must divide 60 (got ${fps})`);
+    const {build} = await import(pathToFileURL(path.join(enginesRoot, 'node_modules/esbuild/lib/main.js')).href);
+    const out = await build({entryPoints: [path.join(source, tag[1])], bundle: true, write: false, format: 'iife', target: 'es2020', logLevel: 'silent'});
+    const code = out.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
+    const seed = Number.isInteger(entry.build.seed) ? entry.build.seed : 11;
+    const fit = entry.build.fit === 'meet' ? 'xMidYMid meet' : 'xMidYMid slice';
+    const page = `<style>
+  /* FrameMotion capture: the card fills the frame, without the page around it */
+  html, body { overflow: hidden !important; }
+  body { display: block !important; }
+  .card { width: 100vw !important; height: 100vh !important; aspect-ratio: auto !important; border-radius: 0 !important; box-shadow: none !important; }
+  .hud, #hint { display: none !important; }
+</style>
+<script>
+(function () {
+  // the scene's own random stream, in use only while the scene runs: any other script on the page
+  // that calls Math.random between frames must not move it
+  let s = 1;
+  const seeded = () => { s = (s * 16807) % 2147483647; return (s - 1) / 2147483646; };
+  const native = Math.random;
+  function scene() {
+${code}
+  }
+  const stage = document.querySelector(${JSON.stringify(mount)});
+  let steps = -1;
+  function boot() {
+    s = ${seed};
+    stage.replaceChildren();
+    scene();
+    stage.querySelector('svg')?.setAttribute('preserveAspectRatio', ${JSON.stringify(fit)});
+    steps = 0;
+  }
+  window.renderFrame = (t) => {
+    const want = Math.round(t * 60);
+    Math.random = seeded;
+    try {
+      if (steps < 0 || want < steps) boot();
+      if (want > steps) { window.__step((want - steps) / 60); steps = want; }
+    } finally { Math.random = native; }
+  };
+})();
+</script>`;
+    html = html.replace(tag[0], () => page);
+    const dir = temp(entry.id);
+    fs.writeFileSync(path.join(dir, 'index.html'), html);
+    const query = {debug: '', capture: '', ...Object.fromEntries(Object.entries(entry.build.query ?? {}).map(([k, v]) => [k, String(v)]))};
+    return {dir, page: 'index.html', query};
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {

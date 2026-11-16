@@ -117,7 +117,10 @@ export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_R
   // Build first: a failed build (a missing folder) must not leave a browser running.
   const built = entry.build ? await buildEntry(entry, root) : null;
   const {chromium} = await loadPlaywright();
-  const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : [...SOFTWARE_GL, ...SOFTWARE_2D])];
+  // A page of many SVG strokes under filters (the Line-art scenes) can be rasterised with or without the emulated GPU
+  // depending on what was drawn before, which moves edge pixels; "raster": "cpu" in its entry keeps it on the CPU.
+  const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : [...SOFTWARE_GL, ...SOFTWARE_2D]),
+    ...(entry.raster === 'cpu' ? ['--disable-gpu-rasterization'] : [])];
   const browser = await chromium.launch({args});
   const {width, height} = {...entry.size, ...params};
   const context = await browser.newContext({viewport: {width, height}, serviceWorkers: 'block', acceptDownloads: false});

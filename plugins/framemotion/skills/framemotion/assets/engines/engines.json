@@ -2258,6 +2258,69 @@
       "fps": 30,
       "duration": "page",
       "readme": "../lemo-engine/README.md"
+    },
+    {
+      "id": "lineart-walker",
+      "title": "Line art: a man with a briefcase walks along a street in ink (16:9)",
+      "status": "ready",
+      "kind": "svg",
+      "adapter": "renderFrame",
+      "readme": "../line-art-engine/README.md",
+      "sources": [
+        "line-art-animation"
+      ],
+      "blocks": [
+        "../line-art-engine/lib/ink.ts",
+        "../line-art-engine/lib/gait.ts",
+        "../line-art-engine/lib/motion.ts"
+      ],
+      "build": {
+        "tool": "lineart",
+        "example": "walker",
+        "mount": "#stage"
+      },
+      "screenshot": "#stage",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 12,
+      "raster": "cpu"
+    },
+    {
+      "id": "lineart-village",
+      "title": "Line art: an ink Japanese street from late afternoon to night, with villagers, birds and lit windows (16:9)",
+      "status": "ready",
+      "kind": "svg",
+      "adapter": "renderFrame",
+      "readme": "../line-art-engine/README.md",
+      "sources": [
+        "line-art-animation"
+      ],
+      "blocks": [
+        "../line-art-engine/lib/ink.ts",
+        "../line-art-engine/lib/gait.ts",
+        "../line-art-engine/lib/motion.ts",
+        "../line-art-engine/lib/daynight.ts"
+      ],
+      "build": {
+        "tool": "lineart",
+        "example": "village",
+        "mount": "#village",
+        "query": {
+          "start": 0.69,
+          "day": 108
+        }
+      },
+      "screenshot": "#village",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 20,
+      "raster": "cpu"
     }
   ]
 }

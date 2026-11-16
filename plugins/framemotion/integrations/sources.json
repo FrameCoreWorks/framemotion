@@ -575,6 +575,21 @@
       "references": [
         "references/explainer-method-recipes.md"
       ]
+    },
+    {
+      "name": "line-art-animation",
+      "repo": "JDhruv14/line-art-animation",
+      "commit": "c43d698913cf0ad44f984c7ae14c5348010594d3",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 JDhruv14",
+      "kind": "engine",
+      "pack": "P9",
+      "status": "bundled",
+      "conditions": [
+        "library, examples, references, method and the two clip-measuring tools copied unchanged into skills/framemotion/assets/line-art-engine/ on 2026-11-16 (SKILL.md renamed docs/method.md); hashes in integrations/line-art-animation/source-manifest.json",
+        "never the preview media or capture.ts (it starts its own Chrome); the FrameMotion builder seeds Math.random and steps the upstream ?debug loop"
+      ],
+      "bundled_commit": "c43d698913cf0ad44f984c7ae14c5348010594d3"
     }
   ]
 }

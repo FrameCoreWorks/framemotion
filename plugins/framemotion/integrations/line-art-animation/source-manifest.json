@@ -1,0 +1,145 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/JDhruv14/line-art-animation",
+  "source_commit": "c43d698913cf0ad44f984c7ae14c5348010594d3",
+  "retrieved_on": "2026-11-16",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2026 JDhruv14",
+  "activation": "bundled_engine_built_by_esbuild_and_rendered_by_the_framemotion_engine_kit_no_installer",
+  "renamed": {
+    "SKILL.md": "docs/method.md (byte-identical; renamed so no host loads it as a skill)"
+  },
+  "not_bundled": [
+    "media/ (7 MB of preview GIFs and stills)",
+    "README.md (the upstream landing page, which shows the GIFs; FrameMotion's README replaces it)",
+    "scripts/capture.ts (starts its own Chrome over the DevTools port; the FrameMotion renderer replaces it)",
+    "index.html (the upstream gallery page), package.json, package-lock.json, tsconfig.json, vite.config.ts and .gitignore (Vite setup; FrameMotion bundles with the esbuild already pinned in assets/engines)"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/LICENSE",
+      "sha256": "46a7890b47e4734ce4a0d2b83ef3cf6ca5e155f0068f1b284c088aa49c152b45"
+    },
+    {
+      "source_path": "SKILL.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/docs/method.md",
+      "sha256": "b4fcc85ca49f715d36b264167a7dbba26c5b48d49525f61bc29b9375e4edf9a2"
+    },
+    {
+      "source_path": "examples/village/canal.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/canal.ts",
+      "sha256": "17f302a0f06520a921179fc8e222914db229299c25c40de354a56536e462bc15"
+    },
+    {
+      "source_path": "examples/village/critters.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/critters.ts",
+      "sha256": "9d81c91f92c71ee2c06d93255f766b9abfa9cdd6d11a28a61140b68f081bb913"
+    },
+    {
+      "source_path": "examples/village/houses.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/houses.ts",
+      "sha256": "3a8d86d5110819cfa7245847653bb100b2a028a27848e855935919cb8cf3c4c0"
+    },
+    {
+      "source_path": "examples/village/index.html",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/index.html",
+      "sha256": "78fca06eae33e34c1d1155b548935524947bc03724fa6e05933dc0121739940d"
+    },
+    {
+      "source_path": "examples/village/kit.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/kit.ts",
+      "sha256": "d2ce450d4d5d2619d3d06f883392856b7c775a769b2375702b350877780351d9"
+    },
+    {
+      "source_path": "examples/village/main.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/main.ts",
+      "sha256": "8437ba6a534c24c2ffa6d6099f09b8feb9ce166f1428b8727513f492d39ba655"
+    },
+    {
+      "source_path": "examples/village/people.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/people.ts",
+      "sha256": "2dcf495e35ac7a72c84b0864a0a7b31950ccd4f571011af8ceb3ab6dd56ad50e"
+    },
+    {
+      "source_path": "examples/village/sky.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/sky.ts",
+      "sha256": "62edd81eb72ee6d9aba423bdf1db9237fa1857492643c9beafe44fa7700421fe"
+    },
+    {
+      "source_path": "examples/village/tsconfig.json",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/village/tsconfig.json",
+      "sha256": "f8056eaa3bde28a85cba82fa1815a4e844b227431706348a87d0da2f54950ee8"
+    },
+    {
+      "source_path": "examples/walker/index.html",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/walker/index.html",
+      "sha256": "2511b15c002022d2e84dc1bd3cc0f09b4e8d89771f6276b55435e44ab0fa35ca"
+    },
+    {
+      "source_path": "examples/walker/walker.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/examples/walker/walker.ts",
+      "sha256": "06ba7826ca4e93cf1b08fac42723d5233383370abd381fdd3543733f6d16579f"
+    },
+    {
+      "source_path": "lib/daynight.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/lib/daynight.ts",
+      "sha256": "ea5f883475146b79188d30cc1cfb70971c5f2db7e910b1d547f38e8a0ed3863a"
+    },
+    {
+      "source_path": "lib/gait.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/lib/gait.ts",
+      "sha256": "804750a1d3637831466acd53f764c7c05b9a9ff3e293c9c8eca0695e27b73b5d"
+    },
+    {
+      "source_path": "lib/ink.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/lib/ink.ts",
+      "sha256": "e95e90f3ab16125d8896356c142d6326713a9abdd29c6ade17008e3fed317956"
+    },
+    {
+      "source_path": "lib/motion.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/lib/motion.ts",
+      "sha256": "1d5a33261cfc9a23ba7d6e20b2a1c94ae6507814b5843504630bda9a52efe000"
+    },
+    {
+      "source_path": "references/matching.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/references/matching.md",
+      "sha256": "bfb884d1d2fb7d1cbade33acb115163370bf360c18211c26e9de8f4cf031a290"
+    },
+    {
+      "source_path": "references/motion.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/references/motion.md",
+      "sha256": "bf1e8d32432af400083ea9d6823796c69e53d0c856cd63ec49e3fc4518c19729"
+    },
+    {
+      "source_path": "references/scenes.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/references/scenes.md",
+      "sha256": "5581f817611c11ff38183790034d24cc4c0776924d445de6ec719b77a38e6881"
+    },
+    {
+      "source_path": "references/style.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/references/style.md",
+      "sha256": "50411b28cfd28784806c1975fe3ab936bf7abfb7a967d1aca91f17ef603aff24"
+    },
+    {
+      "source_path": "references/verify.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/references/verify.md",
+      "sha256": "29ac6f52491a9ae1edfafa3882eb0b9437c25790c5dd5a39f5ff5e9ae1bc25b2"
+    },
+    {
+      "source_path": "references/video.md",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/references/video.md",
+      "sha256": "6a8074c4fa233ce4de105121ae2f509abdbf4e7656a3f514defed103b34796fc"
+    },
+    {
+      "source_path": "scripts/clip.ts",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/scripts/clip.ts",
+      "sha256": "cac4ac98516cdcb06e2e65323dda19ec01121ef734c1064fa8bf496aa124f1f1"
+    },
+    {
+      "source_path": "scripts/frames.sh",
+      "destination_path": "../../skills/framemotion/assets/line-art-engine/scripts/frames.sh",
+      "sha256": "9d1f7099121fe048c06de4f64900e103c9dfb6e99109725df7c5484e1881e26e"
+    }
+  ]
+}

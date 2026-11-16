@@ -135,6 +135,11 @@ a source-manifest.json with the pinned commit):
   files, Clawd (Anthropic's character, not licensed by upstream) and the Mascot Screencast style, and the styles
   built on third-party material. File list, licences, hashes and the pinned font URLs in
   integrations/lemo-opuscar/source-manifest.json; the builder is FrameCore Works' own.
+- Line-art engine (skills/framemotion/assets/line-art-engine): JDhruv14/line-art-animation (commit
+  c43d698913cf0ad44f984c7ae14c5348010594d3, MIT, Copyright (c) 2026 JDhruv14): lib/, examples/, references/,
+  scripts/clip.ts and scripts/frames.sh bundled unchanged with upstream's LICENSE; SKILL.md is docs/method.md.
+  Not bundled: media/, README.md, scripts/capture.ts and the Vite setup. Hashes in
+  integrations/line-art-animation/source-manifest.json; the builder (kit/builders.mjs, lineart) is FrameCore Works' own.
 - rea-video (skills/framemotion/assets/reference-breakdown/rea-video): JuneYaooo/rea-video 0.1.0 (commit
   751596967f58b8949124d291e59bdc40fc04486e, Apache License 2.0, Copyright 2026 JuneYaooo), "rea-video by JuneYaooo":
   the rea_video package with upstream's LICENSE and NOTICE. Seven files are changed and marked "FrameMotion:"
