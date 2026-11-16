@@ -31,6 +31,9 @@ class WelcomeTest(unittest.TestCase):
         pl = (SKILL / 'assets' / 'startup-welcome.pl.md').read_text(encoding='utf-8')
         self.assertEqual(len(pl.split('\n\n')), len(asset.split('\n\n')))
         self.assertEqual(re.findall(r'^(\d)\. ', pl, re.M), ['1', '2'])
+        pl_start = re.search(r'^1\. Wybierz rodzaj filmu: (.*)$', pl, re.M).group(1)
+        self.assertEqual(len(pl_start.rstrip('.').split(', ')), len(groups))
+        self.assertTrue(asset.rstrip().endswith('what we are animating.') and pl.rstrip().endswith('co animujemy.'))
 
     def test_rule_points_to_welcome(self):
         text = (SKILL / 'SKILL.md').read_text(encoding='utf-8')

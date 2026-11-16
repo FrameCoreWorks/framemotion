@@ -18,6 +18,6 @@ When the user brings material (screenshots, photos, a logo, a clip, data) or des
 2. For each scene, choose the engine whose `good_for` matches the scene's job and whose `inputs` the user actually supplied: screenshots to `app`, product photos to `product`, numbers to `data`, a logo to `logo`, words only to `title` or `story`. Prefer the engine whose `about` matches the requested look; when two fit, take the one whose default format matches the deliverable.
 3. Show the plan before any render: per scene its job, the engine in plain words (its `about`, never the id), its length, and one line on why. Ask for approval; the user may swap any engine for another from the same group.
 4. Realistic 3D (`gpu_recommended`) only when there is time for its light bake and slower render: say so in the plan.
-5. Between scenes, a straight cut is the default; a transition from the transitions group only where it suits the style.
+5. Between scenes, a straight cut is the default; a transition (an engine whose `good_for` has `transition`, in any group) only where it suits the style.
 
 Scenes keep one size and frame rate for the whole film. Render each scene with `kit/render-engine.mjs` at the film's size, then join them in order; sound for the whole film follows [Earshot in FrameMotion](motion-toolkit-routing.md#earshot-in-framemotion).

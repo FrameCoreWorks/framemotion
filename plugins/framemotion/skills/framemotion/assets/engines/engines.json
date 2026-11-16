@@ -1808,7 +1808,6 @@
       "group": "numbers-charts-maps",
       "about": "A white 3D city: a route draws on, a pin drops and the camera pulls back.",
       "good_for": [
-        "data",
         "explainer"
       ],
       "inputs": [
@@ -2001,8 +2000,7 @@
       "group": "text-titles-logos",
       "about": "A number counts up while a highlighter marks the key words.",
       "good_for": [
-        "title",
-        "logo"
+        "title"
       ],
       "inputs": [
         "text"
@@ -2137,8 +2135,7 @@
       "group": "old-game-look",
       "about": "A wall torch: flame, smoke and sparks, looping.",
       "good_for": [
-        "effect",
-        "title"
+        "effect"
       ],
       "inputs": [
         "none"
@@ -2169,8 +2166,7 @@
       "group": "old-game-look",
       "about": "A big explosion on a stone floor, one shot.",
       "good_for": [
-        "effect",
-        "title"
+        "effect"
       ],
       "inputs": [
         "none"
@@ -2503,7 +2499,6 @@
       "about": "A sci-fi hologram: cyan wireframes, scanning rings and data read-outs.",
       "good_for": [
         "product",
-        "data",
         "title"
       ],
       "inputs": [
@@ -2898,8 +2893,7 @@
       "group": "era-film-moods",
       "about": "Swiss style: a strict grid, plain lettering and blocks of primary colour.",
       "good_for": [
-        "title",
-        "data"
+        "title"
       ],
       "inputs": [
         "text"

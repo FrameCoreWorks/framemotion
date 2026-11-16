@@ -44,7 +44,7 @@ KK_MIN = np.array([6.33, 2.68, 3.52, 5.38, 2.60, 3.53, 2.54, 4.75, 3.98, 2.69, 3
 KWEIGHT = 'highshelf=f=1681.974:g=3.99984:t=q:w=0.7071752,highpass=f=38.13547:poles=2:t=q:w=0.5003270'
 EARSHOT_COMMANDS = ('describe', 'match', 'rank', 'find', 'compare', 'realness', 'forge', 'fit', 'sfx', 'kit',
                     'gallery', 'doctor')
-EARSHOT_REFUSED = ('llm', 'mcp')   # audio upload and a server: outside Studio, as in Toolbox's launcher
+EARSHOT_REFUSED = ('llm', 'mcp')   # audio upload and a server: refused, as in the Earshot launcher
 
 
 class InputError(Exception):
@@ -936,11 +936,11 @@ def sheet_png(a, m, sy, out):
 def delegate(command):
     """Earshot command names: refused or pointed to the Earshot launcher; no engine is resolved or started here."""
     if command in EARSHOT_REFUSED:
-        print(f'listen: `{command}` is outside Studio: Earshot runs locally only (no audio upload, no MCP server).',
+        print(f'listen: `{command}` is refused: Earshot runs locally only (no audio upload, no MCP server).',
               file=sys.stderr)
         return 2
     print(f'listen: `{command}` needs Earshot. Run it with FrameMotion\'s launcher '
-          '(python3 assets/earshot/scripts/runtime.py run {command} ...) after its status check; setup happens only '
+          f'(python3 assets/earshot/scripts/runtime.py run {command} ...) after its status check; setup happens only '
           'after the user agrees (the same launcher as FrameCore Works Toolbox\'s Earshot, one shared runtime).'
           '\nThe measurements and checks in this tool run without it.', file=sys.stderr)
     return 4

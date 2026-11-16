@@ -80,7 +80,7 @@ not someone's identity. Any channel the user points to is a reference to learn f
   slam, the narrator's next line). It mutes the bed, music and effects, never the narration.
 - Effects follow the action on screen (a step, a door, a pen tap), matching the material, weight and distance; they
   never stand in for missing motion.
-- Keep the voice on top. The audio direction (Creative Studio: `skills/audio-production-director/SKILL.md`) and Toolbox's Earshot
+- Keep the voice on top. The audio direction (Creative Studio: `skills/audio-production-director/SKILL.md`) and FrameMotion's Earshot
   measure loudness and place effects on the right frame.
 
 ## Vertical cartoon reel

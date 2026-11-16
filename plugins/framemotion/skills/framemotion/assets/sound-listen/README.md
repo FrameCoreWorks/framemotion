@@ -16,7 +16,7 @@ python listen.py sheet film.mp4 -o sheet.png       # an annotated picture: frame
 ```
 
 - Every command prints a plain summary first; `--json` prints the whole result and `--out f.json` saves it.
-- Exit codes: 0 done, 1 a problem was found (`critique`, `check`), 3 bad input, 4 the reading needs Earshot through FrameCore Works Toolbox.
+- Exit codes: 0 done, 1 a problem was found (`critique`, `check`), 3 bad input, 4 the reading needs Earshot (FrameMotion's Earshot launcher).
 - `--cues cues.json` takes times in seconds, `{t}`, `{time}` or `{frame, fps}` objects, or `{cues: [...]}`. For a motion video built from a contract, export the contract's event times and use them as the cues.
 - A film with a picture is compared with its own hard cuts; a separate audio file needs `--video` or `--cues`.
 - Reading a sheet: pass the PNG to a model that reads images, or open it yourself. It is how an agent "sees" the soundtrack.
