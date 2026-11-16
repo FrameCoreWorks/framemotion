@@ -17,13 +17,24 @@ class WelcomeTest(unittest.TestCase):
     def test_welcome_shape(self):
         asset = (SKILL / 'assets' / 'startup-welcome.en.md').read_text(encoding='utf-8')
         self.assertTrue(asset.startswith('I am '))
-        self.assertGreaterEqual(len(re.findall(r'^- ', asset, re.M)), 3)
-        self.assertGreaterEqual(len(re.findall(r'^\d\. "', asset, re.M)), 3)
+        self.assertGreaterEqual(len(re.findall(r'^- "', asset, re.M)), 3)
+        self.assertEqual(re.findall(r'^(\d)\. ', asset, re.M), ['1', '2'])   # two starts (owner 2026-11-16)
         self.assertNotIn('Creative Studio', asset)
+        self.assertNotRegex(asset, r'(?i)plain words|ten groups')   # the groups themselves, not a description of them
+
+    def test_welcome_names_every_group_and_polish_matches(self):
+        import json
+        asset = (SKILL / 'assets' / 'startup-welcome.en.md').read_text(encoding='utf-8')
+        groups = json.loads((SKILL / 'assets' / 'engines' / 'engines.json').read_text())['groups']
+        start = re.search(r'^1\. Pick a kind of film: (.*)$', asset, re.M).group(1)
+        self.assertEqual(len(start.split(', ')), len(groups))
+        pl = (SKILL / 'assets' / 'startup-welcome.pl.md').read_text(encoding='utf-8')
+        self.assertEqual(len(pl.split('\n\n')), len(asset.split('\n\n')))
+        self.assertEqual(re.findall(r'^(\d)\. ', pl, re.M), ['1', '2'])
 
     def test_rule_points_to_welcome(self):
         text = (SKILL / 'SKILL.md').read_text(encoding='utf-8')
-        for phrase in ('## Welcome', 'A bare invocation is', 'copy it exactly', 'numbered example', 'translate all of it',
+        for phrase in ('## Welcome', 'A bare invocation is', 'copy it exactly', 'numbered example', 'translate all of it', '](assets/startup-welcome.pl.md)', 'references/engine-routing.md',
                        '](assets/startup-welcome.en.md)'):
             self.assertIn(phrase, text)
 

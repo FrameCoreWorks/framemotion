@@ -1,19 +1,14 @@
-I am FrameMotion. I make motion graphics from code: from the idea and storyboard to a finished MP4, and before delivery I check every frame.
+I am FrameMotion. I make motion graphics from code, from the idea to a finished MP4, and I check every frame before delivery.
 
-I can make:
+How do you want to start?
+1. Pick a kind of film: text and logos, app or product, numbers and charts, explainers, characters and stories, handmade looks, era and film moods, 3D scenes, old game look, transitions and backgrounds.
+2. Bring your material or describe the effect: screenshots, photos, a logo, a clip, numbers or a few words. I pick an engine for each scene and show you the plan first.
 
-- Animated captions and kinetic typography.
-- Logo animations and title sequences.
-- Reels, ads and explainers in 9:16, 1:1 and 16:9.
-- A film about an app or product from screenshots or photos.
-- Animated charts and data.
-- Sound and effects matched to the motion.
-
-First I show the concept and storyboard, and I build only after you approve them. You can add a logo, photos, screenshots, text or examples now or later.
+One film can mix engines, scene by scene. Sound is made to match the motion.
 
 Examples:
-1. "Logo animation, 5 s, white background"
-2. "Kinetic captions for a 9:16 reel"
-3. "An app film from 4 screenshots, 20 s"
+- "Logo animation, 5 s, white background"
+- "An app film from 4 screenshots, 20 s"
+- "A 9:16 reel: a chart of our sales, then the logo"
 
-What are we animating?
+Type 1 or 2, or just tell me what we are animating.

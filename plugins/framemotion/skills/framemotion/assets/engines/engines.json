@@ -1,10 +1,71 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes.",
+  "groups": [
+    {
+      "id": "text-titles-logos",
+      "title": "Text, titles and logos",
+      "about": "Words, slogans and logos that slide in, change and land on the beat; also name bars over your own footage."
+    },
+    {
+      "id": "app-product",
+      "title": "Your app or product",
+      "about": "Short launch films made from your screenshots or product photos."
+    },
+    {
+      "id": "numbers-charts-maps",
+      "title": "Numbers, charts and maps",
+      "about": "Data that comes alive: growing bars, lines, counters, routes on a map and a globe."
+    },
+    {
+      "id": "explainers",
+      "title": "Explaining how things work",
+      "about": "Films that explain: cutaways, devices taken apart, diagrams and whiteboard drawing."
+    },
+    {
+      "id": "characters-stories",
+      "title": "Characters and short stories",
+      "about": "Stick figures and drawn characters that walk, react and tell a story."
+    },
+    {
+      "id": "handmade-looks",
+      "title": "Looks like a painting, print or drawing",
+      "about": "The whole film looks handmade: paint, crayon, woodcut, stained glass, sketch."
+    },
+    {
+      "id": "era-film-moods",
+      "title": "Era and film moods",
+      "about": "A film in the mood of an era or genre: 1930s luxury, a spy title sequence, an old monitor, science fiction."
+    },
+    {
+      "id": "3d-scenes",
+      "title": "3D scenes",
+      "about": "A space the camera moves through: from photo-like rooms to toy-like miniatures."
+    },
+    {
+      "id": "old-game-look",
+      "title": "Old video game look",
+      "about": "Chunky big-pixel graphics like old video games: fire, explosions, magic."
+    },
+    {
+      "id": "transitions-effects-backgrounds",
+      "title": "Transitions, effects and backgrounds",
+      "about": "Extras for other scenes: transitions between shots, sparks and confetti, picture glitches, moving backgrounds."
+    }
+  ],
   "engines": [
     {
       "id": "photoreal-demo",
       "title": "Photoreal three.js blocks (demo scene)",
+      "group": "3d-scenes",
+      "about": "A simple showcase of realistic light and materials.",
+      "good_for": [
+        "product",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "three",
       "page": "photoreal/demo/index.html",
@@ -45,6 +106,15 @@
     {
       "id": "photoreal-room",
       "title": "Photoreal three.js: baked light (room test scene)",
+      "group": "3d-scenes",
+      "about": "A room that looks like a photo: dawn light from a window, wood, soft shadows.",
+      "good_for": [
+        "background",
+        "product"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "three",
       "page": "photoreal/room/index.html",
@@ -90,6 +160,14 @@
     {
       "id": "photoreal-studio",
       "title": "Photoreal three.js: procedural materials and props (studio test scene)",
+      "group": "3d-scenes",
+      "about": "Objects on a table that look photographed: metal, wood, fabric, shallow focus.",
+      "good_for": [
+        "product"
+      ],
+      "inputs": [
+        "logo"
+      ],
       "status": "ready",
       "kind": "three",
       "page": "photoreal/studio/index.html",
@@ -137,6 +215,15 @@
     {
       "id": "animate-starter",
       "title": "Animate engine (bundled, starter piece in cut paper)",
+      "group": "characters-stories",
+      "about": "A cut-paper scene where figures and objects move in layers.",
+      "good_for": [
+        "story"
+      ],
+      "inputs": [
+        "text",
+        "image"
+      ],
       "status": "ready",
       "kind": "canvas",
       "build": {
@@ -160,6 +247,15 @@
     {
       "id": "anatomy-svg",
       "title": "Anatomy engine (bundled, SVG fixture)",
+      "group": "explainers",
+      "about": "An illustration whose labelled parts appear one by one.",
+      "good_for": [
+        "explainer",
+        "product"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "build": {
@@ -189,6 +285,15 @@
     {
       "id": "kaventro-blank",
       "title": "kaventro/motion-designer film template: blank (titles, kinetic type, data)",
+      "group": "text-titles-logos",
+      "about": "A clean stage for titles, moving words and simple numbers.",
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "html",
       "build": {
@@ -215,6 +320,15 @@
     {
       "id": "kaventro-overlay",
       "title": "kaventro/motion-designer film template: overlay (lower thirds, captions and callouts over footage (transparent background))",
+      "group": "text-titles-logos",
+      "about": "A name bar, caption or pointer laid over your own footage.",
+      "good_for": [
+        "title"
+      ],
+      "inputs": [
+        "clip",
+        "text"
+      ],
       "status": "ready",
       "kind": "html",
       "build": {
@@ -242,6 +356,15 @@
     {
       "id": "kaventro-mobile",
       "title": "kaventro/motion-designer film template: mobile (an app inside an iPhone)",
+      "group": "app-product",
+      "about": "Your app inside a phone that turns and shows screen after screen.",
+      "good_for": [
+        "app",
+        "product"
+      ],
+      "inputs": [
+        "screenshots"
+      ],
       "status": "ready",
       "kind": "html",
       "build": {
@@ -268,6 +391,15 @@
     {
       "id": "kaventro-desktop",
       "title": "kaventro/motion-designer film template: desktop (an app window on a laptop)",
+      "group": "app-product",
+      "about": "Your app in a laptop window, with the camera moving in on what matters.",
+      "good_for": [
+        "app",
+        "product"
+      ],
+      "inputs": [
+        "screenshots"
+      ],
       "status": "ready",
       "kind": "html",
       "build": {
@@ -294,6 +426,17 @@
     {
       "id": "kaventro-story",
       "title": "kaventro/motion-designer film template: story (hook, product, feature panels and end card)",
+      "group": "app-product",
+      "about": "A whole launch film: a hook, the product, feature panels and an end card.",
+      "good_for": [
+        "app",
+        "product",
+        "story"
+      ],
+      "inputs": [
+        "screenshots",
+        "text"
+      ],
       "status": "ready",
       "kind": "html",
       "build": {
@@ -320,6 +463,15 @@
     {
       "id": "hairline-spice-rack",
       "title": "Hairline isometric line figure (spice rack example)",
+      "group": "explainers",
+      "about": "A fine-line drawing of an object seen from an angle, like a manual, drawing and labelling itself.",
+      "good_for": [
+        "explainer",
+        "product"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "build": {
@@ -349,6 +501,14 @@
     {
       "id": "gl-transition",
       "title": "gl-transitions: 236 transitions between two pictures",
+      "group": "transitions-effects-backgrounds",
+      "about": "Over 200 ready transitions between two pictures.",
+      "good_for": [
+        "transition"
+      ],
+      "inputs": [
+        "image"
+      ],
       "status": "ready",
       "kind": "canvas",
       "page": "gl-transitions/index.html",
@@ -420,6 +580,14 @@
     {
       "id": "paper-shader",
       "title": "Paper Shaders: mesh gradient, grain gradient, warp and god rays on the clock",
+      "group": "transitions-effects-backgrounds",
+      "about": "Flowing backgrounds of blending colours, grain and rays of light.",
+      "good_for": [
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "page": "libraries/paper-shaders/index.html",
@@ -488,6 +656,15 @@
     {
       "id": "pixi-filter",
       "title": "PixiJS filters: shockwave, god rays, CRT and glitch on the clock",
+      "group": "transitions-effects-backgrounds",
+      "about": "Effects on a picture: a shockwave, light rays, an old TV look, glitches.",
+      "good_for": [
+        "effect",
+        "transition"
+      ],
+      "inputs": [
+        "image"
+      ],
       "status": "experimental",
       "kind": "canvas",
       "page": "libraries/pixi-filters/index.html",
@@ -551,6 +728,14 @@
     {
       "id": "css-doodle",
       "title": "css-doodle: CSS pattern grids with seeded random values",
+      "group": "transitions-effects-backgrounds",
+      "about": "Backgrounds of repeating patterns that shift in rhythm.",
+      "good_for": [
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "html",
       "page": "libraries/css-doodle/index.html",
@@ -616,6 +801,15 @@
     {
       "id": "torph-text",
       "title": "torph: words that morph into each other letter by letter",
+      "group": "text-titles-logos",
+      "about": "One word melts into the next, letter by letter.",
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "html",
       "page": "libraries/torph/index.html",
@@ -693,6 +887,15 @@
     {
       "id": "tsparticles",
       "title": "tsParticles: confetti, drifting dust and point networks, stepped on the clock",
+      "group": "transitions-effects-backgrounds",
+      "about": "Confetti, drifting dust and a web of linked dots.",
+      "good_for": [
+        "effect",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "page": "libraries/tsparticles/index.html",
@@ -766,6 +969,15 @@
     {
       "id": "p5-brush",
       "title": "p5.brush: a drawing that builds itself with pencil, watercolour and hatching",
+      "group": "handmade-looks",
+      "about": "A drawing that makes itself: pencil, watercolour and hatching.",
+      "good_for": [
+        "story",
+        "background"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "experimental",
       "kind": "canvas",
       "page": "libraries/brush/index.html",
@@ -823,6 +1035,15 @@
     {
       "id": "stickman-hello",
       "title": "Stickman engine: the bundled hello-stickman film (16:9, light theme)",
+      "group": "characters-stories",
+      "about": "A stick figure tells a simple story, landscape, on a light background.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "build": {
@@ -852,6 +1073,15 @@
     {
       "id": "stickman-vertical",
       "title": "Stickman engine: the bundled two-minute-rule short (9:16, dark theme, pop captions)",
+      "group": "characters-stories",
+      "about": "A stick figure upright for phones, on dark, with pop-up captions.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "build": {
@@ -881,6 +1111,15 @@
     {
       "id": "stickman-reel",
       "title": "Stickman engine: FrameMotion's 40 s vertical cartoon reel (11 set-ups, big heads, drift, short captions)",
+      "group": "characters-stories",
+      "about": "A big-headed cartoon figure in a 40-second reel of many little scenes.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "build": {
@@ -912,6 +1151,14 @@
     {
       "id": "cutaway-piranha",
       "title": "Cutaway engine: the bundled robotic piranha film (the green page, 60 fps)",
+      "group": "explainers",
+      "about": "A 3D cutaway of a machine: the camera looks inside and shows how it works.",
+      "good_for": [
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrame",
@@ -938,6 +1185,15 @@
     {
       "id": "teardown-phone",
       "title": "Teardown: a labelled exploded view of a phone (9:16, Polish labels)",
+      "group": "explainers",
+      "about": "A phone comes apart in mid-air, every part labelled; upright for phones.",
+      "good_for": [
+        "product",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrame",
@@ -964,6 +1220,15 @@
     {
       "id": "teardown-watch",
       "title": "Teardown: a labelled exploded view of a watch (16:9, light theme)",
+      "group": "explainers",
+      "about": "A watch comes apart, every part labelled; landscape.",
+      "good_for": [
+        "product",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrame",
@@ -990,6 +1255,15 @@
     {
       "id": "launch-type",
       "title": "Launch film, kinetic type: a launch bumper or identity sting, big type on springs",
+      "group": "text-titles-logos",
+      "about": "Big letters bounce in on springs, like a brand opener.",
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1014,6 +1288,15 @@
     {
       "id": "launch-type-pl",
       "title": "Launch film, the kinetic type bumper with Polish copy, laid out for 9:16 (FrameMotion's sample)",
+      "group": "text-titles-logos",
+      "about": "The same bouncing opener, laid out upright for phones, with Polish text.",
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1040,6 +1323,16 @@
     {
       "id": "launch-shapes",
       "title": "Launch film, flat 2D shapes: icons, draw-ons, ripples, wipes, an animated logo",
+      "group": "text-titles-logos",
+      "about": "Flat icons and shapes that draw themselves and ripple out; good for a logo animation.",
+      "good_for": [
+        "logo",
+        "title"
+      ],
+      "inputs": [
+        "logo",
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1067,6 +1360,15 @@
     {
       "id": "launch-cartoon",
       "title": "Launch film, an original cartoon mascot on twos that hops, waves and shows a sign",
+      "group": "characters-stories",
+      "about": "A drawn mascot hops, waves and holds up a sign with your message.",
+      "good_for": [
+        "story",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1091,6 +1393,15 @@
     {
       "id": "launch-3d",
       "title": "Launch film, extruded 3D type and primitives with soft shadows and a moving camera (WebGL2)",
+      "group": "3d-scenes",
+      "about": "3D lettering and shapes with soft shadows and a moving camera.",
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrameAt",
@@ -1115,6 +1426,15 @@
     {
       "id": "launch-charts",
       "title": "Launch film, animated charts from sourced numbers: counters, bars, lines, donuts",
+      "group": "numbers-charts-maps",
+      "about": "Counters, bars, lines and pie rings from your data, shown step by step.",
+      "good_for": [
+        "data"
+      ],
+      "inputs": [
+        "data",
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1147,6 +1467,15 @@
     {
       "id": "launch-pixel",
       "title": "Launch film, a pixel-art loop: sprites, tiles, parallax, a bitmap font",
+      "group": "old-game-look",
+      "about": "A looping game scene: characters, tiles, layered backgrounds and pixel lettering.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1171,6 +1500,16 @@
     {
       "id": "launch-particles",
       "title": "Launch film, particle swarms that form a word or logo, burst and reform",
+      "group": "text-titles-logos",
+      "about": "A cloud of specks forms a word or logo, bursts and forms again.",
+      "good_for": [
+        "logo",
+        "title"
+      ],
+      "inputs": [
+        "logo",
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1195,6 +1534,15 @@
     {
       "id": "launch-ui",
       "title": "Launch film, an app UI demo in a device frame with callouts",
+      "group": "app-product",
+      "about": "An app demo in a device frame, with callouts naming each feature.",
+      "good_for": [
+        "app",
+        "product"
+      ],
+      "inputs": [
+        "screenshots"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1219,6 +1567,14 @@
     {
       "id": "launch-photo",
       "title": "Launch film, a product reel from your own photos: crops, cutouts, carousels, before/after, tags",
+      "group": "app-product",
+      "about": "A film from your product photos: crops, cut-outs, a carousel, before and after, price tags.",
+      "good_for": [
+        "product"
+      ],
+      "inputs": [
+        "image"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1246,6 +1602,14 @@
     {
       "id": "launch-overlays",
       "title": "Launch film, a lower third for editors, drawn on a transparent canvas",
+      "group": "text-titles-logos",
+      "about": "A name bar on a see-through background, ready to drop into an edit.",
+      "good_for": [
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1274,6 +1638,16 @@
     {
       "id": "launch-globe",
       "title": "Launch film, a data globe: a dotted Earth, a flying camera, routes, beams and counting cards",
+      "group": "numbers-charts-maps",
+      "about": "A dotted Earth, a flying camera, routes drawing on and results counting up.",
+      "good_for": [
+        "data",
+        "explainer"
+      ],
+      "inputs": [
+        "data",
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1298,6 +1672,15 @@
     {
       "id": "launch-story",
       "title": "Launch film, a 9:16 second-person story short with drawn sets and word captions (example content: a crime story to replace; silent until a voice is added through the sound route)",
+      "group": "characters-stories",
+      "about": "An upright story told to the viewer ('you'), with drawn scenes and word-by-word captions.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1322,6 +1705,15 @@
     {
       "id": "launch-ui-vertical",
       "title": "Launch film, the app UI demo laid out for 9:16 (the same film, --format 9:16)",
+      "group": "app-product",
+      "about": "The same app demo, laid out upright for phones.",
+      "good_for": [
+        "app",
+        "product"
+      ],
+      "inputs": [
+        "screenshots"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1347,6 +1739,15 @@
     {
       "id": "reels-graph",
       "title": "Reel, a smooth line graph that draws itself while one number counts up (9:16, 4 s, from a spec)",
+      "group": "numbers-charts-maps",
+      "about": "A line graph draws itself while one number counts up; a short upright clip.",
+      "good_for": [
+        "data"
+      ],
+      "inputs": [
+        "data",
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "adapter": "seek",
@@ -1371,6 +1772,15 @@
     {
       "id": "reels-graph-pl",
       "title": "Reel, the line graph with Polish copy (Latin Extended faces added by the builder)",
+      "group": "numbers-charts-maps",
+      "about": "The same graph with Polish text.",
+      "good_for": [
+        "data"
+      ],
+      "inputs": [
+        "data",
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "adapter": "seek",
@@ -1395,6 +1805,15 @@
     {
       "id": "reels-map-route",
       "title": "Reel, a white 3D city where a route draws itself, a pin drops and the camera pulls back (9:16, 4 s, three.js, from a spec)",
+      "group": "numbers-charts-maps",
+      "about": "A white 3D city: a route draws on, a pin drops and the camera pulls back.",
+      "good_for": [
+        "data",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "seek",
@@ -1419,6 +1838,15 @@
     {
       "id": "reels-minimal-line-art",
       "title": "Reel, black-and-white line art: a dot hops up the steps and lands one or two lines (9:16, from a spec)",
+      "group": "characters-stories",
+      "about": "Black-and-white drawing: a dot hops up the steps and lands by a short line of text.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "adapter": "seek",
@@ -1443,6 +1871,15 @@
     {
       "id": "reels-what-if-3d",
       "title": "Reel, a 3D cartoon 'what if' explainer short with procedural people and props, slow-motion impacts and 1 to 3 word captions (9:16, three.js; example: could ancient armour stop a bullet, silent until a voice is added)",
+      "group": "explainers",
+      "about": "A short 3D 'what if' film with simple people, slow motion and short captions.",
+      "good_for": [
+        "explainer",
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "seek",
@@ -1467,6 +1904,15 @@
     {
       "id": "art-gallery",
       "title": "Art styles: one beat in each bundled art style, from cave painting to 8-bit, on a 128 BPM grid (16:9)",
+      "group": "handmade-looks",
+      "about": "A tour of styles, from cave painting to early video games, one per beat of music.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1490,6 +1936,14 @@
     {
       "id": "art-speedrun",
       "title": "Art styles: the art-history speedrun, one room through fifteen eras with each era's own transition (16:9)",
+      "group": "handmade-looks",
+      "about": "One room travels through 15 eras of art, each with its own transition.",
+      "good_for": [
+        "story"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1513,6 +1967,14 @@
     {
       "id": "art-style-studies",
       "title": "Art styles: style studies, one six-second scene each for fourteen painters and traditions, from Giotto to Gauguin, Ma Yuan, Persian miniature and Dunhuang (16:9)",
+      "group": "handmade-looks",
+      "about": "Short scenes in the manner of 14 painters and traditions, from Giotto to Persian miniatures.",
+      "good_for": [
+        "story"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1536,6 +1998,15 @@
     {
       "id": "art-kinetic-type-pl",
       "title": "Art clip, kinetic type: a counting number, big words with a highlighter, Polish copy (9:16)",
+      "group": "text-titles-logos",
+      "about": "A number counts up while a highlighter marks the key words.",
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "flat_frames": [
@@ -1567,6 +2038,15 @@
     {
       "id": "art-finance-chart-pl",
       "title": "Art clip, finance chart: bars that build to one highlighted result, with source and unit, Polish copy and example data (16:9)",
+      "group": "numbers-charts-maps",
+      "about": "Bars grow to one highlighted result, with the data source shown.",
+      "good_for": [
+        "data"
+      ],
+      "inputs": [
+        "data",
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1590,6 +2070,14 @@
     {
       "id": "art-flat-science",
       "title": "Art clip, flat science explainer: a centre subject with points and a zoom in (16:9)",
+      "group": "explainers",
+      "about": "A flat illustration with one subject in the middle, points around it and a zoom in.",
+      "good_for": [
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1613,6 +2101,16 @@
     {
       "id": "art-keynote-ui",
       "title": "Art clip, keynote interface: a counting number and an icon card in a presentation look (16:9)",
+      "group": "numbers-charts-maps",
+      "about": "A number and an icon card in the look of a conference keynote.",
+      "good_for": [
+        "data",
+        "title"
+      ],
+      "inputs": [
+        "data",
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1636,6 +2134,15 @@
     {
       "id": "pixel-torch",
       "title": "Pixel effect, a wall torch: a licking flame, smoke and embers, looped twice (1:1)",
+      "group": "old-game-look",
+      "about": "A wall torch: flame, smoke and sparks, looping.",
+      "good_for": [
+        "effect",
+        "title"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1659,6 +2166,15 @@
     {
       "id": "pixel-big-explosion",
       "title": "Pixel effect, a big explosion on a stone floor, one shot (16:9)",
+      "group": "old-game-look",
+      "about": "A big explosion on a stone floor, one shot.",
+      "good_for": [
+        "effect",
+        "title"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1684,6 +2200,15 @@
     {
       "id": "pixel-level-up",
       "title": "Pixel effect, a level-up burst with its text, one shot (9:16)",
+      "group": "old-game-look",
+      "about": "A burst of light with a 'level up' sign, as in a game.",
+      "good_for": [
+        "effect",
+        "title"
+      ],
+      "inputs": [
+        "none"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1707,6 +2232,14 @@
     {
       "id": "pixel-slash-wipe",
       "title": "Pixel transition, a slash wipe across the whole frame (16:9)",
+      "group": "old-game-look",
+      "about": "A transition: a sword slash across the frame reveals the next scene.",
+      "good_for": [
+        "transition"
+      ],
+      "inputs": [
+        "image"
+      ],
       "status": "ready",
       "kind": "canvas",
       "flat_frames": [
@@ -1734,6 +2267,15 @@
     {
       "id": "lemo-art-deco",
       "title": "Lemo style film, gold geometry, sunbursts and stepped frames on black, a 1930s grand-hotel story (16:9)",
+      "group": "era-film-moods",
+      "about": "Gold geometric patterns and sunbursts on black, like a 1930s grand hotel.",
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1757,6 +2299,15 @@
     {
       "id": "lemo-ascii-crt",
       "title": "Lemo style film, a green phosphor terminal drawn in text characters, with scanlines and screen curve (16:9)",
+      "group": "era-film-moods",
+      "about": "A green old computer screen, pictures made of characters, with scan lines and curved glass.",
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1780,6 +2331,15 @@
     {
       "id": "lemo-backrooms",
       "title": "Lemo style film, liminal found footage: empty yellow rooms, camcorder grain and timecode (three.js) (16:9)",
+      "group": "era-film-moods",
+      "about": "Eerie empty yellow rooms filmed as if on an old camcorder, with grain and a timestamp.",
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrameAt",
@@ -1807,6 +2367,15 @@
     {
       "id": "lemo-blueprint",
       "title": "Lemo style film, white technical line drawing on blueprint blue, parts drawn and dimensioned live (16:9)",
+      "group": "explainers",
+      "about": "A white technical drawing on blue; parts draw on and get their dimensions.",
+      "good_for": [
+        "explainer",
+        "product"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1830,6 +2399,15 @@
     {
       "id": "lemo-crayon-book",
       "title": "Lemo style film, a children's picture book in wax crayon on paper, with crayon-written titles (16:9)",
+      "group": "handmade-looks",
+      "about": "A children's picture book drawn in wax crayon.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1853,6 +2431,15 @@
     {
       "id": "lemo-engraving",
       "title": "Lemo style film, copperplate engraving: hatched line shading on cream paper, museum-label type (16:9)",
+      "group": "handmade-looks",
+      "about": "An old engraving: line shading on cream paper.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1876,6 +2463,15 @@
     {
       "id": "lemo-glass-product",
       "title": "Lemo style film, a glass product render: refraction, studio light and clean launch type (three.js) (16:9)",
+      "group": "app-product",
+      "about": "A glass product in studio light, with reflections and clean launch lettering.",
+      "good_for": [
+        "product",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrameAt",
@@ -1903,6 +2499,16 @@
     {
       "id": "lemo-hologram-hud",
       "title": "Lemo style film, a sci-fi hologram HUD: cyan wireframes, scan rings and spec read-outs (16:9)",
+      "group": "era-film-moods",
+      "about": "A sci-fi hologram: cyan wireframes, scanning rings and data read-outs.",
+      "good_for": [
+        "product",
+        "data",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1926,6 +2532,15 @@
     {
       "id": "lemo-impasto",
       "title": "Lemo style film, thick oil paint with visible brush strokes and slow painted camera moves (16:9)",
+      "group": "handmade-looks",
+      "about": "Thick oil paint with visible brush strokes.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1949,6 +2564,14 @@
     {
       "id": "lemo-iso-infographic",
       "title": "Lemo style film, an isometric infographic: flat blocks, flows and labelled process steps (16:9)",
+      "group": "explainers",
+      "about": "An infographic of blocks seen from an angle: flows and labelled steps.",
+      "good_for": [
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -1972,6 +2595,15 @@
     {
       "id": "lemo-lowpoly-island",
       "title": "Lemo style film, a low-poly isometric island world with soft light and a slow orbit (three.js) (16:9)",
+      "group": "3d-scenes",
+      "about": "An island of simple faceted shapes in soft light, with the camera circling.",
+      "good_for": [
+        "background",
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrameAt",
@@ -1996,6 +2628,15 @@
     {
       "id": "lemo-midcentury-toon",
       "title": "Lemo style film, a 1950s cartoon: limited animation, flat colour and starburst backgrounds (16:9)",
+      "group": "characters-stories",
+      "about": "A 1950s cartoon: flat colours and starburst backgrounds.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2019,6 +2660,15 @@
     {
       "id": "lemo-one-line",
       "title": "Lemo style film, one continuous line that draws each scene and morphs into the next (16:9)",
+      "group": "handmade-looks",
+      "about": "One unbroken line draws each scene and turns into the next.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2043,6 +2693,15 @@
     {
       "id": "lemo-papercut-red",
       "title": "Lemo style film, red paper-cut silhouettes with layered folk patterns on light (16:9)",
+      "group": "handmade-looks",
+      "about": "Red paper cut-outs with folk patterns, in layers.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2070,6 +2729,15 @@
     {
       "id": "lemo-risograph",
       "title": "Lemo style film, risograph print: two or three spot inks, misregistration and grain (16:9)",
+      "group": "handmade-looks",
+      "about": "Printed in two or three inks, slightly off-register and grainy, like a small print shop.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2094,6 +2762,15 @@
     {
       "id": "lemo-rubber-hose",
       "title": "Lemo style film, a 1930s rubber-hose cartoon in black and white, animated on twos (16:9)",
+      "group": "characters-stories",
+      "about": "A black-and-white 1930s cartoon with rubber-limbed characters.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2118,6 +2795,15 @@
     {
       "id": "lemo-shadow-puppet",
       "title": "Lemo style film, shadow puppets behind a lit screen, with jointed silhouettes (16:9)",
+      "group": "characters-stories",
+      "about": "Shadow theatre: jointed figures behind a lit screen.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2141,6 +2827,14 @@
     {
       "id": "lemo-spy-titles",
       "title": "Lemo style film, a 1960s spy title sequence: bold shapes, silhouettes and big type (16:9)",
+      "group": "era-film-moods",
+      "about": "A 1960s spy-film opening: bold shapes, silhouettes, huge letters.",
+      "good_for": [
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2165,6 +2859,15 @@
     {
       "id": "lemo-stained-glass",
       "title": "Lemo style film, stained glass: lead lines, glowing coloured panes and slow light (16:9)",
+      "group": "handmade-looks",
+      "about": "Stained glass: coloured panes glow as the light slowly moves.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2192,6 +2895,15 @@
     {
       "id": "lemo-swiss-motion",
       "title": "Lemo style film, Swiss motion graphics: grid, Helvetica-like type and primary blocks (16:9)",
+      "group": "era-film-moods",
+      "about": "Swiss style: a strict grid, plain lettering and blocks of primary colour.",
+      "good_for": [
+        "title",
+        "data"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2218,6 +2930,15 @@
     {
       "id": "lemo-tilt-shift",
       "title": "Lemo style film, a tilt-shift miniature city with shallow focus and toy-like traffic (three.js) (16:9)",
+      "group": "3d-scenes",
+      "about": "A city like a toy model: blurred edges and tiny moving cars.",
+      "good_for": [
+        "background",
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "three",
       "adapter": "renderFrameAt",
@@ -2241,6 +2962,15 @@
     {
       "id": "lemo-ukiyoe",
       "title": "Lemo style film, an ukiyo-e woodblock print: flat colour, outline and wood grain (16:9)",
+      "group": "handmade-looks",
+      "about": "A Japanese woodblock print: flat colour, outlines and wood grain.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2264,6 +2994,15 @@
     {
       "id": "lemo-urban-sketch",
       "title": "Lemo style film, an urban sketch in pen and watercolour wash, drawn on location (16:9)",
+      "group": "handmade-looks",
+      "about": "A city sketch in pen and watercolour, as if drawn on the spot.",
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2287,6 +3026,14 @@
     {
       "id": "lemo-whiteboard",
       "title": "Lemo style film, a whiteboard explainer drawn by hand with marker, step by step (16:9)",
+      "group": "explainers",
+      "about": "A hand draws with a marker on a whiteboard, step by step.",
+      "good_for": [
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "canvas",
       "adapter": "renderFrameAt",
@@ -2310,6 +3057,15 @@
     {
       "id": "lineart-walker",
       "title": "Line art: a man with a briefcase walks along a street in ink (16:9)",
+      "group": "characters-stories",
+      "about": "An ink-drawn man with a briefcase walks down a street.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "adapter": "renderFrame",
@@ -2338,6 +3094,15 @@
     {
       "id": "lineart-village",
       "title": "Line art: an ink Japanese street from late afternoon to night, with villagers, birds and lit windows (16:9)",
+      "group": "characters-stories",
+      "about": "An ink Japanese street from afternoon to night: people, birds, windows lighting up.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
       "status": "ready",
       "kind": "svg",
       "adapter": "renderFrame",
