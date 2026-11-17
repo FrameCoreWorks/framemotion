@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.3.1 (2026-11-17)
+
+- **FrameCut handoff formats** (owner approval 2026-11-17 after the FrameMotion, Studio and FrameCut cooperation test of 2026-11-17): a WebM with VP9 alpha was offered for overlays, but FrameCut reads no VP9 alpha, so `attach-motion` refused it. `SKILL.md`, the launch overlays README and the Remotion notes now deliver `alpha: "straight"` to FrameCut as ProRes 4444 in a .mov and `opaque` as H.264, never WebM.
+- **From engine frames to a FrameCut request**: the engines render at their own frame rate and size (launch films at 60 FPS) and `compose.mjs` writes whole frame rates and opaque H.264 only, with no route to the request's FPS (including `30000/1001`), frame count and alpha. The [engine contract](skills/framemotion/references/engine-contract.md#from-frames-to-a-framecut-motion-request) now gives the one-step ffmpeg conform (nearest frame, size, held last frame, exact frame count, BT.709 tags) and the ffprobe check. Tested in a Claude Code cloud container: `launch-overlays` frames conformed to 25 and 30000/1001 FPS, bound by FrameCut 0.1.3 `attach-motion` with straight alpha and composited over footage.
+- **FrameCut offered when it is missing** (owner request 2026-11-17 to check the dependencies between the plugins): FrameMotion routed a full edit of supplied footage to FrameCut "when it is installed" but said nothing when it was not. The routing table in `SKILL.md` now sends footage editing to `framecut:framecut` when readable and otherwise offers FrameCut once while FrameMotion keeps building the motion pieces.
+
 ## 0.3.0 (2026-11-16)
 
 - **Own engines** (owner plan of 2026-11-14, packs P1 to P11, each reviewed and fixed before the next): FrameMotion renders every engine frame by frame on the shared clock of the [engine contract](skills/framemotion/references/engine-contract.md), with the sources pinned in `integrations/sources.json` and credited in `NOTICE`.

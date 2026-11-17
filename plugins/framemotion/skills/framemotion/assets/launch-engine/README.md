@@ -50,7 +50,7 @@ Upstream's own tools are kept unchanged for reference: `shared/scripts/fonts.mjs
 
 **Polish and other accented copy.** Uppercase letters with accents (Ś, Ź, Ż, Ć, Ń) need more room between lines than the English demos leave. FrameMotion's sample `framemotion/type-pl` opens the pairs the check flagged (KA, AŻ, RA) and moves the second line of its last pair down by 40 px for the accent of Ś. Check every accented line on a still. The builder adds only Latin Extended faces: Cyrillic, Greek or Vietnamese copy falls back to a system font, so pick a face and subset that covers it.
 
-**Overlays** are drawn on a transparent canvas, and their first and last frames are empty by design. The PNG frames keep the alpha. Encode them with an alpha codec (ProRes 4444 in a .mov, or VP9 in a .webm), never to H.264.
+**Overlays** are drawn on a transparent canvas, and their first and last frames are empty by design. The PNG frames keep the alpha. Encode them with an alpha codec (ProRes 4444 in a .mov, or VP9 in a .webm for a browser), never to H.264. For FrameCut and other editors use ProRes 4444 only: FrameCut does not read VP9 alpha. Conform the frames to a FrameCut request with [the FrameCut recipe](../../references/engine-contract.md#from-frames-to-a-framecut-motion-request).
 
 **Taste and truth.** The rules come from the engine. Every word on screen is the product's own and traced in a brief. Nothing appears that is not the user's to use: no other company's logo or character. A demo for a fictional product says so on screen. Use one accent and four words a beat.
 

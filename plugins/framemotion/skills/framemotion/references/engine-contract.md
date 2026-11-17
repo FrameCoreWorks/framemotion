@@ -34,6 +34,31 @@ Every engine in FrameMotion, whether a bundled copy or our own code, follows thi
 
 3. Review the encoded MP4, not the PNGs: the usual frame QA, and loudness measured on the encoded file as [the sound reference](motion-sound-design.md) says (−14 LUFS for social, true peak at most −1 dBTP).
 
+## From frames to a FrameCut motion request
+
+An engine renders at its own frame rate and size (the launch films at 60 FPS, 1920×1080), and `kit/compose.mjs` takes whole frame rates only and writes opaque H.264. A FrameCut `motion-request` instead fixes `fps` (possibly `30000/1001`), `width`, `height`, `duration_frames` and `alpha`, and `attach-motion` refuses anything else. Conform the rendered PNG frames to the request in one ffmpeg step; the `fps` filter takes the engine frame nearest to each request frame, as `compose.mjs` does:
+
+```bash
+# alpha "straight": ProRes 4444 in a .mov (keeps the PNG alpha)
+ffmpeg -framerate <engine fps> -i frames/<id>-%05d.png \
+  -vf "fps=<num>/<den>,scale=<width>:<height>,tpad=stop_mode=clone:stop=-1" \
+  -frames:v <duration_frames> -r <num>/<den> \
+  -c:v prores_ks -profile:v 4444 -pix_fmt yuva444p10le \
+  -color_primaries bt709 -color_trc bt709 -colorspace bt709 lower.mov
+
+# alpha "opaque": H.264 in an .mp4
+ffmpeg -framerate <engine fps> -i frames/<id>-%05d.png \
+  -vf "fps=<num>/<den>,scale=<width>:<height>,tpad=stop_mode=clone:stop=-1,format=yuv420p" \
+  -frames:v <duration_frames> -r <num>/<den> -c:v libx264 -crf 16 \
+  -color_primaries bt709 -color_trc bt709 -colorspace bt709 title.mp4
+```
+
+- `tpad` holds the last frame when the engine film is shorter than the request; when it is longer, `-frames:v` cuts it, so choose engine settings (or a `timing` param) that end the motion inside the requested length instead of cutting it off.
+- When the engine's aspect ratio differs from the request, register a matching `format` and `size` for the engine rather than letting `scale` distort it.
+- Never hand FrameCut a WebM for an alpha request: FrameCut does not read VP9 alpha, and `attach-motion` refuses the media as having no alpha. Never encode an overlay to H.264, which drops the alpha.
+- Leave the sound out of the returned media: FrameCut owns the mix, so designed sound goes back as a separate WAV with its frame positions.
+- Check the result before handing it over: `ffprobe -v error -count_frames -select_streams v:0 -show_entries stream=nb_read_frames,r_frame_rate,pix_fmt -of compact <file>` must report the requested frame count and rate (and a `yuva` pixel format for alpha). Review frames from the encoded file, not the PNGs.
+
 ## How an engine enters the package
 
 - **Copy 1:1 (default).** The upstream files stay byte-identical at the pinned commit, with a `source-manifest.json` of hashes and a test that checks them (as the Animate and Anatomy engines do). Our adapter maps the engine's own clock to `seek(t)`: an engine that exposes `renderFrame(seconds)` needs only a builder in `kit/builders.mjs` and a registry entry with `adapter: "renderFrame"`; nothing in the copy changes.
