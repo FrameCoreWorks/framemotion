@@ -1,0 +1,31 @@
+{
+  "source_repository": "https://github.com/Yusuke710/manim-skill",
+  "source_commit": "a0048d9e265499038f34a9aa58ff16d306b5034c",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2025 Yusuke Miyashita",
+  "copied_on": "2026-11-17",
+  "integration_type": "vendored_library",
+  "bundled_at": "skills/framemotion/assets/library/manim-skill/upstream",
+  "bundled_rule": "Every file is byte-identical to its upstream path at the pinned commit. SKILL.md, AGENTS.md, CLAUDE.md and GEMINI.md are stored as *.source.md so no host registers a second skill or loads them as instructions; links that say SKILL.md mean SKILL.source.md here.",
+  "renamed": [
+    "skills/manim-skill/SKILL.md -> skills/manim-skill/SKILL.source.md"
+  ],
+  "not_bundled": [
+    ".claude-plugin/",
+    ".git/",
+    "manim_skill.gif"
+  ],
+  "files": {
+    ".gitignore": "82df12385d243734212ea5906cdea4fcd1ddefe0f9d3bbc6eafe85b38bab9c55",
+    "LICENSE": "685bbbfec0e0d00a24b85d15700a425fe7ba3d578084fc9d0dde4de7224034b7",
+    "README.md": "3b998be1a85183cf673fc70b152293e7f52b87cbed9ef89e6b871e26248847c8",
+    "pyproject.toml": "b90b5d000471e94279ecc536380abb5f3541409ef85fddf8e46c9112d43ac053",
+    "skills/manim-skill/SKILL.source.md": "40ffbd7dc500a0e4f5a2dd45176db88a64814d3943f7c6e58ad62ae031eee288",
+    "skills/manim-skill/tools/README.md": "f95aa64a4b76789479d31a3b21dbb46111232394a88acaec81f30ec9dfdbd516",
+    "skills/manim-skill/tools/lint-subtitles.py": "ae265f17feea51e6fb64512f1cac85d33cfe37e84385e1fba22a119cffe4a5e5",
+    "skills/manim-skill/tools/tts-generate.py": "193d0ea071b74a5d0930f204867c34625897f912f93b14bb5c982b2bad02137c",
+    "skills/manim-skill/tools/ui.html": "a51d76da592a72bfde0cae1a25dc1f8b4cfaa699461d449b010e247072b64157",
+    "skills/manim-skill/tools/video_viewer.png": "ec75e8a9ae62e6292bd61afea09e2ff57149317b898003f67e64a2b41707a2f7",
+    "skills/manim-skill/tools/video_viewer.py": "50045c88d76efa4ac45f1d5b8d0184525f651ce3b513874c428e8351ea42dc24"
+  }
+}

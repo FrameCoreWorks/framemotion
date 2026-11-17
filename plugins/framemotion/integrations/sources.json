@@ -52,7 +52,9 @@
       "pack": "P6",
       "status": "adapted",
       "bundled_commit": "37d2e78dcb333ab30c3338e28ed4a690364ea014",
-      "conditions": []
+      "conditions": [
+        "web original bundled in full since 0.4.0 in skills/framemotion/assets/library/hairline/ at 37d2e78"
+      ]
     },
     {
       "name": "gl-transitions",
@@ -383,10 +385,11 @@
       "copyright": "Copyright (c) 2026 Claude Video Studio contributors",
       "kind": "knowledge",
       "pack": "P3",
-      "status": "adapted",
+      "status": "bundled",
       "conditions": [
         "no Higgsfield route",
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "full copy since 0.4.0 in skills/framemotion/assets/library/claude-video-styles/ (README there overrides the upstream text)"
       ],
       "bundled_commit": "18891e4996abb7ccc0085f2d43cef2fd7eff1dc8",
       "references": [
@@ -406,7 +409,8 @@
         "only kinetic-type-art, motion-formats, title-design, transition-craft, footage-effects, maps-and-data-motion",
         "skip satellite-flyover",
         "caption-styles belongs to FrameCut",
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "seven folders bundled in full since 0.4.0 at ff940b67bc03a85d03f0fe33591ac59239eb8b84 in skills/framemotion/assets/library/varg-motion-styles/"
       ],
       "bundled_commit": "aafd5aadfc9cdfdc067fc8fca2602b150a590305",
       "references": [
@@ -478,10 +482,11 @@
       "copyright": "Copyright (c) 2026 iart.ai",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "adapted",
+      "status": "bundled",
       "conditions": [
         "Remotion parts rewritten for FrameMotion's engines",
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "full copy since 0.4.0 in skills/framemotion/assets/library/iart-explainer-styles/ (README there overrides the upstream text)"
       ],
       "bundled_commit": "3c13a1bc360c08503f24f9c9a99fda6d3d35de56",
       "references": [
@@ -513,10 +518,11 @@
       "copyright": "Copyright (c) 2026 GreenSock",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "adapted",
+      "status": "bundled",
       "conditions": [
         "GSAP itself is a dependency only; no no-code visual animation builder",
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "full copy since 0.4.0 in skills/framemotion/assets/library/gsap-skills/ (README there overrides the upstream text)"
       ],
       "bundled_commit": "aed9cfd3277740755f6bfc1155c7aa645403b760",
       "references": [
@@ -531,9 +537,10 @@
       "copyright": "Copyright (c) 2026 CloudAI-X",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "adapted",
+      "status": "bundled",
       "conditions": [
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "full copy since 0.4.0 in skills/framemotion/assets/library/threejs-skills/ (README there overrides the upstream text)"
       ],
       "bundled_commit": "0e181866f095b5f06d005133876e926515390d95",
       "references": [
@@ -548,10 +555,11 @@
       "copyright": "Copyright (c) 2025 Yusuke Miyashita",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "adapted",
+      "status": "bundled",
       "conditions": [
         "name 3Blue1Brown only descriptively",
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "full copy since 0.4.0 in skills/framemotion/assets/library/manim-skill/ (README there overrides the upstream text)"
       ],
       "bundled_commit": "a0048d9e265499038f34a9aa58ff16d306b5034c",
       "references": [
@@ -566,10 +574,11 @@
       "copyright": "Copyright (c) 2026 sanat",
       "kind": "knowledge",
       "pack": "P4",
-      "status": "adapted",
+      "status": "bundled",
       "conditions": [
         "method only: no Remotion code, no AI-made backgrounds, no fonts copied",
-        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source"
+        "rewritten for FrameMotion, no file copied; short technical phrases and all values follow the source",
+        "full copy since 0.4.0 in skills/framemotion/assets/library/papercut-explainer/ (README there overrides the upstream text)"
       ],
       "bundled_commit": "ff8223abc8136cc09e8d7e9b62ecb5d080c389e1",
       "references": [
@@ -606,6 +615,25 @@
         "never llm (audio upload) or mcp"
       ],
       "bundled_commit": "591fa3e028032e6dce56620a20e932e35667e8d8"
+    },
+    {
+      "name": "bang-motion",
+      "repo": "bangtutorial/bang-motion",
+      "commit": "c1aa65e921c970d858705fcb4a53a8294d1a4131",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Bang Tutorial",
+      "kind": "knowledge",
+      "pack": "L1",
+      "status": "bundled",
+      "bundled_commit": "c1aa65e921c970d858705fcb4a53a8294d1a4131",
+      "conditions": [
+        "After Effects bridge for the paid Higgsfield service left out",
+        "laws merged in English into references/motion-craft.md",
+        "full copy in skills/framemotion/assets/library/bang-motion/"
+      ],
+      "references": [
+        "references/motion-craft.md"
+      ]
     }
   ]
 }

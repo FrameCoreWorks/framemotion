@@ -1,6 +1,6 @@
 # First setup
 
-FrameMotion is complete on its own and needs no other plugin. Plugins from FrameCore Works Toolbox can add knowledge and ready pipelines to it; they are offered once, as a question, and installed only on the user's answer (owner decision 2026-11-12: the plugins stay standalone and complement each other when installed together; none requires another).
+FrameMotion is complete on its own and needs no other plugin. Since FrameMotion 0.4.0 every motion skill, pipeline and style pack that FrameCore Works Toolbox used to list is built in ([motion library](../assets/library/README.md)). The other FrameCore Works plugins and a few Toolbox helpers outside motion can add to it; they are offered once, as a question, and installed only on the user's answer (owner decision 2026-11-12: the plugins stay standalone and complement each other when installed together; none requires another).
 
 ## When to run it
 
@@ -15,7 +15,7 @@ The user is assumed to know nothing about plugins or terminals: say in one plain
 
 1. **Route check.** Say what FrameMotion can render on this host: no code execution (storyboard and motion contract), code execution (Python renderer) or a shell (HyperFrames, canvas, GSAP, Remotion). Probe `python3`, `ffmpeg`, `node` and a browser where code runs. Where a shell runs, name the [runtimes](#runtimes) the user's routes will need and install them only on the user's yes.
 2. **Sound engine, one question** (owner decision 2026-11-16: most films have sound). Where code runs, run `python3 assets/sound-setup/earshot_offer.py check` (from the skill folder; it includes the launcher's readiness). When `full_ready` and `models_cached` are true (also when Toolbox installed it: one shared runtime), say in one line that sound is ready and skip the question; when `declined` is true, skip it silently. The engine needs Python 3.12: when `python312` is null, say so in the question and offer to install Python 3.12 first through this host's usual route (on a Mac with Homebrew `brew install python@3.12`), only on the same yes. Ask once: "Most films have sound. Shall I install Earshot, FrameMotion's sound engine that makes, measures and chooses sound effects by listening? It downloads about 2.6 GB once (Python packages and models, into `~/.framecore-works/earshot`), takes several minutes and sends nothing out. Yes, the smaller version without listening (about 470 MB), or not now?" On yes run the launcher's `install --tier full` plan and then `--yes`, then `fetch-models --yes` (an Intel Mac gets light only; say so); on light, `install --tier light --yes`; on not now, run `earshot_offer.py decline`, make sound with `sound.py` and do not ask again unless the user asks for Earshot ([Earshot in FrameMotion](motion-toolkit-routing.md#earshot-in-framemotion)). Report what actually installed. Without code execution, skip this step.
-3. **Plugins that add to FrameMotion, one question.** Check the skill list for the other FrameCore Works plugins, Toolbox (`toolbox:toolbox`, in Codex also `toolbox`) and each entry below under any of its [names by host](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry). Show the ones that are not installed as one numbered list, short enough to read on a phone, one line each on what it adds to FrameMotion, then ask: "Which numbers do you want? You can say all, none, or ask about one number." Say in the same message what will be written: the chosen plugins through this host's plugin manager, Toolbox first when an entry needs it; programs (Node packages, a browser, Python packages) only when a task first needs them; nothing is uploaded. When everything is installed, say so in one line and skip the question.
+3. **Plugins that add to FrameMotion, one question.** Check the skill list for the other FrameCore Works plugins, Toolbox (`toolbox:toolbox`, in Codex also `toolbox`) and each entry below under any of its [names by host](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry). Show the ones that are not installed as one numbered list, short enough to read on a phone, one line each on what it adds to FrameMotion, then ask: "Which numbers do you want? You can say all, none, or ask about one number." Say in the same message what will be written: the chosen plugins through this host's plugin manager, Toolbox first when a Toolbox helper is picked; programs (Node packages, a browser, Python packages) only when a task first needs them; nothing is uploaded. When everything is installed, say so in one line and skip the question.
 4. **Install what was picked**, one by one, through the host routes in [using and installing a Toolbox entry](motion-toolkit-routing.md#using-and-installing-a-toolbox-entry) (the other FrameCore Works plugins: [their routes](#other-framecore-works-plugins)), and report each as installed, waiting for the user's step (Claude apps, Work without Plugin Creator) or not available on this host. A new conversation lists newly installed skills.
 5. **Done.** Say in one line that setup is finished and how to start: describe the film, or call FrameMotion for its brief.
 
@@ -38,28 +38,18 @@ The workspace is `~/.framecore-studio/workspace` (or `FRAMECORE_STUDIO_WORKSPACE
 
 ## The list
 
-Grouped as the user sees it; names and pins come from [Toolbox's catalog](https://github.com/FrameCoreWorks/framecore-works-toolbox/blob/main/plugins/toolbox/skills/toolbox/SKILL.md#catalog), checked against Toolbox 1.16.0. Keep this list in step with the [Toolbox motion entries](motion-toolkit-routing.md#toolbox-motion-entries) table.
+Grouped as the user sees it. Keep this list in step with the [motion library](motion-toolkit-routing.md#motion-library) and [Toolbox for what is not motion](motion-toolkit-routing.md#toolbox-for-what-is-not-motion), checked against Toolbox 1.17.0.
 
 **Other FrameCore Works plugins:**
 - `framecut`: editing your own footage with a FrameMotion piece placed on its timeline, captions, subtitles and the mix.
 - `framecore-open-assets`: free photos, footage, music and effects with verified licences, for the pictures a film needs.
 - `framecore-work-creative-studio`: briefs, scripts, copy, storyboards and campaigns around the film; with it, Studio leads the project and FrameMotion builds the motion.
 
-**Toolbox itself** (the catalog plus what is built into it):
-- `toolbox`: three reel style packs (Earshot, its sound engine, is already bundled in FrameMotion): `varg-motion-styles` (56 reel styles with exact presets), `claude-video-styles` (21 film looks), `iart-explainer-styles` (explainer methods and recipes). Since Toolbox 1.16.0 the catalog no longer lists the engines FrameMotion bundles (Animate, Anatomy, Launch, kaventro, Reels, Art, Pixel, gl-transitions, Stickman, Cutaway, brag, the reference breakdown).
-
-**Knowledge for the build** (no runtime):
-- `gsap-skills`: current GSAP API (timelines, SplitText, MorphSVG, Flip, ScrollTrigger).
-- `threejs-skills`: current three.js r186 API for 3D scenes.
-
-**Looks and methods:**
-- `hairline`: interactive isometric line figures for a web page.
-- `manim-skill`: math and science explainers in Manim.
+**From Toolbox** (not motion; FrameMotion has everything for motion built in):
 - `pinterest-references`: moodboards from public pins, each with its link.
+- `taste-skill`, `hallmark` or `nateherk-design`: a website around the film.
 
-**Ready pipelines** (need a shell, Node.js and a browser):
-- `bang-motion`: openers, promos, lower thirds as one autoplaying page.
-- `papercut-explainer`: cut-paper explainer reels from a link.
+Built in, never offered as a plugin: the motion library (GSAP and three.js API pages, Manim explainers, the papercut pipeline, bang-motion starters, the Hairline web library, the varg, Claude Video and iart style packs), every engine and Earshot.
 
 ### Other FrameCore Works plugins
 

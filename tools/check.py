@@ -65,9 +65,29 @@ def main():
     recorded = re.findall(r'`([0-9a-f]{64})`', (captions / 'README.md').read_text())
     require(len(recorded) == 2 and hashlib.sha256((captions / 'captions.py').read_bytes()).hexdigest() == recorded[1],
             'captions.py copy differs from its recorded hash')
+    # Motion library: full upstream copies must stay byte-identical and never register a second skill.
+    LIBRARY = PLUGIN / 'skills/framemotion/assets/library'
+    require(not any(LIBRARY.rglob('SKILL.md')), 'A SKILL.md inside the motion library would register a second skill')
+    for manifest_path in sorted((PLUGIN / 'integrations').glob('*/source-manifest.json')):
+        manifest = json.loads(manifest_path.read_text(encoding='utf-8'))
+        if manifest.get('integration_type') != 'vendored_library':
+            continue
+        base = PLUGIN / manifest['bundled_at']
+        on_disk = {p.relative_to(base).as_posix() for p in base.rglob('*') if p.is_file()}
+        require(on_disk == set(manifest['files']), f'Library copy differs from its manifest: {manifest_path.parent.name}')
+        for rel, digest in manifest['files'].items():
+            require(hashlib.sha256((base / rel).read_bytes()).hexdigest() == digest, f'Library file changed: {base / rel}')
+    for sums in sorted(LIBRARY.glob('*/SHA256SUMS')):
+        rows = dict(line.split('  ', 1)[::-1] for line in sums.read_text().splitlines() if line)
+        on_disk = {p.relative_to(sums.parent).as_posix() for p in (sums.parent / 'upstream').rglob('*') if p.is_file()}
+        require(on_disk == set(rows), f'Style pack differs from its SHA256SUMS: {sums.parent.name}')
+        for rel, digest in rows.items():
+            require(hashlib.sha256((sums.parent / rel).read_bytes()).hexdigest() == digest, f'Style pack file changed: {sums.parent / rel}')
     for path in [*ROOT.glob('*.md'), *ROOT.glob('docs/*.md'), *PLUGIN.rglob('*.md')]:
         if 'node_modules' in path.parts:
             continue
+        if LIBRARY in path.parents and 'upstream' in path.relative_to(LIBRARY).parts:
+            continue   # byte-identical upstream copies keep their own links; their hashes are checked below
         text = path.read_text(encoding='utf-8')
         for link in re.findall(r'\]\(([^)\s]+)\)', text):
             if '://' in link or link.startswith(('#', 'mailto:')):

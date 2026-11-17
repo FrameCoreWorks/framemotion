@@ -1,6 +1,6 @@
 # Art-style and explainer motion: direction rules
 
-Adapted in English from [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) by alchaincyf (MIT, reviewed at commit `8a0d7d7`), a skill whose rules come from films its author made and judged. This page keeps the direction method; FrameMotion's own runtimes, review and delivery stay in charge. The original skill (36 implemented art-style scenes, parameterized explainer clips, its own gates, docs mostly in Chinese) is the `huashu-art-motion` plugin in FrameCore Works Toolbox (Creative Studio: `skills/workflow-orchestrator/references/extensions.md`). The numbers below are starting points measured on reference films, not quotas: a better design wins, checked by watching at normal speed.
+Adapted in English from [huashu-art-motion](https://github.com/alchaincyf/huashu-art-motion) by alchaincyf (MIT, reviewed at commit `8a0d7d7`), a skill whose rules come from films its author made and judged. This page keeps the direction method; FrameMotion's own runtimes, review and delivery stay in charge. The original skill (36 implemented art-style scenes, parameterized explainer clips, its own gates, docs mostly in Chinese) is bundled in FrameMotion as the [Art engine](../assets/art-engine/README.md). The numbers below are starting points measured on reference films, not quotas: a better design wins, checked by watching at normal speed.
 
 ## Contents
 

@@ -10,7 +10,7 @@ LICENCES = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause'}
 STATUSES = {'bundled', 'adapted', 'patterns', 'planned', 'dependency'}
 ENGINES_PACKAGE = json.loads((ROOT / 'skills/framemotion/assets/engines/package.json').read_text())
 KINDS = {'engine', 'knowledge', 'library', 'technique'}
-PACKS = {f'P{n}' for n in range(1, 12)}
+PACKS = {f'P{n}' for n in range(1, 12)} | {'L1'}   # L1: the motion library moved from Toolbox in 0.4.0
 
 
 class SourcesTest(unittest.TestCase):
@@ -42,7 +42,7 @@ class SourcesTest(unittest.TestCase):
         # Knowledge summarised in references: each named reference links the repository at the reviewed commit,
         # and the source's licence text travels in integrations/<name>/.
         refs = ROOT / 'skills/framemotion'
-        knowledge = [s for s in SOURCES if s['kind'] == 'knowledge' and s['status'] == 'adapted']
+        knowledge = [s for s in SOURCES if s['kind'] == 'knowledge' and s['status'] in {'adapted', 'bundled'} and s.get('references')]
         self.assertGreaterEqual(len(knowledge), 11)
         for s in knowledge:
             with self.subTest(s['name']):
@@ -65,7 +65,8 @@ class SourcesTest(unittest.TestCase):
                 self.assertIn(s['repo'], NOTICE)
 
     def test_nothing_rejected_sneaks_in(self):
-        rejected = {'DavidHDev/react-bits', 'ruucm/shadergradient', 'bangtutorial/bang-motion', 'pmndrs/drei',
+        # bangtutorial/bang-motion left this list on 2026-11-17: the owner asked for it to be merged into motion craft.
+        rejected = {'DavidHDev/react-bits', 'ruucm/shadergradient', 'pmndrs/drei',
                     'jberg/butterchurn', 'feitangyuan/onetake'}
         self.assertFalse(rejected & {s['repo'] for s in SOURCES})
 

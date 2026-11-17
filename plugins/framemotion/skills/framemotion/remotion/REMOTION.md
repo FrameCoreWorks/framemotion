@@ -1,7 +1,7 @@
 <!-- Remotion route of FrameMotion. Loaded from SKILL.md; not a separate skill. -->
 # Remotion Video
 
-Before building, search this host's whole skill list, not only FrameCore names, for an installed Toolbox catalog entry that fits the step (for example `manim-skill` for a math explainer, `bang-motion` for an opener page, `papercut-explainer` for a cut-paper reel, also as a private ChatGPT Work plugin); when one is listed, say in one line that Studio uses it for that step, read its skill and follow it, keeping the brief and review here (installed catalog entries (Creative Studio: `skills/pipeline-core/references/companion-routing.md`)).
+Before building, check whether a source in FrameMotion's [motion library](../assets/library/README.md) fits the step (for example [manim-skill](../assets/library/manim-skill/README.md) for a math explainer, [bang-motion](../assets/library/bang-motion/README.md) for an opener page, [papercut-explainer](../assets/library/papercut-explainer/README.md) for a cut-paper reel, which itself runs on Remotion 4.0.530); when one fits, say in one line that FrameMotion uses it for that step, follow its README and keep the brief and review here.
 
 When the composition needs authorized SFX or audio analysis, use FrameMotion's Earshot ([Earshot in FrameMotion](../references/motion-toolkit-routing.md#earshot-in-framemotion)) when its engine is installed. Keep the Remotion composition and frame clock; use measured sound anchors and return to the same Studio/FrameCut revision. Without the engine use FrameMotion's `sound.py`/`listen.py`, named by the engine that ran.
 

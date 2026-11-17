@@ -1,5 +1,7 @@
 # GSAP and three.js for frame rendering
 
+The full GSAP and three.js pages are bundled in the motion library ([gsap-skills](../assets/library/gsap-skills/README.md), [threejs-skills](../assets/library/threejs-skills/README.md)); this page is FrameMotion's frame-rendering layer over them and its links open the bundled pages.
+
 Read this before writing GSAP or three.js code for a FrameMotion composition or engine. Both libraries are written for live web pages, where a running clock drives the animation. FrameMotion renders frames: each one is drawn by `seek(t)` from time alone, in any order, in a fresh browser. This page keeps the parts of the current API that matter for that and lists the outdated patterns models still reach for.
 
 The versions FrameMotion pins are `gsap@3.15.0` (the [GSAP starter](../assets/gsap-motion-starter/README.md) and the engines package) and `three@0.187.0` (the engines package). The three.js notes were checked against r186 by their source; check anything marked as recent against the installed version before relying on it.
@@ -12,7 +14,7 @@ The versions FrameMotion pins are `gsap@3.15.0` (the [GSAP starter](../assets/gs
 
 ## GSAP on a frame clock
 
-Full API pages: [core](https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-core/SKILL.md), [timeline](https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-timeline/SKILL.md), [plugins](https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-plugins/SKILL.md), [utilities](https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-utils/SKILL.md), [performance](https://github.com/greensock/gsap-skills/blob/aed9cfd3277740755f6bfc1155c7aa645403b760/skills/gsap-performance/SKILL.md).
+Full API pages: [core](../assets/library/gsap-skills/upstream/skills/gsap-core/SKILL.source.md), [timeline](../assets/library/gsap-skills/upstream/skills/gsap-timeline/SKILL.source.md), [plugins](../assets/library/gsap-skills/upstream/skills/gsap-plugins/SKILL.source.md), [utilities](../assets/library/gsap-skills/upstream/skills/gsap-utils/SKILL.source.md), [performance](../assets/library/gsap-skills/upstream/skills/gsap-performance/SKILL.source.md).
 
 ### One paused timeline
 
@@ -59,7 +61,7 @@ All GSAP plugins are free, including for commercial use, with no membership, key
 
 ## three.js on a frame clock
 
-Full API pages: [fundamentals](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-fundamentals/SKILL.md), [animation](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-animation/SKILL.md), [materials](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-materials/SKILL.md), [lighting](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-lighting/SKILL.md), [textures](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-textures/SKILL.md), [post-processing](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-postprocessing/SKILL.md), [shaders](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-shaders/SKILL.md), [geometry](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-geometry/SKILL.md), [loaders](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-loaders/SKILL.md), [performance](https://github.com/CloudAI-X/threejs-skills/blob/0e181866f095b5f06d005133876e926515390d95/skills/threejs-performance/SKILL.md).
+Full API pages: [fundamentals](../assets/library/threejs-skills/upstream/skills/threejs-fundamentals/SKILL.source.md), [animation](../assets/library/threejs-skills/upstream/skills/threejs-animation/SKILL.source.md), [materials](../assets/library/threejs-skills/upstream/skills/threejs-materials/SKILL.source.md), [lighting](../assets/library/threejs-skills/upstream/skills/threejs-lighting/SKILL.source.md), [textures](../assets/library/threejs-skills/upstream/skills/threejs-textures/SKILL.source.md), [post-processing](../assets/library/threejs-skills/upstream/skills/threejs-postprocessing/SKILL.source.md), [shaders](../assets/library/threejs-skills/upstream/skills/threejs-shaders/SKILL.source.md), [geometry](../assets/library/threejs-skills/upstream/skills/threejs-geometry/SKILL.source.md), [loaders](../assets/library/threejs-skills/upstream/skills/threejs-loaders/SKILL.source.md), [performance](../assets/library/threejs-skills/upstream/skills/threejs-performance/SKILL.source.md).
 
 ### Time comes from `seek(t)`
 

@@ -171,3 +171,21 @@ a source-manifest.json with the pinned commit):
   framemotion/fonts holds unchanged Latin Extended subsets of Inter (@fontsource/inter 5.2.8, Copyright 2016 The
   Inter Project Authors) and Caveat (@fontsource/caveat 5.2.8, Copyright 2014 The Caveat Project Authors), SIL Open
   Font License 1.1, with their licence texts (OFL-inter.txt, OFL-caveat.txt).
+
+Motion library (FrameMotion 0.4.0, owner request 2026-11-17): full upstream copies, byte for byte at the pinned
+commits, in skills/framemotion/assets/library/<name>/upstream/ (each SKILL.md, AGENTS.md, CLAUDE.md and GEMINI.md
+stored as *.source.md), each with its licence text and FrameMotion's README; file lists and hashes in
+integrations/<name>/source-manifest.json or the pack's SHA256SUMS. All MIT:
+- greensock/gsap-skills, commit aed9cfd3277740755f6bfc1155c7aa645403b760, Copyright (c) 2026 GreenSock.
+- CloudAI-X/threejs-skills, commit 0e181866f095b5f06d005133876e926515390d95, Copyright (c) 2026 CloudAI-X.
+- Yusuke710/manim-skill, commit a0048d9e265499038f34a9aa58ff16d306b5034c, Copyright (c) 2025 Yusuke Miyashita.
+- 0xS4N4TG/papercut-explainer, commit ff8223abc8136cc09e8d7e9b62ecb5d080c389e1, Copyright (c) 2026 sanat; its fonts
+  are SIL OFL 1.1 (library/papercut/public/fonts/LICENSES.txt); Remotion is not bundled and has its own licence.
+- lucasmarkes/hairline, commit 37d2e78dcb333ab30c3338e28ed4a690364ea014, Copyright (c) 2026 Lucas Marques.
+- bangtutorial/bang-motion, commit c1aa65e921c970d858705fcb4a53a8294d1a4131, Copyright (c) 2026 Bang Tutorial; the
+  After Effects bridge for the paid Higgsfield service is left out; its laws are adapted in English in
+  references/motion-craft.md.
+- vargHQ/skills, commit ff940b67bc03a85d03f0fe33591ac59239eb8b84, Copyright (c) 2026 vargai Inc. (seven folders).
+- ItsssssJack/claude-video-2, commit 18891e4996abb7ccc0085f2d43cef2fd7eff1dc8, Copyright (c) 2026 Claude Video Studio
+  contributors (gallery and the Higgsfield client left out).
+- iart-ai/explainer-video-skills, commit 3c13a1bc360c08503f24f9c9a99fda6d3d35de56, Copyright (c) 2026 iart.ai.

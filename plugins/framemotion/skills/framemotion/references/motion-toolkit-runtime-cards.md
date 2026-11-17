@@ -46,7 +46,7 @@ If available, inspect the actual file using `ffprobe -v error -count_frames -sho
 
 ## Manim local clip bridge
 
-**Purpose:** explanatory mathematical or geometric animation. Use an existing discoverable `manim-animation` skill when it is actually available. If absent, keep the bridge as source/contract guidance or execute the example only within an otherwise authorized, capable local environment. Do not install a parallel skill or copy a machine-specific path into the plugin.
+**Purpose:** explanatory mathematical or geometric animation. FrameMotion bundles the full [manim-skill](../assets/library/manim-skill/README.md) (narration, local TTS, subtitle lint, mux, viewer); its README sets the pinned environment and the voice route. Execute only within an authorized, capable local environment, and do not copy a machine-specific path into the plugin.
 
 The original [Manim example](../assets/manim-motion-example.py) is a starting point; it does not establish runtime readiness. Its declared local baseline is 0.20.1. The separately researched Manim Community 0.21.0 requires Python 3.11 or newer; this is not an instruction to upgrade. Check the selected version's local environment, graphics dependencies and fonts. Use the existing local skill's commands and permissions. TeX-based content needs a functioning TeX setup; do not assume it from the presence of Python. [Version metadata](https://github.com/ManimCommunity/manim/blob/v0.21.0/pyproject.toml)
 
