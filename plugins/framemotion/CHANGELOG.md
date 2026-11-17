@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3.2 (2026-11-17)
+
+- **Toolbox offers follow Toolbox 1.16.0** (owner decision 2026-11-17, "Usuń 12 silników z toolbox"): Toolbox no longer lists the twelve tools FrameMotion bundles as its own engines (`animate`, `anatomy`, `motion-designer`, `gl-transitions`, `brag`, `stickman-kino`, `cutaway`, `motion-launch-videos`, `huashu-art-motion`, `pixelfx`, `rea-video` and the `animation-skills-styles` pack). First setup no longer offers them, the toolkit routing table names FrameMotion's own engine for those rows, and the Remotion route's examples name entries that remain.
+
 ## 0.3.1 (2026-11-17)
 
 - **FrameCut handoff formats** (owner approval 2026-11-17 after the FrameMotion, Studio and FrameCut cooperation test of 2026-11-17): a WebM with VP9 alpha was offered for overlays, but FrameCut reads no VP9 alpha, so `attach-motion` refused it. `SKILL.md`, the launch overlays README and the Remotion notes now deliver `alpha: "straight"` to FrameCut as ProRes 4444 in a .mov and `opaque` as H.264, never WebM.

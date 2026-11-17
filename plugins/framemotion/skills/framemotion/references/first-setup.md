@@ -38,7 +38,7 @@ The workspace is `~/.framecore-studio/workspace` (or `FRAMECORE_STUDIO_WORKSPACE
 
 ## The list
 
-Grouped as the user sees it; names and pins come from [Toolbox's catalog](https://github.com/FrameCoreWorks/framecore-works-toolbox/blob/main/plugins/toolbox/skills/toolbox/SKILL.md#catalog), checked against Toolbox 1.15.0. Keep this list in step with the [Toolbox motion entries](motion-toolkit-routing.md#toolbox-motion-entries) table.
+Grouped as the user sees it; names and pins come from [Toolbox's catalog](https://github.com/FrameCoreWorks/framecore-works-toolbox/blob/main/plugins/toolbox/skills/toolbox/SKILL.md#catalog), checked against Toolbox 1.16.0. Keep this list in step with the [Toolbox motion entries](motion-toolkit-routing.md#toolbox-motion-entries) table.
 
 **Other FrameCore Works plugins:**
 - `framecut`: editing your own footage with a FrameMotion piece placed on its timeline, captions, subtitles and the mix.
@@ -46,31 +46,20 @@ Grouped as the user sees it; names and pins come from [Toolbox's catalog](https:
 - `framecore-work-creative-studio`: briefs, scripts, copy, storyboards and campaigns around the film; with it, Studio leads the project and FrameMotion builds the motion.
 
 **Toolbox itself** (the catalog plus what is built into it):
-- `toolbox`: four reel style packs (Earshot, its sound engine, is already bundled in FrameMotion): `varg-motion-styles` (56 reel styles with exact presets), `claude-video-styles` (21 film looks), `animation-skills-styles` (five 9:16 reel engines from a spec), `iart-explainer-styles` (explainer methods and recipes).
+- `toolbox`: three reel style packs (Earshot, its sound engine, is already bundled in FrameMotion): `varg-motion-styles` (56 reel styles with exact presets), `claude-video-styles` (21 film looks), `iart-explainer-styles` (explainer methods and recipes). Since Toolbox 1.16.0 the catalog no longer lists the engines FrameMotion bundles (Animate, Anatomy, Launch, kaventro, Reels, Art, Pixel, gl-transitions, Stickman, Cutaway, brag, the reference breakdown).
 
 **Knowledge for the build** (no runtime):
 - `gsap-skills`: current GSAP API (timelines, SplitText, MorphSVG, Flip, ScrollTrigger).
 - `threejs-skills`: current three.js r186 API for 3D scenes.
 
 **Looks and methods:**
-- `huashu-art-motion`: art styles and explainer grammars; FrameMotion already bundles its engine as the Art engine (without the studio and protected-artist looks), so offer this only for upstream's own render, QA and voice tools.
-- `gl-transitions`: the upstream player and gallery; FrameMotion already renders the same 236 shader transitions with its built-in `gl-transition` engine, so offer this only for the gallery.
-- `pixelfx`: FrameMotion already bundles its 244 effects and tools as the Pixel engine, so offer this only for upstream's gallery.
-- `anatomy`: detailed isometric figures of a technical product.
 - `hairline`: interactive isometric line figures for a web page.
 - `manim-skill`: math and science explainers in Manim.
 - `pinterest-references`: moodboards from public pins, each with its link.
-- `rea-video`: a shot-by-shot breakdown of a reference video (how each picture, title, sound and cut was made) before rebuilding its technique.
 
 **Ready pipelines** (need a shell, Node.js and a browser):
-- `motion-designer`, `motion-launch-videos`: app and product launch films; FrameMotion already has both, as the kaventro templates and the Launch engine.
-- `animation-skills-styles` (Toolbox's reel style pack): FrameMotion already has its reel engines, as the Reels engine (and its stick-figure and breakdown parts inside the Stickman and Cutaway engines).
 - `bang-motion`: openers, promos, lower thirds as one autoplaying page.
-- `animate`: illustrated explainers and histories in seven styles.
 - `papercut-explainer`: cut-paper explainer reels from a link.
-- `stickman-kino`: the same Stickman engine with its own command line; FrameMotion already has the engine built in.
-- `cutaway`: the same Cutaway engine with its own skill and capture route; FrameMotion already has the engine and its teardown built in.
-- `brag`: a quick launch video of a finished project.
 
 ### Other FrameCore Works plugins
 
