@@ -138,3 +138,13 @@ A catalogue of 66 complete film looks made entirely in code, from watercolour an
 | [Constructivist Montage](https://github.com/lemomo-ai/lemo-opuscar/blob/bebbbe1aa92a3cb4bb6f83500e61b23a17d1aa00/styles/kino-montage/STYLE.md) | Archive printed as an ink-and-paper poster with one red, diagonal type bands, cut-out people, cut on a machine beat | Industry histories, milestones, collective effort | 2D canvas collage over footage |
 | [Sports Telestrator](https://github.com/lemomo-ai/lemo-opuscar/blob/bebbbe1aa92a3cb4bb6f83500e61b23a17d1aa00/styles/telestrator/STYLE.md) | TV match analysis: play, rewind, freeze and draw rings, arrows and empty-space patches on the picture | Sports analysis, recaps, coaching | Footage plus SVG overlay drawn on freeze frames |
 | [Broadcast News Package](https://github.com/lemomo-ai/lemo-opuscar/blob/bebbbe1aa92a3cb4bb6f83500e61b23a17d1aa00/styles/news-package/STYLE.md) | A newsroom package in code: a sting that becomes the channel bug, a rundown, a permanent lower third, full-frame graphics | News round-ups, bulletins, market updates | HTML graphics package over footage |
+
+## Rubber hose: build patterns from Rubber Hose UI
+
+A rubber-hose character built in code (a painted body with limbs drawn by a function) follows three patterns taken, in our own words, from [finktheartist/rubber-hose-ui](https://github.com/finktheartist/rubber-hose-ui/tree/9608c12) (MIT, commit 9608c12, reviewed 2026-11-17; no code or art is copied). It is a web-controls kit, so it is a pattern source, not a style card.
+
+1. **Time-driven clock.** Every motion is a pure function of a time value that can be paused and stepped by hand (`paused` plus `advance(dt)` in its core), at a fixed 24 fps. This is what lets a frame-exact render seek to any frame; avoid random values or wall-clock reads inside a frame.
+2. **One spring for every landing.** A single "just let go" curve (1 at the event, ringing down to 0) drives each squash, pop and settle, and everything alive bounces to a shared beat, each character slightly off it.
+3. **Painted body, limbs in code.** Bodies, faces, gloves and shoes are painted layers; arms and legs are thick ink lines with no elbow, drawn by a function so they can stretch to any reach. Join rules to check on frames at four times the size: a limb starts well inside the body and the body is drawn over its root; when a hand is in front of the body, draw the arm, then the body, then the hand; an arm ends inside the glove's cuff; a thumb points at the body or up; a fist resting on a hip shows the back of the hand.
+
+Own characters only. The upstream painted layers were generated with a paid image service; do not copy them.

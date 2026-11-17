@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.3 (2026-11-17)
+
+- **Rubber hose build patterns** (owner request 2026-11-17, review of finktheartist/rubber-hose-ui, MIT, commit 9608c12): `references/film-style-library.md` gets a short section with three patterns in our own words (time-driven clock, one spring for every landing, painted body with limbs in code and the join rules). Pattern source only: no upstream code or art copied.
+- Evidence: source checks in the Claude cloud sandbox; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.4.2 (2026-11-17)
 
 - **Layered work** (owner rule 2026-11-17, mandatory): a reel or film is built one layer at a time (plan and grey-block blocking, typography and content, base motion without effects, depth and polish, colour and look, sound, detail control and QC of the exported file) with a frame check after each. A fix returns to its own layer and the layers above it are checked again; in code each layer is its own function or file with a switch; only a very short simple job may take one pass, with the reason in the plan. New `references/layered-work.md`, step 5 of `SKILL.md`, a section in `references/reel-workflow.md`, a pointer in the workshop's process note, a "Layer plan" block in the storyboard contract template and `tests/layers_test.py`.
