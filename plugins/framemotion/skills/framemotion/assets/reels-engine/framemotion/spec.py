@@ -6,7 +6,7 @@
 It loads the style's build.py as a module (its DEFAULTS, check and timing) and the shared
 kit/anim.py load_spec, so a spec is checked exactly as upstream checks it. The durations below
 repeat the ones each build.py passes to anim.build (graph and map-route 4 s, minimal-line-art the
-dot's payoff plus 1.6 s), plus the spec's optional "hold". Rendering is done by FrameMotion's kit.
+dot's payoff plus 1.6 s, voxel-build 4 s, ps1-low-poly 4.8 s, hairline-tree the tree's payoff plus 1.43 s), plus the spec's optional "hold". Rendering is done by FrameMotion's kit.
 """
 import sys
 sys.dont_write_bytecode = True   # never write __pycache__ into the plugin folder
@@ -22,6 +22,9 @@ DURATION = {
     'graph': lambda mod, s: 4.0,
     'map-route': lambda mod, s: 4.0,
     'minimal-line-art': lambda mod, s: mod.payoff(s) + 1.6,
+    'voxel-build': lambda mod, s: 4.0,
+    'ps1-low-poly': lambda mod, s: 4.8,
+    'hairline-tree': lambda mod, s: mod.payoff(s) + 1.43,
 }
 
 

@@ -152,10 +152,12 @@ a source-manifest.json with the pinned commit):
   Not bundled: docs and their clips, READMEs, the agent skill, integrations/, evaluate.py, eval/, scripts/ and the [asr] extra. No model is
   bundled; a model is downloaded only after the user agrees and is checked against its pinned SHA-256.
 - Reels engine (skills/framemotion/assets/reels-engine): artemnovitckii/claude-animation-skills (commit
-  5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii), its kit and four reel styles
+  5dbea55c23aa6a5c93dc3cfb5583840513b56b94, MIT, Copyright (c) 2026 Artem Novitckii), its kit and seven reel styles
   bundled unchanged except styles/what-if-3d/engine/src/shots.js (one line in shot 7; original and current hashes in
   integrations/claude-animation-skills/source-manifest.json). Each style's SKILL.md is styles/<style>/method.md;
-  minimalistic-graphics is styles/minimal-line-art and zach-d-films is styles/what-if-3d. install.sh and kit/setup.sh
+  minimalistic-graphics is styles/minimal-line-art, zach-d-films is styles/what-if-3d, minecraft is styles/voxel-build,
+  low-poly is styles/ps1-low-poly and dan-koe is styles/hairline-tree (these three from commit
+  86f70106c9aeae1334184467da5776c533ada3bc, Pixelify Sans OFL added). install.sh and kit/setup.sh
   are left out. kit/fonts holds Inter, Inter Tight, JetBrains Mono and Poppins subsets, SIL Open Font License 1.1, with
   their licence texts; Latin Extended subsets and Montserrat come from @fontsource packages installed from npm and are
   never bundled. three.js and GSAP are installed from npm and never bundled. framemotion/ (spec.py and the samples) is

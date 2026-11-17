@@ -1901,6 +1901,106 @@
       "gpu_recommended": true
     },
     {
+      "id": "reels-voxel-build",
+      "title": "Reel, a blocky voxel cottage builds itself block by block, the chimney slams in, the windows light up and one big pixel word lands (9:16, three.js, 4 s, from a spec)",
+      "group": "3d-scenes",
+      "about": "A blocky 3D house drops together block by block and ends on one big word.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
+      "status": "ready",
+      "kind": "three",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "voxel-build",
+        "spec": "../reels-engine/framemotion/samples/voxel-cottage.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md",
+      "gpu_recommended": true
+    },
+    {
+      "id": "reels-ps1-low-poly",
+      "title": "Reel, a 1990s console-style low-poly 3D scene: a dog waits on a station platform, a train passes, snow falls (9:16, three.js, 4.8 s, your own captions and station names)",
+      "group": "old-game-look",
+      "about": "A chunky retro 3D platform scene with a waiting dog, a passing train and small captions.",
+      "good_for": [
+        "story"
+      ],
+      "inputs": [
+        "text"
+      ],
+      "status": "ready",
+      "kind": "three",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "ps1-low-poly",
+        "spec": "../reels-engine/framemotion/samples/ps1-platform.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md",
+      "gpu_recommended": true
+    },
+    {
+      "id": "reels-hairline-tree",
+      "title": "Reel, black-and-white hairline tree: one dot grows into a tree that splits in two at every step, the tips light up and one quiet line swaps to a second (9:16, from a spec)",
+      "group": "handmade-looks",
+      "about": "One white dot on black grows into a fine line tree, then a short line of text.",
+      "good_for": [
+        "story",
+        "explainer"
+      ],
+      "inputs": [
+        "text"
+      ],
+      "status": "ready",
+      "kind": "svg",
+      "adapter": "seek",
+      "screenshot": "#root",
+      "sources": [
+        "claude-animation-skills"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "reels",
+        "style": "hairline-tree",
+        "spec": "../reels-engine/framemotion/samples/hairline-tree.json"
+      },
+      "size": {
+        "width": 1080,
+        "height": 1920
+      },
+      "fps": 30,
+      "duration": "page",
+      "readme": "../reels-engine/README.md"
+    },
+    {
       "id": "art-gallery",
       "title": "Art styles: one beat in each bundled art style, from cave painting to 8-bit, on a 128 BPM grid (16:9)",
       "group": "handmade-looks",

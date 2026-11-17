@@ -1,6 +1,6 @@
 # Reels engine
 
-Four short vertical reel styles (9:16), rendered frame by frame by FrameMotion's shared renderer. The engine is [artemnovitckii/claude-animation-skills](https://github.com/artemnovitckii/claude-animation-skills) at `5dbea55c23aa6a5c93dc3cfb5583840513b56b94` (MIT, Copyright (c) 2026 Artem Novitckii; [LICENSE](LICENSE)), bundled unchanged except one line (see [What is here](#what-is-here)). Its two other reel engines already live elsewhere in FrameMotion: the stick-figure reel inside the [Stickman engine](../stickman-engine/README.md) and the breakdown inside the [cutaway teardown](../cutaway-engine/README.md).
+Seven short vertical reel styles (9:16), rendered frame by frame by FrameMotion's shared renderer. The engine is [artemnovitckii/claude-animation-skills](https://github.com/artemnovitckii/claude-animation-skills) at `5dbea55c23aa6a5c93dc3cfb5583840513b56b94` (MIT, Copyright (c) 2026 Artem Novitckii; [LICENSE](LICENSE)), bundled unchanged except one line (see [What is here](#what-is-here)). Three styles (voxel-build, ps1-low-poly, hairline-tree) come from upstream's 17 Nov 2026 update, commit `86f70106c9aeae1334184467da5776c533ada3bc`. Its two other reel engines already live elsewhere in FrameMotion: the stick-figure reel inside the [Stickman engine](../stickman-engine/README.md) and the breakdown inside the [cutaway teardown](../cutaway-engine/README.md).
 
 ## Pick a reel
 
@@ -9,11 +9,14 @@ Four short vertical reel styles (9:16), rendered frame by frame by FrameMotion's
 | One number that grows, shown as a smooth line that draws itself while the count follows the tip (4 s) | `reels-graph`, `reels-graph-pl` (Polish copy) | a spec |
 | A route across a white 3D city: the line draws, a pin drops, the camera pulls back, an ETA card counts down (4 s) | `reels-map-route` | a spec |
 | A quiet black-and-white line-art beat: a dot hops up the steps and lands one or two short lines (about 4 s) | `reels-minimal-line-art` | a spec |
+| A line-art tree: one white dot on black grows into a tree that splits in two at every step, the tips light up, then one quiet line swaps to a second (about 4 s) | `reels-hairline-tree` | a spec |
+| A blocky voxel build: a cottage drops together block by block, the chimney slams in, the windows light up, one big pixel word lands (4 s, three.js) | `reels-voxel-build` | a spec |
+| A 1990s console-style low-poly scene: a dog waits on a station platform, a train passes and he is still there in the snow (4.8 s, three.js, your captions and station names) | `reels-ps1-low-poly` | a spec |
 | A 3D cartoon "what if" explainer: a question, a misconception, a "But" turn, slow-motion impacts, 1 to 3 word captions (20 to 60 s) | `reels-what-if-3d` | a three.js film folder |
 
-The three spec styles are single beats to cut into a longer reel. For a launch film with several scenes, use the [Launch engine](../launch-engine/README.md) (`launch-charts` for several charts in one film). For a cartoon explainer with stick figures, use the [Stickman engine](../stickman-engine/README.md).
+The six spec styles are single beats to cut into a longer reel. For a launch film with several scenes, use the [Launch engine](../launch-engine/README.md) (`launch-charts` for several charts in one film). For a cartoon explainer with stick figures, use the [Stickman engine](../stickman-engine/README.md).
 
-## Make a spec reel (graph, map-route, minimal-line-art)
+## Make a spec reel (graph, map-route, minimal-line-art, hairline-tree, voxel-build, ps1-low-poly)
 
 1. **Write a spec** (a small JSON file) in the workspace. Read `styles/<style>/method.md` for its fields and rules. The samples in `framemotion/samples/` are ready to copy. Every field is checked by the style's own `build.py` (through `framemotion/spec.py`) before anything renders, so a wrong field stops with upstream's own message.
 2. **Register** it in `engines/engines.json`, copying the `reels-*` entry of that style and changing `id` and `"build": {"tool": "reels", "style": "<style>", "spec": "<file, from the engines folder>"}`. Keep `"adapter": "seek"`, `"screenshot": "#root"` and `"duration": "page"` (the builder works the length out from the spec as `build.py` does, plus an optional `"hold"` in seconds).
@@ -55,14 +58,21 @@ In FrameMotion, skip these steps of `method.md`: `setup.sh`, `npm install` and `
 | `LICENSE` | Upstream's MIT notice | unchanged |
 | `kit/anim.py`, `kit/words.py`, `kit/package.json` | Upstream's shared builder helpers (spec loading and checks, sheets), word timing and its package list, kept for reference and for `spec.py` | unchanged |
 | `kit/fonts/` | Inter, Inter Tight, JetBrains Mono and Poppins subsets with their OFL texts | unchanged |
-| `styles/graph/`, `styles/map-route/`, `styles/minimal-line-art/` | Each style's `method.md` (its `SKILL.md`, renamed so no host loads it as a skill), `build.py` and `template.html`; `minimal-line-art` was `minimalistic-graphics` | unchanged |
+| `styles/graph/`, `styles/map-route/`, `styles/minimal-line-art/`, `styles/hairline-tree/` (was `dan-koe`), `styles/voxel-build/` (was `minecraft`), `styles/ps1-low-poly/` (was `low-poly`) | Each style's `method.md` (its `SKILL.md`, renamed so no host loads it as a skill), `build.py` and `template.html`; `minimal-line-art` was `minimalistic-graphics` | unchanged |
 | `styles/what-if-3d/` | The 3D explainer style, renamed from a creator's name to what it makes: `method.md`, `engine/` (the example film, `render.mjs`, `captions.py`) | unchanged except `engine/src/shots.js`, one line in shot 7, marked by a FrameMotion comment |
 | `framemotion/spec.py` | Fills and checks a spec with the style's own `build.py` and prints it with its length | ours |
 | `framemotion/samples/` | Specs for the registry's samples, English and Polish | ours |
 | `README.md` (this file) | These notes | ours |
 
-Not bundled: the stick-figure and breakdown skills (merged elsewhere, see above), `install.sh` and `kit/setup.sh` (they fetch GSAP from a CDN and run `npx` installers), the lockfile, the preview image and the upstream README. Every bundled file, its upstream path and SHA-256, and the changed file's current hash are in [`integrations/claude-animation-skills/source-manifest.json`](../../../../integrations/claude-animation-skills/source-manifest.json).
+Not bundled: the stick-figure and breakdown skills (merged elsewhere, see above), `zach-3d-films` (an alias of the what-if-3d skill) and `kurzgesagt` (the flat-space style is covered by the Art engine's `art-flat-science`), `install.sh` and `kit/setup.sh` (they fetch GSAP from a CDN and run `npx` installers), the lockfile, the preview image and the upstream README. Every bundled file, its upstream path and SHA-256, and the changed file's current hash are in [`integrations/claude-animation-skills/source-manifest.json`](../../../../integrations/claude-animation-skills/source-manifest.json).
 
 ## Credit
 
-claude-animation-skills: MIT, Copyright (c) 2026 Artem Novitckii. The fonts are not covered by that licence: they are SIL Open Font License 1.1 faces (Inter, Inter Tight, JetBrains Mono, Poppins, and Montserrat for the 3D captions), each with its OFL text; the Latin Extended subsets come from `@fontsource` packages installed from npm. three.js (MIT) and GSAP (its standard licence, free to use) are installed from npm and never bundled. All are named in FrameMotion's `NOTICE`.
+claude-animation-skills: MIT, Copyright (c) 2026 Artem Novitckii. The fonts are not covered by that licence: they are SIL Open Font License 1.1 faces (Inter, Inter Tight, JetBrains Mono, Poppins, Pixelify Sans for the voxel-build captions, and Montserrat for the 3D captions), each with its OFL text; the Latin Extended subsets come from `@fontsource` packages installed from npm. three.js (MIT) and GSAP (its standard licence, free to use) are installed from npm and never bundled. All are named in FrameMotion's `NOTICE`.
+
+## Notes on the three newer styles
+
+- **Names.** `voxel-build` is upstream's `/minecraft`; the engine uses its own 16x16 textures drawn in code, no Mojang assets, logos or characters. Keep it that way, and do not call a film "Minecraft" in client copy.
+- **Captions.** `voxel-build` draws its words in Pixelify Sans, a basic Latin face, so Polish letters (ą, ę, ł, ś, ż) fall back to a system monospace face; use plain Latin words there, or draw the words in the film's own type. `ps1-low-poly` takes letters, digits, spaces, dots and dashes on the station sign (a tiny pixel font).
+- **Time and speed.** Both 3D styles draw each frame from its time alone (`hf-seek`). They need WebGL; on a Mac with a GPU the render is much faster than in the cloud's software renderer.
+- **Another scene.** Both methods say to copy `template.html` next to the spec and point `"template"` at it; the spec's `template` field works as for the other styles.

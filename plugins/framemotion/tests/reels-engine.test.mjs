@@ -44,7 +44,8 @@ test('Polish copy gets Latin Extended faces, English copy does not', {skip: pyth
   }
 });
 
-for (const [id, frames] of [['reels-minimal-line-art', [0, 45, 50, 57, 70, 113]], ['reels-map-route', [0, 60, 119]], ['reels-what-if-3d', [590, 640]]]) {
+for (const [id, frames] of [['reels-minimal-line-art', [0, 45, 50, 57, 70, 113]], ['reels-map-route', [0, 60, 119]], ['reels-what-if-3d', [590, 640]],
+  ['reels-hairline-tree', [0, 30, 100]], ['reels-voxel-build', [0, 60, 100]], ['reels-ps1-low-poly', [0, 40, 100]]]) {
   test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip, timeout: 300000}, async () => {
     const first = await kit.renderFrames(id, {frames, once: true});
     const back = await kit.renderFrames(id, {frames: [...frames].reverse(), once: true});
@@ -55,3 +56,12 @@ for (const [id, frames] of [['reels-minimal-line-art', [0, 45, 50, 57, 70, 113]]
     assert.deepEqual(first.blocked, []);
   });
 }
+
+test('reels-hairline-tree: frame 0 is the start (a timeline already at 0 still redraws)', {skip: browserSkip, timeout: 300000}, async () => {
+  // Drawn after the end of the film, frame 0 once kept the finished tree on screen.
+  const run = await kit.renderFrames('reels-hairline-tree', {frames: [100, 0], once: true});
+  const hash = (f) => run.frames.find((x) => x.frame === f).hash;
+  const alone = await kit.renderFrames('reels-hairline-tree', {frames: [0], once: true});
+  assert.equal(hash(0), alone.frames[0].hash);
+  assert.notEqual(hash(0), hash(100));
+});

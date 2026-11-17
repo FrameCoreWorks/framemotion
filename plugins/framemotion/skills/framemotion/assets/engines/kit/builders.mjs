@@ -234,7 +234,7 @@ export const BUILDERS = {
   },
   /**
    * Reels engine (bundled claude-animation-skills reel styles). A spec style (graph, map-route,
-   * minimal-line-art) is filled and checked by the style's own build.py through framemotion/spec.py,
+   * minimal-line-art, hairline-tree, voxel-build, ps1-low-poly) is filled and checked by the style's own build.py through framemotion/spec.py,
    * then its template gets the spec, the kit's fonts and GSAP or three.js from this engines folder
    * (upstream's setup.sh fetched them from a CDN). The what-if-3d style copies a three.js film folder
    * (the bundled example, or a user's copy) and points its import map at this folder's three.js.
@@ -307,7 +307,7 @@ export const BUILDERS = {
       return finish(dir, html.replace('<div id="hud"></div>', '<div id="hud" hidden></div>'),
         '(t) => { window.renderAt(t); }', 720, 1280, 'Math.floor(window.DURATION * ' + fps + ')', {render: '1'});
     }
-    if (!['graph', 'map-route', 'minimal-line-art'].includes(style)) throw new Error(`Unknown reels style "${style}"`);
+    if (!['graph', 'map-route', 'minimal-line-art', 'voxel-build', 'ps1-low-poly', 'hairline-tree'].includes(style)) throw new Error(`Unknown reels style "${style}"`);
     const specFile = path.resolve(enginesRoot, entry.build.spec);
     const run = spawnSync('python3', ['-I', '-B', path.join(engine, 'framemotion/spec.py'), style, specFile], {encoding: 'utf8'});
     if (run.status !== 0) throw new Error(`${entry.id}: spec check failed: ${run.stderr || run.stdout}`);
@@ -319,6 +319,11 @@ export const BUILDERS = {
     for (const f of fs.readdirSync(path.join(engine, 'kit/fonts'))) link(path.join(engine, 'kit/fonts', f), path.join(dir, 'fonts', f));
     if (extended(data)) html = twins(dir, html);
     const frames = Math.round(duration * fps);
+    if (style === 'voxel-build' || style === 'ps1-low-poly') {
+      // Plain three.js scenes (no addons); each draws one frame per hf-seek event.
+      three(dir, []);
+      return finish(dir, html, "(t) => { window.__hfThreeTime = t; window.dispatchEvent(new CustomEvent('hf-seek', {detail: {time: t}})); }", 1080, 1920, frames);
+    }
     if (style === 'map-route') {
       three(dir, ['environments/RoomEnvironment.js']);
       return finish(dir, html, "(t) => { window.__hfThreeTime = t; window.dispatchEvent(new CustomEvent('hf-seek', {detail: {time: t}})); }", 1080, 1920, frames);
@@ -328,9 +333,10 @@ export const BUILDERS = {
     // property overlap (the hopping ball's squash and settle), the one that wins depends on the
     // direction of the jump. So play the timeline once through, in small steps, to record every start
     // as a straight playback would, then reach each frame forward from 0: a frame no longer depends on
-    // the frames drawn before it.
+    // the frames drawn before it. (Frame 0 goes through 1 ms first: a timeline already at 0 does not
+    // fire onUpdate, so a style that draws in onUpdate, like hairline-tree, would keep its last picture.)
     const seek = '(t) => { const tl = window.__timelines.main; if (!window.__fmWarm) { window.__fmWarm = true; ' +
-      'for (let s = 0; s <= tl.duration() + 1e-9; s += 1 / 240) tl.seek(s, false); } tl.seek(0, true); tl.seek(t, false); }';
+      'for (let s = 0; s <= tl.duration() + 1e-9; s += 1 / 240) tl.seek(s, false); } tl.seek(0, true); if (t === 0) tl.seek(1e-3, false); tl.seek(t, false); }';
     return finish(dir, html, seek, 1080, 1920, frames);
   },
   /**

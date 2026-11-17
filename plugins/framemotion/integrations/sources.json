@@ -150,7 +150,8 @@
         "stick-figure merged into the Stickman engine and breakdown into the cutaway teardown, as method only (no file copied)",
         "one changed file: the what-if-3d example's src/shots.js (shot 7 made order-independent, marked; original and current hashes in the source manifest)",
         "install.sh and kit/setup.sh not bundled (CDN GSAP and npx installers); three.js, GSAP and Latin Extended fonts come from the engines folder's npm packages at exact versions",
-        "OFL fonts keep their licence text"
+        "OFL fonts keep their licence text",
+        "17 Nov 2026 update: minecraft, low-poly and dan-koe bundled from commit 86f70106c9aeae1334184467da5776c533ada3bc as voxel-build, ps1-low-poly and hairline-tree (byte-identical, SKILL.md as method.md); Pixelify Sans (OFL) added; zach-3d-films (an alias) and kurzgesagt (covered by art-flat-science) not bundled"
       ],
       "bundled_commit": "5dbea55c23aa6a5c93dc3cfb5583840513b56b94"
     },

@@ -45,7 +45,7 @@ class ReelsEngineTest(unittest.TestCase):
     def test_licences_and_credit(self):
         self.assertEqual(sha(ENGINE / 'LICENSE'), sha(INTEGRATION / 'LICENSE'))
         self.assertIn('Artem Novitckii', (ENGINE / 'LICENSE').read_text())
-        for font in ('inter', 'intertight', 'jetbrainsmono', 'poppins'):
+        for font in ('inter', 'intertight', 'jetbrainsmono', 'poppins', 'pixelifysans'):
             self.assertTrue((ENGINE / f'kit/fonts/OFL-{font}.txt').is_file(), font)
         notice = (ROOT / 'NOTICE').read_text()
         self.assertIn('Reels engine (skills/framemotion/assets/reels-engine)', notice)
@@ -59,7 +59,7 @@ class ReelsEngineTest(unittest.TestCase):
 
     def test_registered_reels(self):
         reels = [e for e in REGISTRY['engines'] if e.get('build', {}).get('tool') == 'reels']
-        self.assertEqual(sorted(e['build']['style'] for e in reels), ['graph', 'graph', 'map-route', 'minimal-line-art', 'what-if-3d'])
+        self.assertEqual(sorted(e['build']['style'] for e in reels), ['graph', 'graph', 'hairline-tree', 'map-route', 'minimal-line-art', 'ps1-low-poly', 'voxel-build', 'what-if-3d'])
         for e in reels:
             with self.subTest(e['id']):
                 self.assertEqual((e['adapter'], e['duration'], e['size']['height'] / e['size']['width']), ('seek', 'page', 16 / 9))

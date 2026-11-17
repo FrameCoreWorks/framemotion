@@ -13,13 +13,18 @@
     "skills/minimalistic-graphics/SKILL.md": "styles/minimal-line-art/method.md (byte-identical; renamed so no host loads it as a skill)",
     "skills/minimalistic-graphics/": "styles/minimal-line-art/ (a descriptive name instead of a creator's name)",
     "skills/zach-d-films/SKILL.md": "styles/what-if-3d/method.md (byte-identical; renamed so no host loads it as a skill)",
-    "skills/zach-d-films/": "styles/what-if-3d/ (a descriptive name instead of a creator's name)"
+    "skills/zach-d-films/": "styles/what-if-3d/ (a descriptive name instead of a creator's name)",
+    "skills/minecraft/": "styles/voxel-build/ (a descriptive name; Minecraft is Mojang's trademark)",
+    "skills/low-poly/": "styles/ps1-low-poly/",
+    "skills/dan-koe/": "styles/hairline-tree/ (a descriptive name instead of a creator's name)"
   },
   "not_bundled": [
     "skills/stick-figure/ (merged into the Stickman engine as method only)",
     "skills/breakdown/ (the cutaway teardown is rewritten after its template)",
     "install.sh and kit/setup.sh (they fetch GSAP from a CDN and run npx installers; the engines folder installs GSAP and three.js at exact versions)",
-    "kit/package-lock.json, docs/skills.jpg, README.md, .claude-plugin/, .gitignore"
+    "kit/package-lock.json, docs/skills.jpg, README.md, .claude-plugin/, .gitignore",
+    "skills/zach-3d-films/ (an alias of skills/zach-d-films, no content of its own)",
+    "skills/kurzgesagt/ (flat space explainer: FrameMotion's art-flat-science covers the style; not bundled)"
   ],
   "retained_files": [
     {
@@ -199,6 +204,77 @@
       "source_path": "skills/zach-d-films/SKILL.md",
       "destination_path": "../../skills/framemotion/assets/reels-engine/styles/what-if-3d/method.md",
       "sha256": "eeda3e4a59e4f8cd5e873465303a84bd04ff8c6c3aef3aa5be16af94feee5744"
+    },
+    {
+      "source_path": "skills/minecraft/SKILL.md",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/voxel-build/method.md",
+      "sha256": "a7a908eb02d505d30ceaf553438cd0c3603254fe71817424c4f94c25ac7a306c"
+    },
+    {
+      "source_path": "skills/minecraft/build.py",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/voxel-build/build.py",
+      "sha256": "19c6dc9956b0bf576cd34405fa10be27e6322de183f50e672f7f7825055bcec5"
+    },
+    {
+      "source_path": "skills/minecraft/template.html",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/voxel-build/template.html",
+      "sha256": "3bfde1afadf41af8f4fab3add8a2dd4f3e97e390aa6abc55d654c8618f4a6d3b"
+    },
+    {
+      "source_path": "skills/low-poly/SKILL.md",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/ps1-low-poly/method.md",
+      "sha256": "b11b38c17641f28a9f3b3d7bed087601ef01af4239b80f7df1b2465799709652"
+    },
+    {
+      "source_path": "skills/low-poly/build.py",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/ps1-low-poly/build.py",
+      "sha256": "396f32ea70f0a4aa1e1d798d9949ac991b194bf8922ca7acb178c1fa805958b7"
+    },
+    {
+      "source_path": "skills/low-poly/template.html",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/ps1-low-poly/template.html",
+      "sha256": "80b98c4a66cc050df366e8f23991f16ebfae9220775565403bf1e80fee9cadff"
+    },
+    {
+      "source_path": "skills/dan-koe/SKILL.md",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/hairline-tree/method.md",
+      "sha256": "dd9f707a6bb8ff88e235018c1ad3e5c8d07e917ad92ddcd323ee6ba24ca1db26"
+    },
+    {
+      "source_path": "skills/dan-koe/build.py",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/hairline-tree/build.py",
+      "sha256": "c71f733c01ef3a4e56682d564ad5f0052fe2ccf82f9bfc8c16b5f833b3673e13"
+    },
+    {
+      "source_path": "skills/dan-koe/template.html",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/styles/hairline-tree/template.html",
+      "sha256": "853e26e2c560c045dc6007858b97b5e8c691e279f587e25bccc1bc406ea139c6"
+    },
+    {
+      "source_path": "kit/fonts/PixelifySans-700-normal.woff2",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/PixelifySans-700-normal.woff2",
+      "sha256": "0f2216c1b7bf13b775e7b825c15e1c8414f3899cbd4120f275cdc96001a053a0"
+    },
+    {
+      "source_path": "kit/fonts/OFL-pixelifysans.txt",
+      "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+      "destination_path": "../../skills/framemotion/assets/reels-engine/kit/fonts/OFL-pixelifysans.txt",
+      "sha256": "921ba087e40693958a9b2519d489b8872a894a6f5b1a9bfae37639146c1effe9"
     }
-  ]
+  ],
+  "added_from_commit": {
+    "source_commit": "86f70106c9aeae1334184467da5776c533ada3bc",
+    "retrieved_on": "2026-11-17",
+    "note": "Upstream's 17 Nov 2026 'Five animation styles' commit (6374a62): minecraft, low-poly and dan-koe bundled byte for byte as styles/voxel-build, styles/ps1-low-poly and styles/hairline-tree (SKILL.md renamed to method.md); Pixelify Sans and its OFL text added to kit/fonts. Each such file carries its own source_commit; the rest stay at the first pin."
+  }
 }
