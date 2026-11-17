@@ -37,6 +37,12 @@ Use the smallest complete contract for the requested work. Its machine-readable 
 - Motion system: persistence, direction, origins, easing/velocity, transition vocabulary:
 - Audio: cue IDs, approved sources, timing/gain/fades or intentional silence:
 
+## Layer plan
+
+- Layer in progress and the next review layer (see [layered work](../references/layered-work.md)):
+- Layer switches in the build (function or file | flag):
+- Single-pass exception and its reason, or `none`:
+
 ## Master timeline
 
 All starts are inclusive, all ends exclusive, and all frames lie in [0, N). Timing is designed unless explicitly measured. Overlaps use the same master clock and are not added to duration.

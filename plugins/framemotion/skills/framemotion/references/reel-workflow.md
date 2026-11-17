@@ -14,6 +14,10 @@ The standard order for every reel, ad or short motion film (owner decision 2026-
 
 **Why:** full resolution takes many times longer than 540p, so a full render before acceptance is lost time at every correction.
 
+## Layers inside the stages
+
+Inside these stages the work goes one layer at a time (owner rule 2026-11-17): plan and blocking, typography, base motion, depth and polish, colour and look, sound, then detail control and QC of the exported file, with a frame check after each. See [layered work](layered-work.md).
+
 ## Rules that go with it
 
 - The preview is a real MP4. No HTML mock-up stands in for it.

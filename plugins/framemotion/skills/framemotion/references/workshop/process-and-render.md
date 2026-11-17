@@ -4,6 +4,8 @@ Working defaults for running a film from idea to delivery. Like the other worksh
 
 ## Order of work
 
+Build in layers, one at a time, checked after each: [layered work](../layered-work.md).
+
 This order gave the fewest revision rounds:
 
 1. **The best idea for the subject, not the richest.** Before the first plan, judge what this subject does best in this format: a story through stages, changes of place, camera travel, a twist, or one strong idea. Test: does the plan use what the subject offers in this format? Typical failure: a showreel on one board where little happens; a journey through stages, each stage its own board with its own look, made it a story.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.2 (2026-11-17)
+
+- **Layered work** (owner rule 2026-11-17, mandatory): a reel or film is built one layer at a time (plan and grey-block blocking, typography and content, base motion without effects, depth and polish, colour and look, sound, detail control and QC of the exported file) with a frame check after each. A fix returns to its own layer and the layers above it are checked again; in code each layer is its own function or file with a switch; only a very short simple job may take one pass, with the reason in the plan. New `references/layered-work.md`, step 5 of `SKILL.md`, a section in `references/reel-workflow.md`, a pointer in the workshop's process note, a "Layer plan" block in the storyboard contract template and `tests/layers_test.py`.
+- Evidence: source checks in the Claude cloud sandbox; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.4.1 (2026-11-17)
 
 - **Three more reel styles in the Reels engine** (owner request 2026-11-17: evaluate the five new skills of artemnovitckii/claude-animation-skills and "Startujemy", then "wydaj"): `voxel-build` (a blocky cottage builds itself block by block; upstream's `/minecraft`), `ps1-low-poly` (a 1990s console-style platform scene with a waiting dog, a passing train and snow; upstream's `/low-poly`) and `hairline-tree` (one dot grows into a hairline tree; upstream's `/dan-koe`), bundled byte for byte from upstream commit `86f70106c9aeae1334184467da5776c533ada3bc` (MIT), under descriptive names, with registry entries `reels-voxel-build`, `reels-ps1-low-poly`, `reels-hairline-tree`, samples, source-manifest hashes, a NOTICE line and Pixelify Sans (OFL) for the voxel captions. Left out: `zach-3d-films` (an alias of the what-if-3d skill) and `kurzgesagt` (covered by the Art engine's `art-flat-science`).
