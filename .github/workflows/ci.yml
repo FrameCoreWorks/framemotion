@@ -33,6 +33,8 @@ jobs:
           npm ci --ignore-scripts --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/engines
           npm ci --no-audit --no-fund --prefix plugins/framemotion/skills/framemotion/assets/animate-engine
           cd plugins/framemotion/skills/framemotion/assets/animate-engine && npx --no-install playwright install --with-deps chromium
+      - name: Allow Chromium's sandbox on the Ubuntu 24.04 runner (AppArmor blocks unprivileged user namespaces)
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Source, tests and package
         env:
           PYTHONDONTWRITEBYTECODE: "1"
