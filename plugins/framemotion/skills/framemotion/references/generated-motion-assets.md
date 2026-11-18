@@ -18,7 +18,7 @@ One asset per scene need, each tied to its scenes: the hero object; separate clo
 - **Straight-on, long-lens view** (no strong perspective) for anything animated in parts: reels that rotate, cones that pump, keys that press, needles that move.
 - **Moving parts clean and unobstructed:** circles round, windows without glare, displays blank and unlit (code fills them), nothing covering them.
 - **No text on objects** unless it is exact approved copy. Generate a label or logo as its own asset with the brand reference, composite it, and check it letter by letter.
-- **No brand names, third-party logos or copies** of a specific real product or someone else's photograph; references inform realism only.
+- **No third-party logos, 1:1 copies** of a specific real product or someone else's photograph in the prompt; a brand or game named by the user is a style reference, so describe the look in own words ([brand-inspired requests](brand-inspired-requests.md)).
 - **Consistency:** reuse the first approved asset as the reference for the next (same light, same rim colour). A second state of an asset (a pressed key, side B) is an edit of the first that changes one thing, with identical framing and scale.
 - Realism cues that helped: "real studio product photograph, not a 3D render", the lens and aperture, real materials, slight wear, neutral studio reflections.
 

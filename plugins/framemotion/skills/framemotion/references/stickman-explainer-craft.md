@@ -42,7 +42,7 @@ Offer at most three looks that fit the subject, then write the chosen one into t
 | Retro TV | Grey and white figures on a dark field, soft bloom, faint scanlines and vignette added after the picture and before clean captions | Lore, mysteries, retro topics |
 
 Never copy a particular creator's or channel's character, colours or set design; a look is a general grammar,
-not someone's identity. Any channel the user points to is a reference to learn from, not a template to reproduce.
+not someone's identity. Any channel the user points to is a reference to learn from, not a template to reproduce. Work in that spirit with own characters; do not refuse the name ([brand-inspired requests](brand-inspired-requests.md)).
 
 ## Lock the character
 

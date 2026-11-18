@@ -5,7 +5,7 @@ How Studio learns from a reference video the user brings ("make it like this one
 ## What may be taken
 
 - **Technique, yes:** cut rhythm, shot lengths, how text enters and leaves, camera moves, transitions, layout grid, colour logic, sound cues.
-- **The work itself, no:** the creator's footage, artwork, exact on-screen text, music, logo, characters or a shot-by-shot copy of their film. A user who asks for an exact copy of someone else's video gets this explained once, plus the same technique carrying their own content.
+- **The work itself, no:** the creator's footage, artwork, exact on-screen text, music, logo, characters or a shot-by-shot copy of their film. A user who asks for an exact copy of someone else's video gets one short line and, in the same reply, the same technique carrying their own content; a named brand, game or mascot is a style to work in, see [brand-inspired requests](brand-inspired-requests.md).
 - **The user's own video:** may be rebuilt exactly (for an edit, a new language, a new format), because the user holds the rights.
 
 ## Method

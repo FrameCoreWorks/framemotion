@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.4 (2026-11-18)
+
+- **Brand names are style references** (tester report 2026-11-18, owner rule): "Minecraft" and "Clawd" were refused first and only then answered with a substitute. New `references/brand-inspired-requests.md` and one SKILL.md bullet: the reply opens with the inspired version (own characters, blocks, textures, palette), no refusal or lecture, one short note at most. Hard limits only for 1:1 logos, faithful redraws of protected characters and fake official material. Clawd is explicitly allowed as a mascot style. Four example replies (Minecraft, Clawd, Pokémon, Mario). Wording that read as a refusal was softened in `generated-motion-assets.md`, `reference-style-rebuild.md` and `stickman-explainer-craft.md`. Test: `tests/brand_inspired_test.py`. FrameCut has no such rule (checked by search).
+- Evidence: source checks in the Claude cloud sandbox; Codex and ChatGPT Work `NOT_TESTED (by policy)`. Model behavior with the new wording is `NOT_RUN` until a real prompt is tried.
+
 ## 0.4.3 (2026-11-17)
 
 - **Rubber hose build patterns** (owner request 2026-11-17, review of finktheartist/rubber-hose-ui, MIT, commit 9608c12): `references/film-style-library.md` gets a short section with three patterns in our own words (time-driven clock, one spring for every landing, painted body with limbs in code and the join rules). Pattern source only: no upstream code or art copied.
