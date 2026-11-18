@@ -2,7 +2,7 @@
   "schema": "framecore-capabilities/1",
   "plugin": {
     "name": "framemotion",
-    "version": "0.4.6"
+    "version": "0.4.7"
   },
   "entry_skill": "skills/framemotion/SKILL.md",
   "contract_versions": [
