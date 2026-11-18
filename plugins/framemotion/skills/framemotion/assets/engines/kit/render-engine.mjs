@@ -237,6 +237,9 @@ async function capture(page, frame, {png = false} = {}) {
     await measure(await target.screenshot(shotOptions));
     await page.evaluate((f) => window.__framemotion.engine.seekFrame(f), frame);
   }
+  // Chromium repaints only what changed, and the anti-aliasing of an SVG stroke then depends on the frames drawn
+  // before it (the same frame 0 hashed differently after frame 120). Hiding and showing the page forces a full repaint.
+  await page.evaluate(() => { const b = document.body; const d = b.style.display; b.style.display = 'none'; void b.offsetHeight; b.style.display = d; });
   const shot = await target.screenshot(shotOptions);
   const dataUrl = `data:image/png;base64,${shot.toString('base64')}`;
   const stats = await measure(shot);
