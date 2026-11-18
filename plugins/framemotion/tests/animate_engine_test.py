@@ -27,7 +27,7 @@ class Provenance(unittest.TestCase):
         for path, blob in listed.items():
             self.assertEqual(git_blob(ENGINE / path), blob, path)
         added = {str(pathlib.Path(p).relative_to('skills/framemotion/assets/animate-engine')) for p in MANIFEST['studio_added_files']}
-        present = {str(p.relative_to(ENGINE)) for p in ENGINE.rglob('*') if p.is_file() and '__pycache__' not in p.parts}
+        present = {str(p.relative_to(ENGINE)) for p in ENGINE.rglob('*') if p.is_file() and '__pycache__' not in p.parts and 'node_modules' not in p.parts}
         self.assertEqual(present, set(listed) | added, 'only manifest files and the Studio-added pins are bundled')
         self.assertEqual(git_blob(PLUGIN / 'integrations/animate/LICENSE'), MANIFEST['retained_files'][0]['git_blob_sha'])
 
