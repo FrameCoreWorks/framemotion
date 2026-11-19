@@ -14,6 +14,7 @@ import numpy as np
 
 import music
 import recipe as recipes
+import samples
 import synth
 from synth import RATE, adsr, fades, highpass, midi_hz, pad_voice, rng, saturate, seconds, shaped, stereo
 
@@ -83,6 +84,10 @@ class Composer:
         family = self.forced.get(part) or self.choice(FAMILIES[self.palette][part])
         if family is None:
             return None
+        if family.startswith('real-'):
+            # A recorded instrument (samples.py); the notes are composed exactly as for a synthesized one.
+            level = {'pad': (0.07, 0.09), 'bass': (0.3, 0.38), 'lead': (0.12, 0.16)}[part]
+            return {'family': 'sampled', 'instrument': family[5:], 'level': self.u(*level)}
         if family.startswith('additive'):
             bright = {'additive': (2600, 3800), 'additive-soft': (1800, 2600), 'additive-bright': (4200, 6200)}[family]
             return {'family': 'additive', 'warmth': self.u(*bright), 'motion': self.u(0.15, 0.5), 'level': self.u(0.08, 0.11)}
@@ -148,11 +153,14 @@ class Composer:
         return {'kit': kit, 'kick': kick, 'backbeat': backbeat, 'hat': hat, 'shaker': kit in ('soft', 'organic', 'sparse')}
 
 
-LEAD_FAMILIES = ['string', 'fm', 'piano', 'mallet', 'saw']
+LEAD_FAMILIES = ['string', 'fm', 'piano', 'mallet', 'saw'] + [f'real-{name}' for name in samples.instruments('lead')]
+# Real instruments a user (or the reel workflow's stage 2) can set for the pad and the bass.
+REAL_FAMILIES = {part: [f'real-{name}' for name in samples.instruments(part)] for part in ('pad', 'bass')}
 
 
 def generate_music(profile, seed, key, palette, forced=None):
-    """A new music recipe for one video; `forced` ({'lead': family}) fixes the lead's instrument family."""
+    """A new music recipe for one video; `forced` ({'lead': family, 'pad': ..., 'bass': ...}) fixes a part's family;
+    a `real-<instrument>` family plays that part from recorded CC0 samples."""
     c = Composer(profile, seed, key, palette, forced)
     chords, colour = c.progression()
     return {'palette': c.palette, 'key': key, 'progression': chords, 'colour': colour,
@@ -178,6 +186,12 @@ def chord_tones(chord, colour, root_note, centre):
 def play_note(timbre, n, freq, seed, velocity=0.8, release_at=None):
     family = timbre['family']
     release_at = n / RATE if release_at is None else release_at
+    if family == 'sampled':
+        played = samples.voice(timbre['instrument'], n, freq, velocity, release_at)
+        if played is not None:
+            return played
+        timbre = stand_in(timbre)
+        family = timbre['family']
     if family == 'additive':
         env = adsr(n, 0.3, 1.2, 0.75, max(0.0, release_at - 0.05), 0.5)[:, None]
         return pad_voice(n, freq, seed, timbre['warmth'], timbre['motion']) * env
@@ -202,6 +216,14 @@ def play_note(timbre, n, freq, seed, velocity=0.8, release_at=None):
             saw = saw + timbre['square'] * music.saw_note(n, freq * 2, timbre['cutoff'][0], timbre['cutoff'][1], timbre['tau'], 0.003, 0.2, 0.5, release_at, 0.05) * 0.5
         return saturate(saw * velocity, 1.3)
     return music.round_bass(n, freq, release_at, timbre.get('bright', 1.0)) * velocity
+
+
+def stand_in(timbre):
+    """The synthesized family that plays a recorded part whose files are missing (offline): same notes, same grid."""
+    family = samples.FALLBACK.get(timbre['instrument'], 'piano')
+    base = {'piano': {'felt': True}, 'string': {'brightness': 0.55, 'damping': 0.996}, 'fm': {'ratio': 1.0, 'index': 1.4, 'index_decay': 0.4, 'decay': 1.2, 'tine': 0.05},
+            'mallet': {'ratios': MALLETS['marimba'], 'decay': 0.8}, 'additive': {'warmth': 2200, 'motion': 0.25}, 'round': {'bright': 0.9}}[family]
+    return dict(base, family=family, level=timbre['level'])
 
 
 def arp_sequence(tones, order, count, r):
@@ -270,7 +292,7 @@ def render_music(spec, total_s, bpm, energies, seed=11, reveal_bar=None, end_bar
                 m = int((nxt - step) * sixteenth * RATE * 0.9)
                 note = root - 12 + chord['root']
                 bed.place(at(start, step), play_note(parts['bass'], m, midi_hz(note), seed + 7 * b + k, release_at=0.85 * m / RATE), parts['bass']['level'])
-        if parts.get('lead') and energy >= (1 if parts['lead']['family'] in ('string', 'piano') else 2):
+        if parts.get('lead') and energy >= (1 if parts['lead']['family'] in ('string', 'piano', 'sampled') else 2):
             lead = parts['lead']
             if rhythm['lead_mode'] == 'motif':
                 mot = spec['motif']
@@ -331,8 +353,15 @@ def render_ending(bed, spec, start, root, centre, beat, seed, before):
     pad = spec['parts'].get('pad') or {'family': 'additive', 'warmth': 2200, 'motion': 0.2, 'level': 0.07}
     env = adsr(remaining, 0.03, 0.8, 0.6, 0.0, ring)[:, None]
     for i, note in enumerate(tones + [tones[0] + 12]):
-        bed.place(start, pad_voice(remaining, midi_hz(note), seed + 7001 + i, pad.get('warmth', 2600), pad.get('motion', 0.2)) * env, pad['level'] * 1.1, bus='pads')
-    if spec['parts'].get('bass'):
+        if pad.get('family') == 'sampled':
+            voice = play_note(pad, remaining, midi_hz(note), seed + 7001 + i, 0.8, remaining / RATE)
+            bed.place(start, voice * (env if voice.ndim == 2 else env[:, 0]), pad['level'] * 1.1, bus='pads')
+        else:
+            bed.place(start, pad_voice(remaining, midi_hz(note), seed + 7001 + i, pad.get('warmth', 2600), pad.get('motion', 0.2)) * env, pad['level'] * 1.1, bus='pads')
+    bass = spec['parts'].get('bass')
+    if bass and bass.get('family') == 'sampled':
+        bed.place(start, play_note(bass, remaining, midi_hz(root - 12), seed + 7100, 0.8, remaining / RATE), bass['level'])
+    elif bass:
         bed.place(start, synth.bass_note(remaining, midi_hz(root - 12), 0.004, 0.6, 0.35, 0.0, ring), 0.4)
     if spec['drums']['kit'] not in ('soft', 'sparse', 'organic') and before >= 2:
         bed.place(start, synth.crash(seed + 5), 0.28)
