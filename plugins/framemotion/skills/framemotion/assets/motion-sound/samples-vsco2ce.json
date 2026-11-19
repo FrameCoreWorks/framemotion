@@ -1,0 +1,632 @@
+{
+ "source": {
+  "name": "VS Chamber Orchestra: Community Edition (VSCO-2-CE)",
+  "repo": "https://github.com/sgossner/VSCO-2-CE",
+  "commit": "440300901dfe9275fd84e0b7763af1f8443ae62e",
+  "licence": "CC0-1.0",
+  "licenceChecked": "2026-11-19, GitHub licence field of the repository (CC0-1.0)",
+  "credit": "Recorded by Sam Gossner and Simon Dalzell; sample cutting by Elan Hickler (Soundemote). CC0 needs no credit; we name them anyway."
+ },
+ "note": "Zone notes are the sounding pitch (MIDI). File names in some folders are written an octave below the sounding pitch; the offset is already applied here and was measured on 2026-11-19 (samples.py verify).",
+ "instruments": {
+  "piano": {
+   "label": "upright piano, mezzo-forte",
+   "parts": [
+    "lead",
+    "pad"
+   ],
+   "zones": [
+    {
+     "note": 31,
+     "path": "Keys/Upright Nr1/UR1_G1_mf_RR1.wav",
+     "size": 3191510,
+     "sha": "1aca0fb64ba6c1bb477f4c46bb3a6dddf84d09f3"
+    },
+    {
+     "note": 36,
+     "path": "Keys/Upright Nr1/UR1_C2_mf_RR1.wav",
+     "size": 2384234,
+     "sha": "67c55237469793ee90fa9dd6457fd51a714f9fe1"
+    },
+    {
+     "note": 43,
+     "path": "Keys/Upright Nr1/UR1_G2_mf_RR1.wav",
+     "size": 2429878,
+     "sha": "7afcc4d73739bbc52ed313a0f21dae36970039b2"
+    },
+    {
+     "note": 48,
+     "path": "Keys/Upright Nr1/UR1_C3_mf_RR1.wav",
+     "size": 2150126,
+     "sha": "622047ce32400cd99c0193f245955e3572d85a1b"
+    },
+    {
+     "note": 55,
+     "path": "Keys/Upright Nr1/UR1_G3_mf_RR1.wav",
+     "size": 2602206,
+     "sha": "85581601bc6c00f010fdffc7ac24ea53c4a19147"
+    },
+    {
+     "note": 60,
+     "path": "Keys/Upright Nr1/UR1_C4_mf_RR1.wav",
+     "size": 2495426,
+     "sha": "99c511c4d2d3fd91b68cdf530fa043e2b03f076f"
+    },
+    {
+     "note": 67,
+     "path": "Keys/Upright Nr1/UR1_G4_mf_RR1.wav",
+     "size": 2240934,
+     "sha": "b6727511ac816dd81e2e4f2dcc4d1c7b3349efcd"
+    },
+    {
+     "note": 72,
+     "path": "Keys/Upright Nr1/UR1_C5_mf_RR1.wav",
+     "size": 1905930,
+     "sha": "b0079bd7ec568998e65df839d5387fb56e264b7d"
+    },
+    {
+     "note": 79,
+     "path": "Keys/Upright Nr1/UR1_G5_mf_RR1.wav",
+     "size": 1665486,
+     "sha": "b6e139fb26fa6b67ca931c5db8ad60d8beb075a8"
+    },
+    {
+     "note": 84,
+     "path": "Keys/Upright Nr1/UR1_C6_mf_RR1.wav",
+     "size": 1018802,
+     "sha": "2c3af039f8bcf9ead897dbb46f158fe6330088dd"
+    },
+    {
+     "note": 91,
+     "path": "Keys/Upright Nr1/UR1_G6_mf_RR1.wav",
+     "size": 860698,
+     "sha": "81108c59a76bee0a6e890e0e110e42edd1d29aa2"
+    },
+    {
+     "note": 96,
+     "path": "Keys/Upright Nr1/UR1_C7_mf_RR1.wav",
+     "size": 469466,
+     "sha": "bdadd24805e085c03f6f6323dd03b464dc5a9181"
+    },
+    {
+     "note": 103,
+     "path": "Keys/Upright Nr1/UR1_G7_mf_RR1.wav",
+     "size": 369990,
+     "sha": "ccd334879367a96ef88f239a05a6b14167055eb1"
+    }
+   ]
+  },
+  "harp": {
+   "label": "concert harp",
+   "parts": [
+    "lead"
+   ],
+   "zones": [
+    {
+     "note": 28,
+     "path": "Strings/Harp/KSHarp_E1_f.wav",
+     "size": 4001190,
+     "sha": "483714bd64ecf4947fe70d0ae0da6f2292c958f2"
+    },
+    {
+     "note": 31,
+     "path": "Strings/Harp/KSHarp_G1_mp.wav",
+     "size": 1189890,
+     "sha": "b7935d0f8828a40be189f960960d4cb8d3235328"
+    },
+    {
+     "note": 35,
+     "path": "Strings/Harp/KSHarp_B1_mf.wav",
+     "size": 2284022,
+     "sha": "bb26292fd8b4d4d7f95703c69667c8f2234eebc8"
+    },
+    {
+     "note": 38,
+     "path": "Strings/Harp/KSHarp_D2_mf.wav",
+     "size": 1741118,
+     "sha": "2a9d5a18ceb32459a29995a4e68e06c8f78dff5d"
+    },
+    {
+     "note": 41,
+     "path": "Strings/Harp/KSHarp_F2_mf.wav",
+     "size": 3086590,
+     "sha": "03c3ce65453dc79a0b36805126b57574ff7dc654"
+    },
+    {
+     "note": 45,
+     "path": "Strings/Harp/KSHarp_A2_mf.wav",
+     "size": 2007670,
+     "sha": "265383d75cb23b2882ca297e6c50908e3ec8247a"
+    },
+    {
+     "note": 48,
+     "path": "Strings/Harp/KSHarp_C3_mf.wav",
+     "size": 1586172,
+     "sha": "20e91e167e86132bb16601f682c90444779d8a23"
+    },
+    {
+     "note": 52,
+     "path": "Strings/Harp/KSHarp_E3_mf.wav",
+     "size": 2461138,
+     "sha": "5c6c7410ae0ff7800214931f9db9a7f52db5987e"
+    },
+    {
+     "note": 55,
+     "path": "Strings/Harp/KSHarp_G3_mf.wav",
+     "size": 1806874,
+     "sha": "a2f7fcc2bce81d039d9c0c529a94159f589f36e1"
+    },
+    {
+     "note": 59,
+     "path": "Strings/Harp/KSHarp_B3_mf.wav",
+     "size": 1981130,
+     "sha": "8d06cd55bc871d19f25a2bb1b56c7a567aabbc6b"
+    },
+    {
+     "note": 62,
+     "path": "Strings/Harp/KSHarp_D4_mf.wav",
+     "size": 1921690,
+     "sha": "342eec5072e2c0a7fb7cb03b6f5b46d84ed6ac69"
+    },
+    {
+     "note": 65,
+     "path": "Strings/Harp/KSHarp_F4_mf.wav",
+     "size": 1913498,
+     "sha": "a1966639b165b623ac533270d616814cbc5389ef"
+    },
+    {
+     "note": 69,
+     "path": "Strings/Harp/KSHarp_A4_mf.wav",
+     "size": 2143618,
+     "sha": "acbece38a84e886cb5516e0f29d6ff5d38900fe1"
+    },
+    {
+     "note": 72,
+     "path": "Strings/Harp/KSHarp_C5_mf.wav",
+     "size": 1237142,
+     "sha": "748b4b1366616972c2a22e81fc48a86178801c45"
+    },
+    {
+     "note": 76,
+     "path": "Strings/Harp/KSHarp_E5_mf.wav",
+     "size": 1171586,
+     "sha": "20675907d698db011d0c8bc72cf9af4e7a1ac971"
+    },
+    {
+     "note": 79,
+     "path": "Strings/Harp/KSHarp_G5_mf.wav",
+     "size": 1049778,
+     "sha": "8e3593345c95368ae9d74591c1046d21de6a8e60"
+    },
+    {
+     "note": 83,
+     "path": "Strings/Harp/KSHarp_B5_mf.wav",
+     "size": 779058,
+     "sha": "2d2689e8ca023cd685ed5a29161f3d641f109da9"
+    },
+    {
+     "note": 86,
+     "path": "Strings/Harp/KSHarp_D6_mf.wav",
+     "size": 687750,
+     "sha": "f66e88f651740695e4971c3197e6a1d61d6380c1"
+    },
+    {
+     "note": 89,
+     "path": "Strings/Harp/KSHarp_F6_mf.wav",
+     "size": 413126,
+     "sha": "5d80932f790a28c088fab5dc2727c01ef2a130fc"
+    },
+    {
+     "note": 93,
+     "path": "Strings/Harp/KSHarp_A6_mf.wav",
+     "size": 636870,
+     "sha": "9fc9959804954e24e6837c426d702031fd2a3b7f"
+    },
+    {
+     "note": 95,
+     "path": "Strings/Harp/KSHarp_B6_mf.wav",
+     "size": 483966,
+     "sha": "d350ad472b663c9c239802f10228cd0073cf698d"
+    },
+    {
+     "note": 98,
+     "path": "Strings/Harp/KSHarp_D7_f.wav",
+     "size": 396134,
+     "sha": "096a6d12f2a4e01c952d85100d11030b8ab2fdf9"
+    },
+    {
+     "note": 101,
+     "path": "Strings/Harp/KSHarp_F7_f.wav",
+     "size": 332482,
+     "sha": "2451907b2acc4cdf9b371111c760abc9bb866926"
+    }
+   ]
+  },
+  "marimba": {
+   "label": "marimba",
+   "parts": [
+    "lead"
+   ],
+   "zones": [
+    {
+     "note": 41,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_F1_loud_01.wav",
+     "size": 972392,
+     "sha": "cc5b73c4c0b50ca64a0c484f17d37e825957de50"
+    },
+    {
+     "note": 48,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_C2_loud_01.wav",
+     "size": 2236004,
+     "sha": "155e036d3aa04fba9d3389e2cdf3accec9842e01"
+    },
+    {
+     "note": 55,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_G2_loud_01.wav",
+     "size": 1855448,
+     "sha": "b73a4b8febfdeb8e86ab13edabd1e663caebd378"
+    },
+    {
+     "note": 59,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_B2_loud_01.wav",
+     "size": 1585778,
+     "sha": "e3b63f301191c679cea1eaa61a99d3baa9c3fbfe"
+    },
+    {
+     "note": 65,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_F3_loud_01.wav",
+     "size": 1589876,
+     "sha": "646d1490ead56eaf0db10c96ac352c80d3275736"
+    },
+    {
+     "note": 72,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_C4_loud_01.wav",
+     "size": 1016564,
+     "sha": "fe3ec22b99ed4afdd007d0107d925669e7e1d4c9"
+    },
+    {
+     "note": 79,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_G4_loud_01.wav",
+     "size": 800102,
+     "sha": "3c6ea81532f6924112581140e8f530e6cc45739d"
+    },
+    {
+     "note": 83,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_B4_loud_01.wav",
+     "size": 694454,
+     "sha": "cf36d9cae6614613c17069accbaa46594846c113"
+    },
+    {
+     "note": 89,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_F5_loud_01.wav",
+     "size": 551306,
+     "sha": "fadca10c6d332115fa9f586cc37245a008a8a859"
+    },
+    {
+     "note": 96,
+     "path": "Percussion/Marimba/Marimba_hit_Outrigger_C6_loud_01.wav",
+     "size": 472142,
+     "sha": "aa3b9670477cf7d6825cb9e6e3c9446acffa95ee"
+    }
+   ]
+  },
+  "glock": {
+   "label": "glockenspiel",
+   "parts": [
+    "lead"
+   ],
+   "zones": [
+    {
+     "note": 79,
+     "path": "Percussion/Glock/glock_medium_G4.wav",
+     "size": 1271310,
+     "sha": "a7d9ca6c68e4c56327d83f0653ee3e16e4810265"
+    },
+    {
+     "note": 84,
+     "path": "Percussion/Glock/glock_medium_C5.wav",
+     "size": 1271310,
+     "sha": "db079c70946137f543820b6a6ac023d0afaac47c"
+    },
+    {
+     "note": 91,
+     "path": "Percussion/Glock/glock_medium_G5.wav",
+     "size": 1226714,
+     "sha": "dbaf80bc3975016095de3a611a202b581931311c"
+    },
+    {
+     "note": 96,
+     "path": "Percussion/Glock/glock_medium_C6.wav",
+     "size": 1271310,
+     "sha": "c02ff721d10eb3551372806653368f45ea5dc367"
+    },
+    {
+     "note": 103,
+     "path": "Percussion/Glock/glock_medium_G6.wav",
+     "size": 843122,
+     "sha": "e95738492bdc207b11ad32891a9a1ea090b6719e"
+    },
+    {
+     "note": 108,
+     "path": "Percussion/Glock/glock_medium_C7.wav",
+     "size": 492418,
+     "sha": "a0f4aff9ef7d73e49a16f4054ead1369a78572b0"
+    }
+   ]
+  },
+  "flute": {
+   "label": "flute, sustained without vibrato",
+   "parts": [
+    "lead",
+    "pad"
+   ],
+   "zones": [
+    {
+     "note": 60,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_C3_v1_1.wav",
+     "size": 2642490,
+     "sha": "ac3b6e4b90480a5a64798c2c399f16ea95754015"
+    },
+    {
+     "note": 64,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_E3_v1_1.wav",
+     "size": 2874126,
+     "sha": "7a921854e39f8addf99a4dc8e4b3f27e187142c2"
+    },
+    {
+     "note": 69,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_A3_v1_1.wav",
+     "size": 2706216,
+     "sha": "b690a4d0006b73699176dd2fab82a9249966e33b"
+    },
+    {
+     "note": 72,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_C4_v1_1.wav",
+     "size": 2722056,
+     "sha": "ea9cc7ff40975e8d3917c6e8fa13f67167e142f2"
+    },
+    {
+     "note": 76,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_E4_v1_1.wav",
+     "size": 2591256,
+     "sha": "3f351c4623be881464381ac8de2c3cfef99ac646"
+    },
+    {
+     "note": 81,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_A4_v1_1.wav",
+     "size": 3460842,
+     "sha": "3007213aa6264efe0619c7321bf2e8df7966b0a2"
+    },
+    {
+     "note": 84,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_C5_v1_1.wav",
+     "size": 2491416,
+     "sha": "093129d6a876ce5f004279b2979894d0ed637a8d"
+    },
+    {
+     "note": 88,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_E5_v1_1.wav",
+     "size": 2956800,
+     "sha": "4017163d62316f9eb0a4a5d375de9f7d110dda64"
+    },
+    {
+     "note": 93,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_A5_v1_1.wav",
+     "size": 2885970,
+     "sha": "3f6ea8e543310a6e97ed97ac5b74c9e53ee3b05e"
+    },
+    {
+     "note": 96,
+     "path": "Woodwinds/Flute/susNV/LDFlute_susNV_C6_v1_1.wav",
+     "size": 1618152,
+     "sha": "8b69c3cd65834619ad9c1389b3c9f8d50fab15f5"
+    }
+   ]
+  },
+  "strings": {
+   "label": "violin section, sustained with vibrato",
+   "parts": [
+    "pad"
+   ],
+   "zones": [
+    {
+     "note": 55,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_G2_v1.wav",
+     "size": 2341712,
+     "sha": "e2de84e8b912dbfb8df3efe7b8ee241e2bcfa027"
+    },
+    {
+     "note": 57,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_A2_v1.wav",
+     "size": 1979216,
+     "sha": "b86c2e7000da2a80466196acca2ddbdf6cf83fe8"
+    },
+    {
+     "note": 59,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_B2_v1.wav",
+     "size": 2314360,
+     "sha": "c2bdf89eed02c0e7fbb11b52799ac62276787ff8"
+    },
+    {
+     "note": 62,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_D3_v1.wav",
+     "size": 2061808,
+     "sha": "e47f9a53d487475fb049039ca7846e11c1ff830a"
+    },
+    {
+     "note": 66,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_F#3_v1.wav",
+     "size": 1585612,
+     "sha": "996ca7e6b1d9541d2f2fd7f53ba88294693893e7"
+    },
+    {
+     "note": 69,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_A3_v1.wav",
+     "size": 1890316,
+     "sha": "ec84b89a4b93ecdc7e23d0c023b897b6f151bca7"
+    },
+    {
+     "note": 72,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_C4_v1.wav",
+     "size": 2063320,
+     "sha": "6d81fcafba04ca992a8b85665a56e60337929ce0"
+    },
+    {
+     "note": 76,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_E4_v1.wav",
+     "size": 2315540,
+     "sha": "838b43d3c9e763898817869d411ab26463b7464f"
+    },
+    {
+     "note": 79,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_G4_v1.wav",
+     "size": 2330236,
+     "sha": "81d3994ebbf467cbbc88bb2d2ad0dd94d96e7e04"
+    },
+    {
+     "note": 83,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_B4_v1.wav",
+     "size": 2056964,
+     "sha": "8e22cb66ba5bccb4df68decf98139b3008733e8a"
+    },
+    {
+     "note": 86,
+     "path": "Strings/Violin Section/susVib/VlnEns_susVib_D5_v1.wav",
+     "size": 2116352,
+     "sha": "fa455a7f8fe8c5c00b36c8e131bbc340204ae1c8"
+    }
+   ]
+  },
+  "cello": {
+   "label": "cello section, sustained with vibrato",
+   "parts": [
+    "pad",
+    "bass"
+   ],
+   "zones": [
+    {
+     "note": 36,
+     "path": "Strings/Cello Section/susvib/susvib_C1_v1_1.wav",
+     "size": 2347376,
+     "sha": "ff87d1ae488d87189f33a0d18550d3bcde012f3d"
+    },
+    {
+     "note": 40,
+     "path": "Strings/Cello Section/susvib/susvib_E1_v1_1.wav",
+     "size": 2468348,
+     "sha": "fcd27d29a8c0d520539cef6aad659bf9006ae730"
+    },
+    {
+     "note": 43,
+     "path": "Strings/Cello Section/susvib/susvib_G1_v1_1.wav",
+     "size": 2161700,
+     "sha": "42a2731d11a4749c3026f0618e21a8c9370c2024"
+    },
+    {
+     "note": 47,
+     "path": "Strings/Cello Section/susvib/susvib_B1_v1_1.wav",
+     "size": 2372492,
+     "sha": "d6a4a2d1a688c6ccb4e1e1a56b878c9c93df468b"
+    },
+    {
+     "note": 50,
+     "path": "Strings/Cello Section/susvib/susvib_D2_v1_1.wav",
+     "size": 2550956,
+     "sha": "8076f809d4f6a8057f3835e12d22751a25e39252"
+    },
+    {
+     "note": 53,
+     "path": "Strings/Cello Section/susvib/susvib_F2_v1_1.wav",
+     "size": 2186012,
+     "sha": "78f52c49ddc8a357657d92b05cd89f15beb6c717"
+    },
+    {
+     "note": 57,
+     "path": "Strings/Cello Section/susvib/susvib_A2_v1_1.wav",
+     "size": 2336738,
+     "sha": "76df6b474aff133b2ac9d96bf2466cb6fd865c72"
+    },
+    {
+     "note": 60,
+     "path": "Strings/Cello Section/susvib/susvib_C3_v1_1.wav",
+     "size": 2444174,
+     "sha": "73ccb5dc2cc2a07926a1c41aa3c5621b19f420bf"
+    },
+    {
+     "note": 64,
+     "path": "Strings/Cello Section/susvib/susvib_E3_v1_1.wav",
+     "size": 2456672,
+     "sha": "63f4d6df3a25fb95f417b5d45b5f8bf6a11107bf"
+    },
+    {
+     "note": 67,
+     "path": "Strings/Cello Section/susvib/susvib_G3_v1_1.wav",
+     "size": 2431598,
+     "sha": "7880157fbb8e57fb0b7a694b8569701bc0d942ea"
+    },
+    {
+     "note": 71,
+     "path": "Strings/Cello Section/susvib/susvib_B3_v1_1.wav",
+     "size": 1690082,
+     "sha": "16d846690d7c4d385f3cfc8f1fe25873d6bd5b01"
+    },
+    {
+     "note": 74,
+     "path": "Strings/Cello Section/susvib/susvib_D4_v1_1.wav",
+     "size": 2153228,
+     "sha": "e1125afc13def9b43e4612cdcebd11b99fce20cc"
+    },
+    {
+     "note": 77,
+     "path": "Strings/Cello Section/susvib/susvib_F4_v1_1.wav",
+     "size": 1922948,
+     "sha": "7f39cccecb392eaa0ff4c94e3607dc2294458a30"
+    }
+   ]
+  },
+  "pizz-bass": {
+   "label": "double bass pizzicato",
+   "parts": [
+    "bass"
+   ],
+   "zones": [
+    {
+     "note": 28,
+     "path": "Strings/Solo Contrabass/Pizz/BKCtbss_Pizz_E0_v3_rr1.wav",
+     "size": 901744,
+     "sha": "3258f6728cacc74c5ad6addadaa8a61cbb9d57cd"
+    },
+    {
+     "note": 30,
+     "path": "Strings/Solo Contrabass/Pizz/BKCtbss_Pizz_F#0_v3_rr1.wav",
+     "size": 828940,
+     "sha": "4e6933681d86ea908000d9319e01db9858b499e1"
+    },
+    {
+     "note": 31,
+     "path": "Strings/Solo Contrabass/Pizz/BKCtbss_Pizz_G0_v3_rr1.wav",
+     "size": 636880,
+     "sha": "219542998cac263bb0b5bd03ab02fd6bbdcb3d21"
+    },
+    {
+     "note": 34,
+     "path": "Strings/Solo Contrabass/Pizz/BKCtbss_Pizz_A#0_v3_rr1.wav",
+     "size": 417360,
+     "sha": "b5525c15a77e1871feb42f70cc17a6650aee4355"
+    },
+    {
+     "note": 36,
+     "path": "Strings/Solo Contrabass/Pizz/BKCtbss_Pizz_C1_v3_rr1.wav",
+     "size": 400396,
+     "sha": "eb8c1aa8049e386288b71b7678098352a0c8f037"
+    },
+    {
+     "note": 40,
+     "path": "Strings/Solo Contrabass/Pizz/BKCtbss_Pizz_E1_v3_rr1.wav",
+     "size": 518876,
+     "sha": "1cada4277b16b2eb8b240d4a6da4bbd3aca989a0"
+    }
+   ]
+  }
+ }
+}

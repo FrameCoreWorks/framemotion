@@ -35,6 +35,7 @@ try:
     import generate
     import music
     import recipe as recipes
+    import samples
     import synth
 except ImportError as error:  # pragma: no cover
     sys.stderr.write(f'numpy is required ({error})\n')
@@ -577,6 +578,9 @@ def full_mix(score, base_dir):
         bed_track[:len(track)] = track * float((score.get('music') or {}).get('volume', 1))
     elif music_plan.get('compose'):
         if music_plan.get('recipe'):
+            still_missing = samples.ensure(music_plan['recipe'], log=lambda line: print(line, file=sys.stderr))
+            if still_missing:
+                print(f"real instruments not available, synthesized stand-ins play their notes: {', '.join(still_missing)}", file=sys.stderr)
             bed = compose.render_music(music_plan['recipe'], length / RATE, music_plan['bpm'], music_plan['energies'], music_plan.get('seed', 11), music_plan.get('revealBar'),
                                            music_plan.get('endBar'))
         else:
@@ -722,28 +726,28 @@ def next_revision(score, evidence):
 
 
 def design_video(score, args):
-    """Direct this video's sound and design its effects anew: (direction, seed, recipes, design log, fixed lead)."""
+    """Direct this video's sound and design its effects anew: (direction, seed, recipes, design log, fixed part families)."""
     fixed = overrides(args, score)
     kinds = {role: fixed.pop(role) for role in list(fixed) if role in generate.KINDS}
-    lead = fixed.pop('lead', None)
+    parts = {role: fixed.pop(role) for role in ('lead', 'pad', 'bass') if role in fixed}
     chosen = sound_direction(score, fixed)
     # Every choice the user fixed is recorded with the others, so the contract shows what came from the user.
     for role, kind in kinds.items():
         chosen['choices'][role] = {'option': kind, 'why': 'set by the user'}
-    if lead:
-        chosen['choices']['lead'] = {'option': lead, 'why': 'set by the user'}
+    for role, family in parts.items():
+        chosen['choices'][role] = {'option': family, 'why': 'set by the user'}
     seed = (content_seed(score) + 104729 * getattr(args, 'variation', 0)) % 100000
     # A landing the user marked on supplied footage must sound, whatever the design would otherwise choose.
     marked = {hit['sound'] for hit in ((score.get('source') or {}).get('hits') or [])}
     audible = {'landing'} & marked if 'landing' not in kinds else set()
     designed, log = generate.design_effects(chosen['profile'], seed, chosen['key'], chosen['character'], kinds, audible)
-    return chosen, seed, designed, log, lead
+    return chosen, seed, designed, log, parts
 
 
-def compose_music(chosen, seed, lead, log):
+def compose_music(chosen, seed, parts, log):
     """Compose this video's music recipe anew and add a one-line summary to the design log."""
-    composed = compose.generate_music(chosen['profile'], seed + 17, chosen['key'], chosen['palette'], {'lead': lead} if lead else None)
-    parts = ', '.join(f"{part} {spec['family']}" for part, spec in composed['parts'].items() if spec)
+    composed = compose.generate_music(chosen['profile'], seed + 17, chosen['key'], chosen['palette'], parts or None)
+    parts = ', '.join(f"{part} {spec.get('instrument', spec['family'])}" for part, spec in composed['parts'].items() if spec)
     log['music'] = (f"{' '.join(chord['name'] for chord in composed['progression'])} ({composed['colour']}), {parts}, "
                     f"lead plays {composed['rhythm']['lead_mode']}, {composed['drums']['kit']} kit, ends with "
                     f"{ {'strike': 'a struck chord', 'arpeggio': 'a rising arpeggio', 'motif': 'the motif'}[composed['ending']] }")
@@ -755,7 +759,7 @@ def overrides(args, score=None):
     (so planning again after a revision keeps them), then the command line, which wins."""
     roles = directing.load_base()['roles']
     allowed = {name: list(r['options']) for name, r in roles.items()}
-    allowed.update(generate.KINDS, lead=compose.LEAD_FAMILIES)
+    allowed.update(generate.KINDS, lead=compose.LEAD_FAMILIES, **compose.REAL_FAMILIES)
     recorded = (((score or {}).get('soundDesign') or {}).get('direction') or {}).get('choices') or {}
     kept = [f'{role}={choice["option"]}' for role, choice in recorded.items()
             if isinstance(choice, dict) and choice.get('why') == 'set by the user' and role != 'palette']
@@ -791,7 +795,7 @@ def main(argv=None):
             command.add_argument('contract')
         command.add_argument('--palette', choices=sorted(music.PALETTES), help="music palette instead of the chosen one")
         command.add_argument('--set', action='append', default=[], metavar='ROLE=OPTION',
-                             help='fix a choice: palette=midnight, key="E minor", landing=blip, transition=whip, impact=thud, accent=bell, lead=piano')
+                             help='fix a choice: palette=midnight, key="E minor", landing=blip, transition=whip, impact=thud, accent=bell, lead=piano, lead=real-piano, pad=real-strings, bass=real-pizz-bass')
         command.add_argument('--variation', type=int, default=0, help='a new design for the same video (0 is the first)')
     plan.add_argument('--evidence')
     plan.add_argument('--table')
@@ -813,7 +817,7 @@ def main(argv=None):
         if args.command == 'plan':
             if os.path.exists(args.out):
                 raise ValueError(f'Output file already exists: {args.out}')
-            chosen, seed, designed, log, lead = design_video(score, args)
+            chosen, seed, designed, log, parts = design_video(score, args)
             cues = plan_cues(score, args.density, chosen, designed)
             result = next_revision(score, args.evidence)
             design = {'engine': 'studio-generative-1', 'density': args.density, 'status': 'planned', 'seed': seed, 'variation': args.variation,
@@ -822,7 +826,7 @@ def main(argv=None):
             if not args.no_music and not (score.get('music') or {}).get('src'):
                 design['music'] = plan_music(score, direction=chosen)
                 design['music']['seed'] = 11 + seed % 997
-                composed = compose_music(chosen, seed, lead, log)
+                composed = compose_music(chosen, seed, parts, log)
                 design['music']['recipe'] = composed
                 design['music']['palette'] = composed['palette']
             result['soundDesign'] = design
@@ -840,8 +844,8 @@ def main(argv=None):
                               'key': chosen['key'], 'designed': log, 'seed': seed, 'out': args.out}, ensure_ascii=False))
             return 0
         if args.command == 'analyze':
-            chosen, seed, designed, log, lead = design_video(score, args)
-            compose_music(chosen, seed, lead, log)
+            chosen, seed, designed, log, parts = design_video(score, args)
+            compose_music(chosen, seed, parts, log)
             print(json.dumps({'profile': chosen['profile'], 'choices': chosen['choices'], 'character': chosen['character'], 'designed': log, 'seed': seed},
                              indent=2, ensure_ascii=False))
             return 0

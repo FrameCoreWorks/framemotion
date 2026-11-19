@@ -1,6 +1,6 @@
 # Layered work
 
-Owner rule (2026-11-17), mandatory for every reel, ad, film and repair. Build like a working motion designer: one layer at a time, each closed and checked before the next one starts. Never build the whole film in one pass. The layers happen inside the stages of the [reel workflow](reel-workflow.md): the plan stage is layer 1, the contact sheet and the 540p preview carry layers 2 to 6, and the full render with its checks is layer 7.
+Owner rule (2026-11-17), mandatory for every reel, ad, film and repair. Build like a working motion designer: one layer at a time, each closed and checked before the next one starts. Never build the whole film in one pass. The layers happen inside the stages of the [reel workflow](reel-workflow.md): stage 1 (idea and look) is layer 1 with the key frames as stills, stage 2 (music) is the music part of layer 6, stage 3 (contact sheet on the beats) checks layers 2 and 3, stage 4 (the 540p preview) carries layers 4 to 6 with the effects and the final mix, and stage 5 (the full render) is layer 7.
 
 ## The layers
 
@@ -18,7 +18,7 @@ Owner rule (2026-11-17), mandatory for every reel, ad, film and repair. Build li
 
 - **Check after every layer.** A short look at frames (a contact sheet, at least three per scene) before the next layer. Say which layer you are on and what the check showed; the full render never replaces the per-layer checks.
 - **A fix goes back to its own layer.** Wrong timing is a layer 3 fix, not a layer 4 effect. After the fix, check the layers above it again. Changing a lower layer after the upper ones are done is expensive, so settle structure and timing early.
-- **Do not mix layers.** No colour while motion still changes; no sound on a scene whose timing is open; no copy edits after motion starts without going back to layer 2.
+- **Do not mix layers.** No colour while motion still changes; no sound effects on a scene whose timing is open (in a reel the music comes earlier, in stage 2, composed to the firm times of the plan); no copy edits after motion starts without going back to layer 2.
 - **In code, a layer is its own function or file with a switch.** Write the build as `layer1_blocking`, `layer2_type`, `layer3_motion`, `layer4_depth`, `layer5_look`, `layer6_sound` (or one file each) behind flags, so a render can turn layers off and show the layer below without effects. Name the flags in the contract notes. Scene kinds from [motion scenes](../assets/motion-scenes/README.md) already separate layout from motion; keep effects out of the layout code.
 - **Name the layer in the plan.** The storyboard says which layer each deliverable will be on at each review, and the plan states the exception when one is used.
 - **Exception.** A very short, simple job (one title card, one colour change, one text fix) may pass the layers in a single pass. Write the reason into the plan.
