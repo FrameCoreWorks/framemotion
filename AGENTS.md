@@ -4,7 +4,7 @@ This repository publishes FrameMotion, the FrameCore Works motion graphics plugi
 
 ## Rules
 
-1. **Branches.** Commit on `main` and push only `main`, as a fast-forward after fetching the latest `main`, rebasing and rerunning the checks. Create no remote branch, not even one a host suggests (Claude Code `claude/*`, Codex task branches). Never force-push or delete `main`.
+1. **Branches (owner 2026-11-18).** Every change goes on a branch or worktree, then a pull request to `main` with green CI, then merge; no direct push to `main`. Never force-push, never delete `main` or `gh-pages`, and leave branch deletion to the owner. The 2026-10-24 main-only rule is history.
 2. **Checks.** Run `python3 tools/check.py` before every push (`--fast` skips the Node.js suites during an edit loop; a release runs the full check). A failed check blocks the push until it is fixed or reported.
 3. **Releases.** Synchronize the version in `plugins/framemotion/plugin.json`, `.codex-plugin/plugin.json`, `.claude-plugin/plugin.json`, `capabilities.json` and `.claude-plugin/marketplace.json`, add a `plugins/framemotion/CHANGELOG.md` entry and tag `vX.Y.Z` after the push. Creative Studio pins the released commit in its own marketplace and companion registry.
 4. **Evidence.** Source checks, GitHub publication, saved-plugin readback and fresh-client behaviour stay separate. Owner reports are `PASS_REPORTED`; anything not run is `NOT_RUN`.
