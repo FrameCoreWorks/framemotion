@@ -41,7 +41,7 @@ What YouTube itself says about openings, in short: grab attention at once, make 
 
 | Fact | Number | Source |
 | --- | --- | --- |
-| Action safe | 3.5% from every edge (1853 x 1042 inner box on 1920 x 1080) | [EBU R95](https://tech.ebu.ch/docs/r/r095.pdf), same margins in [ITU-R BT.1848](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1848-1-201510-I!!PDF-E.pdf) |
+| Action safe | 3.5% from every edge: x 67 to 1853, y 38 to 1042 on 1920 x 1080 (a 1786 x 1004 inner box) | [EBU R95](https://tech.ebu.ch/docs/r/r095.pdf), same margins in [ITU-R BT.1848](https://www.itu.int/dms_pubrec/itu-r/rec/bt/R-REC-BT.1848-1-201510-I!!PDF-E.pdf) |
 | Graphics (title) safe | 5% from every edge: x 96 to 1824, y 54 to 1026 on 1920 x 1080 | same |
 
 YouTube has no title-safe rule; TVs and phones crop little, but the player's controls, progress bar and burned-in captions sit in the bottom tenth, so keep lower thirds and text inside graphics safe and above the bottom 10% (inference from the player layout).
@@ -117,7 +117,7 @@ Take the timing and sizes from the [name lower third](type-title-and-format-reci
 | Slots hold | 4 to 20 | Background alive but quiet (slow drift, one secondary loop); nothing important under a slot |
 | Out | last 0.5 | Logo bumper or hard end |
 
-Slot layouts on 1920 x 1080 (inside the measured margins, not a YouTube template): either one large video slot 862 x 485 at x 900 to 1762, y 300 to 785, or two video slots 620 x 349 stacked at x 1150 to 1770, y 160 to 509 and y 545 to 894; in both, a subscribe circle 296 x 296 at x 200 to 496, y 600 to 896. Keep the speaker or b-roll in the left two thirds if they stay on screen. Stagger the real elements in YouTube Studio (next video first, subscribe 1 to 2 s later); draw no fake buttons, because YouTube may move or resize its elements and a viewer can hide them.
+Slot layouts on 1920 x 1080 (inside the measured margins, not a YouTube template): either one large video slot 862 x 485 at x 900 to 1762, y 300 to 785, or two video slots 620 x 349 stacked at x 1150 to 1770, y 160 to 509 and y 545 to 894; in both, a subscribe circle 296 x 296 at x 200 to 496, y 600 to 896. If the speaker or b-roll stays on screen, keep it clear of every slot box: with these layouts that is the upper left, above the subscribe circle. Stagger the real elements in YouTube Studio (next video first, subscribe 1 to 2 s later); draw no fake buttons, because YouTube may move or resize its elements and a viewer can hide them.
 
 ### 7. Shorts opener and loop ending (9:16, also 1:1)
 

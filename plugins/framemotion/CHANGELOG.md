@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.4.7 (2026-11-18)
+
+- **YouTube intro and outro fixes** (owner review of the day's work, 2026-11-18): the EBU R95 action-safe box on 1920 x 1080 is x 67 to 1853, y 38 to 1042 (1786 x 1004); the old text gave the far corner as the box size. The outro recipe no longer places the speaker in the left two thirds, where the subscribe circle of the same layout sits; the speaker stays clear of every slot box.
+
 ## 0.4.6 (2026-11-18)
 
 - **Motion over stills, footage and AI video** (owner request 2026-11-18: refined knowledge on joining motion graphics with generated stills, client footage such as a person talking to camera, and AI-generated video, and how the layers fit together). New `references/mixed-media-compositing.md`, the shared core also used by FrameCut, and one SKILL.md routing bullet: the layer stack inside one shot, a single conform command for standalone use, matte routes by material (chroma key and despill, local segmentation models with their licences, rembg only with an Apache model), ProRes 4444 alpha and how to check it, text contrast and safe areas over moving pictures, stabilise or track, 2.5D parallax from a still with Depth Anything V2 Small, matching generated and real (light wrap, shutter-matched motion blur, one grade, grain last), AI video artifacts and how to hide them, export and frame QC, the map onto the seven work layers, three concepts with a named wow and a list of common mistakes. Every number has a source link; working judgement is marked as inferred. Own wording; nothing copied. FrameCut 0.1.8 adds the footage side.
