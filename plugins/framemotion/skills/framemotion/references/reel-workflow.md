@@ -28,7 +28,7 @@ Nothing is built before the user accepts this stage. A direct, complete brief ma
 - **Sound effects only sketched, or none yet.**
 - **About −14 LUFS integrated, true peak below −1 dBTP,** measured on the MP3 itself.
 - **Original music or CC0, never a library with Content ID** ([sound for reels](#sound-for-reels)). Real instrument timbres: compose in code and play the parts with recorded CC0 instruments ([where the music comes from](#where-the-music-comes-from)).
-- **When in doubt, two variants.**
+- **When in doubt, two variants.** Before the preview the user has listened to the music once (this MP3 is that sample).
 
 The picture will be cut to this music: its bar and beat grid is the timing grid for every later stage.
 
@@ -122,15 +122,16 @@ Inside these stages the work goes one layer at a time (owner rule 2026-11-17): p
 
 Platforms (Pinterest, YouTube, TikTok, Instagram, Facebook) detect other people's music automatically and can mute a film or file a claim (Content ID), even when the track has a free licence such as CC BY: labels register their catalogues in the detection systems. Example: "Pixelland" by Kevin MacLeod (CC BY 4.0) was muted by Pinterest (owner report 2026-11-13).
 
-1. **Music from code.** Compose the music in code ([motion sound design](motion-sound-design.md)), original and finished, instead of taking a track from a music library.
-2. **Effects from code** when they sound convincing. CC0 samples only as a fallback when code cannot give a realistic sound.
+1. **Music: original or CC0, never a library with Content ID** ([where the music comes from](#where-the-music-comes-from)).
+2. **Effects for real objects are recordings of that object** (a cup, a door, keys: CC0 recordings from the [SFX library](../assets/sfx-library/README.md) or Open Assets, laid on the frames with `place_sfx.py`); effects from code only for abstract accents (whooshes on graphics, UI blips, risers, hits on type).
 3. **Someone else's track:** when the user wants one, warn them before using it that the platform may mute the film or file a claim; a licence alone does not guarantee that it will not.
 4. **Level:** about −14 LUFS integrated, peak below −1 dB. Limit in numpy (the look-ahead limiter in `assets/motion-sound/synth.py`), not with FFmpeg's `alimiter`; measure the delivered file.
 
 ## Where the music comes from
 
-In this order:
+In this order (owner rulings 2026-11-19: real instruments first, then code with real timbres, never Content ID libraries; a short sample to listen to before the preview):
 
-1. **Composed in code, played by real instruments (default for stage 2).** `sound.py plan` composes the parts to the plan's times; `--set lead=real-piano`, `--set pad=real-strings`, `--set bass=real-pizz-bass` (and the other instruments `samples.py list` shows: harp, marimba, glock, flute, cello) play them from recorded CC0 instruments. `sound.py mix` fetches only the instruments the recipe uses into a local cache; nothing is bundled and nothing needs an account ([real instruments](../assets/motion-sound/README.md#real-instruments)).
-2. **Synthesized instruments** when the recordings cannot be fetched (offline) or for a quick sketch: the same notes on the same grid; the mix says which parts were synthesized.
-3. **A paid music generator** only when the user asks for it, with the cost stated first. It is harder to land on the frame; cut it to the grid with `music_edit.py` afterwards.
+1. **A CC0 recording with real instruments** when one fits the plan's times and mood (Open Assets, CC0 only, licence recorded in the asset ledger): cut it to the plan's grid with [`beats.py` and `music_edit.py`](../assets/motion-sync/README.md#analysing-a-supplied-track) and put the scene changes on its beats.
+2. **Composed in code, played by real instruments** (the usual stage 2 route, because it lands on the grid exactly). `sound.py plan` composes the parts to the plan's times; `--set lead=real-piano`, `--set pad=real-strings`, `--set bass=real-pizz-bass` (and the other instruments `samples.py list` shows: harp, marimba, glock, flute, cello) play them from recorded CC0 instruments. `sound.py mix` fetches only the instruments the recipe uses into a local cache; nothing is bundled and nothing needs an account ([real instruments](../assets/motion-sound/README.md#real-instruments)).
+3. **Synthesized instruments** when the recordings cannot be fetched (offline) or for a quick sketch: the same notes on the same grid; the mix says which parts were synthesized.
+4. **A paid music generator** only when the user asks for it, with the cost stated first. It is harder to land on the frame; cut it to the grid with `music_edit.py` afterwards.
