@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.4.8 (2026-11-19)
+
+- **Ready-made motion assets** (owner request 2026-11-19: are there free libraries of ready transitions, animations and icons for FrameMotion). New `references/ready-made-motion-assets.md`: curated names from the HyperFrames registry (Apache-2.0, 456 items read from `registry/registry.json` on `main`) for transitions, grain, light leaks, vignette, lower thirds, caption styles, text, charts and backgrounds, fetched on demand with `hyperframes add` (nothing copied into the plugin); a source table (gl-transitions already bundled, Generative Icons, lucide-animated as patterns only because its icons are hover-triggered React components, Noto Animated Emoji CC BY not bundled, `.aep` files and why they are not converted); skipped sources (Lottie players as a new dependency by owner decision, Rive, animate.css, Lordicon); who does what between FrameMotion, FrameCut, Creative Studio and Open Assets. One link row each in `motion-toolkit-routing.md` and `hyperframes-skill-map.md`. No new skill, no new dependency, no installed file.
+- Evidence: licences read from source on 2026-11-19 (HyperFrames LICENSE Apache-2.0, pqoqubbw/icons LICENSE MIT, registry list and an item manifest); GitHub stars and dates `NOT_RUN` (API blocked in the sandbox). No registry item was installed or rendered (`NOT_RUN`). Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.4.7 (2026-11-18)
 
 - **YouTube intro and outro fixes** (owner review of the day's work, 2026-11-18): the EBU R95 action-safe box on 1920 x 1080 is x 67 to 1853, y 38 to 1042 (1786 x 1004); the old text gave the far corner as the box size. The outro recipe no longer places the speaker in the left two thirds, where the subscribe circle of the same layout sits; the speaker stays clear of every slot box.
