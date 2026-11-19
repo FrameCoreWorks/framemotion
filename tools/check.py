@@ -123,7 +123,10 @@ def main():
         run = subprocess.run(['node', '--test', '--test-reporter=tap', *sorted(str(p) for p in (PLUGIN / 'tests').glob('*.test.mjs'))],
                              cwd=PLUGIN, capture_output=True, text=True)
         if run.returncode != 0:
-            print((run.stdout + run.stderr)[-8000:])
+            # The TAP tail alone hides which tests failed: print every failing test with its error first.
+            for block in re.findall(r'^not ok \d+ - .*?(?=^(?:# Subtest|ok |not ok |1\.\.))', run.stdout, re.M | re.S):
+                print(block[:1500])
+            print((run.stdout + run.stderr)[-3000:])
             run.check_returncode()
         # A skipped browser test is not a pass: name every skip, and fail when the render
         # tests are required (CI sets FRAMEMOTION_REQUIRE_RENDER=1 after installing Chromium).

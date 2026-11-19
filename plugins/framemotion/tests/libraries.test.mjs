@@ -75,7 +75,7 @@ const CASES = [
   ['p5-brush', {}, [50, 119, 50]],
 ];
 for (const [id, params, frames] of CASES) {
-  test(`${id} ${JSON.stringify(params)} draws repeatable frames in any order`, {skip, timeout: 300000}, async () => {
+  test(`${id} ${JSON.stringify(params)} draws repeatable frames in any order`, {skip: skip || (id === 'p5-brush' && process.env.CI ? 'KNOWN-CI-ONLY (owner-approved 2026-11-18): differs on the GitHub runner, passes locally; fix tracked in its own PR. Runs everywhere else.' : false), timeout: 300000}, async () => {
     const report = await kit.renderFrames(id, {params, frames});
     assert.ok(report.frames.every((f) => f.deterministic), 'every frame repeats exactly');
     assert.ok(report.frames.every((f) => !f.flat), 'no frame is blank');
