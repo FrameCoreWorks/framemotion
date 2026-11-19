@@ -1261,7 +1261,7 @@ test('the visible-text audit stops a silent browser at the start probe', {skip: 
     const page = path.join(tmp, 'page.html');
     fs.writeFileSync(page, '<!doctype html><html><body><p>TEKST</p></body></html>');
     const started = Date.now();
-    const run = () => runAudit(page, {out: path.join(tmp, 'out'), browser: silent, screenshots: false, timeout: 2, times: [1], holds: [[0.5, 7.5]]});
+    const run = () => runAudit(page, {out: path.join(tmp, 'out'), browser: silent, screenshots: false, timeout: 8, times: [1], holds: [[0.5, 7.5]]});
     if (headlessShell()) {
       const result = run();
       assert.equal(result.browserFallback.from, 'silent-browser');

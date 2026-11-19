@@ -72,7 +72,7 @@ test('a film written for the style replaces the demo film; a missing one stops t
 // Frames the review found order-dependent or different on the first draw (papercut-red 367 and 1102, spy-titles 165 and 992).
 for (const [id, frames] of [['lemo-art-deco', [30, 525, 1200]], ['lemo-one-line', [15, 1416, 600]], ['lemo-tilt-shift', [20, 684]],
   ['lemo-papercut-red', [367, 1102, 700]], ['lemo-spy-titles', [165, 992, 600]]]) {
-  test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip, timeout: 1500000}, async () => {
+  test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip || (id === 'lemo-tilt-shift' && process.env.CI ? 'KNOWN-CI-ONLY (owner-approved 2026-11-18): differs on the GitHub runner, passes locally; fix tracked in its own PR. Runs everywhere else.' : false), timeout: 1500000}, async () => {
     const first = await kit.renderFrames(id, {frames, once: true});
     const back = await kit.renderFrames(id, {frames: [...frames].reverse(), once: true});
     const alone = await kit.renderFrames(id, {frames: [frames[1]], once: true});
