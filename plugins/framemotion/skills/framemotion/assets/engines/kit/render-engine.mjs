@@ -146,6 +146,17 @@ export function resolveStyle(entry, params, root = ENGINES_ROOT, own = process.e
   const name = params.style ?? entry.params?.style?.default;
   const row = table[name];
   if (!row) throw new RangeError(`${entry.id} has no style "${name}" (its styles: ${Object.keys(table).join(', ')}).`);
+  // A scene of your own (`scene`, an SVG written from a description) drawn in this style's way: FrameMotion's scene
+  // film, at the frame size asked for (no letterbox), 10 s (8 s of drawing, then a hold) unless `length` says otherwise.
+  if (params.scene) {
+    if (row.film === 'motifDraw') throw new RangeError(`${entry.id}: a scene is drawn in one of the styles, not in "motif" (motif draws a single picture or logo).`);
+    if (row.folder && !row.scene) throw new RangeError(`${entry.id}: the style "${name}" has no scene look ("scene" in its styles.json row); see the README, A scene from words.`);
+    const sfps = 30, sfilm = 10, sfrom = params.from ?? 0;
+    if (!(sfrom < sfilm - 1 / sfps)) throw new RangeError(`${entry.id}: a scene is ${sfilm} s long; from ${sfrom} s nothing is left.`);
+    const sdur = Math.round((params.length || sfilm - sfrom) * sfps) / sfps;
+    return {...entry, size: {width: params.width ?? entry.size.width, height: params.height ?? entry.size.height}, fps: sfps, duration: sdur,
+      build: {...entry.build, film: 'sceneDraw', folder: '../anidoodle-engine/scene', from: sfrom, rate: (sfilm - sfrom) / sdur, brightness: params.brightness ?? 1, contrast: params.contrast ?? 1, sceneStyle: name, ...(row.scene ? {sceneLook: row.scene} : {})}};
+  }
   const fps = row.fps ?? entry.fps, film = row.duration ?? entry.duration;
   // Timing: the render opens at the style's own `start` (the first moment with a mark, so a reel does not open on
   // blank paper) plus `from` seconds; `blank_start` opens at the film's frame 0 instead. `length` (0 = the film's

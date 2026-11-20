@@ -38,7 +38,7 @@ class AnidoodleEngineTest(unittest.TestCase):
         for name in ('tools', 'vendor', 'assets', 'test', 'src/three-core', 'package.json'):
             self.assertFalse((up / name).exists(), name)
         self.assertEqual(sorted(p.name for p in (up / 'src/hosts').iterdir()), ['audio.ts', 'instrument.ts', 'page.ts', 'probe.ts'])
-        self.assertEqual([p for p in ENGINE.rglob('*') if p.suffix not in ('.ts', '.json', '.md', '')], [])
+        self.assertEqual([p for p in ENGINE.rglob('*') if p.suffix not in ('.ts', '.json', '.md', '') and p.parent != ENGINE / 'scene/examples'], [])
 
     def test_licence_and_credit(self):
         for name in ('LICENSE', 'NOTICE'):
@@ -74,6 +74,14 @@ class AnidoodleEngineTest(unittest.TestCase):
                 self.assertTrue((base / 'canvas-core' / (row['film'] + '.ts')).is_file())
                 self.assertEqual(set(row['size']), {'width', 'height'})
                 self.assertTrue(row['about'] and row['duration'] > 0 and row['fps'] > 0)
+
+    def test_every_style_has_a_scene_look(self):
+        # A scene from words (2026-11-20): each of the 32 styles draws a described scene its own way.
+        src = (ENGINE / 'scene/canvas-core/sceneDraw.ts').read_text(encoding='utf-8')
+        looks = set(re.findall(r'^  "([a-z-]+)": \{ tech: "', src, re.M))
+        bundled = {n for n, r in STYLES.items() if 'folder' not in r}
+        self.assertEqual(looks, bundled)
+        self.assertEqual(sorted(p.name for p in (ENGINE / 'scene/examples').glob('*.svg')), ['cat-on-roof.svg', 'coffee-by-window.svg', 'sailboat-sunset.svg'])
 
 
 if __name__ == '__main__':

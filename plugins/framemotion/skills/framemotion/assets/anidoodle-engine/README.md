@@ -2,7 +2,7 @@
 
 Hand-drawn animation, one engine (`anidoodle`) in thirty-two styles, from [alexgreensh/anidoodle](https://github.com/alexgreensh/anidoodle/tree/4ae27d2c281fcfd01bce87ab13dc5ad4df81a795) (commit `4ae27d2`, engine 0.10.1, Apache-2.0, Copyright 2026 Alex Greenshpun; `LICENSE` and `NOTICE` here), rendered by FrameMotion's engine kit. Each film is a pure function of its frame: the upstream page host (`src/hosts/page.ts`) exposes `window.FILM.seek(frame)`, which draws one frame synchronously, and FrameMotion's `anidoodle` builder wraps it as `renderFrame(t)`. Many films show the drawing being made (lines, then washes, then colour), so they double as drawing-process timelapses.
 
-It is FrameMotion's own hand-drawn animation engine (owner decision 2026-11-20): every style stays inside it, it is never split into other engines' ways, and it grows by new styles. The menu shows it once; the setting `style` picks the look. Each bundled style is the author's showcase film and draws its own subject (a fox, a balloon, a watch); your own subject needs a new style (below).
+It is FrameMotion's own hand-drawn animation engine (owner decision 2026-11-20): every style stays inside it, it is never split into other engines' ways, and it grows by new styles. The menu shows it once; the setting `style` picks the look. Each bundled style is the author's showcase film and draws its own subject (a fox, a balloon, a watch); any scene you describe is drawn in any of the styles with the setting `scene` (below).
 
 ```bash
 node ../engines/kit/render-engine.mjs --engine anidoodle --params '{"style":"chalkboard"}' --frames 0,270,530 --out frames
@@ -55,6 +55,7 @@ node ../engines/kit/render-engine.mjs --engine anidoodle --params '{"style":"cha
 | `length` | 0 | render length in seconds; the drawing is fitted into it (faster or slower). 0 keeps the film's pace. A reel: `"length": 6` |
 | `brightness`, `contrast` | 1 | on top of the style's own tone: `oil` is lifted (1.25) and `ballpoint` and `stipple` are firmer (brightness 0.92, contrast 1.2) so they read on a phone; the paper keeps its tone |
 | `motif`, `medium` | `""`, `pencil` | the style `motif` only: your picture and what it is drawn with |
+| `scene` | `""` | a scene of your own (a layered SVG written from a description) drawn in the chosen style's way; see A scene from words |
 | `width`, `height` | the style's | any frame size (see Formats) |
 
 ```bash
@@ -76,6 +77,29 @@ node ../engines/kit/render-engine.mjs --engine anidoodle \
 - Text in an SVG is drawn only when it is converted to outlines (paths); a `<text>` element is skipped. Strokes and fills come from the file's own colours.
 - The file is read as data and embedded in the page: scripts, foreign HTML, links and event attributes are removed before it is drawn, and the page makes no requests.
 - The picture is fitted into the middle 76% (SVG) or 80% (image) of the frame.
+
+## A scene from words (setting `scene`)
+
+Any scene you describe, drawn in any of the 32 styles: `scene` is the path to a layered SVG, and `style` says how it is drawn. The model writes the SVG from the description (no paid service, no picture generator); the engine draws it the way the style draws: `crayon` scribbles each thing in, `woodblock` prints one colour block after another and then the key block, `stipple` builds it from dots, `risograph` rolls one ink at a time, `pixel-art` and `toy-brick` build it from cells and bricks, `embroidery` stitches it, `single-line-engraving` unspools one spiral whose thickness makes the picture, `toy-theatre` slides its layers in as flats, and so on. The scene is drawn thing after thing in the file's order over 8 s, then holds 2 s (`length` fits it to a reel). It is drawn at the frame size asked for, with no letterbox.
+
+```bash
+node ../engines/kit/render-engine.mjs --engine anidoodle \
+  --params '{"style":"woodblock","scene":"/path/cat-on-roof.svg","width":1080,"height":1920,"length":6}' \
+  --frames 0,90,179 --out frames
+```
+
+How the model writes the scene SVG (examples: [`scene/examples/`](scene/examples/)):
+
+- `viewBox` at the frame's shape (`0 0 1080 1080`, or `0 0 1080 1920` for a 9:16 reel); the viewBox fills the frame. In 9:16 keep every thing that matters out of the top 10% and the bottom 20% (the backdrop may run to the edges).
+- Back to front, the drawing order: the backdrop first (sky, wall), then the far things, then the subject, then small details. Each top-level `<g>` is one layer (`toy-theatre` slides the layers in as flats).
+- One closed shape per thing (`path`, `rect`, `circle`, `ellipse`, `polygon`) with a flat `fill`; 15 to 60 shapes. A thin thing (a mast, a tail, steam, rain) is an open path with a `stroke` and `fill="none"`. A `linearGradient` works for a sky (the stops become the print colours in woodblock).
+- Strong value contrast between the subject and what is behind it: the dot, hatch and spiral styles draw from light and dark only.
+- No `<text>` (write words as outlined paths, or not at all), no images, no filters, no masks.
+- The file is read as data: scripts, links, images, styles and event attributes are removed before it is drawn.
+
+Each style's way is a look in `scene/canvas-core/sceneDraw.ts` (`LOOKS`): one technique (`sketch`, `flat`, `cut`, `theatre`, `stipple`, `halftone`, `riso`, `pixel`, `brick`, `lowpoly`, `dabs`, `oil`, `spiral`, `hatch`, `scratch`, `blueprint`, `block`, `stitch`) with that style's paper, tools and colour rule. A new style draws scenes when its `styles.json` row has a `scene` look, for example `"scene": {"tech": "sketch", "paper": "#fdf3e1", "pen": "ink", "lineW": 3, "fill": "wash", "tone": "pastel"}`. The style's own film still plays when no `scene` is given. `motif` draws one picture or logo, not a scene.
+
+What it does not do: it is one technique per style, so a scene is simpler than the style's own showcase film (no character action, no lighting change, no camera move). A thing hidden behind another is drawn and then covered, as on paper.
 
 ## Make a new style
 

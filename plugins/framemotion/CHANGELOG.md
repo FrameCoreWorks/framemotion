@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.0 (2026-11-20)
+
+Owner request 2026-11-20: "the engine should draw any scene from a description in each of the 32 styles".
+
+- **A scene from words** (anidoodle setting `scene`): the model writes a layered SVG from the description (back to front, flat colours, one shape per thing; rules in the engine README), and any of the 32 styles draws it its own way: crayon scribbles, watercolour washes, woodblock colour blocks and key block, stipple dots, halftone CMYK screens, risograph inks one at a time, pixels, toy bricks, low-poly facets, broken-colour and oil dabs, one Mellan spiral, ballpoint and scrapbook hatching, scratchboard, cyanotype, cut paper, toy-theatre flats, embroidery stitches and more. Drawn thing after thing over 8 s, then a 2 s hold (`length` fits a reel), at the frame size asked for (9:16 with no letterbox). No paid service.
+- FrameMotion's own scene film `scene/canvas-core/sceneDraw.ts` (MIT), with one look per style (`LOOKS`); a new style draws scenes through a `scene` look in its `styles.json` row. The 32 showcase films and `motif` are unchanged. Three example scenes in `scene/examples/`.
+- The SVG is embedded as data: scripts, links, images, styles and event attributes are removed.
+- Tests: the scene setting resolves to the scene film at the asked size and refuses `motif`; five styles render the same frame in two orders, not blank, with the file kept as data; every bundled style has a scene look.
+- Evidence: on the Mac, three scenes (a cat on a roof at night, a sailboat at sunset, a cup of coffee by a rainy window) in all 32 styles at 2, 4.5, 7 and 9 s, and the cat in 9:16 in woodblock, crayon, toy-brick and embroidery every 0.5 s with the safe-area lines; low-poly, risograph, oil and stipple were reworked after the first look. Known limits: one technique per style (simpler than the showcase films); stipple and the spiral lose a dark subject on a dark ground; risograph prints muddy on dark scenes. Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.7.2 (2026-11-20)
 
 Fixes found by the frame check of the FrameCore logo drawn in all five media on the Mac.

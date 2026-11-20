@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <!-- "a cup of coffee and a plant on a table by a rainy window" -->
+  <g id="wall"><rect x="0" y="0" width="1080" height="1080" fill="#e8d6bc"/></g>
+  <g id="window">
+    <rect x="180" y="110" width="720" height="520" fill="#6f8fa6"/>
+    <path d="M300 160 l-30 70 M480 200 l-30 70 M660 150 l-30 70 M820 260 l-30 70 M380 380 l-30 70 M590 420 l-30 70 M760 470 l-30 70" fill="none" stroke="#c9d9e4" stroke-width="5" stroke-linecap="round"/>
+    <path d="M180 110 H900 V630 H180 Z M530 110 V630 M180 370 H900" fill="none" stroke="#f6efe4" stroke-width="22"/>
+  </g>
+  <g id="table"><path d="M0 760 H1080 V1080 H0 Z" fill="#9a6a45"/><path d="M0 760 H1080" stroke="#6e4a30" stroke-width="10"/></g>
+  <g id="plant">
+    <path d="M700 540 C640 440 650 360 720 330 C730 420 720 480 700 540 Z" fill="#4f8a55"/>
+    <path d="M735 545 C760 430 830 390 890 400 C860 470 800 520 735 545 Z" fill="#5f9e62"/>
+    <path d="M715 550 C690 470 600 450 560 470 C590 520 650 550 715 550 Z" fill="#437a4a"/>
+    <path d="M640 540 H800 L780 760 H660 Z" fill="#c4683e"/>
+  </g>
+  <g id="cup">
+    <ellipse cx="400" cy="770" rx="190" ry="34" fill="#f3efe8"/>
+    <path d="M280 620 H520 C515 700 480 760 400 760 C320 760 285 700 280 620 Z" fill="#fbf8f2"/>
+    <path d="M518 650 C580 650 580 720 505 715" fill="none" stroke="#fbf8f2" stroke-width="18"/>
+    <ellipse cx="400" cy="622" rx="118" ry="18" fill="#5a3a26"/>
+  </g>
+  <g id="steam"><path d="M360 590 C340 550 380 530 360 490 M420 590 C400 550 440 520 420 470" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/></g>
+</svg>

@@ -474,6 +474,10 @@
     "../../skills/framemotion/assets/anidoodle-engine/README.md",
     "../../skills/framemotion/assets/anidoodle-engine/examples/canvas-core/ownExample.ts",
     "../../skills/framemotion/assets/anidoodle-engine/motif/canvas-core/motifDraw.ts",
+    "../../skills/framemotion/assets/anidoodle-engine/scene/canvas-core/sceneDraw.ts",
+    "../../skills/framemotion/assets/anidoodle-engine/scene/examples/cat-on-roof.svg",
+    "../../skills/framemotion/assets/anidoodle-engine/scene/examples/coffee-by-window.svg",
+    "../../skills/framemotion/assets/anidoodle-engine/scene/examples/sailboat-sunset.svg",
     "../../skills/framemotion/assets/anidoodle-engine/styles.json"
   ]
 }

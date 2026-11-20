@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <!-- "a sailboat on a lake at sunset" -->
+  <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4a05a"/><stop offset="0.7" stop-color="#f7d08a"/><stop offset="1" stop-color="#fbe3b0"/></linearGradient></defs>
+  <g id="sky"><rect x="0" y="0" width="1080" height="640" fill="url(#sky)"/><circle cx="560" cy="470" r="120" fill="#fff1c9"/></g>
+  <g id="mountains">
+    <path d="M0 640 L160 420 L300 560 L470 360 L650 600 L800 430 L1080 640 Z" fill="#8e5a7a"/>
+    <path d="M0 640 L240 520 L420 620 L620 500 L860 610 L1080 540 V640 Z" fill="#5e3f63"/>
+  </g>
+  <g id="lake"><rect x="0" y="640" width="1080" height="440" fill="#3f6e8c"/>
+    <path d="M470 680 H650 M500 720 H620 M520 760 H600" fill="none" stroke="#fbe3b0" stroke-width="8" stroke-linecap="round"/></g>
+  <g id="boat">
+    <path d="M330 780 H690 L640 850 H380 Z" fill="#7a3e2a"/>
+    <path d="M505 470 V780" fill="none" stroke="#3b2a20" stroke-width="10"/>
+    <path d="M515 480 L515 760 L670 760 Z" fill="#fbf4e6"/>
+    <path d="M495 520 L495 760 L380 760 Z" fill="#e9dcc4"/>
+  </g>
+  <g id="birds"><path d="M760 250 q20 -20 40 0 q20 -20 40 0 M860 320 q15 -15 30 0 q15 -15 30 0" fill="none" stroke="#3b2a3a" stroke-width="6" stroke-linecap="round"/></g>
+</svg>
