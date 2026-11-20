@@ -55,6 +55,20 @@ class MotionActivityTest(unittest.TestCase):
         held = activity.measure(activity.samples(self.mixed), holds=[(4.0, 8.0)])
         self.assertEqual(activity.verdict(held), [])
 
+    def test_empty_frames_and_end_hold(self):
+        full = lambda path: activity.samples(path, fps=activity.video_fps(path), size=activity.FULL_SIZE)
+        moving = activity.frame_checks(full(self.moving), 30.0)
+        self.assertEqual(moving['empty_runs'], [])
+        self.assertLess(moving['end_hold_seconds'], 0.2)
+        mixed = activity.frame_checks(full(self.mixed), 30.0)
+        self.assertEqual(mixed['empty_runs'][0][:2], [4.0, 8.0])        # four seconds of one flat colour
+        self.assertGreaterEqual(mixed['end_hold_seconds'], 3.9)
+        problems = activity.verdict({**activity.measure(activity.samples(self.mixed), holds=[(4.0, 8.0)]), **mixed})
+        self.assertEqual(len(problems), 2)
+        declared = activity.frame_checks(full(self.mixed), 30.0, holds=[(4.0, 8.0)])
+        self.assertEqual(declared['empty_runs'], [])
+        self.assertTrue(declared['end_hold_declared'])
+
     def test_cli_exit_codes(self):
         self.assertEqual(activity.main([self.moving]), 0)
         self.assertEqual(activity.main([self.still, '--json']), 1)

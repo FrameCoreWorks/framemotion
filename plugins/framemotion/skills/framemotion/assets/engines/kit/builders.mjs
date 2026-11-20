@@ -40,6 +40,42 @@ function wordTimes(dir) {
   return out;
 }
 
+/**
+ * FrameMotion's fixes to bundled mg-styles films, as [file, upstream text, fixed text], applied by the mgstyles
+ * builder to the built copy. 10-synthwave: the car mask target is cleared without a render, so a multisampled
+ * target keeps the last frame's mask, and the title flash never reaches exactly zero; together a frame depended
+ * on the frames drawn before it (6 pixels, one level; found by the 2026-11-20 review). Rendering an empty scene
+ * after the clear resolves the target; a flash under 0.001 is zero.
+ */
+const MG_FIXES = {
+  '10-synthwave': [
+    ['index.html', 'renderer.setRenderTarget(maskRT); renderer.setClearColor(0x000000, 1); renderer.clear();',
+      'renderer.setRenderTarget(maskRT); renderer.setClearColor(0x000000, 1); renderer.clear(); renderer.render(new THREE.Scene(), ocam);'],
+    ['index.html', '  V.uFlash.value = fr >= FS ? .34 * Math.exp(-uS * 20) : 0;\n',
+      '  V.uFlash.value = fr >= FS ? .34 * Math.exp(-uS * 20) : 0;\n  if (V.uFlash.value < .001) V.uFlash.value = 0;\n'],
+  ],
+  // 12-aurora-glass: a card's 2D canvas kept drawing state (text alignment, letter spacing, line style) from
+  // the last frame that drew it, so a card frame drawn after another one differed (2,016 pixels by up to 2
+  // levels at frame 120 after 60; found by FrameMotion's order sweep, 2026-11-20). reset() before each card.
+  '12-aurora-glass': [
+    ['main.js', '    c.draw(c, t); upload(c.tex, c.cv, true);', '    c.g.reset(); c.draw(c, t); upload(c.tex, c.cv, true);'],
+  ],
+};
+
+/**
+ * FrameMotion's fixes to bundled anidoodle files, as {path under src/: [[upstream text, fixed text]]}, applied by
+ * the anidoodle builder while bundling. scrapbookKit.ts staged(): going back to an earlier step cleared the cached
+ * base and drew it again on the same canvas, whose drawing state (line dash, filter, shadow and the rest) was left
+ * from later steps, so a frame drawn after a later one differed slightly (2026-11-20 review: frame 200 after 230).
+ * A fresh canvas starts every rebuilt base from the default state.
+ */
+const AD_FIXES = {
+  'canvas-core/scrapbookKit.ts': [[
+    'if (c.k > k) { c.L.ctx.setTransform(1, 0, 0, 1, 0, 0); c.L.ctx.clearRect(0, 0, DW, DH); c.k = 0; }',
+    'if (c.k > k) { c = { k: 0, L: env.canvas(DW, DH) }; env.cache.set(key, c); }',
+  ]],
+};
+
 export const BUILDERS = {
   /** Animate engine: copy a piece and assemble its single index.html with the engine's own build tool. */
   async animate(entry, enginesRoot) {
@@ -648,10 +684,210 @@ ${code}
     const query = {debug: '', capture: '', ...Object.fromEntries(Object.entries(entry.build.query ?? {}).map(([k, v]) => [k, String(v)]))};
     return {dir, page: 'index.html', query};
   },
+  /**
+   * MG styles engine (bundled Vincentwei1021/mg-styles-15): one of its style films, a page that draws any
+   * moment with window.renderAt(t) (the same contract as ours). The film's folder is copied into the layout
+   * its absolute paths expect (/demos/<film>/, /assets/...), and those paths are rewritten to the build folder;
+   * /node_modules/ stays on the engines folder (three.js, simplex-noise, opentype.js, d3, topojson-client, pinned there). The fonts
+   * the upstream repository leaves out come from the engine's fonts/ folder (OFL files; brand faces that are
+   * not open get an open stand-in, listed in STAND_IN), and the grain plate is FrameMotion's own. A bridge sets
+   * renderFrame = renderAt once the page reports __ready.
+   */
+  async mgstyles(entry, enginesRoot, params = {}) {
+    const engine = sibling(enginesRoot, 'mg-styles-engine');
+    // build.folder: the user's own copy of a film (a film folder with its index.html, rewritten for their
+    // copy and colours), relative to the engines folder; otherwise build.film names a bundled film.
+    const from = entry.build.folder ? path.resolve(enginesRoot, entry.build.folder) : path.join(engine, 'upstream', 'demos', entry.build.film ?? '');
+    const film = entry.build.film ?? (entry.build.folder ? path.basename(from) : undefined);
+    if (!film || !fs.existsSync(path.join(from, 'index.html'))) throw new Error(`${entry.id}: no mg-styles film "${film}"`);
+    const dir = temp(entry.id);
+    fs.cpSync(from, path.join(dir, 'demos', film), {recursive: true});
+    fs.cpSync(path.join(engine, 'upstream', 'assets'), path.join(dir, 'assets'), {recursive: true});
+    fs.mkdirSync(path.join(dir, 'assets', 'textures', 'grain'), {recursive: true});
+    fs.copyFileSync(path.join(engine, 'textures', 'grain_fine_2048.png'), path.join(dir, 'assets', 'textures', 'grain', 'grain_fine_2048.png'));
+    fs.cpSync(path.join(engine, 'fonts'), path.join(dir, 'assets', 'fonts', 'files'), {recursive: true});
+    // Files the films load by their upstream font path, served from the engine's fonts/ folder.
+    const byPath = {
+      'cjk/lxgwmarkergothic/LXGWMarkerGothic-Regular.ttf': 'LXGWMarkerGothic-Regular.subset.ttf',
+      [`../../demos/07-liquid/assets/Fraunces-Liquid-72-900-Soft.ttf`]: 'Fraunces-Liquid-72-900-Soft.ttf',
+      [`../../demos/08-morph/assets/fonts/Outfit-SemiBold.ttf`]: 'Outfit-SemiBold.ttf',
+      [`../../demos/10-synthwave/assets/fonts/MrDafoe-Regular.ttf`]: 'MrDafoe-Regular.ttf',
+      [`../../demos/03-isometric/assets/fonts/Unbounded-800-static.ttf`]: 'Unbounded-800-static.ttf',
+      'cjk/alimamashuheiti/AlimamaShuHeiTi-Bold.ttf': 'NotoSansSC-Black.subset.ttf',   // read by opentype.js: a static black cut
+    };
+    for (const [rel, file] of Object.entries(byPath)) {
+      if (rel.startsWith('../../demos/') && !rel.startsWith(`../../demos/${film}/`)) continue;
+      const to = path.resolve(dir, 'assets', 'fonts', rel);
+      fs.mkdirSync(path.dirname(to), {recursive: true});
+      fs.copyFileSync(path.join(engine, 'fonts', file), to);
+    }
+    const face = (family, file, extra = 'font-weight: 1 1000; font-style: normal;') =>
+      `@font-face { font-family: '${family}'; src: url('/_build/assets/fonts/files/${file}') format('truetype'); ${extra} font-display: block; }`;
+    const STAND_IN = {   // brand faces that are not open fonts: an OFL face of the same kind takes their place
+      'HarmonyOS Sans SC': 'NotoSansSC-VF.subset.ttf', 'Alimama ShuHeiTi': 'NotoSansSC-VF.subset.ttf',
+      'Douyin Sans': 'NotoSansSC-VF.subset.ttf', 'Alibaba PuHuiTi': 'NotoSansSC-VF.subset.ttf',
+      'Resource Han Rounded': 'NotoSansSC-VF.subset.ttf',
+    };
+    const css = [
+      face('Caveat', 'Caveat-VF.ttf', 'font-weight: 400 700; font-style: normal;'),
+      face('Long Cang', 'LongCang-Regular.subset.ttf'),
+      face('LXGW Marker Gothic', 'LXGWMarkerGothic-Regular.subset.ttf'),
+      face('Inter', 'Inter-VF.ttf', 'font-weight: 100 900; font-style: normal;'),
+      face('Noto Serif SC', 'NotoSerifSC-VF.subset.ttf', 'font-weight: 200 900; font-style: normal;'),
+      face('Noto Sans SC', 'NotoSansSC-VF.subset.ttf', 'font-weight: 100 900; font-style: normal;'),
+      face('Instrument Serif', 'InstrumentSerif-Regular.ttf'),
+      face('Instrument Serif', 'InstrumentSerif-Italic.ttf', 'font-weight: 1 1000; font-style: italic;'),
+      face('IBM Plex Mono', 'IBMPlexMono-Medium.ttf', 'font-weight: 400 700; font-style: normal;'),
+      face('Michroma', 'Michroma-Regular.ttf'),
+      face('Archivo', 'Archivo-Italic-VF.ttf', 'font-weight: 100 900; font-style: italic; font-stretch: 62% 125%;'),
+      face('VT323', 'VT323-Regular.ttf'),
+      face('Fredoka', 'Fredoka-VF.ttf', 'font-weight: 300 700; font-style: normal; font-stretch: 75% 125%;'),
+      face('Cormorant Garamond', 'CormorantGaramond-VF.ttf', 'font-weight: 300 700; font-style: normal;'),
+      face('Unbounded', 'Unbounded-VF.ttf', 'font-weight: 200 900; font-style: normal;'),
+      face('Poppins', 'Poppins-Black.ttf', 'font-weight: 900; font-style: normal;'),
+      face('Poppins', 'Poppins-SemiBold.ttf', 'font-weight: 600; font-style: normal;'),
+      face('Press Start 2P', 'PressStart2P-Regular.ttf'),
+      face('Fusion Pixel 12', 'FusionPixel12-zh_hans.subset.ttf'),
+      face('Chakra Petch', 'ChakraPetch-SemiBold.ttf', 'font-weight: 600; font-style: normal;'),
+      face('JetBrains Mono', 'JetBrainsMono-VF.ttf', 'font-weight: 100 800; font-style: normal;'),
+      face('Rajdhani', 'Rajdhani-Bold.ttf', 'font-weight: 700; font-style: normal;'),
+      face('Rajdhani', 'Rajdhani-SemiBold.ttf', 'font-weight: 600; font-style: normal;'),
+      ...Object.entries(STAND_IN).map(([family, file]) => face(family, file, 'font-weight: 100 900; font-style: normal;')),
+    ].join('\n');
+    fs.writeFileSync(path.join(dir, 'assets', 'fonts', 'fonts.css'), `/* FrameMotion mg-styles fonts (generated by the builder) */\n${css}\n`);
+    // Absolute upstream paths point into the build folder; /node_modules/ stays on the engines folder.
+    const rewrite = (file) => {
+      const text = fs.readFileSync(file, 'utf8');
+      const next = text.replace(/(['"`(])\/(demos|assets)\//g, '$1/_build/$2/');
+      if (next !== text) fs.writeFileSync(file, next);
+    };
+    const walk = (d) => { for (const e of fs.readdirSync(d, {withFileTypes: true})) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) walk(p); else if (/\.(html|m?js|css)$/.test(e.name)) rewrite(p);
+    } };
+    walk(path.join(dir, 'demos', film));
+    // FrameMotion fixes, applied to the built copy (the bundled files stay byte-identical to upstream).
+    for (const [file, from, to] of MG_FIXES[film] ?? []) {
+      const f = path.join(dir, 'demos', film, file), text = fs.readFileSync(f, 'utf8');
+      if (!text.includes(from)) throw new Error(`${entry.id}: FrameMotion fix no longer matches ${film}/${file}`);
+      fs.writeFileSync(f, text.replace(from, to));
+    }
+    // Your own words: params.replace maps a sample text of the film (exactly as written in its code, see the
+    // engine README) to yours. Every sample text named must be found, or the build stops.
+    const swaps = Object.entries({...(entry.build.replace ?? {}), ...(params.replace ?? {})});
+    if (swaps.length) {
+      const found = new Set();
+      const swapIn = (d) => { for (const e of fs.readdirSync(d, {withFileTypes: true})) {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) { swapIn(p); continue; }
+        if (!/\.(html|m?js|json)$/.test(e.name)) continue;
+        let text = fs.readFileSync(p, 'utf8'), changed = false;
+        for (const [from, to] of swaps) {
+          for (const q of ["'", '"', '`']) {
+            if (text.includes(q + from + q)) { text = text.split(q + from + q).join(q + String(to).split(q).join('\\' + q) + q); changed = true; found.add(from); }
+          }
+        }
+        if (changed) fs.writeFileSync(p, text);
+      } };
+      swapIn(path.join(dir, 'demos', film));
+      const missing = swaps.map(([from]) => from).filter((from) => !found.has(from));
+      if (missing.length) throw new Error(`${entry.id}: no sample text ${missing.map((m) => JSON.stringify(m)).join(', ')} in ${film} (the engine README lists them)`);
+    }
+    const page = path.join('demos', film, 'index.html');
+    let html = fs.readFileSync(path.join(dir, page), 'utf8');
+    const bridge = `<script>(function wait() {
+  if (window.__ready === true && typeof window.renderAt === 'function') { window.renderFrame = (t) => window.renderAt(t); return; }
+  setTimeout(wait, 20);
+})();</script>`;
+    const tail = html.lastIndexOf('</body>');
+    html = tail < 0 ? html + bridge : html.slice(0, tail) + bridge + '\n' + html.slice(tail);
+    fs.writeFileSync(path.join(dir, page), html);
+    return {dir, page, query: {}};
+  },
+  /**
+   * Anidoodle engine (bundled alexgreensh/anidoodle, the 2-D style films): FrameMotion's own esbuild bundles
+   * one film with the upstream page host (src/hosts/page.ts) into a single page; none of anidoodle's Node
+   * tools run. build.film names an exported film of upstream/engine/src/canvas-core; build.folder (optional)
+   * is the user's own folder laid out like src/ (canvas-core/<film>.ts), looked up first, so a new film can
+   * import the bundled kits as "./core" or "./woodcutKit". The page's FILM.seek(frame) draws one frame
+   * synchronously; renderFrame(t) waits for FILM.ready (assets decoded), then seeks round(t * fps).
+   * Three.js films are not bundled: a film that imports "three" fails the build with a clear error.
+   */
+  async anidoodle(entry, enginesRoot) {
+    const engineSrc = path.join(sibling(enginesRoot, 'anidoodle-engine'), 'upstream/engine/src');
+    const film = String(entry.build.film ?? '');
+    if (!/^[A-Za-z][A-Za-z0-9]*$/.test(film)) throw new Error(`${entry.id}: build.film must be a film's export name`);
+    const roots = [...(entry.build.folder ? [path.resolve(enginesRoot, entry.build.folder)] : []), engineSrc];
+    const EXT = ['', '.ts', '.js', '/index.ts'];
+    const find = (p) => EXT.map((e) => p + e).find((f) => fs.existsSync(f) && fs.statSync(f).isFile()) ?? null;
+    if (!roots.some((r) => find(path.join(r, 'canvas-core', film)))) throw new Error(`${entry.id}: no film "${film}" in canvas-core`);
+    const overlay = {
+      name: 'framemotion-anidoodle',
+      setup(b) {
+        b.onResolve({filter: /^three$/}, () => ({errors: [{text: 'this film draws with three.js, which the FrameMotion anidoodle bundle leaves out: use a 2-D film'}]}));
+        b.onResolve({filter: /\.(ttf|otf|woff2)$/i}, (a) => ({errors: [{text: `font file ${a.path}: the FrameMotion anidoodle bundle carries no font files`}]}));
+        // FrameMotion fixes (AD_FIXES), applied while bundling: the bundled files stay byte-identical.
+        b.onLoad({filter: /canvas-core[\\/]\w+\.ts$/}, (a) => {
+          const fixes = a.path.startsWith(engineSrc + path.sep) ? AD_FIXES[path.relative(engineSrc, a.path).split(path.sep).join('/')] : null;
+          if (!fixes) return undefined;
+          let text = fs.readFileSync(a.path, 'utf8');
+          for (const [from, to] of fixes) {
+            if (!text.includes(from)) throw new Error(`FrameMotion fix no longer matches ${a.path}`);
+            text = text.replace(from, to);
+          }
+          return {contents: text, loader: 'ts'};
+        });
+        b.onResolve({filter: /^\.\.?\//}, (a) => {
+          const want = path.resolve(a.resolveDir, a.path);
+          const root = roots.find((r) => want === r || want.startsWith(r + path.sep));
+          if (!root) return undefined;
+          const rel = path.relative(root, want);
+          for (const r of roots) { const f = find(path.join(r, rel)); if (f) return {path: f}; }
+          return undefined;
+        });
+      },
+    };
+    const {build} = await import(pathToFileURL(path.join(enginesRoot, 'node_modules/esbuild/lib/main.js')).href);
+    const out = await build({
+      stdin: {contents: `import { ${film} } from "../canvas-core/${film}"; import { mountFilm } from "./page"; mountFilm(${film});`,
+        resolveDir: path.join(engineSrc, 'hosts'), loader: 'ts'},
+      bundle: true, write: false, format: 'iife', target: 'es2020', logLevel: 'silent', plugins: [overlay],
+    });
+    const code = out.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
+    const dir = temp(entry.id);
+    // The film draws on its own canvas (#film, its native size); #frame is what the renderer captures, at the
+    // size asked for. A film whose shape differs from the frame (a square film in a 9:16 reel) is fitted whole
+    // and centred, over a soft, darkened, blurred copy of itself that fills the frame.
+    fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#000}#film{display:none}#frame{display:block;width:100vw;height:100vh}</style></head>
+<body><canvas id="film"></canvas><canvas id="frame"></canvas><script>window.__ASSETS__={};window.__BAKE_SRC__={};</script>
+<script>${code}</script>
+<script>(() => {
+  const q = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+  const film = document.getElementById('film'), frame = document.getElementById('frame'), g = frame.getContext('2d');
+  window.renderFrame = async (t) => {
+    const F = window.FILM; await F.ready;
+    F.seek(Math.max(0, Math.min(F.meta.durationFrames - 1, Math.round(t * F.meta.fps))));
+    const W = q.width ?? F.meta.W, H = q.height ?? F.meta.H, fw = film.width, fh = film.height;
+    if (frame.width !== W || frame.height !== H) { frame.width = W; frame.height = H; }
+    g.setTransform(1, 0, 0, 1, 0, 0); g.filter = 'none'; g.globalAlpha = 1;
+    const fit = Math.min(W / fw, H / fh), dw = Math.round(fw * fit), dh = Math.round(fh * fit);
+    if (dw !== W || dh !== H) {
+      const cover = Math.max(W / fw, H / fh), cw = fw * cover, ch = fh * cover;
+      g.filter = 'blur(' + Math.round(Math.min(W, H) / 24) + 'px) brightness(0.7)';
+      g.drawImage(film, (W - cw) / 2, (H - ch) / 2, cw, ch);
+      g.filter = 'none';
+    }
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(film, Math.round((W - dw) / 2), Math.round((H - dh) / 2), dw, dh);
+  };
+})();</script></body></html>`);
+    return {dir, page: 'index.html', query: {adapter: 'framemotion'}};
+  },
 };
 
-export async function buildEntry(entry, enginesRoot) {
+export async function buildEntry(entry, enginesRoot, params = {}) {
   const builder = BUILDERS[entry.build?.tool];
   if (!builder) throw new Error(`Unknown builder "${entry.build?.tool}" for ${entry.id}`);
-  return builder(entry, enginesRoot);
+  return builder(entry, enginesRoot, params);
 }

@@ -26,6 +26,10 @@ Every film is one HTML page. A `FILM` config holds the copy, palette, beats and 
 
 Choose the launch family for a designed short loop (8 to 15 s) with motion blur, a checked loop and several formats from one film. Choose kaventro when the picture is the user's own UI capture, or when the film should be edited as HTML and CSS. Both families render through the same renderer, so one reel can use both, scene by scene.
 
+## Copy and devices first
+
+Before a style, write the script: by 3 s the viewer knows what the product is, then one concrete thing per line (2 to 7 words), then the name and what to do. Check it with [`../launch-copy/copy_check.py`](../launch-copy/README.md) (English and Polish), then give every line its own arrival from the [cinetic device book](../cinetic-kit/README.md) (466 devices with timing, use and avoid notes) and build that motion in the chosen style. An update film ("v2 is out" and three changes) follows the book's [update-film rules](../cinetic-kit/upstream/references/update-films.md).
+
 ## Make a film
 
 1. **Start from a style.** Copy `styles/<style>/templates/` (its `film.html`, plus `assets/` for the photo style) to a folder in the workspace. Read `styles/<style>/method.md` and the style's `reference/` for its rules. The shared rules are in `shared/reference/`: brief, springs, loops, fonts, audio and video types.

@@ -1,0 +1,254 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/Leonxlnx/cinetic",
+  "source_commit": "f4bbfc844877891fe92279d47b7874fb44d485ae",
+  "retrieved_on": "2026-11-20",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2026 Leonxlnx",
+  "activation": "reference_text_and_hyperframes_timing_kit_merged_into_launch_films_no_new_engine_no_upstream_scripts_run",
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/LICENSE",
+      "sha256": "4575a543ab88dad12ccea7d97e563d0bce5b448b06072e65d3264497dad326df",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/assets/hyperframes-starter/index.html",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/hyperframes-starter/index.html",
+      "sha256": "bf139e77e5733d6d353cb0cd8cfe443bea211903df982130eff115a255dbddc4",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/assets/hyperframes-starter/motion.js",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/hyperframes-starter/motion.js",
+      "sha256": "0bae555b9dee9d91ffb5f5fa291d6da7047a92e69bc6c66380658c24fca24477",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/assets/hyperframes-starter/music.js",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/hyperframes-starter/music.js",
+      "sha256": "1a85bb9e61d475f812b713727be909b2abf0987effd920f3db1d8a1824ba09c1",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/assets/hyperframes-starter/timeline.js",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/hyperframes-starter/timeline.js",
+      "sha256": "8015ed431357a9ec8acfa9696bf8238b2a8a9ea461920378afa531313d24a2ef",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/copy-and-type.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/copy-and-type.md",
+      "sha256": "c0792e7f3382312d41b793221901ee73af17d879e277cad4e4ae643eeebb5776",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/hyperframes-engine.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/hyperframes-engine.md",
+      "sha256": "fdbe37a2cdee391d194c173daa34df74e7f07f16b41f0b44b73d846779efdbb3",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/camera-transitions.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/camera-transitions.md",
+      "sha256": "63c97ecbb71c6f269096d25b8e50fb8f9ad44da533d39d12bc3097c0a03019a5",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/camera.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/camera.md",
+      "sha256": "f038fc35f13e9da44a11c58e62747d8258ae6c95919c2e7f14bbaf015fd7f558",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/collage-and-composition.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/collage-and-composition.md",
+      "sha256": "b2d34fc8292697dde0deec2f9edc04090e553510fb04d2b9317d409eaa9dedb3",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/colour-and-light.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/colour-and-light.md",
+      "sha256": "91276ffd3f048639079cb4026b89140848e0fbc6262a0b666abc28b24f7d3009",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/cursor.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/cursor.md",
+      "sha256": "f83ba0e4697bf332b71b69277315aba3c4832022c2fdab3a3956ba68c69b5ba7",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/cuts-and-seams.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/cuts-and-seams.md",
+      "sha256": "7dabd3b830177c33775ba74d97ddce8f0e7177c2f9de1e15af23edc31454fc55",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/data-and-numbers.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/data-and-numbers.md",
+      "sha256": "374a67a20960fd62efb06a37ee1e3df6599ca897f567752bbbb650e35b5b4b99",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/depth-and-3d.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/depth-and-3d.md",
+      "sha256": "07fdf871f29a198521e58e2d6b34cb2e4187010f432fe0ed7e5e736e284567b3",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/glass-glow-and-spectral.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/glass-glow-and-spectral.md",
+      "sha256": "31bfdf3b2a40c03ea10dd93666a2b1f128fd8de10806261d801be67865c6a218",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/icons-and-glyphs.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/icons-and-glyphs.md",
+      "sha256": "5524980c0ec4749e236e46335185de0671c90bdbef504e9cb76e3ea9b9d19672",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/lines-layout-and-swaps.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/lines-layout-and-swaps.md",
+      "sha256": "09489189df356dd19319ea9614f6289d6d6446bd7ae748930daae0d382c5deec",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/loaders-and-progress.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/loaders-and-progress.md",
+      "sha256": "7f3061e9297b8883d7929bc305629e34ff4a5ca3889535a533ef89e28ca2fc30",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/logo-and-end-card.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/logo-and-end-card.md",
+      "sha256": "30dcace81d3b84d18aec0f72d488a88948219ab9bef6ee5efe2e502eda44dde4",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/marks-markers-and-annotations.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/marks-markers-and-annotations.md",
+      "sha256": "1ae070c22386c683e0076b578d8b47cc3c03112d6eae72ede2177059e5ac10aa",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/micro-interactions.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/micro-interactions.md",
+      "sha256": "5dce1a3f12c7faec2fe876b214982368f29c8c2bd65b776aefc47f0d6d6a0ef0",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/morphs-and-object-handoffs.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/morphs-and-object-handoffs.md",
+      "sha256": "92a95240546f9acd04b8671803af4c4b6edbd4603475b9aea4fcb5b194afb167",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/openings.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/openings.md",
+      "sha256": "8b5563e9c7d29fe82d33167caf4bac36b2d4b7a71dbc1bd0871a3591b71980e6",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/pacing-and-structure.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/pacing-and-structure.md",
+      "sha256": "3052342a506a47df32c8d77ec2a93a1f87fc95209a65bc588ba1b06e5c73256a",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/photos-and-footage.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/photos-and-footage.md",
+      "sha256": "7e1c765595cfeaa3fdcec8ff1ff227ac970510cb36cdc571f583dbbbf7a8a9ce",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/product-moments.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/product-moments.md",
+      "sha256": "be15bb4101946861f46987639a6799d87ae27935743b28439ebbd70165301da6",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/sound-and-timing.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/sound-and-timing.md",
+      "sha256": "7beb0e2a9f6dad5f16c6f1505a494b9af2e08caa0d4820ecf9114254aff18ede",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/speed-and-rush.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/speed-and-rush.md",
+      "sha256": "30fbb9e1896f09089e6d0b0bf766ff59a66bf80ad70d06ccdada8587824ca375",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/texture-grids-and-finish.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/texture-grids-and-finish.md",
+      "sha256": "553926f47938a9881faa8f47f952fc497a56187cb35b3a12bf124281e36480b9",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/type-arrivals.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/type-arrivals.md",
+      "sha256": "6e907cfc0e6784bf6c687d47409faac631b0c25fda1b0ddba4d54759d4e006a5",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/type-exits.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/type-exits.md",
+      "sha256": "484ea26b6d16c614c7f3418e4a9de800860e5c54b7eef4ddeb3fb0d24c47e194",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/ui-choreography.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/ui-choreography.md",
+      "sha256": "12e6eff025ad4ddaf81f560b4a9aabad371e533ea2993f926f9f034e8e2e6b53",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/library/wipes-masks-and-irises.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/library/wipes-masks-and-irises.md",
+      "sha256": "6562d3df34291ce0db0dd933778e2d981a69617426bc6a7ea2de0168497b58db",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/motion-tokens.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/motion-tokens.md",
+      "sha256": "59717e1d0c41679acd889c1668c32331c9283a0903d3fe3355f52f08c3e2ceef",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/technique-library.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/technique-library.md",
+      "sha256": "2718e0fab6e4e6275fd1493ca64fb827111d48fb5f66cdb2321010595d93638d",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/timing-grid.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/timing-grid.md",
+      "sha256": "d9d9eb3660a461b941e80b1b7d109c559661e5a3dc331bbe9fb74e6ebd1e5c9c",
+      "changed": false
+    },
+    {
+      "source_path": "skills/cinetic/references/update-films.md",
+      "destination_path": "../../skills/framemotion/assets/cinetic-kit/upstream/references/update-films.md",
+      "sha256": "63317e42c405ce249b183459bfe5295259667663e7a1b1662d39fe83b46118ea",
+      "changed": false
+    }
+  ],
+  "own_files": [
+    "../../skills/framemotion/assets/cinetic-kit/README.md",
+    "../../skills/framemotion/assets/launch-copy/README.md",
+    "../../skills/framemotion/assets/launch-copy/copy_check.py"
+  ],
+  "not_bundled": [
+    "skills/cinetic/SKILL.md",
+    "skills/cinetic/scripts/ (logos.mjs, copy-check.py, music.mjs and the rest)",
+    "skills/cinetic/assets/remotion-starter/",
+    "skills/cinetic/assets/templates/",
+    "skills/cinetic/assets/library/techniques.json",
+    "skills/cinetic/assets/hyperframes-starter/{package.json,setup.mjs,audio,fonts}",
+    "docs/",
+    "evals/"
+  ]
+}

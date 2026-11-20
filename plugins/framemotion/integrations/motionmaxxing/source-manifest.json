@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/Tejashmakwana/motionmaxxing",
+  "source_commit": "8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c",
+  "retrieved_on": "2026-11-20",
+  "license": "Apache-2.0",
+  "attribution": "Copyright Tejas Makwana",
+  "activation": "reference_text_only_no_upstream_scripts_run_gates_rewritten_in_motion_activity_and_text_audit",
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/motionmaxxing-qa/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "changed": false
+    },
+    {
+      "source_path": "NOTICE",
+      "destination_path": "../../skills/framemotion/assets/motionmaxxing-qa/NOTICE",
+      "sha256": "82f5bde893626d09be6e024cfd8b6a07cbc59c859c2bba9a47ba45d66c5b3ac5",
+      "changed": false
+    },
+    {
+      "source_path": "references/slop.md",
+      "destination_path": "../../skills/framemotion/assets/motionmaxxing-qa/upstream/references/slop.md",
+      "sha256": "f469e124991b2b88941c3e1cd65fb62363273ad8b6443685481fc565925c7d6a",
+      "changed": false
+    },
+    {
+      "source_path": "references/motion.md",
+      "destination_path": "../../skills/framemotion/assets/motionmaxxing-qa/upstream/references/motion.md",
+      "sha256": "3d9418623860308f34cafd3b816debc2644060270af78670d07fd0c53e434a90",
+      "changed": false
+    },
+    {
+      "source_path": "library/moments.jsonl",
+      "destination_path": "../../skills/framemotion/assets/motionmaxxing-qa/upstream/library/moments.jsonl",
+      "sha256": "48073ea7c2aaf4461bffa846d2e574edfbb0ed6ca81143b9a5a7e94c9d79c55b",
+      "changed": false
+    }
+  ],
+  "own_files": [
+    "../../skills/framemotion/assets/motionmaxxing-qa/README.md"
+  ],
+  "rewritten_in_own_code": [
+    "skills/framemotion/assets/motion-quality/motion_activity.py (G2 empty frames, G3 end hold)",
+    "skills/framemotion/assets/motion-review/text-audit.browser.js (G5 page chrome C1-C4, C6)"
+  ],
+  "not_bundled": [
+    "SKILL.md",
+    "runtime/",
+    "scripts/",
+    "templates/",
+    "studies/",
+    "taste/",
+    "examples/",
+    "docs/",
+    "install.sh",
+    "README.md"
+  ]
+}

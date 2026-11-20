@@ -635,6 +635,130 @@
       "references": [
         "references/motion-craft.md"
       ]
+    },
+    {
+      "name": "mg-styles-15",
+      "repo": "Vincentwei1021/mg-styles-15",
+      "commit": "8fab7eb49cc60590c518d1a932dfff753697fce7",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Vincentwei1021",
+      "kind": "engine",
+      "pack": "P12",
+      "status": "bundled",
+      "bundled_commit": "8fab7eb49cc60590c518d1a932dfff753697fce7",
+      "conditions": [
+        "five style films bundled unchanged in skills/framemotion/assets/mg-styles-engine/upstream/ with the 15 style prompts",
+        "photo-based films (06, 18, 19) left out: photo sources not recorded upstream",
+        "fonts from google/fonts (OFL), some subset or instanced; four brand CJK faces replaced by Noto Sans SC"
+      ]
+    },
+    {
+      "name": "anidoodle",
+      "repo": "alexgreensh/anidoodle",
+      "commit": "4ae27d2c281fcfd01bce87ab13dc5ad4df81a795",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright 2026 Alex Greenshpun",
+      "kind": "engine",
+      "pack": "P12",
+      "status": "bundled",
+      "bundled_commit": "4ae27d2c281fcfd01bce87ab13dc5ad4df81a795",
+      "conditions": [
+        "the 74 source files the 32 two-dimensional style films need, bundled unchanged in skills/framemotion/assets/anidoodle-engine/upstream/engine/ with LICENSE and NOTICE",
+        "bundled by FrameMotion's own esbuild; anidoodle's Node tools, three.js films, narration (ElevenLabs) and the sound pack (OpenAIR rooms, CC BY) are not bundled",
+        "one engine of its own, anidoodle, with the 32 styles picked by the setting style (styles.json); never split into other engines' ways (owner decision 2026-11-20); new styles are added as a film and one styles.json row"
+      ]
+    },
+    {
+      "name": "three.quarks",
+      "repo": "Alchemist0823/three.quarks",
+      "commit": "9d0445c5949c7da570f412ad7007efecd0357886",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2019 Forrest Sun",
+      "kind": "library",
+      "pack": "P12",
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly with quarks.core 0.18.0 (both published from this commit, gitHead 9d0445c); installed by npm ci --ignore-scripts, never bundled",
+        "FrameMotion's own page libraries/quarks/ steps the simulation on the clock with seeded Math.random; sprites drawn by the page, no files loaded"
+      ],
+      "package": "three.quarks",
+      "version": "0.18.0"
+    },
+    {
+      "name": "motionmaxxing",
+      "repo": "Tejashmakwana/motionmaxxing",
+      "commit": "8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright Tejas Makwana",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "bundled",
+      "conditions": [
+        "slop.md, motion.md and moments.jsonl bundled unchanged as review references in skills/framemotion/assets/motionmaxxing-qa/",
+        "no upstream script is bundled or run; gates G2, G3 and G5 (C1-C4, C6) rewritten in FrameMotion's own motion_activity.py and text-audit.browser.js",
+        "no GSAP runtime and no paid image, video or voice route"
+      ],
+      "bundled_commit": "8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c"
+    },
+    {
+      "name": "cinetic",
+      "repo": "Leonxlnx/cinetic",
+      "commit": "f4bbfc844877891fe92279d47b7874fb44d485ae",
+      "bundled_commit": "f4bbfc844877891fe92279d47b7874fb44d485ae",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Leonxlnx",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "bundled",
+      "conditions": [
+        "merged into the launch films, no new engine: the device book (27 library files and its index), copy, update-film, timing and token references, and the HyperFrames starter's motion.js, timeline.js, music.js and index.html, all unchanged in skills/framemotion/assets/cinetic-kit/",
+        "the copy check is FrameMotion's own launch-copy/copy_check.py; no upstream script is bundled or run",
+        "left out: Remotion starter, kit and templates (Remotion company licence), logos.mjs and brand marks, music search and download, GSAP (the user's HyperFrames project provides it)"
+      ]
+    },
+    {
+      "name": "blender-skills",
+      "repo": "EL4CTEO/blender-skills",
+      "commit": "9e7e04a603c125a0d17447ab97112fa70a865067",
+      "bundled_commit": "9e7e04a603c125a0d17447ab97112fa70a865067",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 EL4CTEO",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "bundled",
+      "conditions": [
+        "13 of 28 guides with their bpy scripts, unchanged in skills/framemotion/assets/blender-kit/; SKILL.md renamed GUIDE.md so FrameMotion keeps one skill",
+        "scripts make no network requests; Blender is not installed or bundled; renders run only where the user has Blender (the Mac), NOT_RUN in cloud sessions",
+        "no registry engine: the Blender route is documented in references/workshop/3d.md"
+      ]
+    },
+    {
+      "name": "reanimate",
+      "repo": "NiazMorshed2007/reanimate",
+      "commit": "3f7a55a2986a84ca2173e86ee9127eefe31d046d",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Niaz Morshed",
+      "kind": "technique",
+      "pack": "P12",
+      "status": "patterns",
+      "conditions": [
+        "method only (record, compare, repeat; timing pass thresholds) restated in FrameMotion's own reference-breakdown/match.py and its README",
+        "no upstream code, examples (third-party site widgets) or setup (static ffmpeg and browser download) bundled or run"
+      ]
+    },
+    {
+      "name": "motion-design-skill",
+      "repo": "LottieFiles/motion-design-skill",
+      "commit": "d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2025 LottieFiles",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "patterns",
+      "conditions": [
+        "principles restated in references/motion-compendium.md section 9 (personality, distance and material scaling, choreography, thirds, staggers, overshoot)",
+        "no text copied; the Creator MCP (LottieFiles account) is not used"
+      ]
     }
   ]
 }

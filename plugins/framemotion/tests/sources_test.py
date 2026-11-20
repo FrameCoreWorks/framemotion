@@ -10,7 +10,7 @@ LICENCES = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause'}
 STATUSES = {'bundled', 'adapted', 'patterns', 'planned', 'dependency'}
 ENGINES_PACKAGE = json.loads((ROOT / 'skills/framemotion/assets/engines/package.json').read_text())
 KINDS = {'engine', 'knowledge', 'library', 'technique'}
-PACKS = {f'P{n}' for n in range(1, 12)} | {'L1'}   # L1: the motion library moved from Toolbox in 0.4.0
+PACKS = {f'P{n}' for n in range(1, 13)} | {'L1'}   # L1: the motion library moved from Toolbox in 0.4.0; P12: the 2026-11-20 X-list engines
 
 
 class SourcesTest(unittest.TestCase):

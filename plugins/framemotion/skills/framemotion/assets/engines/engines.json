@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes. method_of names the engine an entry is a second way of animating (the same look by another method, Kamil 2026-11-20: duplicates improve an engine, never a second one); the menu lists it under that engine, not on its own, and the engine renders it with the setting \"way\": the way's id (render-engine.mjs resolveWay; \"default\" or no way is the engine's own film).",
   "groups": [
     {
       "id": "text-titles-logos",
@@ -963,6 +963,130 @@
           "type": "string",
           "default": "#0d0f14",
           "about": "a CSS colour painted under the particles, or \"transparent\" for an overlay with alpha"
+        }
+      }
+    },
+    {
+      "id": "quarks-3d-effects",
+      "title": "three.quarks: layered fire, lit smoke, sparks and a magic swirl in a 3D scene",
+      "group": "transitions-effects-backgrounds",
+      "about": "Fire, smoke, flying sparks and a magic swirl in a small 3D scene: the camera circles them and stone pillars pass in front.",
+      "good_for": [
+        "effect",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
+      "status": "ready",
+      "kind": "three",
+      "page": "libraries/quarks/index.html",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "libraries/README.md",
+      "sources": [
+        "three.quarks"
+      ],
+      "blocks": [
+        "libraries/quarks/presets.mjs",
+        "libraries/library-kit.mjs"
+      ],
+      "params": {
+        "preset": {
+          "type": "string",
+          "default": "fire",
+          "about": "fire, smoke, sparks or magic",
+          "enum": [
+            "fire",
+            "smoke",
+            "sparks",
+            "magic"
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "default": 11,
+          "min": 0,
+          "max": 4294967295,
+          "about": "every random choice of the simulation"
+        },
+        "steps": {
+          "type": "integer",
+          "default": 2,
+          "min": 1,
+          "max": 8,
+          "about": "simulation steps per frame"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "duration": {
+          "type": "number",
+          "default": 4,
+          "min": 0.1,
+          "max": 120,
+          "timing": true,
+          "about": "seconds"
+        },
+        "background": {
+          "type": "string",
+          "default": "#0d0f14",
+          "about": "a CSS colour behind the effect, or \"transparent\" for an overlay with alpha"
+        },
+        "camera": {
+          "type": "number",
+          "default": 70,
+          "min": 20,
+          "max": 300,
+          "about": "camera distance from the effect (smaller is closer)"
+        },
+        "scale": {
+          "type": "number",
+          "default": 1,
+          "min": 0.3,
+          "max": 3,
+          "about": "effect size (1 is about a third of the frame height)"
+        },
+        "at": {
+          "type": "array",
+          "default": [
+            0,
+            0
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": "number",
+          "about": "where the effect sits: [x, y] from the frame centre, -0.5 to 0.5"
+        },
+        "move": {
+          "type": "string",
+          "default": "orbit",
+          "enum": [
+            "orbit",
+            "still"
+          ],
+          "about": "orbit: the camera circles the effect and closes in; still: a fixed camera"
+        },
+        "stage": {
+          "type": "boolean",
+          "default": true,
+          "about": "a dark floor and stone pillars lit by the effect (off for a transparent overlay)"
+        },
+        "prewarm": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 10,
+          "about": "seconds simulated before frame 0, so fire, smoke and magic are already running (the sparks burst always starts at frame 0)"
         }
       }
     },
@@ -3226,6 +3350,427 @@
       "fps": 30,
       "duration": 20,
       "capture": "#fm-canvas"
+    },
+    {
+      "about": "A style showcase film: hand-drawn cel animation on paper, lines that tremble like a classic animation desk; its words can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "05-cel-boil",
+        "replace": {
+          "一帧一帧": "frame by",
+          "亲手点亮": "frame",
+          "星火牌": "SPARK",
+          "安 全 火 柴": "S A F E T Y"
+        }
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 24,
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "group": "handmade-looks",
+      "id": "mg-cel-boil",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, frame-by-frame cel animation: hand-drawn lines that boil on paper, drawn on twos (16:9)"
+    },
+    {
+      "about": "A style showcase film: liquid drops, splashes and flows into a four-letter word, glossy and soft; the word and tagline can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "07-liquid",
+        "replace": {
+          "万物始于一滴": "It all starts with a drop"
+        }
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "group": "transitions-effects-backgrounds",
+      "id": "mg-liquid",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, liquid motion: a drop that splashes, pools and flows into a word (16:9)",
+      "gpu_recommended": true
+    },
+    {
+      "about": "A style showcase film: one shape changes into picture after picture and ends as a wordmark (fixed sample words).",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "08-morph"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "logo",
+        "title",
+        "explainer"
+      ],
+      "group": "text-titles-logos",
+      "id": "mg-morph",
+      "inputs": [
+        "none"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, shape morph: one shape turns into icon after icon and ends as the wordmark (16:9)"
+    },
+    {
+      "about": "A style showcase film: the 1980s, a neon road into a sunset, chrome letters and glowing handwriting; the title can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "10-synthwave"
+      },
+      "capture": "#gl",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "group": "era-film-moods",
+      "id": "mg-synthwave",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, 1980s synthwave and VHS: a neon grid road, a chrome title and a glowing script (16:9)"
+    },
+    {
+      "about": "A style showcase film: soft moving light behind frosted glass panels, calm and modern (fixed sample words).",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "12-aurora-glass"
+      },
+      "capture": "#gl",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title",
+        "product",
+        "background"
+      ],
+      "group": "transitions-effects-backgrounds",
+      "id": "mg-aurora-glass",
+      "inputs": [
+        "none"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, aurora gradient and glassmorphism: soft colour light behind frosted glass cards (16:9)"
+    },
+    {
+      "about": "A second way: a style showcase film where one bouncing dot builds a flat-colour world (fixed sample words, partly Chinese).",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "01-flat-vector"
+      },
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "logo",
+        "title"
+      ],
+      "group": "text-titles-logos",
+      "id": "mg-flat-vector",
+      "inputs": [
+        "none"
+      ],
+      "kind": "svg",
+      "method_of": "launch-shapes",
+      "readme": "../mg-styles-engine/README.md",
+      "screenshot": "#S",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, flat vector: one dot that bounces, splits and builds a flat-colour brand world (16:9)"
+    },
+    {
+      "about": "A second way: a style showcase film where one fine ink line draws every scene; the tagline can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "02-line-art",
+        "replace": {
+          "始于一线": "one line"
+        }
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "group": "handmade-looks",
+      "id": "mg-line-art",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-one-line",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, line art: one ink line that draws the scenes and the title (16:9)"
+    },
+    {
+      "about": "A second way: a style showcase film where a small city builds itself block by block; the tagline can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "03-isometric",
+        "replace": {
+          "让城市自己生长": "A city grows"
+        }
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "explainer"
+      ],
+      "group": "explainers",
+      "id": "mg-isometric",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-iso-infographic",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, isometric 2.5D city: blocks rise, roads light up, the camera glides (16:9)",
+      "gpu_recommended": true
+    },
+    {
+      "about": "A second way: a style showcase film of circles, squares and bars in primary colours on the beat (fixed sample words).",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "09-bauhaus"
+      },
+      "capture": "#out",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title"
+      ],
+      "group": "era-film-moods",
+      "id": "mg-bauhaus",
+      "inputs": [
+        "none"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-swiss-motion",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, geometric Bauhaus: circles, squares and bars in primary colours on a beat grid (16:9)"
+    },
+    {
+      "about": "A second way: a style showcase film where a pixel hero runs a short level; the dialogue lines can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "20-pixel",
+        "replace": {
+          "欢迎来到像素世界！": "Welcome to the pixel world!",
+          "神秘宝箱 像素冒险": "Mystery chest"
+        }
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "group": "old-game-look",
+      "id": "mg-pixel",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "launch-pixel",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, pixel art quest: a sprite hero, tiles, coins and a bitmap title (16:9)"
+    },
+    {
+      "about": "A second way: a style showcase film of a sci-fi screen with a 3D globe and a target lock; the lock words can be changed.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "22-hud",
+        "replace": {
+          "目标锁定": "LOCK ON"
+        }
+      },
+      "capture": "body > canvas",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "product",
+        "title"
+      ],
+      "group": "era-film-moods",
+      "id": "mg-hud",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-hologram-hud",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, cyberpunk HUD: a 3D globe, target lock and readouts in neon (16:9)"
+    },
+    {
+      "id": "anidoodle",
+      "title": "Anidoodle: hand-drawn animation in 32 styles (crayon, ink, chalk, embroidery, woodblock, pixel and more), drawn on stroke by stroke",
+      "group": "handmade-looks",
+      "about": "Hand-drawn animation in 32 styles, from crayon and chalk to embroidery and woodblock, drawn on stroke by stroke; new styles can be added.",
+      "good_for": [
+        "story",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
+      "status": "ready",
+      "kind": "canvas",
+      "adapter": "renderFrame",
+      "capture": "#frame",
+      "sources": [
+        "anidoodle"
+      ],
+      "blocks": [],
+      "build": {
+        "tool": "anidoodle"
+      },
+      "styles": "../anidoodle-engine/styles.json",
+      "size": {
+        "width": 1080,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 18.0,
+      "readme": "../anidoodle-engine/README.md",
+      "params": {
+        "style": {
+          "type": "string",
+          "default": "embroidery",
+          "about": "the style: crayon, cyanotype, paper-collage, toy-theatre, oil, woodblock, scratchboard, single-line-engraving, stipple, pixel-art, flat-vector, isometric, coloured-pencil, pencil-watercolour, risograph, ink-wash, mid-century, rubber-hose, low-poly, broken-colour, charcoal, dream-glaze, embroidery, folk-tale, halftone, scrapbook, storybook, toy-brick, sumi-e, marker-comic, chalkboard, ballpoint (or a style added to styles.json)"
+        }
+      }
     }
   ]
 }

@@ -2,6 +2,10 @@
 
 The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/framemotion/CHANGELOG.md).
 
+## 2026-11-20
+
+- FrameMotion 0.6.0: seven candidates from the X list (mg-styles films and ways, the anidoodle hand-drawn engine, three.quarks effects, motionmaxxing gates, cinetic device book and copy check, Blender kit, reference match and LottieFiles principles).
+
 ## 2026-11-18
 
 - CI repair (no plugin change): runner pinned to ubuntu-24.04 with Chromium's sandbox allowed and DejaVu installed, the animate-engine test ignores CI-installed node_modules, `tools/check.py` prints each failing node test. Three render tests are skipped on CI only and still run locally (owner-approved 2026-11-18, KNOWN-CI-ONLY): `launch-type-pl` Polish letters (ink 977.6 > 976 with the runner's fallback font), `p5-brush` repeatable frames, `lemo-tilt-shift` order independence (times out on the runner). Their fixes follow in their own PR, then the skips come out.

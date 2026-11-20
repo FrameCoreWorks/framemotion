@@ -9,7 +9,7 @@ ENGINES = ROOT / 'skills/framemotion/assets/engines'
 REGISTRY = json.loads((ENGINES / 'engines.json').read_text())
 SOURCES = {s['name'] for s in json.loads((ROOT / 'integrations/sources.json').read_text())['sources']}
 SHARED = {'kit', 'node_modules'}
-BUILDERS = set(re.findall(r'^  (?:async )?(\w+)\(entry, enginesRoot\)', (ENGINES / 'kit/builders.mjs').read_text(), re.M))
+BUILDERS = set(re.findall(r'^  (?:async )?(\w+)\(entry, enginesRoot(?:, params = \{\})?\)', (ENGINES / 'kit/builders.mjs').read_text(), re.M))
 
 
 class EnginesRegistryTest(unittest.TestCase):

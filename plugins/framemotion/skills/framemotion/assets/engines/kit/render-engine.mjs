@@ -110,12 +110,53 @@ export function validateParams(entry, params) {
   return params;
 }
 
-export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_ROOT} = {}) {
-  const entry = registry(root).engines.find((e) => e.id === id);
+/**
+ * An engine with its way chosen. Any engine takes the setting "way": the id of one of its ways (registry
+ * entries with method_of naming it), which then draws the film; "way" is not passed on to the page.
+ * A way can also be opened by its own id, as before.
+ */
+export function resolveWay(engines, id, params = {}) {
+  const entry = engines.find((e) => e.id === id);
   if (!entry) throw new Error(`Unknown engine "${id}"; see engines.json.`);
-  validateParams(entry, params);
+  if (params === null || typeof params !== 'object' || !('way' in params)) return {entry, params};
+  const {way, ...rest} = params;
+  const ways = engines.filter((e) => e.method_of === entry.id);
+  if (way === entry.id || way === 'default') return {entry, params: rest};
+  const chosen = ways.find((e) => e.id === way);
+  if (!chosen) throw new RangeError(`${entry.id} has no way "${way}" (its ways: ${ways.map((e) => e.id).join(', ') || 'none'}; "default" is the engine itself).`);
+  return {entry: chosen, params: rest};
+}
+
+/**
+ * An engine with a style table ("styles": a JSON file from the engines folder, as the anidoodle engine has) is one
+ * registry entry whose `style` setting picks a row: the row's film, folder, size, fps and duration replace the
+ * entry's for this render. A new style is one row in that file (and its film), with no change to the registry.
+ * A user's own styles live outside the package: FRAMEMOTION_STYLES names a JSON file of the same shape
+ * ({"styles": {...}}) whose rows are added to the table; their `folder` is read from that file's folder.
+ */
+export function resolveStyle(entry, params, root = ENGINES_ROOT, own = process.env.FRAMEMOTION_STYLES) {
+  if (!entry.styles) return entry;
+  const table = {...JSON.parse(fs.readFileSync(path.resolve(root, entry.styles), 'utf8')).styles};
+  if (own) {
+    const file = path.resolve(own);
+    for (const [name, row] of Object.entries(JSON.parse(fs.readFileSync(file, 'utf8')).styles ?? {})) {
+      table[name] = row.folder ? {...row, folder: path.resolve(path.dirname(file), row.folder)} : row;
+    }
+  }
+  const name = params.style ?? entry.params?.style?.default;
+  const row = table[name];
+  if (!row) throw new RangeError(`${entry.id} has no style "${name}" (its styles: ${Object.keys(table).join(', ')}).`);
+  return {...entry, size: row.size ?? entry.size, fps: row.fps ?? entry.fps, duration: row.duration ?? entry.duration,
+    build: {...entry.build, film: row.film, ...(row.folder ? {folder: row.folder} : {})}};
+}
+
+export async function openEngine(id, {params: given = {}, gpu = false, root = ENGINES_ROOT} = {}) {
+  const resolved = resolveWay(registry(root).engines, id, given);
+  const params = resolved.params;
+  validateParams(resolved.entry, params);
+  const entry = resolveStyle(resolved.entry, params, root);
   // Build first: a failed build (a missing folder) must not leave a browser running.
-  const built = entry.build ? await buildEntry(entry, root) : null;
+  const built = entry.build ? await buildEntry(entry, root, params) : null;
   const {chromium} = await loadPlaywright();
   const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : [...SOFTWARE_GL, ...SOFTWARE_2D])];
   const browser = await chromium.launch({args});
@@ -327,7 +368,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const entry = JSON.parse(fs.readFileSync(path.join(ENGINES_ROOT, 'engines.json'), 'utf8')).engines.find((e) => e.id === o.engine);
     if (entry?.gpu_recommended) console.error(`${o.engine} is heavy in software rendering (from about 30 s to minutes a frame); pass --gpu on a machine with a graphics card.`);
   }
-  const report = await renderFrames(o.engine, o);
+  // A wrong setting (an unknown style, way or value) is a short message, not a stack trace.
+  const report = await renderFrames(o.engine, o).catch((e) => {
+    if (e instanceof RangeError) { console.error(e.message); process.exit(2); }
+    throw e;
+  });
   console.log(JSON.stringify(report, null, 2));
   if (report.frames.some((f) => f.deterministic === false)) process.exit(3);
   // Registry "flat_frames" lists frames that are one colour by design (a drawing that starts on blank paper).

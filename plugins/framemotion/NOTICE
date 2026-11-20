@@ -27,8 +27,20 @@ a source-manifest.json with the pinned commit):
   listed in the technique atlas; no HyperFrames code is bundled.
 - Fonts in skills/framemotion/assets/fonts/ (Anton, Archivo, Bricolage Grotesque, Fraunces, Inter, Source Serif 4):
   SIL Open Font License 1.1; each family folder keeps its OFL.txt with the copyright notice.
+- EL4CTEO/blender-skills, commit 9e7e04a603c125a0d17447ab97112fa70a865067, Copyright (c) 2026 EL4CTEO, MIT: 13 Blender guides and
+  their bpy scripts, unchanged (SKILL.md renamed GUIDE.md) in skills/framemotion/assets/blender-kit/ (LICENSE there).
+- Leonxlnx/cinetic, commit f4bbfc844877891fe92279d47b7874fb44d485ae, Copyright (c) 2026 Leonxlnx, MIT: the device book, copy, update-film,
+  timing and HyperFrames references and the HyperFrames starter's motion.js, timeline.js, music.js and index.html,
+  unchanged in skills/framemotion/assets/cinetic-kit/ (LICENSE there); launch-copy/copy_check.py is our own code
+  after its copy formula.
+- NiazMorshed2007/reanimate, commit 3f7a55a2986a84ca2173e86ee9127eefe31d046d, Copyright (c) 2026 Niaz Morshed, MIT: its record, compare and
+  repeat method, restated in our own skills/framemotion/assets/reference-breakdown/match.py; no code is copied.
+- LottieFiles/motion-design-skill, commit d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb, Copyright (c) 2025 LottieFiles, MIT:
+  motion principles restated in references/motion-compendium.md section 9; no text is copied.
 - Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:
-  the page-chrome review idea only, restated in skills/framemotion/SKILL.md; no code, media or text is copied.
+  references/slop.md, references/motion.md and library/moments.jsonl unchanged in
+  skills/framemotion/assets/motionmaxxing-qa/ (its LICENSE and NOTICE there); its gates G2, G3 and G5 rewritten in
+  FrameMotion's own motion_activity.py and text-audit.browser.js; no upstream code is copied or run.
 - alchaincyf/huashu-art-motion 1.2.0, commit 8a0d7d72ca65fcce6f8ba82c4a6c8dfe35b8422c, Copyright (c) 2026 alchaincyf,
   MIT: the reference breakdown script adapted in skills/framemotion/assets/reference-breakdown/breakdown.py (licence in
   LICENSE.upstream there) and its direction method restated in references/art-and-explainer-motion-direction.md.
@@ -74,6 +86,8 @@ a source-manifest.json with the pinned commit):
   MIT, Copyright (c) 2020 Matteo Bruni); acamposuribe/p5.brush (p5.brush 3.0.0, commit
   75c89fd8e0a0b63d9a88b51983c0738e132e82a5, MIT, Copyright (c) 2023-2026 Alejandro Campos Uribe; its standalone build
   only: p5.js (LGPL-2.1) is not used, and .npmrc keeps npm from installing it as a peer).
+  Alchemist0823/three.quarks (three.quarks 0.18.0 and quarks.core 0.18.0, commit
+  9d0445c5949c7da570f412ad7007efecd0357886, MIT, Copyright (c) 2019 Forrest Sun).
 - Knowledge summarised for FrameMotion (no file copied; short technical phrases and all values follow the source;
   each is linked at its commit from the reference named, and its licence text is in integrations/<name>/LICENSE),
   all under the MIT licence:
@@ -144,6 +158,22 @@ a source-manifest.json with the pinned commit):
   scripts/clip.ts and scripts/frames.sh bundled unchanged with upstream's LICENSE; SKILL.md is docs/method.md.
   Not bundled: media/, README.md, scripts/capture.ts and the Vite setup. Hashes in
   integrations/line-art-animation/source-manifest.json; the builder (kit/builders.mjs, lineart) is FrameCore Works' own.
+- MG styles engine (skills/framemotion/assets/mg-styles-engine): Vincentwei1021/mg-styles-15 (commit
+  8fab7eb49cc60590c518d1a932dfff753697fce7, MIT, Copyright (c) 2026 Vincentwei1021): eleven style films (demos/01, 02,
+  03, 05, 07, 08, 09, 10, 12, 20, 22) and the 15 style prompts bundled unchanged with upstream's LICENSE; ambientCG
+  Paper001 (CC0); Natural Earth land outlines in the HUD film (public domain). Fusion Pixel 12 (TakWolf/fusion-pixel-font
+  2026.11.10, OFL 1.1, with its Ark Pixel, Cubic 11 and Galmuri OFL texts), subset. Fonts from google/fonts commit 869789e84da92782c144d83d69b64cec54905b5f, SIL Open Font
+  License 1.1 (texts in mg-styles-engine/fonts/licences/): Caveat, Long Cang, LXGW Marker Gothic, Noto Sans SC and Noto
+  Serif SC (subset), Fraunces and Outfit (static instances), Michroma, Archivo, Mr Dafoe, Instrument Serif, IBM Plex Mono,
+  Inter, VT323, Fredoka, Cormorant Garamond, Unbounded (also a static 800 instance), Poppins, Press Start 2P, Chakra
+  Petch, JetBrains Mono, Rajdhani. Not bundled: the photo-based films, videos, site, harness and audio samples. Hashes in
+  integrations/mg-styles-15/source-manifest.json; the builder (kit/builders.mjs, mgstyles), README, grain plate and
+  tools/make_grain.py are FrameCore Works' own.
+- Anidoodle engine (skills/framemotion/assets/anidoodle-engine): alexgreensh/anidoodle (commit
+  4ae27d2c281fcfd01bce87ab13dc5ad4df81a795, engine 0.10.1, Apache License 2.0, Copyright 2026 Alex Greenshpun): the 74
+  source files of its 32 two-dimensional style films and its style catalogue bundled unchanged, with upstream's LICENSE
+  and NOTICE. FrameMotion's own builder bundles them; anidoodle's tools, three.js films, narration and sound pack are
+  not included.
 - rea-video (skills/framemotion/assets/reference-breakdown/rea-video): JuneYaooo/rea-video 0.1.0 (commit
   751596967f58b8949124d291e59bdc40fc04486e, Apache License 2.0, Copyright 2026 JuneYaooo), "rea-video by JuneYaooo":
   the rea_video package with upstream's LICENSE and NOTICE. Seven files are changed and marked "FrameMotion:"

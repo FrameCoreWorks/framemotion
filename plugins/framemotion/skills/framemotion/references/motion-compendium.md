@@ -102,6 +102,26 @@ HyperFrames names its craft, which lets a board plan say exactly what to build.
 | Sound out of step | Time by frames, not wall clock; cut and accent on the beat grid; check the render, not the preview |
 | Polish letters missing or wrong | A font with full Latin Extended-A; check ą ć ę ł ń ó ś ź ż on a snapshot before rendering |
 
+## 9. Motion personality, choreography and material (LottieFiles principles)
+
+Numbers restated from [LottieFiles/motion-design-skill](https://github.com/LottieFiles/motion-design-skill/tree/d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb) (MIT, Copyright (c) 2025 LottieFiles); they complete [motion craft](motion-craft.md), which already holds the easing directions, exit at 60–75 % of the entry and the overshoot policy. They come from interface motion: in a film, scale the durations with the frame (a 1080 px move is a "full screen" move) and keep the ratios.
+
+- **One personality a film.** Pick it from the brief and keep it in about 90 % of the moves; a single moment may borrow another (a corporate film's success beat may bounce). Each one has a signature curve, a duration palette (quick, standard, slow) and an entrance:
+
+  | Personality | Curve for most moves | Quick / standard / slow | Overshoot | Entrance |
+  | --- | --- | --- | --- | --- |
+  | Playful | ease-out-back | 150 / 250 / 400 ms | 10–20 % | bounces up from below |
+  | Premium | `cubic-bezier(0.4, 0, 0.2, 1)` | 350 / 500 / 800 ms | 0 % | slow fade with scale 98 → 100 % |
+  | Corporate | `cubic-bezier(0.2, 0, 0, 1)` | 200 / 300 / 450 ms | 0–3 % | slides in with opacity |
+  | Energetic | ease-out-expo | 100 / 180 / 300 ms | 15–30 % | snaps in from an edge with overshoot |
+
+- **Distance stretches time:** against a 100 px move, 50 px takes 0.8×, 200 px 1.3×, 300 px 1.5×, 400 px 1.6× and a full-frame move 1.8–2×.
+- **Material sets duration and bounce:** rigid metal 1.2× with no overshoot, rubber 0.8× with 15–25 %, water 1.5× with 5 %, paper and cards 1× with 3–5 %, smoke 2× with none, glass 0.9× with none.
+- **Choreography.** The hero moves first and furthest with the strongest curve; supporting elements are smaller in every respect and enter from the same side or origin. Counter-motion sells weight: when the hero enters from the left, the background drifts right at 20–30 % of its speed; when it lifts, its shadow spreads and softens. Depth through speed: foreground 1×, midground 0.5×, background 0.2×.
+- **Thirds.** A move longer than a third of the frame needs a turn, a speed change or an arc on the way; with three or more moving elements, at most a third move at once (element 1 settles as element 3 starts). A sequence spends about 20–30 % setting up, 30–40 % on the main action and 30–40 % settling, then holds still for 100–200 ms (3–6 frames at 30 fps) before the next move.
+- **Staggers** share one easing family and vary only the start; keep the whole stagger under about 500 ms (micro 20–40 ms a step, standard 50–100, dramatic 100–200); several elements answering one trigger all start within 50 ms and may land at different times; the last one may overshoot slightly as punctuation.
+- **Overshoot by meaning:** success 5–10 %, feedback 2–5 %, celebration 15–25 %, an error or a premium brand 0 %.
+
 ## Sources
 
 Checked 2026-10-12. Platform pages change; recheck before relying on a number.
@@ -118,3 +138,4 @@ Checked 2026-10-12. Platform pages change; recheck before relying on a number.
 - Lyric alignment: https://syncalong.readthedocs.io/, https://pypi.org/project/lyric-align/, WhisperX overview https://intelligent-earth.ox.ac.uk/node/3991471
 - Generated video across models (vendor comparisons): https://magichour.ai/blog/ai-video-model-benchmark
 - HyperFrames skills at commit `86521b9`: https://github.com/heygen-com/hyperframes
+- LottieFiles motion design principles (MIT), commit `d77a9fc`: https://github.com/LottieFiles/motion-design-skill

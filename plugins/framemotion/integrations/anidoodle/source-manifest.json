@@ -1,0 +1,478 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/alexgreensh/anidoodle",
+  "source_commit": "4ae27d2c281fcfd01bce87ab13dc5ad4df81a795",
+  "retrieved_on": "2026-11-20",
+  "license": "Apache-2.0",
+  "attribution": "Copyright 2026 Alex Greenshpun",
+  "activation": "bundled_2d_style_films_bundled_by_framemotion_esbuild_in_the_anidoodle_builder_no_upstream_node_tools_run",
+  "bundled_films": [
+    "balloonDraw",
+    "blueprint",
+    "brokenColour",
+    "charcoalErasure",
+    "colouredPencil",
+    "dreamGlazeDraw",
+    "embroidery",
+    "flatVector",
+    "folkTale",
+    "foxDraw",
+    "halftone",
+    "isometric",
+    "koiDraw",
+    "lighthouseDraw",
+    "lowPoly",
+    "mellanUnspool",
+    "midCentury",
+    "moonPhasesDraw",
+    "paintedOil",
+    "paperCraft",
+    "pixelArt",
+    "pocketWatchDraw",
+    "ranunculusDraw",
+    "rubberHose",
+    "scrapbook",
+    "scratchboard",
+    "stipple",
+    "storybookDraw",
+    "sumiE",
+    "toyBrick",
+    "woodcut",
+    "wrenDraw"
+  ],
+  "engine": "anidoodle",
+  "styles": {
+    "crayon": "balloonDraw",
+    "cyanotype": "blueprint",
+    "paper-collage": "foxDraw",
+    "toy-theatre": "paperCraft",
+    "oil": "paintedOil",
+    "woodblock": "woodcut",
+    "scratchboard": "scratchboard",
+    "single-line-engraving": "mellanUnspool",
+    "stipple": "stipple",
+    "pixel-art": "pixelArt",
+    "flat-vector": "flatVector",
+    "isometric": "isometric",
+    "coloured-pencil": "colouredPencil",
+    "pencil-watercolour": "ranunculusDraw",
+    "risograph": "lighthouseDraw",
+    "ink-wash": "wrenDraw",
+    "mid-century": "midCentury",
+    "rubber-hose": "rubberHose",
+    "low-poly": "lowPoly",
+    "broken-colour": "brokenColour",
+    "charcoal": "charcoalErasure",
+    "dream-glaze": "dreamGlazeDraw",
+    "embroidery": "embroidery",
+    "folk-tale": "folkTale",
+    "halftone": "halftone",
+    "scrapbook": "scrapbook",
+    "storybook": "storybookDraw",
+    "toy-brick": "toyBrick",
+    "sumi-e": "sumiE",
+    "marker-comic": "koiDraw",
+    "chalkboard": "moonPhasesDraw",
+    "ballpoint": "pocketWatchDraw"
+  },
+  "not_bundled": [
+    "skills/anidoodle/engine/tools/ and the skill text (SKILL.md, references/): anidoodle's Node build, render and review tools; FrameMotion's builder and renderer replace them",
+    "src/three-core, the three.js films and vendor/three: not part of the 2-D style looks",
+    "launch, lesson, mascot, character, fixture and demo films, src/hosts/page-*.ts and the worked example (skills/anidoodle/example)",
+    "narration (ElevenLabs provider) and the optional sound pack (OpenAIR rooms, CC BY 4.0; VCSL, CC0): the films render silent",
+    "assets/refs (painting reference), assets/brand, assets/narration, assets/fonts: not used by these films",
+    "test/, reviews/, facts/, package.json and its lock: upstream development files"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/LICENSE",
+      "sha256": "aa7ba36133bb07559b8f2f96eb4d7e2e95003432238973b31b6727517bd6c0a0"
+    },
+    {
+      "source_path": "NOTICE",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/NOTICE",
+      "sha256": "a64251fc9012656f4d335dadf3c7182794981235d11f4a5c77161830b1ac7a2e"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/balloon.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/balloon.ts",
+      "sha256": "7035bb36d7eed5d18580a5c1835638664b0eb811aa20a23c11766f578c3c2f23"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/balloonDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/balloonDraw.ts",
+      "sha256": "a0f67b7e9036d4ea168c5a9ac26933b6f53580ec868b5eb802cfb75333168274"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/blueprint.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/blueprint.ts",
+      "sha256": "de1840adf4e414b690f5e19236fc1831d8f414ed4176673575ddceb7c0ca9ff3"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/blueprintKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/blueprintKit.ts",
+      "sha256": "bc29010d038292a38a94248a44eaa087363f745e5b8da5d5eb33a41145652568"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/brokenColour.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/brokenColour.ts",
+      "sha256": "b0bfe6ea9cd98bc7a46171de2a70a1c9a6c589787e0fb244faf92d123a8b6015"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/brokenColourKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/brokenColourKit.ts",
+      "sha256": "e4fcbe7da055457e33d65b2b04aa208699657e5590c74085d91725cc82b01939"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/charcoalErasure.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/charcoalErasure.ts",
+      "sha256": "8186d0b3be1552722ecf5561efc0a968e475a60e6611ba6649a981fed3d58821"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/charcoalErasureKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/charcoalErasureKit.ts",
+      "sha256": "52b661914584a6c2255230f446aa08849b11428c75fb0ab21217c069a6eff3ac"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/colouredPencil.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/colouredPencil.ts",
+      "sha256": "2296a50d01886074e591c279d4f9470d574b5f951aeed82262317d6409afe7a3"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/colouredPencilCrow.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/colouredPencilCrow.ts",
+      "sha256": "96720cb90f07ce9fdeb212ff0b19ab32497a2ec998d8c8c2f2b8cd343446e7b2"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/colouredPencilKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/colouredPencilKit.ts",
+      "sha256": "5f7ba7c2a69bed731f7b451a1d93d94e141dc305f9e359ae871cb9590443aa85"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/core.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/core.ts",
+      "sha256": "168daaa97b505188f24889bae33e9c3b6b5171e1f048d13d6aa0b95dfdac2099"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/drafting.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/drafting.ts",
+      "sha256": "d601aa7f25ada3995865f50994b37db0b4dddd0adcae1e5a8fbbc77d06d2b9f3"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/dreamGlaze.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/dreamGlaze.ts",
+      "sha256": "496d7acb1a12b7c649a6d08766ffb0bbc47e32e559635f0196295adcd388eec4"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/dreamGlazeDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/dreamGlazeDraw.ts",
+      "sha256": "2067f31a2f66bb01f0bd571bd249bb78b62a2f6394856a81a08133aa9620a451"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/dreamGlazeKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/dreamGlazeKit.ts",
+      "sha256": "7903aec54e82a76e4a440ca5ba0101bc3294eafc25c4ae9e5f75f85ad8f1ecc5"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/embroidery.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/embroidery.ts",
+      "sha256": "14667d0d751658f559e795c2eebad6056f19216538e30f3db9a255877a85908c"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/embroideryKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/embroideryKit.ts",
+      "sha256": "9a7e8fda89d2da75a09107d52b46dc383c54718c2114f81c74b81256700da4d6"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/film.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/film.ts",
+      "sha256": "ef3bfbaa791e8ec74e5925cfcd760ed41b8efaaba65081b84732b7bc60baba0d"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/flatVector.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/flatVector.ts",
+      "sha256": "a66bef5e0c157818258f01329b660c69db3f7fedeb03ea131cfb184eab5af050"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/folkTale.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/folkTale.ts",
+      "sha256": "7b05ec013958c32b5467d97b2505b0488c55b87c57996fb492bc48e41ec114ce"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/folkTaleKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/folkTaleKit.ts",
+      "sha256": "537f64783a3af12082490708207b559d7a86a730690fb9cd487ae896a2dc1879"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/fox.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/fox.ts",
+      "sha256": "6bd6d366b941ccec152c372b3d95759fc1a873dfcc94abd75dc6c15a98f47ffe"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/foxDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/foxDraw.ts",
+      "sha256": "a7752f83890855ef265e2254b17efb42aeedafa4b942ef2f42e902d08057c30c"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/gallery.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/gallery.ts",
+      "sha256": "60e465c52d6f47e72b438da9f57da44769794a2502729c52df9dd62491584244"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/halftone.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/halftone.ts",
+      "sha256": "c3e073fbd350db483ad24112a1b23cbbf4f1100291bdcc3039f262978d9ceaf1"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/halftoneKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/halftoneKit.ts",
+      "sha256": "2ade8c1e2cd4dff1a684ff1e092e44d11796882f92915cb904ce993f851d87d1"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/halftoneScene.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/halftoneScene.ts",
+      "sha256": "03be7b05143aaf24c64f6570e9411ffef14b161c6ad9f6b24313a176a06378b1"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/isometric.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/isometric.ts",
+      "sha256": "a0e73d8b599dc48436f97eea4c2137e275810336bd5581de97d71b726c95a7eb"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/isometricKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/isometricKit.ts",
+      "sha256": "1dd82f3aff9ea0523ab174d3330a3e98002501483bfe3a687fb738abbc2dfc10"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/koi.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/koi.ts",
+      "sha256": "04573e1c4707fc9209a6909cbccd1e6370dcefde0ac6b8d2e5d0c5f7e7cff900"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/koiDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/koiDraw.ts",
+      "sha256": "be35cfb9e4eb0903692c53339d95ac41836f424a648ffc251c5f172bfb5a4d63"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/koiDrawKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/koiDrawKit.ts",
+      "sha256": "24e362f68f66980c73bdc3a62ae1a1892553702992f3454bc34a9d2b86ee9c51"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/lighthouse.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/lighthouse.ts",
+      "sha256": "9cb0d22c714561113f94ed18371d9a44e55d08ce184b543ccabda3c3832f59d5"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/lighthouseDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/lighthouseDraw.ts",
+      "sha256": "d626a9c5d55ae79cd59a3862bfd3dc878cb8ae5ed480d30f9c42bca408d88229"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/lowPoly.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/lowPoly.ts",
+      "sha256": "5fc554088d17818d9976f847173e6501a9f3b8ec8d747256214787ef31afcb47"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/mellan.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/mellan.ts",
+      "sha256": "ac27aa50e29b5312bd98859e8a30b86b0075c8b0043f602e111b318fa774431e"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/mellanUnspool.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/mellanUnspool.ts",
+      "sha256": "c71830b7666d9f225c69b40c6480f76e55e67f22dd902ae9ffce0031849532a1"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/midCentury.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/midCentury.ts",
+      "sha256": "0f6c8c1021c7fbfc79f5d8115d2e66173cb6da5c3b9216a344855ca20c16a9db"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/moonPhases.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/moonPhases.ts",
+      "sha256": "072e6d9fcd3bbf912d03b5590f033e9993956f1eb02a5d37f7e3e35f0140685a"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/moonPhasesDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/moonPhasesDraw.ts",
+      "sha256": "cfa5d8acd4c9fc71d64eb9725260093e276edb87fcb07a8fa7e72519833c89d0"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/music/dsp.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/music/dsp.ts",
+      "sha256": "dc4e5c077f55476775ccea0e3c9592c749f19200e1649c8a14cd0fbfa73c5045"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/paintedOil.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/paintedOil.ts",
+      "sha256": "f3b5d2c8bfd80e42f7f8dfd2ddcce35ddf93c970d054a4ddbdde7d0e9908df67"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/paintedOilKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/paintedOilKit.ts",
+      "sha256": "35474a5b325cf38f85f8c9901106793439944c167bc3638e8e05bc9c5488838d"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/paperCraft.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/paperCraft.ts",
+      "sha256": "dfc0bbed4edfe2a397dbb6d5e2f82fe3f931ced875efa558b303b21f3f52d0be"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/pixelArt.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/pixelArt.ts",
+      "sha256": "17aaad34696d943f8c085cee5e5462fcb1e9b82941423d22d0b2fc6e2c733fa6"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/pixelArtKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/pixelArtKit.ts",
+      "sha256": "2c3ef4dbc4e35e17870cb59c1034dc3eac66f9f51d5433cb1855f2a78f95855a"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/pocketWatch.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/pocketWatch.ts",
+      "sha256": "e5bb8d9129dce4656dedc036ac27a92546fa1966c1c9038714dc5a48d7ca0769"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/pocketWatchDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/pocketWatchDraw.ts",
+      "sha256": "4488276dac868fff9b38218ea2e1af009129aff7be6b9e258f839b122ba62849"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/ranunculusDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/ranunculusDraw.ts",
+      "sha256": "3a14f34fd05f7d8602ab79bd3e4d90668701f8e7dae1c8e3903ac1293cfe536a"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/riso.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/riso.ts",
+      "sha256": "a28fe9e826e491112a20ca4393aeafaaaac6eaaa792da641e45bd1e4a6a6cc29"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/rubberHose.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/rubberHose.ts",
+      "sha256": "8b7f32f714b282ebde565ba7dbac7f3f145b721bfee6516951852de9295252df"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/rubberHoseKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/rubberHoseKit.ts",
+      "sha256": "cb562afecad5a9ceab3da338da9f3b2822124b1d7f62d59c72cae8ebcffc2a55"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/scrapbook.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/scrapbook.ts",
+      "sha256": "3f99499426ebfee63e98449f14eee83f949b685eb35ceb28b0a751a9fbc05db4"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/scrapbookEngraving.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/scrapbookEngraving.ts",
+      "sha256": "cdd07f35e590370f7c6a3039243b97939913413b4d03cddf901f775292154dbe"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/scrapbookKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/scrapbookKit.ts",
+      "sha256": "6e62aaf114e02609bdca35835b3fd158b69031864af900ac6f90cb575b08fd8d"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/scratchboard.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/scratchboard.ts",
+      "sha256": "6950dbc2a5d4468eb1c895d972caac06f53b6766d342045c0342c74527825b9f"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/scratchboardKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/scratchboardKit.ts",
+      "sha256": "6aa5e9b58bb06ab809f0edfb9c515f179dc0799a41ac301119f15291653c50a6"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/stipple.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/stipple.ts",
+      "sha256": "761424bf961af2f94129494af7b5f3ed72dc36b66a7069827f8cf502e9e26eeb"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/stippleKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/stippleKit.ts",
+      "sha256": "b30402cfafaae1bae1656fca71f229d10a6b17137d16db825bf6f1082e4c2f45"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/storybook.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/storybook.ts",
+      "sha256": "f1c9b2fc9ce54057ba69f32722c151b3c673e1cef13cfea41be7312b903ec79c"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/storybookDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/storybookDraw.ts",
+      "sha256": "ead24940f096843e74f94949a11e7297197da48965520fc35995a8fbed7c2d79"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/sumiE.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/sumiE.ts",
+      "sha256": "918c8ef1f408ce34c0f059fcaf42f5e5fe1cfa96eeceaff025453fc614c3419e"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/sumiEKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/sumiEKit.ts",
+      "sha256": "6d7fca7ee096b43adc37f7e44f481d43919d61ebec92d4138912ba7749079091"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/toyBrick.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/toyBrick.ts",
+      "sha256": "bbb1292db966934e2e24138035e914eaee9f5990d9b2a41c0d7fb2136a408fc6"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/toyBrickKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/toyBrickKit.ts",
+      "sha256": "20c47dbadcc9564db7fe1074ae8d3ebcd5dcdcb400c91778568300b57347bdff"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/woodcut.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/woodcut.ts",
+      "sha256": "5ad671bc732907f29e20c0b30999ebd86462466e9392ee4a7b313426217d3d3d"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/woodcutKit.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/woodcutKit.ts",
+      "sha256": "0b580ec41f97c5ab2b05681cb9bdcf38b1289381011b8811c77db1d703c47040"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/wren.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/wren.ts",
+      "sha256": "ed3a6a149ecf66db9a251730f531fa14570809e68c275339284c09174f92cf2e"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/canvas-core/wrenDraw.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/canvas-core/wrenDraw.ts",
+      "sha256": "7a070628d6ca1789a7c385d75c8fa909ef7f21e3231e8f96926bd08acbcf5f21"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/hosts/audio.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/hosts/audio.ts",
+      "sha256": "4905ec4f1b725274bd3f4870781cb828cb3ecce847007ccb531892dc4a0eccb9"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/hosts/instrument.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/hosts/instrument.ts",
+      "sha256": "945d6ac5a79ca2b1303af24c96d2ad807c14b258a4b33313c8cd7e4694e8bbf5"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/hosts/page.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/hosts/page.ts",
+      "sha256": "306c07580cee246f8baacdd09b88461fc73e56b12538c0eedd5d485bd0a0d794"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/src/hosts/probe.ts",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/src/hosts/probe.ts",
+      "sha256": "e0f916061010e588bfaad0fc8e6b81282173c57615e7c5f18d98a0ba88015869"
+    },
+    {
+      "source_path": "skills/anidoodle/engine/styles.gen.json",
+      "destination_path": "../../skills/framemotion/assets/anidoodle-engine/upstream/engine/styles.gen.json",
+      "sha256": "c411a9303e4d9e0b704b94bf3efae5afdf9c44b44c62fa56478ae3d20dbf69d4"
+    }
+  ],
+  "own_files": [
+    "../../skills/framemotion/assets/anidoodle-engine/README.md",
+    "../../skills/framemotion/assets/anidoodle-engine/examples/canvas-core/ownExample.ts",
+    "../../skills/framemotion/assets/anidoodle-engine/styles.json"
+  ]
+}
