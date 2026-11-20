@@ -3737,13 +3737,14 @@
       "id": "anidoodle",
       "title": "Anidoodle: hand-drawn animation in 32 styles (crayon, ink, chalk, embroidery, woodblock, pixel and more), drawn on stroke by stroke",
       "group": "handmade-looks",
-      "about": "Hand-drawn animation in 32 styles, from crayon and chalk to embroidery and woodblock, drawn on stroke by stroke; new styles can be added.",
+      "about": "Hand-drawn animation in 32 styles, from crayon and chalk to embroidery, or your own logo or picture drawn by hand (style motif).",
       "good_for": [
         "story",
         "background"
       ],
       "inputs": [
-        "none"
+        "none",
+        "image"
       ],
       "status": "ready",
       "kind": "canvas",
@@ -3768,7 +3769,60 @@
         "style": {
           "type": "string",
           "default": "embroidery",
-          "about": "the style: crayon, cyanotype, paper-collage, toy-theatre, oil, woodblock, scratchboard, single-line-engraving, stipple, pixel-art, flat-vector, isometric, coloured-pencil, pencil-watercolour, risograph, ink-wash, mid-century, rubber-hose, low-poly, broken-colour, charcoal, dream-glaze, embroidery, folk-tale, halftone, scrapbook, storybook, toy-brick, sumi-e, marker-comic, chalkboard, ballpoint (or a style added to styles.json)"
+          "about": "the style: crayon, cyanotype, paper-collage, toy-theatre, oil, woodblock, scratchboard, single-line-engraving, stipple, pixel-art, flat-vector, isometric, coloured-pencil, pencil-watercolour, risograph, ink-wash, mid-century, rubber-hose, low-poly, broken-colour, charcoal, dream-glaze, embroidery, folk-tale, halftone, scrapbook, storybook, toy-brick, sumi-e, marker-comic, chalkboard, ballpoint, motif (your own picture: set motif and medium) (or a style added to styles.json)"
+        },
+        "from": {
+          "type": "number",
+          "min": 0,
+          "max": 60,
+          "default": 0,
+          "timing": true,
+          "about": "seconds to skip after the style's own start (the first moment with a mark, so the reel does not open on blank paper)"
+        },
+        "blank_start": {
+          "type": "boolean",
+          "default": false,
+          "timing": true,
+          "about": "open on the blank page (frame 0 of the film) instead of the first mark"
+        },
+        "length": {
+          "type": "number",
+          "min": 0,
+          "max": 120,
+          "default": 0,
+          "timing": true,
+          "about": "render length in seconds: the drawing is fitted into it (faster or slower, for a 5 to 8 s reel); 0 keeps the film's own pace"
+        },
+        "brightness": {
+          "type": "number",
+          "min": 0.5,
+          "max": 2,
+          "default": 1,
+          "about": "brightness on top of the style's own (1 = as the style is set; oil is lifted for phone screens)"
+        },
+        "contrast": {
+          "type": "number",
+          "min": 0.5,
+          "max": 2,
+          "default": 1,
+          "about": "contrast on top of the style's own (1 = as the style is set; ballpoint and stipple are firmer)"
+        },
+        "motif": {
+          "type": "string",
+          "default": "",
+          "about": "for the style \"motif\": the path to your SVG (a logo, an icon or line art, drawn line by line and coloured in) or PNG/JPG (revealed by hand strokes)"
+        },
+        "medium": {
+          "type": "string",
+          "enum": [
+            "pencil",
+            "ink",
+            "crayon",
+            "chalk",
+            "marker"
+          ],
+          "default": "pencil",
+          "about": "for the style \"motif\": what it is drawn with (chalk draws on a dark board)"
         }
       }
     }

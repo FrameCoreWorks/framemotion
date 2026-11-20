@@ -146,8 +146,16 @@ export function resolveStyle(entry, params, root = ENGINES_ROOT, own = process.e
   const name = params.style ?? entry.params?.style?.default;
   const row = table[name];
   if (!row) throw new RangeError(`${entry.id} has no style "${name}" (its styles: ${Object.keys(table).join(', ')}).`);
-  return {...entry, size: row.size ?? entry.size, fps: row.fps ?? entry.fps, duration: row.duration ?? entry.duration,
-    build: {...entry.build, film: row.film, ...(row.folder ? {folder: row.folder} : {})}};
+  const fps = row.fps ?? entry.fps, film = row.duration ?? entry.duration;
+  // Timing: the render opens at the style's own `start` (the first moment with a mark, so a reel does not open on
+  // blank paper) plus `from` seconds; `blank_start` opens at the film's frame 0 instead. `length` (0 = the film's
+  // own pace) fits the rest into that many seconds. Tone: `brightness` and `contrast` multiply the style's own.
+  const from = (params.blank_start ? 0 : row.start ?? 0) + (params.from ?? 0);
+  if (!(from < film - 1 / fps)) throw new RangeError(`${entry.id}: the style "${name}" is ${film} s long; from ${from} s nothing is left.`);
+  const duration = Math.round((params.length || film - from) * fps) / fps;
+  const tone = {brightness: (row.brightness ?? 1) * (params.brightness ?? 1), contrast: (row.contrast ?? 1) * (params.contrast ?? 1)};
+  return {...entry, size: row.size ?? entry.size, fps, duration,
+    build: {...entry.build, film: row.film, ...(row.folder ? {folder: row.folder} : {}), from, rate: (film - from) / duration, ...tone}};
 }
 
 export async function openEngine(id, {params: given = {}, gpu = false, root = ENGINES_ROOT} = {}) {

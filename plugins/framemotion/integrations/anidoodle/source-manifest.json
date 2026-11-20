@@ -473,6 +473,7 @@
   "own_files": [
     "../../skills/framemotion/assets/anidoodle-engine/README.md",
     "../../skills/framemotion/assets/anidoodle-engine/examples/canvas-core/ownExample.ts",
+    "../../skills/framemotion/assets/anidoodle-engine/motif/canvas-core/motifDraw.ts",
     "../../skills/framemotion/assets/anidoodle-engine/styles.json"
   ]
 }

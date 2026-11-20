@@ -813,7 +813,8 @@ ${code}
    * synchronously; renderFrame(t) waits for FILM.ready (assets decoded), then seeks round(t * fps).
    * Three.js films are not bundled: a film that imports "three" fails the build with a clear error.
    */
-  async anidoodle(entry, enginesRoot) {
+  async anidoodle(entry, enginesRoot, params = {}) {
+    const motif = entry.build.film === 'motifDraw' ? readMotif(entry, params) : null;
     const engineSrc = path.join(sibling(enginesRoot, 'anidoodle-engine'), 'upstream/engine/src');
     const film = String(entry.build.film ?? '');
     if (!/^[A-Za-z][A-Za-z0-9]*$/.test(film)) throw new Error(`${entry.id}: build.film must be a film's export name`);
@@ -860,14 +861,16 @@ ${code}
     // and centred, over a soft, darkened, blurred copy of itself that fills the frame.
     fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html><head><meta charset="utf-8">
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#000}#film{display:none}#frame{display:block;width:100vw;height:100vh}</style></head>
-<body><canvas id="film"></canvas><canvas id="frame"></canvas><script>window.__ASSETS__={};window.__BAKE_SRC__={};</script>
+<body><canvas id="film"></canvas><canvas id="frame"></canvas><script>window.__ASSETS__=${motif ? JSON.stringify(motif.assets).replace(/</g, '\\u003c') : '{}'};window.__BAKE_SRC__={};window.__MOTIF__=${motif ? JSON.stringify(motif.spec).replace(/</g, '\\u003c') : 'undefined'};</script>
 <script>${code}</script>
 <script>(() => {
   const q = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
   const film = document.getElementById('film'), frame = document.getElementById('frame'), g = frame.getContext('2d');
+  const T = ${JSON.stringify({from: entry.build.from ?? 0, rate: entry.build.rate ?? 1, brightness: entry.build.brightness ?? 1, contrast: entry.build.contrast ?? 1})};
+  const tone = T.brightness === 1 && T.contrast === 1 ? 'none' : 'brightness(' + T.brightness + ') contrast(' + T.contrast + ')';
   window.renderFrame = async (t) => {
     const F = window.FILM; await F.ready;
-    F.seek(Math.max(0, Math.min(F.meta.durationFrames - 1, Math.round(t * F.meta.fps))));
+    F.seek(Math.max(0, Math.min(F.meta.durationFrames - 1, Math.round((T.from + t * T.rate) * F.meta.fps))));
     const W = q.width ?? F.meta.W, H = q.height ?? F.meta.H, fw = film.width, fh = film.height;
     if (frame.width !== W || frame.height !== H) { frame.width = W; frame.height = H; }
     g.setTransform(1, 0, 0, 1, 0, 0); g.filter = 'none'; g.globalAlpha = 1;
@@ -879,12 +882,32 @@ ${code}
       g.filter = 'none';
     }
     g.imageSmoothingQuality = 'high';
+    g.filter = tone;
     g.drawImage(film, Math.round((W - dw) / 2), Math.round((H - dh) / 2), dw, dh);
+    g.filter = 'none';
   };
 })();</script></body></html>`);
     return {dir, page: 'index.html', query: {adapter: 'framemotion'}};
   },
 };
+
+/**
+ * The user's picture for the anidoodle motif style: `motif` is a path to an SVG (drawn line by line, then
+ * coloured in) or a PNG or JPG (revealed by hand strokes), `medium` one of pencil, ink, crayon, chalk, marker.
+ * The file is read here and embedded in the page as data; nothing else of the user's folder is copied.
+ */
+function readMotif(entry, params) {
+  const file = params.motif ? path.resolve(params.motif) : '';
+  if (!file || !fs.existsSync(file) || !fs.statSync(file).isFile()) {
+    throw new RangeError(`${entry.id}: the motif style needs "motif", the path to your SVG, PNG or JPG${file ? ` (not found: ${file})` : ''}.`);
+  }
+  if (fs.statSync(file).size > 20 * 1024 * 1024) throw new RangeError(`${entry.id}: ${file} is over 20 MB; use a smaller picture.`);
+  const ext = path.extname(file).toLowerCase(), medium = params.medium ?? 'pencil';
+  if (ext === '.svg') return {assets: {}, spec: {kind: 'svg', medium, svg: fs.readFileSync(file, 'utf8')}};
+  const type = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg'}[ext];
+  if (!type) throw new RangeError(`${entry.id}: the motif must be .svg, .png or .jpg (got ${ext || 'no extension'}).`);
+  return {assets: {motif: `data:${type};base64,${fs.readFileSync(file).toString('base64')}`}, spec: {kind: 'image', medium}};
+}
 
 export async function buildEntry(entry, enginesRoot, params = {}) {
   const builder = BUILDERS[entry.build?.tool];

@@ -63,7 +63,8 @@ class AnidoodleEngineTest(unittest.TestCase):
         self.assertFalse([e['id'] for e in REGISTRY['engines'] if e['id'].startswith('ad-')])
         self.assertEqual((ENGINE.parent / 'engines' / engine['styles']).resolve(), (ENGINE / 'styles.json').resolve())
         self.assertIn(engine['params']['style']['default'], STYLES)
-        bundled = {n: r for n, r in STYLES.items() if not r.get('template')}
+        # The upstream films; FrameMotion's own (the template and the motif film) live in their own folders.
+        bundled = {n: r for n, r in STYLES.items() if 'folder' not in r}
         self.assertEqual(len(bundled), 32)
         self.assertEqual({n: r['film'] for n, r in bundled.items()}, MANIFEST['styles'])
         self.assertEqual(sorted(r['film'] for r in bundled.values()), MANIFEST['bundled_films'])

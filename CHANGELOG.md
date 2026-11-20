@@ -4,6 +4,7 @@ The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/frame
 
 ## 2026-11-20
 
+- FrameMotion 0.7.0: anidoodle draws the user's own logo or picture (style `motif`), opens at the first mark, fits a reel length, and has tone settings.
 - FrameMotion 0.6.0: seven candidates from the X list (mg-styles films and ways, the anidoodle hand-drawn engine, three.quarks effects, motionmaxxing gates, cinetic device book and copy check, Blender kit, reference match and LottieFiles principles).
 
 ## 2026-11-18
