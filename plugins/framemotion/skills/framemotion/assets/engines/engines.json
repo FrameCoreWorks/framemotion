@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes. method_of names the engine an entry is a second way of animating (the same look by another method, Kamil 2026-11-20: duplicates improve an engine, never a second one); the menu lists it under that engine, not on its own.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes. method_of names the engine an entry is a second way of animating (the same look by another method, Kamil 2026-11-20: duplicates improve an engine, never a second one); the menu lists it under that engine, not on its own, and the engine renders it with the setting \"way\": the way's id (render-engine.mjs resolveWay; \"default\" or no way is the engine's own film).",
   "groups": [
     {
       "id": "text-titles-logos",
@@ -963,6 +963,91 @@
           "type": "string",
           "default": "#0d0f14",
           "about": "a CSS colour painted under the particles, or \"transparent\" for an overlay with alpha"
+        }
+      }
+    },
+    {
+      "id": "quarks-3d-effects",
+      "title": "three.quarks: 3D fire, smoke, sparks and magic, stepped on the clock",
+      "group": "transitions-effects-backgrounds",
+      "about": "Fire, smoke, flying sparks and a magic swirl, with real depth.",
+      "good_for": [
+        "effect",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
+      "status": "ready",
+      "kind": "three",
+      "page": "libraries/quarks/index.html",
+      "size": {
+        "width": 540,
+        "height": 960
+      },
+      "fps": 30,
+      "duration": 4,
+      "readme": "libraries/README.md",
+      "sources": [
+        "three.quarks"
+      ],
+      "blocks": [
+        "libraries/quarks/presets.mjs",
+        "libraries/library-kit.mjs"
+      ],
+      "params": {
+        "preset": {
+          "type": "string",
+          "default": "fire",
+          "about": "fire, smoke, sparks or magic",
+          "enum": [
+            "fire",
+            "smoke",
+            "sparks",
+            "magic"
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "default": 11,
+          "min": 0,
+          "max": 4294967295,
+          "about": "every random choice of the simulation"
+        },
+        "steps": {
+          "type": "integer",
+          "default": 2,
+          "min": 1,
+          "max": 8,
+          "about": "simulation steps per frame"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "duration": {
+          "type": "number",
+          "default": 4,
+          "min": 0.1,
+          "max": 120,
+          "timing": true,
+          "about": "seconds"
+        },
+        "background": {
+          "type": "string",
+          "default": "#0d0f14",
+          "about": "a CSS colour behind the effect, or \"transparent\" for an overlay with alpha"
+        },
+        "camera": {
+          "type": "number",
+          "default": 70,
+          "min": 20,
+          "max": 300,
+          "about": "camera distance from the effect (smaller is closer)"
         }
       }
     },
@@ -3228,12 +3313,18 @@
       "capture": "#fm-canvas"
     },
     {
-      "about": "Hand-drawn cel animation on paper: every drawing redrawn so the lines tremble, like a classic animation desk.",
+      "about": "A style showcase film: hand-drawn cel animation on paper, lines that tremble like a classic animation desk; its words can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "mgstyles",
-        "film": "05-cel-boil"
+        "film": "05-cel-boil",
+        "replace": {
+          "一帧一帧": "frame by",
+          "亲手点亮": "frame",
+          "星火牌": "SPARK",
+          "安 全 火 柴": "S A F E T Y"
+        }
       },
       "capture": "#c",
       "duration": 10,
@@ -3260,12 +3351,15 @@
       "title": "MG style film, frame-by-frame cel animation: hand-drawn lines that boil on paper, drawn on twos (16:9)"
     },
     {
-      "about": "Liquid that drops, splashes and flows into your word, glossy and soft.",
+      "about": "A style showcase film: liquid drops, splashes and flows into a four-letter word, glossy and soft; the word and tagline can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "mgstyles",
-        "film": "07-liquid"
+        "film": "07-liquid",
+        "replace": {
+          "万物始于一滴": "It all starts with a drop"
+        }
       },
       "capture": "#c",
       "duration": 10,
@@ -3289,10 +3383,11 @@
         "mg-styles-15"
       ],
       "status": "ready",
-      "title": "MG style film, liquid motion: a drop that splashes, pools and flows into a word (16:9)"
+      "title": "MG style film, liquid motion: a drop that splashes, pools and flows into a word (16:9)",
+      "gpu_recommended": true
     },
     {
-      "about": "One simple shape changes into one picture after another and ends as your name.",
+      "about": "A style showcase film: one shape changes into picture after picture and ends as a wordmark (fixed sample words).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
@@ -3310,7 +3405,7 @@
       "group": "text-titles-logos",
       "id": "mg-morph",
       "inputs": [
-        "text"
+        "none"
       ],
       "kind": "canvas",
       "readme": "../mg-styles-engine/README.md",
@@ -3325,7 +3420,7 @@
       "title": "MG style film, shape morph: one shape turns into icon after icon and ends as the wordmark (16:9)"
     },
     {
-      "about": "The 1980s: a neon road into a sunset, chrome letters, glowing handwriting and a worn tape look.",
+      "about": "A style showcase film: the 1980s, a neon road into a sunset, chrome letters and glowing handwriting; the title can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
@@ -3357,7 +3452,7 @@
       "title": "MG style film, 1980s synthwave and VHS: a neon grid road, a chrome title and a glowing script (16:9)"
     },
     {
-      "about": "Soft moving colour light behind frosted glass panels, calm and modern.",
+      "about": "A style showcase film: soft moving light behind frosted glass panels, calm and modern (fixed sample words).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
@@ -3375,7 +3470,7 @@
       "group": "transitions-effects-backgrounds",
       "id": "mg-aurora-glass",
       "inputs": [
-        "text"
+        "none"
       ],
       "kind": "canvas",
       "readme": "../mg-styles-engine/README.md",
@@ -3390,7 +3485,7 @@
       "title": "MG style film, aurora gradient and glassmorphism: soft colour light behind frosted glass cards (16:9)"
     },
     {
-      "about": "A second way: one bouncing dot builds a whole flat-colour world around your name.",
+      "about": "A second way: a style showcase film where one bouncing dot builds a flat-colour world (fixed sample words, partly Chinese).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
@@ -3406,7 +3501,7 @@
       "group": "text-titles-logos",
       "id": "mg-flat-vector",
       "inputs": [
-        "text"
+        "none"
       ],
       "kind": "svg",
       "method_of": "launch-shapes",
@@ -3423,12 +3518,15 @@
       "title": "MG style film, flat vector: one dot that bounces, splits and builds a flat-colour brand world (16:9)"
     },
     {
-      "about": "A second way: one fine ink line draws every scene and then your title.",
+      "about": "A second way: a style showcase film where one fine ink line draws every scene; the tagline can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "mgstyles",
-        "film": "02-line-art"
+        "film": "02-line-art",
+        "replace": {
+          "始于一线": "one line"
+        }
       },
       "capture": "#c",
       "duration": 10,
@@ -3456,12 +3554,15 @@
       "title": "MG style film, line art: one ink line that draws the scenes and the title (16:9)"
     },
     {
-      "about": "A second way: a small 2.5D city builds itself block by block while the camera glides.",
+      "about": "A second way: a style showcase film where a small city builds itself block by block; the tagline can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "mgstyles",
-        "film": "03-isometric"
+        "film": "03-isometric",
+        "replace": {
+          "让城市自己生长": "A city grows"
+        }
       },
       "capture": "#c",
       "duration": 10,
@@ -3485,10 +3586,11 @@
         "mg-styles-15"
       ],
       "status": "ready",
-      "title": "MG style film, isometric 2.5D city: blocks rise, roads light up, the camera glides (16:9)"
+      "title": "MG style film, isometric 2.5D city: blocks rise, roads light up, the camera glides (16:9)",
+      "gpu_recommended": true
     },
     {
-      "about": "A second way: circles, squares and bars in strong primary colours move on the beat.",
+      "about": "A second way: a style showcase film of circles, squares and bars in primary colours on the beat (fixed sample words).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
@@ -3504,7 +3606,7 @@
       "group": "era-film-moods",
       "id": "mg-bauhaus",
       "inputs": [
-        "text"
+        "none"
       ],
       "kind": "canvas",
       "method_of": "lemo-swiss-motion",
@@ -3520,12 +3622,16 @@
       "title": "MG style film, geometric Bauhaus: circles, squares and bars in primary colours on a beat grid (16:9)"
     },
     {
-      "about": "A second way: a little pixel hero runs a short level and lands on your title.",
+      "about": "A second way: a style showcase film where a pixel hero runs a short level; the dialogue lines can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "mgstyles",
-        "film": "20-pixel"
+        "film": "20-pixel",
+        "replace": {
+          "欢迎来到像素世界！": "Welcome to the pixel world!",
+          "神秘宝箱 像素冒险": "Mystery chest"
+        }
       },
       "capture": "#c",
       "duration": 10,
@@ -3553,12 +3659,15 @@
       "title": "MG style film, pixel art quest: a sprite hero, tiles, coins and a bitmap title (16:9)"
     },
     {
-      "about": "A second way: a glowing sci-fi screen with a 3D globe, a target lock and readouts.",
+      "about": "A second way: a style showcase film of a sci-fi screen with a 3D globe and a target lock; the lock words can be changed.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "mgstyles",
-        "film": "22-hud"
+        "film": "22-hud",
+        "replace": {
+          "目标锁定": "LOCK ON"
+        }
       },
       "capture": "body > canvas",
       "duration": 10,
@@ -3586,14 +3695,14 @@
       "title": "MG style film, cyberpunk HUD: a 3D globe, target lock and readouts in neon (16:9)"
     },
     {
-      "about": "A second way: a crayon picture drawn on stroke by stroke, then it comes alive (a hot-air balloon).",
+      "about": "A second way: a style showcase film, a crayon picture drawn on stroke by stroke, then it comes alive (a hot-air balloon).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "balloonDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -3619,14 +3728,14 @@
       "method_of": "lemo-crayon-book"
     },
     {
-      "about": "A second way: a cyanotype drafting sheet where a machine is drawn, measured and set going (a train).",
+      "about": "A second way: a style showcase film, a cyanotype drafting sheet where a machine is drawn, measured and set going (a train).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "blueprint"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -3652,14 +3761,14 @@
       "method_of": "lemo-blueprint"
     },
     {
-      "about": "A second way: cut-paper pieces laid down one by one into a picture (a fox at dusk).",
+      "about": "A second way: a style showcase film, cut-paper pieces laid down one by one into a picture (a fox at dusk).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "foxDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 16.0,
       "fps": 30,
       "good_for": [
@@ -3685,14 +3794,14 @@
       "method_of": "lemo-papercut-red"
     },
     {
-      "about": "A second way: a paper toy theatre with flats that slide and bob, animated on twos (a seaside town).",
+      "about": "A second way: a style showcase film, a paper toy theatre with flats that slide and bob, animated on twos (a seaside town).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "paperCraft"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 13.0,
       "fps": 30,
       "good_for": [
@@ -3718,14 +3827,14 @@
       "method_of": "lemo-papercut-red"
     },
     {
-      "about": "A second way: an oil still life painted stroke by stroke (pears and a copper pot).",
+      "about": "A second way: a style showcase film, an oil still life painted stroke by stroke (pears and a copper pot).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "paintedOil"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -3751,14 +3860,14 @@
       "method_of": "lemo-impasto"
     },
     {
-      "about": "A second way: a woodblock print pressed one colour block after another (herons on a bridge in rain).",
+      "about": "A second way: a style showcase film, a woodblock print pressed one colour block after another (herons on a bridge in rain).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "woodcut"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 14.0,
       "fps": 30,
       "good_for": [
@@ -3784,14 +3893,14 @@
       "method_of": "lemo-ukiyoe"
     },
     {
-      "about": "A second way: white lines scratched out of a black board (a lynx in moonlight).",
+      "about": "A second way: a style showcase film, white lines scratched out of a black board (a lynx in moonlight).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "scratchboard"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 16.0,
       "fps": 30,
       "good_for": [
@@ -3817,14 +3926,14 @@
       "method_of": "lemo-engraving"
     },
     {
-      "about": "A second way: one spiral line whose thickness makes the picture, unspooling (a Mellan engraving).",
+      "about": "A second way: a style showcase film, one spiral line whose thickness makes the picture, unspooling (a Mellan engraving).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "mellanUnspool"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 8.0,
       "fps": 30,
       "good_for": [
@@ -3850,14 +3959,14 @@
       "method_of": "lemo-engraving"
     },
     {
-      "about": "A second way: a pen-and-ink picture built from dots (a nautilus shell).",
+      "about": "A second way: a style showcase film, a pen-and-ink picture built from dots (a nautilus shell).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "stipple"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -3883,14 +3992,14 @@
       "method_of": "lemo-engraving"
     },
     {
-      "about": "A second way: a pixel-art scene with a little character action (a cat's pounce).",
+      "about": "A second way: a style showcase film, a pixel-art scene with a little character action (a cat's pounce).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "pixelArt"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -3916,21 +4025,21 @@
       "method_of": "launch-pixel"
     },
     {
-      "about": "A second way: a flat vector illustration whose shapes move together (a sailing regatta).",
+      "about": "A second way: a style showcase film, a flat vector illustration whose shapes move together (a sailing regatta).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "flatVector"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 17.5,
       "fps": 30,
       "good_for": [
         "explainer",
         "story"
       ],
-      "group": "explainers",
+      "group": "text-titles-logos",
       "id": "ad-flat-vector",
       "inputs": [
         "none"
@@ -3946,17 +4055,17 @@
       ],
       "status": "ready",
       "title": "Anidoodle style film, flat vector illustration (1:1)",
-      "method_of": "art-flat-science"
+      "method_of": "launch-shapes"
     },
     {
-      "about": "A second way: a cutaway seen from an angle, where a small process runs inside (a night bakery).",
+      "about": "A second way: a style showcase film, a cutaway seen from an angle, where a small process runs inside (a night bakery).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "isometric"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 16.0,
       "fps": 30,
       "good_for": [
@@ -3982,14 +4091,14 @@
       "method_of": "lemo-iso-infographic"
     },
     {
-      "about": "A second way: a coloured-pencil drawing with a small story in it (a tin repairman).",
+      "about": "A second way: a style showcase film, a coloured-pencil drawing with a small story in it (a tin repairman).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "colouredPencil"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4015,14 +4124,14 @@
       "method_of": "p5-brush"
     },
     {
-      "about": "A second way: a pencil drawing that gets its watercolour washes (a ranunculus flower).",
+      "about": "A second way: a style showcase film, a pencil drawing that gets its watercolour washes (a ranunculus flower).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "ranunculusDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -4048,14 +4157,14 @@
       "method_of": "p5-brush"
     },
     {
-      "about": "A second way: a small-press print built up one ink at a time (a lighthouse at sunset).",
+      "about": "A second way: a style showcase film, a small-press print built up one ink at a time (a lighthouse at sunset).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "lighthouseDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 11.0,
       "fps": 30,
       "good_for": [
@@ -4081,14 +4190,14 @@
       "method_of": "lemo-risograph"
     },
     {
-      "about": "A second way: an ink line drawing that washes in its tones (a wren on a twig).",
+      "about": "A second way: a style showcase film, an ink line drawing that washes in its tones (a wren on a twig).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "wrenDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4114,14 +4223,14 @@
       "method_of": "lemo-urban-sketch"
     },
     {
-      "about": "A second way: a 1950s gouache illustration with flat textured colour (a kite).",
+      "about": "A second way: a style showcase film, a 1950s gouache illustration with flat textured colour (a kite).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "midCentury"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4147,14 +4256,14 @@
       "method_of": "lemo-midcentury-toon"
     },
     {
-      "about": "A second way: a 1930s rubber-hose cartoon loop (a dancing coffee pot).",
+      "about": "A second way: a style showcase film, a 1930s rubber-hose cartoon loop (a dancing coffee pot).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "rubberHose"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 14.5,
       "fps": 30,
       "good_for": [
@@ -4180,14 +4289,14 @@
       "method_of": "lemo-rubber-hose"
     },
     {
-      "about": "A second way: a flat low-poly picture whose facets shift with the light (a mountain lake at dawn).",
+      "about": "A second way: a style showcase film, a flat low-poly picture whose facets shift with the light (a mountain lake at dawn).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "lowPoly"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -4213,14 +4322,14 @@
       "method_of": "lemo-lowpoly-island"
     },
     {
-      "about": "Impressionist dabs of pure colour side by side that shimmer, like a harbour at sunrise.",
+      "about": "A second way: a style showcase film, impressionist dabs of pure colour side by side that shimmer, like a harbour at sunrise.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "brokenColour"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -4242,17 +4351,18 @@
         "anidoodle"
       ],
       "status": "ready",
-      "title": "Anidoodle style film, broken colour (impressionist dabs) (1:1)"
+      "title": "Anidoodle style film, broken colour (impressionist dabs) (1:1)",
+      "method_of": "art-style-studies"
     },
     {
-      "about": "A charcoal drawing that is rubbed out and drawn again, so one picture changes through time (a tree in four seasons).",
+      "about": "A style showcase film: a charcoal drawing that is rubbed out and drawn again, so one picture changes through time (a tree in four seasons).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "charcoalErasure"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4277,14 +4387,14 @@
       "title": "Anidoodle style film, charcoal, erased and redrawn (1:1)"
     },
     {
-      "about": "Soft translucent glazes laid over each other until a dreamy painting appears.",
+      "about": "A style showcase film: soft translucent glazes laid over each other until a dreamy painting appears.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "dreamGlazeDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 27.0,
       "fps": 30,
       "good_for": [
@@ -4309,14 +4419,14 @@
       "title": "Anidoodle style film, dream glaze, layered translucent paint (4:5)"
     },
     {
-      "about": "A picture stitched in thread on linen, stitch by stitch (a wreath and a bee).",
+      "about": "A style showcase film: a picture stitched in thread on linen, stitch by stitch (a wreath and a bee).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "embroidery"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4341,14 +4451,14 @@
       "title": "Anidoodle style film, hand embroidery, stitched on (1:1)"
     },
     {
-      "about": "A folk-tale picture book: a drawn hero walks through a decorated scene (a boy with a rooster).",
+      "about": "A style showcase film: a folk-tale picture book: a drawn hero walks through a decorated scene (a boy with a rooster).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "folkTale"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4372,14 +4482,14 @@
       "title": "Anidoodle style film, folk-tale storybook (16:9)"
     },
     {
-      "about": "A picture printed in newspaper dots, with the dots moving as the light changes (a viaduct at golden hour).",
+      "about": "A style showcase film: a picture printed in newspaper dots, with the dots moving as the light changes (a viaduct at golden hour).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "halftone"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 14.0,
       "fps": 30,
       "good_for": [
@@ -4404,14 +4514,14 @@
       "title": "Anidoodle style film, newsprint halftone (1:1)"
     },
     {
-      "about": "An old scrapbook page: clippings, engravings and notes taped in to explain a subject (how a honeybee finds flowers).",
+      "about": "A style showcase film: an old scrapbook page: clippings, engravings and notes taped in to explain a subject (how a honeybee finds flowers).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "scrapbook"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 17.0,
       "fps": 30,
       "good_for": [
@@ -4436,14 +4546,14 @@
       "title": "Anidoodle style film, archival scrapbook (1:1)"
     },
     {
-      "about": "A children's-book character in pencil and soft watercolour, drawn before your eyes.",
+      "about": "A style showcase film: a children's-book character in pencil and soft watercolour, drawn before your eyes.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "storybookDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [
@@ -4467,14 +4577,14 @@
       "title": "Anidoodle style film, storybook pencil and watercolour, drawn (1:1)"
     },
     {
-      "about": "A scene built from plastic toy bricks with a small action in it (a tug boat).",
+      "about": "A style showcase film: a scene built from plastic toy bricks with a small action in it (a tug boat).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "toyBrick"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4499,14 +4609,14 @@
       "title": "Anidoodle style film, toy brick (1:1)"
     },
     {
-      "about": "Japanese ink painting with a brush: bamboo bending in the wind.",
+      "about": "A second way: a style showcase film, japanese ink painting with a brush: bamboo bending in the wind.",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "sumiE"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 17.0,
       "fps": 30,
       "good_for": [
@@ -4528,17 +4638,18 @@
         "anidoodle"
       ],
       "status": "ready",
-      "title": "Anidoodle style film, sumi-e ink painting (1:1)"
+      "title": "Anidoodle style film, sumi-e ink painting (1:1)",
+      "method_of": "art-style-studies"
     },
     {
-      "about": "A comic panel drawn with markers, line then colour (koi fish).",
+      "about": "A style showcase film: a comic panel drawn with markers, line then colour (koi fish).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "koiDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4563,14 +4674,14 @@
       "title": "Anidoodle style film, marker comic, drawn (1:1)"
     },
     {
-      "about": "A lesson written and drawn in chalk on a blackboard (the phases of the moon).",
+      "about": "A style showcase film: a lesson written and drawn in chalk on a blackboard (the phases of the moon).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "moonPhasesDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 18.0,
       "fps": 30,
       "good_for": [
@@ -4594,14 +4705,14 @@
       "title": "Anidoodle style film, chalkboard lesson, being written (1:1)"
     },
     {
-      "about": "A ballpoint-pen sketch drawn line by line (a pocket watch).",
+      "about": "A style showcase film: a ballpoint-pen sketch drawn line by line (a pocket watch).",
       "adapter": "renderFrame",
       "blocks": [],
       "build": {
         "tool": "anidoodle",
         "film": "pocketWatchDraw"
       },
-      "capture": "#film",
+      "capture": "#frame",
       "duration": 15.0,
       "fps": 30,
       "good_for": [

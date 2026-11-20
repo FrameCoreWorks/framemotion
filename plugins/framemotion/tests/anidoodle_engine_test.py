@@ -57,12 +57,12 @@ class AnidoodleEngineTest(unittest.TestCase):
         self.assertEqual(len(FILMS), 32)
         self.assertEqual(sorted(e['build']['film'] for e in FILMS), MANIFEST['bundled_films'])
         self.assertEqual({e['id']: e['method_of'] for e in FILMS if 'method_of' in e}, MANIFEST['ways_of_existing_engines'])
-        self.assertEqual(len(MANIFEST['ways_of_existing_engines']), 19)
+        self.assertEqual(len(MANIFEST['ways_of_existing_engines']), 21)
         for e in FILMS:
             with self.subTest(e['id']):
                 self.assertTrue((ENGINE / 'upstream/engine/src/canvas-core' / (e['build']['film'] + '.ts')).is_file())
                 self.assertEqual(e['sources'], ['anidoodle'])
-                self.assertEqual((e['adapter'], e['capture']), ('renderFrame', '#film'))
+                self.assertEqual((e['adapter'], e['capture']), ('renderFrame', '#frame'))
                 if 'method_of' in e:
                     self.assertEqual(e['group'], BY_ID[e['method_of']]['group'])
 

@@ -29,7 +29,7 @@ node ../engines/kit/render-engine.mjs --engine mg-synthwave --frames 0,150,290 -
 
 - `upstream/demos/<film>/`: the eleven films, byte-identical (hashes in `integrations/mg-styles-15/source-manifest.json`). Their `audio.py` and `tools/` scripts are kept as reference; FrameMotion does not run them (they need upstream's sample library).
 - `upstream/prompts/`: the prompt and style notes of all 15 styles (Chinese and English). The `Signature features` section of each is the style's checklist; the 3D render style waits for the Blender pack (its picture is rendered in Blender).
-- `upstream/assets/textures/paper/Paper001_4K_color.jpg`: ambientCG Paper001 (CC0), the paper of the morph film.
+- `upstream/assets/textures/paper/Paper001_4K_color.jpg`: ambientCG Paper001 (CC0), the paper of the morph and Bauhaus films.
 - `fonts/`: the open fonts the films name, from google/fonts (OFL 1.1, texts in `fonts/licences/`). CJK faces are subset to the films' characters plus Latin and Polish letters; Fraunces and Outfit are static instances. Fusion Pixel 12 comes from its own release (TakWolf/fusion-pixel-font 2026.11.10, OFL, subset). Five brand faces that are not open fonts (HarmonyOS Sans SC, Alimama ShuHeiTi, Douyin Sans, Alibaba PuHuiTi, Resource Han Rounded) are drawn with Noto Sans SC instead, so those lines look a little different from upstream's films.
 - `upstream/demos/22-hud/assets/land-50m.json`: world map outlines the HUD film reads (upstream records Natural Earth map data, public domain).
 - `textures/grain_fine_2048.png`: FrameMotion's own grain plate (`tools/make_grain.py`), in place of upstream's, whose source is not recorded.
@@ -38,7 +38,28 @@ node ../engines/kit/render-engine.mjs --engine mg-synthwave --frames 0,150,290 -
 
 The `mgstyles` builder in `../engines/kit/builders.mjs` copies one film into the folder layout its absolute paths expect, points `/demos/` and `/assets/` at the build folder, writes a `fonts.css` for the fonts above and sets `renderFrame = renderAt` once the page reports `__ready`. three.js, simplex-noise, opentype.js, d3 and topojson-client come from the engines folder (`npm ci`), pinned there; the films were made with three.js 0.186.1 and FrameMotion has 0.187.0.
 
-Checked 2026-11-20 in software WebGL (no GPU): all five films render with no outside requests; cel boil repeats byte for byte in any frame order. Synthwave repeats byte for byte run to run, but one frame drawn right after another can differ in a handful of pixels by one level (6 pixels at frame 150 after a frame from about 35 to 60; cause not found), invisible in the film. Liquid, morph and aurora: three frames each looked at, order not tested (slow in software).
+Checked 2026-11-20 in software WebGL (no GPU): all eleven films render with no outside requests, and a frame is the same in any frame order (the order sweep in the 2026-11-20 handover). Liquid and isometric are slow without a graphics card (70 to 110 s for the first frame; registry `gpu_recommended`).
+
+FrameMotion's fix (`MG_FIXES` in the builder, applied to the built copy; the bundled file is unchanged): in 10-synthwave the car mask target was cleared without a render, so its multisampled target kept the previous frame's mask, and the title flash never reached exactly zero. A frame drawn after certain others differed in 6 pixels by one level. The builder renders an empty scene after the clear and sets a flash under 0.001 to zero; found by the 2026-11-20 review, fixed with 0 differences in any order. In 12-aurora-glass each card's 2D canvas kept drawing state from the last frame that drew it (2,016 pixels by up to 2 levels at frame 120 after frame 60, found by FrameMotion's order sweep); the builder resets the card canvas before each draw, 0 differences after.
+
+## Formats
+
+Every film is laid out for 16:9 (1920×1080). There is no vertical version: do not offer these films for a 9:16 reel.
+
+## Your own words
+
+These are the author's showcase films. The `replace` setting swaps a sample text, exactly as written in the film's code, for yours; a sample text that is not found stops the build. Polish letters work (the open fonts carry Latin Extended-A). The registry already replaces the Chinese lines it can with English defaults (`build.replace`); yours win over those.
+
+| Film | Sample texts you can replace | Notes |
+| --- | --- | --- |
+| `mg-synthwave` | `NEON DRIVE` (default title), `Midnight` (script), `SUMMER 1986  ·  IN HI-FI STEREO` | checked: `{"replace": {"NEON DRIVE": "FRAMECORE"}}` |
+| `mg-liquid` | `drop` (the wordmark), `万物始于一滴` (tagline; default English) | the wordmark must keep four letters (one per bead); checked with `kawa` |
+| `mg-hud` | `TARGET`, `LOCKED`, `目标锁定` (default `LOCK ON`) | checked |
+| `mg-cel-boil` | `一帧一帧`, `亲手点亮` (tagline), `星火牌`, `安 全 火 柴` (matchbox) | `HAND MADE` and the big `手作` are lettered stroke by stroke: not replaceable |
+| `mg-line-art` | `始于一线` (tagline; default `one line`) | |
+| `mg-isometric` | `让城市自己生长` (tagline; default `A city grows`), `CITY OS · 144 TILES · ONLINE` | |
+| `mg-pixel` | `欢迎来到像素世界！`, `神秘宝箱 像素冒险` (dialogue; English defaults) | the `PIXEL QUEST` logo is built letter by letter: not replaceable |
+| `mg-flat-vector`, `mg-morph`, `mg-bauhaus`, `mg-aurora-glass` | none | letters are choreographed one by one; new words need an edited copy of the film (`build.folder`) |
 
 ## Left out
 

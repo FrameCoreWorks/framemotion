@@ -665,8 +665,24 @@
       "conditions": [
         "the 74 source files the 32 two-dimensional style films need, bundled unchanged in skills/framemotion/assets/anidoodle-engine/upstream/engine/ with LICENSE and NOTICE",
         "bundled by FrameMotion's own esbuild; anidoodle's Node tools, three.js films, narration (ElevenLabs) and the sound pack (OpenAIR rooms, CC BY) are not bundled",
-        "19 styles registered as second ways of existing engines (method_of), 13 as new engines"
+        "21 styles registered as ways of existing engines (method_of, rendered by the engine with the setting way), 11 as new engines"
       ]
+    },
+    {
+      "name": "three.quarks",
+      "repo": "Alchemist0823/three.quarks",
+      "commit": "9d0445c5949c7da570f412ad7007efecd0357886",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2019 Forrest Sun",
+      "kind": "library",
+      "pack": "P12",
+      "status": "dependency",
+      "conditions": [
+        "npm dependency pinned exactly with quarks.core 0.18.0 (both published from this commit, gitHead 9d0445c); installed by npm ci --ignore-scripts, never bundled",
+        "FrameMotion's own page libraries/quarks/ steps the simulation on the clock with seeded Math.random; sprites drawn by the page, no files loaded"
+      ],
+      "package": "three.quarks",
+      "version": "0.18.0"
     }
   ]
 }

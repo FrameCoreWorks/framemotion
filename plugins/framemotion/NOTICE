@@ -74,6 +74,8 @@ a source-manifest.json with the pinned commit):
   MIT, Copyright (c) 2020 Matteo Bruni); acamposuribe/p5.brush (p5.brush 3.0.0, commit
   75c89fd8e0a0b63d9a88b51983c0738e132e82a5, MIT, Copyright (c) 2023-2026 Alejandro Campos Uribe; its standalone build
   only: p5.js (LGPL-2.1) is not used, and .npmrc keeps npm from installing it as a peer).
+  Alchemist0823/three.quarks (three.quarks 0.18.0 and quarks.core 0.18.0, commit
+  9d0445c5949c7da570f412ad7007efecd0357886, MIT, Copyright (c) 2019 Forrest Sun).
 - Knowledge summarised for FrameMotion (no file copied; short technical phrases and all values follow the source;
   each is linked at its commit from the reference named, and its licence text is in integrations/<name>/LICENSE),
   all under the MIT licence:

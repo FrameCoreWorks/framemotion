@@ -44,16 +44,39 @@ test('mg-cel-boil: a frame does not depend on the frames drawn before it', {skip
   }
 });
 
-// mg-synthwave: frame 150 drawn after a frame from about 35 to 60 (or 140) differs from a fresh frame 150 in 6
-// pixels by one level (2026-11-20, software WebGL; invisible, the film's code reads only t). So the test pins
-// that the same frames in the same order give the same bytes on every run; see the engine README.
-test('mg-synthwave: the same frames in the same order repeat exactly', {skip: browserSkip, timeout: 900000}, async () => {
-  const runs = [];
-  for (let i = 0; i < 2; i++) {
-    const r = await kit.renderFrames('mg-synthwave', {frames: [280, 40, 150], once: true});
-    assert.deepEqual(r.blocked, []);
-    for (const f of r.frames) assert.ok(!f.flat, `frame ${f.frame} is flat`);
-    runs.push(r.frames.map((f) => f.hash));
+// mg-synthwave and mg-aurora-glass had frames that depended on the frames drawn before them; the builder's
+// MG_FIXES remove both causes (2026-11-20), so they get the ordinary any-order test.
+for (const [id, orders] of [['mg-synthwave', [[40, 150], [140, 150], [280, 40, 150], [150]]], ['mg-aurora-glass', [[60, 120], [240, 120], [120]]],
+  ['mg-morph', [[200, 90], [90]]], ['mg-line-art', [[200, 90], [90]]], ['mg-pixel', [[200, 90], [90]]], ['mg-flat-vector', [[200, 90], [90]]]]) {
+  test(`${id}: a frame does not depend on the frames drawn before it`, {skip: browserSkip, timeout: 900000}, async () => {
+    const seen = new Map();
+    for (const frames of orders) {
+      const r = await kit.renderFrames(id, {frames, once: true});
+      assert.deepEqual(r.blocked, []);
+      for (const f of r.frames) {
+        assert.ok(!f.flat, `frame ${f.frame} is flat`);
+        if (seen.has(f.frame)) assert.equal(f.hash, seen.get(f.frame), `frame ${f.frame} after ${frames.join(', ')}`);
+        else seen.set(f.frame, f.hash);
+      }
+    }
+  });
+}
+
+test('mg-synthwave: replace swaps a sample text, and an unknown one stops the build', async () => {
+  const synth = entries.find((e) => e.id === 'mg-synthwave');
+  const built = await BUILDERS.mgstyles(synth, ENGINES, {replace: {'NEON DRIVE': 'ZAŻÓŁĆ'}});
+  try {
+    const html = fs.readFileSync(path.join(built.dir, 'demos/10-synthwave/index.html'), 'utf8');
+    assert.match(html, /'ZAŻÓŁĆ'/);
+    assert.doesNotMatch(html, /'NEON DRIVE'/);
+    assert.match(html, /renderer\.clear\(\); renderer\.render\(new THREE\.Scene\(\), ocam\);/);
+  } finally { fs.rmSync(built.dir, {recursive: true, force: true}); }
+  await assert.rejects(BUILDERS.mgstyles(synth, ENGINES, {replace: {'NO SUCH TEXT': 'x'}}), /no sample text "NO SUCH TEXT"/);
+});
+
+test('every default replacement in the registry still matches its film', async () => {
+  for (const e of entries.filter((x) => x.build?.tool === 'mgstyles' && x.build.replace)) {
+    const built = await BUILDERS.mgstyles(e, ENGINES);
+    fs.rmSync(built.dir, {recursive: true, force: true});
   }
-  assert.deepEqual(runs[1], runs[0]);
 });

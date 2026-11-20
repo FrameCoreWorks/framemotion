@@ -110,12 +110,28 @@ export function validateParams(entry, params) {
   return params;
 }
 
-export async function openEngine(id, {params = {}, gpu = false, root = ENGINES_ROOT} = {}) {
-  const entry = registry(root).engines.find((e) => e.id === id);
+/**
+ * An engine with its way chosen. Any engine takes the setting "way": the id of one of its ways (registry
+ * entries with method_of naming it), which then draws the film; "way" is not passed on to the page.
+ * A way can also be opened by its own id, as before.
+ */
+export function resolveWay(engines, id, params = {}) {
+  const entry = engines.find((e) => e.id === id);
   if (!entry) throw new Error(`Unknown engine "${id}"; see engines.json.`);
+  if (params === null || typeof params !== 'object' || !('way' in params)) return {entry, params};
+  const {way, ...rest} = params;
+  const ways = engines.filter((e) => e.method_of === entry.id);
+  if (way === entry.id || way === 'default') return {entry, params: rest};
+  const chosen = ways.find((e) => e.id === way);
+  if (!chosen) throw new RangeError(`${entry.id} has no way "${way}" (its ways: ${ways.map((e) => e.id).join(', ') || 'none'}; "default" is the engine itself).`);
+  return {entry: chosen, params: rest};
+}
+
+export async function openEngine(id, {params: given = {}, gpu = false, root = ENGINES_ROOT} = {}) {
+  const {entry, params} = resolveWay(registry(root).engines, id, given);
   validateParams(entry, params);
   // Build first: a failed build (a missing folder) must not leave a browser running.
-  const built = entry.build ? await buildEntry(entry, root) : null;
+  const built = entry.build ? await buildEntry(entry, root, params) : null;
   const {chromium} = await loadPlaywright();
   const args = [...OFFLINE_ARGS, '--ignore-gpu-blocklist', ...(gpu ? [] : [...SOFTWARE_GL, ...SOFTWARE_2D])];
   const browser = await chromium.launch({args});

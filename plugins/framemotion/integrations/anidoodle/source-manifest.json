@@ -41,7 +41,6 @@
     "wrenDraw"
   ],
   "new_engines": {
-    "ad-broken-colour": "brokenColour",
     "ad-charcoal": "charcoalErasure",
     "ad-dream-glaze": "dreamGlazeDraw",
     "ad-embroidery": "embroidery",
@@ -50,7 +49,6 @@
     "ad-scrapbook": "scrapbook",
     "ad-storybook": "storybookDraw",
     "ad-toy-brick": "toyBrick",
-    "ad-sumi-e": "sumiE",
     "ad-marker-comic": "koiDraw",
     "ad-chalkboard": "moonPhasesDraw",
     "ad-ballpoint": "pocketWatchDraw"
@@ -66,7 +64,7 @@
     "ad-single-line-engraving": "lemo-engraving",
     "ad-stipple": "lemo-engraving",
     "ad-pixel-art": "launch-pixel",
-    "ad-flat-vector": "art-flat-science",
+    "ad-flat-vector": "launch-shapes",
     "ad-isometric": "lemo-iso-infographic",
     "ad-coloured-pencil": "p5-brush",
     "ad-pencil-watercolour": "p5-brush",
@@ -74,7 +72,9 @@
     "ad-ink-wash": "lemo-urban-sketch",
     "ad-mid-century": "lemo-midcentury-toon",
     "ad-rubber-hose": "lemo-rubber-hose",
-    "ad-low-poly": "lemo-lowpoly-island"
+    "ad-low-poly": "lemo-lowpoly-island",
+    "ad-broken-colour": "art-style-studies",
+    "ad-sumi-e": "art-style-studies"
   },
   "not_bundled": [
     "skills/anidoodle/engine/tools/ and the skill text (SKILL.md, references/): anidoodle's Node build, render and review tools; FrameMotion's builder and renderer replace them",
@@ -472,6 +472,7 @@
     }
   ],
   "own_files": [
-    "../../skills/framemotion/assets/anidoodle-engine/README.md"
+    "../../skills/framemotion/assets/anidoodle-engine/README.md",
+    "../../skills/framemotion/assets/anidoodle-engine/examples/canvas-core/ownExample.ts"
   ]
 }

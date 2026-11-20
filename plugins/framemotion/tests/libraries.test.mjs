@@ -73,6 +73,10 @@ const CASES = [
   ['tsparticles', {preset: 'links'}, [30, 90, 30]],
   ['tsparticles', {preset: 'drift', options: {particles: {number: {value: 40}}}}, [30, 90, 30]],
   ['p5-brush', {}, [50, 119, 50]],
+  ['quarks-3d-effects', {preset: 'fire'}, [10, 60, 10]],
+  ['quarks-3d-effects', {preset: 'sparks'}, [10, 60, 10]],
+  ['quarks-3d-effects', {preset: 'smoke'}, [10, 60, 10]],
+  ['quarks-3d-effects', {preset: 'magic'}, [10, 60, 10]],
 ];
 for (const [id, params, frames] of CASES) {
   test(`${id} ${JSON.stringify(params)} draws repeatable frames in any order`, {skip: skip || (id === 'p5-brush' && process.env.CI ? 'KNOWN-CI-ONLY (owner-approved 2026-11-18): differs on the GitHub runner, passes locally; fix tracked in its own PR. Runs everywhere else.' : false), timeout: 300000}, async () => {
@@ -94,7 +98,7 @@ test('css-doodle rings repeat when rendered in order (the one known limit)', {sk
 });
 
 test('a full-size reel frame draws for every library engine', {skip, timeout: 300000}, async () => {
-  for (const id of ['paper-shader', 'pixi-filter', 'css-doodle', 'torph-text', 'tsparticles', 'p5-brush']) {
+  for (const id of ['paper-shader', 'pixi-filter', 'css-doodle', 'torph-text', 'tsparticles', 'p5-brush', 'quarks-3d-effects']) {
     const report = await kit.renderFrames(id, {params: {width: 1080, height: 1920}, frames: [60], once: true});
     assert.equal(report.engine.width, 1080, id);
     assert.ok(!report.frames[0].flat, `${id} draws at 1080×1920`);

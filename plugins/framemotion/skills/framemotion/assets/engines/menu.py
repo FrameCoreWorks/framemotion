@@ -58,7 +58,7 @@ def main(argv):
             slow = ', slower render' if e['slow'] else ''
             print(f"{e['number']}. {e['about']} ({e['format']}{slow})  [{e['id']}]")
             for w in e['ways']:
-                print(f"   - {w['about']} ({w['format']})  [{w['id']}]")
+                print(f"   - {w['about']} ({w['format']})  [way: {w['id']}]")
         return
     if as_json:
         print(json.dumps(menu, indent=2, ensure_ascii=False))

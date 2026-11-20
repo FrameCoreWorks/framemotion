@@ -40,6 +40,42 @@ function wordTimes(dir) {
   return out;
 }
 
+/**
+ * FrameMotion's fixes to bundled mg-styles films, as [file, upstream text, fixed text], applied by the mgstyles
+ * builder to the built copy. 10-synthwave: the car mask target is cleared without a render, so a multisampled
+ * target keeps the last frame's mask, and the title flash never reaches exactly zero; together a frame depended
+ * on the frames drawn before it (6 pixels, one level; found by the 2026-11-20 review). Rendering an empty scene
+ * after the clear resolves the target; a flash under 0.001 is zero.
+ */
+const MG_FIXES = {
+  '10-synthwave': [
+    ['index.html', 'renderer.setRenderTarget(maskRT); renderer.setClearColor(0x000000, 1); renderer.clear();',
+      'renderer.setRenderTarget(maskRT); renderer.setClearColor(0x000000, 1); renderer.clear(); renderer.render(new THREE.Scene(), ocam);'],
+    ['index.html', '  V.uFlash.value = fr >= FS ? .34 * Math.exp(-uS * 20) : 0;\n',
+      '  V.uFlash.value = fr >= FS ? .34 * Math.exp(-uS * 20) : 0;\n  if (V.uFlash.value < .001) V.uFlash.value = 0;\n'],
+  ],
+  // 12-aurora-glass: a card's 2D canvas kept drawing state (text alignment, letter spacing, line style) from
+  // the last frame that drew it, so a card frame drawn after another one differed (2,016 pixels by up to 2
+  // levels at frame 120 after 60; found by FrameMotion's order sweep, 2026-11-20). reset() before each card.
+  '12-aurora-glass': [
+    ['main.js', '    c.draw(c, t); upload(c.tex, c.cv, true);', '    c.g.reset(); c.draw(c, t); upload(c.tex, c.cv, true);'],
+  ],
+};
+
+/**
+ * FrameMotion's fixes to bundled anidoodle files, as {path under src/: [[upstream text, fixed text]]}, applied by
+ * the anidoodle builder while bundling. scrapbookKit.ts staged(): going back to an earlier step cleared the cached
+ * base and drew it again on the same canvas, whose drawing state (line dash, filter, shadow and the rest) was left
+ * from later steps, so a frame drawn after a later one differed slightly (2026-11-20 review: frame 200 after 230).
+ * A fresh canvas starts every rebuilt base from the default state.
+ */
+const AD_FIXES = {
+  'canvas-core/scrapbookKit.ts': [[
+    'if (c.k > k) { c.L.ctx.setTransform(1, 0, 0, 1, 0, 0); c.L.ctx.clearRect(0, 0, DW, DH); c.k = 0; }',
+    'if (c.k > k) { c = { k: 0, L: env.canvas(DW, DH) }; env.cache.set(key, c); }',
+  ]],
+};
+
 export const BUILDERS = {
   /** Animate engine: copy a piece and assemble its single index.html with the engine's own build tool. */
   async animate(entry, enginesRoot) {
@@ -657,7 +693,7 @@ ${code}
    * not open get an open stand-in, listed in STAND_IN), and the grain plate is FrameMotion's own. A bridge sets
    * renderFrame = renderAt once the page reports __ready.
    */
-  async mgstyles(entry, enginesRoot) {
+  async mgstyles(entry, enginesRoot, params = {}) {
     const engine = sibling(enginesRoot, 'mg-styles-engine');
     // build.folder: the user's own copy of a film (a film folder with its index.html, rewritten for their
     // copy and colours), relative to the engines folder; otherwise build.film names a bundled film.
@@ -730,6 +766,33 @@ ${code}
       if (e.isDirectory()) walk(p); else if (/\.(html|m?js|css)$/.test(e.name)) rewrite(p);
     } };
     walk(path.join(dir, 'demos', film));
+    // FrameMotion fixes, applied to the built copy (the bundled files stay byte-identical to upstream).
+    for (const [file, from, to] of MG_FIXES[film] ?? []) {
+      const f = path.join(dir, 'demos', film, file), text = fs.readFileSync(f, 'utf8');
+      if (!text.includes(from)) throw new Error(`${entry.id}: FrameMotion fix no longer matches ${film}/${file}`);
+      fs.writeFileSync(f, text.replace(from, to));
+    }
+    // Your own words: params.replace maps a sample text of the film (exactly as written in its code, see the
+    // engine README) to yours. Every sample text named must be found, or the build stops.
+    const swaps = Object.entries({...(entry.build.replace ?? {}), ...(params.replace ?? {})});
+    if (swaps.length) {
+      const found = new Set();
+      const swapIn = (d) => { for (const e of fs.readdirSync(d, {withFileTypes: true})) {
+        const p = path.join(d, e.name);
+        if (e.isDirectory()) { swapIn(p); continue; }
+        if (!/\.(html|m?js|json)$/.test(e.name)) continue;
+        let text = fs.readFileSync(p, 'utf8'), changed = false;
+        for (const [from, to] of swaps) {
+          for (const q of ["'", '"', '`']) {
+            if (text.includes(q + from + q)) { text = text.split(q + from + q).join(q + String(to).split(q).join('\\' + q) + q); changed = true; found.add(from); }
+          }
+        }
+        if (changed) fs.writeFileSync(p, text);
+      } };
+      swapIn(path.join(dir, 'demos', film));
+      const missing = swaps.map(([from]) => from).filter((from) => !found.has(from));
+      if (missing.length) throw new Error(`${entry.id}: no sample text ${missing.map((m) => JSON.stringify(m)).join(', ')} in ${film} (the engine README lists them)`);
+    }
     const page = path.join('demos', film, 'index.html');
     let html = fs.readFileSync(path.join(dir, page), 'utf8');
     const bridge = `<script>(function wait() {
@@ -742,7 +805,7 @@ ${code}
     return {dir, page, query: {}};
   },
   /**
-   * Anidoodle engine (bundled agreenshpun/anidoodle, the 2-D style films): FrameMotion's own esbuild bundles
+   * Anidoodle engine (bundled alexgreensh/anidoodle, the 2-D style films): FrameMotion's own esbuild bundles
    * one film with the upstream page host (src/hosts/page.ts) into a single page; none of anidoodle's Node
    * tools run. build.film names an exported film of upstream/engine/src/canvas-core; build.folder (optional)
    * is the user's own folder laid out like src/ (canvas-core/<film>.ts), looked up first, so a new film can
@@ -763,6 +826,17 @@ ${code}
       setup(b) {
         b.onResolve({filter: /^three$/}, () => ({errors: [{text: 'this film draws with three.js, which the FrameMotion anidoodle bundle leaves out: use a 2-D film'}]}));
         b.onResolve({filter: /\.(ttf|otf|woff2)$/i}, (a) => ({errors: [{text: `font file ${a.path}: the FrameMotion anidoodle bundle carries no font files`}]}));
+        // FrameMotion fixes (AD_FIXES), applied while bundling: the bundled files stay byte-identical.
+        b.onLoad({filter: /canvas-core[\\/]\w+\.ts$/}, (a) => {
+          const fixes = a.path.startsWith(engineSrc + path.sep) ? AD_FIXES[path.relative(engineSrc, a.path).split(path.sep).join('/')] : null;
+          if (!fixes) return undefined;
+          let text = fs.readFileSync(a.path, 'utf8');
+          for (const [from, to] of fixes) {
+            if (!text.includes(from)) throw new Error(`FrameMotion fix no longer matches ${a.path}`);
+            text = text.replace(from, to);
+          }
+          return {contents: text, loader: 'ts'};
+        });
         b.onResolve({filter: /^\.\.?\//}, (a) => {
           const want = path.resolve(a.resolveDir, a.path);
           const root = roots.find((r) => want === r || want.startsWith(r + path.sep));
@@ -781,20 +855,39 @@ ${code}
     });
     const code = out.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
     const dir = temp(entry.id);
+    // The film draws on its own canvas (#film, its native size); #frame is what the renderer captures, at the
+    // size asked for. A film whose shape differs from the frame (a square film in a 9:16 reel) is fitted whole
+    // and centred, over a soft, darkened, blurred copy of itself that fills the frame.
     fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html><head><meta charset="utf-8">
-<style>html,body{margin:0;height:100%;overflow:hidden;background:#fff}canvas{display:block;width:100vw;height:100vh}</style></head>
-<body><canvas id="film"></canvas><script>window.__ASSETS__={};window.__BAKE_SRC__={};</script>
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#000}#film{display:none}#frame{display:block;width:100vw;height:100vh}</style></head>
+<body><canvas id="film"></canvas><canvas id="frame"></canvas><script>window.__ASSETS__={};window.__BAKE_SRC__={};</script>
 <script>${code}</script>
-<script>window.renderFrame = async (t) => {
-  const F = window.FILM; await F.ready;
-  F.seek(Math.max(0, Math.min(F.meta.durationFrames - 1, Math.round(t * F.meta.fps))));
-};</script></body></html>`);
+<script>(() => {
+  const q = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+  const film = document.getElementById('film'), frame = document.getElementById('frame'), g = frame.getContext('2d');
+  window.renderFrame = async (t) => {
+    const F = window.FILM; await F.ready;
+    F.seek(Math.max(0, Math.min(F.meta.durationFrames - 1, Math.round(t * F.meta.fps))));
+    const W = q.width ?? F.meta.W, H = q.height ?? F.meta.H, fw = film.width, fh = film.height;
+    if (frame.width !== W || frame.height !== H) { frame.width = W; frame.height = H; }
+    g.setTransform(1, 0, 0, 1, 0, 0); g.filter = 'none'; g.globalAlpha = 1;
+    const fit = Math.min(W / fw, H / fh), dw = Math.round(fw * fit), dh = Math.round(fh * fit);
+    if (dw !== W || dh !== H) {
+      const cover = Math.max(W / fw, H / fh), cw = fw * cover, ch = fh * cover;
+      g.filter = 'blur(' + Math.round(Math.min(W, H) / 24) + 'px) brightness(0.7)';
+      g.drawImage(film, (W - cw) / 2, (H - ch) / 2, cw, ch);
+      g.filter = 'none';
+    }
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(film, Math.round((W - dw) / 2), Math.round((H - dh) / 2), dw, dh);
+  };
+})();</script></body></html>`);
     return {dir, page: 'index.html', query: {adapter: 'framemotion'}};
   },
 };
 
-export async function buildEntry(entry, enginesRoot) {
+export async function buildEntry(entry, enginesRoot, params = {}) {
   const builder = BUILDERS[entry.build?.tool];
   if (!builder) throw new Error(`Unknown builder "${entry.build?.tool}" for ${entry.id}`);
-  return builder(entry, enginesRoot);
+  return builder(entry, enginesRoot, params);
 }

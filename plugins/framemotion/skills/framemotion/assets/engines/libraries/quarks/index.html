@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>three.quarks engine</title>
+<style>html, body { margin: 0; background: transparent; overflow: hidden; } canvas { display: block; }</style>
+<script type="importmap">{"imports":{"three":"../../node_modules/three/build/three.module.js","quarks.core":"../../node_modules/quarks.core/dist/quarks.core.esm.js","three.quarks":"../../node_modules/three.quarks/dist/three.quarks.esm.js"}}</script>
+</head>
+<body>
+<canvas id="view"></canvas>
+<script type="module">
+// three.quarks (MIT, Alchemist0823) on the FrameMotion clock, used unchanged from node_modules; this
+// page is ours. three.quarks is a simulation: each update moves particles from where they were. So
+// nothing runs on its own: seek(t) steps the whole effect from the start in fixed steps (a backwards
+// seek starts it over) with Math.random replaced by a generator seeded from `seed`, and renders once.
+// The same seed and t always give the same picture. The particle sprite is drawn by us (a soft dot),
+// so no file is loaded. Settings (JSON in ?params): preset (fire, smoke, sparks, magic), seed, steps
+// (per frame), background (a CSS colour, or "transparent" for an overlay), camera (distance).
+import * as THREE from 'three';
+import * as Q from 'three.quarks';
+import {defineEngine, createRng} from '../../kit/engine-kit.mjs';
+import {readParams, withSeededRandom} from '../library-kit.mjs';
+import {makePresets} from './presets.mjs';
+
+const params = readParams();
+const {width = 540, height = 960, preset = 'fire', seed = 11, background = '#0d0f14'} = params;
+const fps = params.fps ?? 30, steps = params.steps ?? 2;
+const view = document.getElementById('view');
+const renderer = new THREE.WebGLRenderer({canvas: view, antialias: true, alpha: true, preserveDrawingBuffer: true});
+renderer.setPixelRatio(1);
+renderer.setSize(width, height, false);
+if (background === 'transparent') renderer.setClearColor(0x000000, 0); else renderer.setClearColor(new THREE.Color(background), 1);
+const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 1000);
+camera.position.set(0, 0, params.camera ?? 70);
+camera.lookAt(0, 0, 0);
+const k = 1;   // world units are fixed; the frame size changes only the pixel count
+
+// the sprite: a soft round dot, drawn here
+const dot = document.createElement('canvas');
+dot.width = dot.height = 128;
+const g = dot.getContext('2d'), rad = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+rad.addColorStop(0, 'rgba(255,255,255,1)'); rad.addColorStop(0.35, 'rgba(255,255,255,0.6)'); rad.addColorStop(1, 'rgba(255,255,255,0)');
+g.fillStyle = rad; g.fillRect(0, 0, 128, 128);
+const texture = new THREE.CanvasTexture(dot);
+texture.colorSpace = THREE.SRGBColorSpace;
+
+// the smoke puff: a soft cluster of seeded blobs, drawn here
+const puffCv = document.createElement('canvas');
+puffCv.width = puffCv.height = 256;
+const pg = puffCv.getContext('2d'), prng = createRng(7);
+for (let i = 0; i < 26; i++) {
+  const a = prng.next() * Math.PI * 2, d = Math.sqrt(prng.next()) * 60, x = 128 + Math.cos(a) * d, y = 128 + Math.sin(a) * d, r = 30 + prng.next() * 42;
+  const rg = pg.createRadialGradient(x, y, 0, x, y, r);
+  rg.addColorStop(0, 'rgba(255,255,255,0.32)'); rg.addColorStop(1, 'rgba(255,255,255,0)');
+  pg.fillStyle = rg; pg.fillRect(x - r, y - r, r * 2, r * 2);
+}
+const puff = new THREE.CanvasTexture(puffCv);
+puff.colorSpace = THREE.SRGBColorSpace;
+const PRESETS = makePresets(Q, THREE, texture, puff);
+// quarks.core makes its 100 shared noise generators (with Math.random) when the first Noise behaviour is
+// built, once per page. Build them here from a fixed seed, so they are the same on every page and never
+// take numbers from the effect's own seeded stream (a restart would otherwise draw different particles).
+withSeededRandom(1, () => new Q.Noise(new Q.ConstantValue(1), new Q.ConstantValue(1)));
+if (!PRESETS[preset]) throw new Error(`unknown preset "${preset}" (known: ${Object.keys(PRESETS).join(', ')})`);
+
+let scene = null, batch = null, done = -1;
+const dt = 1 / (fps * steps);
+function seeded(fn) {
+  const original = Math.random;
+  Math.random = rng.next;
+  try { return fn(); } finally { Math.random = original; }
+}
+let rng = createRng(seed >>> 0);
+function restart() {
+  if (batch) { batch.dispose?.(); }
+  rng = createRng(seed >>> 0);
+  scene = new THREE.Scene();
+  batch = new Q.BatchedRenderer();
+  scene.add(batch);
+  seeded(() => {
+    for (const fx of PRESETS[preset](k)) {
+      const system = new Q.ParticleSystem(fx.system);
+      for (const b of fx.behaviours) system.addBehavior(b);
+      const e = system.emitter;
+      e.position.set(...fx.at);
+      if (!fx.facing) e.rotation.x = -Math.PI / 2;   // emitters point along +Z; ours point up
+      scene.add(e);
+      batch.addSystem(system);
+    }
+  });
+  done = -1;
+}
+function step() {
+  done += 1;
+  if (done > 0) seeded(() => { scene.updateMatrixWorld(true); batch.update(dt); });
+}
+async function seek(t) {
+  const target = Math.round(t * fps * steps);
+  if (scene === null || target < done) restart();
+  while (done < target) step();
+  scene.updateMatrixWorld(true);
+  renderer.render(scene, camera);
+}
+await seek(0);
+const engine = defineEngine({id: 'quarks-3d-effects', width, height, fps, duration: params.duration ?? 4, seek});
+window.__framemotion = {engine, canvas: view, ready: true};
+</script>
+</body>
+</html>

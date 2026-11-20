@@ -34,9 +34,11 @@
     "p5.brush": "3.0.0",
     "pixi-filters": "6.1.5",
     "pixi.js": "8.23.0",
+    "quarks.core": "0.18.0",
     "simplex-noise": "4.0.3",
     "three": "0.187.0",
     "three-mesh-bvh": "0.9.18",
+    "three.quarks": "0.18.0",
     "topojson-client": "3.1.0",
     "torph": "0.1.4"
   },
