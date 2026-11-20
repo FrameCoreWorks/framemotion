@@ -7,20 +7,34 @@
   "attribution": "Copyright (c) 2026 Vincentwei1021",
   "activation": "bundled_style_films_built_by_the_mgstyles_builder_and_rendered_by_the_framemotion_engine_kit_no_installer",
   "bundled_films": [
+    "01-flat-vector",
+    "02-line-art",
+    "03-isometric",
     "05-cel-boil",
     "07-liquid",
     "08-morph",
+    "09-bauhaus",
     "10-synthwave",
-    "12-aurora-glass"
+    "12-aurora-glass",
+    "20-pixel",
+    "22-hud"
   ],
+  "ways_of_existing_engines": {
+    "01-flat-vector": "launch-shapes",
+    "02-line-art": "lemo-one-line",
+    "03-isometric": "lemo-iso-infographic",
+    "09-bauhaus": "lemo-swiss-motion",
+    "20-pixel": "launch-pixel",
+    "22-hud": "lemo-hologram-hud"
+  },
   "not_bundled": [
-    "demos/01..04, 09, 20, 22 (flat vector, line art, isometric, 3D render, Bauhaus, pixel, HUD): FrameMotion already has engines for these looks; their methods go into those engines (pack 1, part 2), their prompts are kept in upstream/prompts/",
+    "demos/04-3d-render: its picture is rendered in Blender (comes with the Blender pack); prompt kept in upstream/prompts/",
     "demos/06-collage, 18-hanazi, 19-paperclip: built on photos whose source and licence the repository does not record (its CREDITS.md is missing); left out until they run on the user's own photos",
     "videos/, docs/, site/, index.html, the README files and the WeChat images: films, previews and the showcase page",
     "harness/: upstream renderer (Puppeteer with a fixed Chrome path); FrameMotion's renderer replaces it",
     "lib/audio/ and its 56 MB of VCSL samples (CC0): the films render silent in FrameMotion; sound follows FrameMotion's own sound workflow",
-    "assets/hdri, assets/images, the other textures (not used by the bundled films), assets/textures/grain (source not recorded; replaced by FrameMotion's own textures/grain_fine_2048.png from tools/make_grain.py)",
-    "demos/*/out/ except 12-aurora-glass/out/env.json (render output; env.json is read by the film)"
+    "assets/hdri, assets/images, the other textures, assets/textures/grain (source not recorded; replaced by FrameMotion's own textures/grain_fine_2048.png from tools/make_grain.py)",
+    "demos/*/out/ except 12-aurora-glass/out/env.json (render output; env.json is read by the film); demos/02-line-art/v5_title.json is absent upstream too (v5 mode only)"
   ],
   "retained_files": [
     {
@@ -32,6 +46,106 @@
       "source_path": "assets/textures/paper/Paper001_4K_color.jpg",
       "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/assets/textures/paper/Paper001_4K_color.jpg",
       "sha256": "3aaed6c30f8bc7ea98628ccd75acb852e75d910f32f384f6193169214ab4bec1"
+    },
+    {
+      "source_path": "demos/01-flat-vector/audio.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/01-flat-vector/audio.py",
+      "sha256": "adf696daf70fedd0eec17eebc254f9bad9616c081c365fbd0783f25037553102"
+    },
+    {
+      "source_path": "demos/01-flat-vector/cues.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/01-flat-vector/cues.json",
+      "sha256": "7f215e5413f0f22766f7db0a046dbd10222a90b208d591a641ed0ec454d12d3a"
+    },
+    {
+      "source_path": "demos/01-flat-vector/index.html",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/01-flat-vector/index.html",
+      "sha256": "0f30e342c58bbcf3316d1e7cc3763055e247d1d4fdbcf1f1cef650c0be0bf66e"
+    },
+    {
+      "source_path": "demos/02-line-art/audio.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/02-line-art/audio.py",
+      "sha256": "2bece12b416c4cf8004127cfc97546efd451cce6d4b06196680ea14d3ef60fe2"
+    },
+    {
+      "source_path": "demos/02-line-art/cues.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/02-line-art/cues.json",
+      "sha256": "66bcec8ddafbded69832ef8947d643336054d90ecf282df3e3de35bad9cc15d9"
+    },
+    {
+      "source_path": "demos/02-line-art/film.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/02-line-art/film.js",
+      "sha256": "4227fb400377a124ea3f874b6fb66d03c5918e20702274958ab1de1846e97448"
+    },
+    {
+      "source_path": "demos/02-line-art/index.html",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/02-line-art/index.html",
+      "sha256": "b550add4f153964817af82943c59f31a1df539e186537601ffb8c9badaac5ddb"
+    },
+    {
+      "source_path": "demos/02-line-art/tools/dump_timing.mjs",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/02-line-art/tools/dump_timing.mjs",
+      "sha256": "c62e777cf6aa91507f371c4e9d18942a75f90b9834c449c5f3f88a45818ca904"
+    },
+    {
+      "source_path": "demos/02-line-art/tools/retime.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/02-line-art/tools/retime.py",
+      "sha256": "12cc2630f8128d91d171965c53a61bf256b3d854f7c4ba069cf25793bcb36473"
+    },
+    {
+      "source_path": "demos/03-isometric/audio.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/audio.py",
+      "sha256": "d3444c0ecce99c2526906ef27f29d5733d6f74a6dc78e223521efdcab36661eb"
+    },
+    {
+      "source_path": "demos/03-isometric/cues.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/cues.json",
+      "sha256": "5619858ffdb9ef0e8110d53a90dc24418602b41bd7708c698e9828d9e9dda6e9"
+    },
+    {
+      "source_path": "demos/03-isometric/index.html",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/index.html",
+      "sha256": "7b19eedbf79e452180c5641fa7ea459382a6c5adc644999ee66b80828530b4f6"
+    },
+    {
+      "source_path": "demos/03-isometric/js/anim.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/anim.js",
+      "sha256": "244b83e8090cf49d3d6d803390fcace7b442dc61363e37b61736b00a4800f5ed"
+    },
+    {
+      "source_path": "demos/03-isometric/js/main.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/main.js",
+      "sha256": "ddbffbe057b88a0cda98932ba793ddbe26be6ac37c99fe7fa63e165cc4750d5a"
+    },
+    {
+      "source_path": "demos/03-isometric/js/night5.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/night5.js",
+      "sha256": "53bdffdf92ae8c883bf81e020d123bbe913eb0c68014762a8c14f451b94efa53"
+    },
+    {
+      "source_path": "demos/03-isometric/js/render.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/render.js",
+      "sha256": "646086cbe389bab4b0c168b5bf5a7d0a628aee8568ec3996fbf6addfe60950d0"
+    },
+    {
+      "source_path": "demos/03-isometric/js/title.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/title.js",
+      "sha256": "b9fb0e4dbf8b7f054ab263c22f85c55e6a45d865fe0287ec6985b0ddc4d88a52"
+    },
+    {
+      "source_path": "demos/03-isometric/js/title5.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/title5.js",
+      "sha256": "5725ab88eb188b54701343836cd00b475b4dc640b4ae5573699788e7219a4c79"
+    },
+    {
+      "source_path": "demos/03-isometric/js/ui.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/ui.js",
+      "sha256": "e915b89d461b840e10c986948e32667bb2dd263f2c5bf120db8654aa3f9d2f9d"
+    },
+    {
+      "source_path": "demos/03-isometric/js/world.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/03-isometric/js/world.js",
+      "sha256": "7542ccf4bae1436da30594ef8ce62ce8f2f4fb13a833dce77cff70f06aac3da6"
     },
     {
       "source_path": "demos/05-cel-boil/assets/dust_ink_01.png",
@@ -179,6 +293,26 @@
       "sha256": "160d193e10120aa17823e64caea274f44698c36905c8ac92f1877121c6eb35f0"
     },
     {
+      "source_path": "demos/09-bauhaus/audio.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/09-bauhaus/audio.py",
+      "sha256": "8265a427ec9a5fd4fec00cebb2193996df1d67a1a6e010926b0ff5ded18f7701"
+    },
+    {
+      "source_path": "demos/09-bauhaus/cues.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/09-bauhaus/cues.json",
+      "sha256": "c8a67c33b5f3c0a574759a201bfc602a43a024ebf9ca930d7fdd5b418af006e4"
+    },
+    {
+      "source_path": "demos/09-bauhaus/film.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/09-bauhaus/film.js",
+      "sha256": "1a7bd377ae13f5b04476fe085f55dc8ed9a9ec8d940881bc78aeee0144edf395"
+    },
+    {
+      "source_path": "demos/09-bauhaus/index.html",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/09-bauhaus/index.html",
+      "sha256": "94855c63ee1a2d38a3811e65f5c9351f525c6a53b68a20edb891027bfb7c0740"
+    },
+    {
       "source_path": "demos/10-synthwave/audio.py",
       "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/10-synthwave/audio.py",
       "sha256": "ab1f3850c1deaa8be69e20a598aa7a51f32347194ffc0a6c161989afe7391ee1"
@@ -222,6 +356,71 @@
       "source_path": "demos/12-aurora-glass/shaders.js",
       "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/12-aurora-glass/shaders.js",
       "sha256": "a912e968e5c90f25f3919adf572d4fd11231a661eb3b2bd3d1d22db6cf954c59"
+    },
+    {
+      "source_path": "demos/20-pixel/audio.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/20-pixel/audio.py",
+      "sha256": "53e7e19843ded917f6110db44e12928bba6a5cfd1f1e4b979dbc10f9a6a6c585"
+    },
+    {
+      "source_path": "demos/20-pixel/cues.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/20-pixel/cues.json",
+      "sha256": "64942f482552d900ac4f2aeddc0180d4e6dab3a2128d57c5ead4b029567ed707"
+    },
+    {
+      "source_path": "demos/20-pixel/film.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/20-pixel/film.js",
+      "sha256": "a11af2464b63b7a3612989425109c219e6a5f59a35d48506e306dc6f24aba4f4"
+    },
+    {
+      "source_path": "demos/20-pixel/index.html",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/20-pixel/index.html",
+      "sha256": "282203861cdd3e9007ede9cfce783a5f5942421d645e160ad505f9c098a8a856"
+    },
+    {
+      "source_path": "demos/22-hud/assets/land-50m.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/assets/land-50m.json",
+      "sha256": "619477ff690c086885e45cb91707d783805561bd75ae8e437b7d4694b0204e0f"
+    },
+    {
+      "source_path": "demos/22-hud/audio.py",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/audio.py",
+      "sha256": "664f218a97afbc24ed11418b19236f40b5b880b0bc54c2f45efaf6b177961fba"
+    },
+    {
+      "source_path": "demos/22-hud/cues.json",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/cues.json",
+      "sha256": "b5219e1cd06a319e4a004264ddd55a514d17810ab9fa6cb023b81b9fa4030d39"
+    },
+    {
+      "source_path": "demos/22-hud/index.html",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/index.html",
+      "sha256": "eefb5aa96fddf47e84efbd9000e521a6b8e7908a7be20f4f42ed14586f0113b2"
+    },
+    {
+      "source_path": "demos/22-hud/js/holo.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/js/holo.js",
+      "sha256": "992031478d3f55cef7bf247146efabeb60c4429f7dd812273820ed87b55c4afb"
+    },
+    {
+      "source_path": "demos/22-hud/js/hud.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/js/hud.js",
+      "sha256": "751c05b15e65474b89f55346587c85e9215317e900ecc64a0fce451827ee1c88"
+    },
+    {
+      "source_path": "demos/22-hud/js/post.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/js/post.js",
+      "sha256": "672ce9b4a1da6f59f2d65bb1f8e337851b7893553dc250aad2192388a0711a53"
+    },
+    {
+      "source_path": "demos/22-hud/js/util.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/js/util.js",
+      "sha256": "7ec7a52b27659de843f72f65ad4dbfc07e217f528bba5bbff69b31b4293081db"
+    },
+    {
+      "source_path": "demos/22-hud/js/v5.js",
+      "destination_path": "../../skills/framemotion/assets/mg-styles-engine/upstream/demos/22-hud/js/v5.js",
+      "sha256": "af2cf92f176962361826fc84593241805628afdf13ca9e88e023712dc6626fcb"
     },
     {
       "source_path": "prompts/01-flat-vector.md",
@@ -313,6 +512,7 @@
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Archivo-Italic-VF.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/archivo/Archivo-Italic[wdth,wght].ttf",
+      "family_licence": "fonts/licences/archivo-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "305d13b4eb80e62f7d517f78d7c045250d977552a420f2dbed906f314e761305"
@@ -320,20 +520,55 @@
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Caveat-VF.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/caveat/Caveat[wght].ttf",
+      "family_licence": "fonts/licences/caveat-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "0bdb6b660482d31531b3945849fba5916b3ef8695da7024a9e6b9ee3c4157988"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/ChakraPetch-SemiBold.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/chakrapetch/ChakraPetch-SemiBold.ttf",
+      "family_licence": "fonts/licences/chakrapetch-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "45264de3204ddbd5fb3e14a2402acd5c630d16650ae5fc221d2c52da46a6734b"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/CormorantGaramond-VF.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/cormorantgaramond/CormorantGaramond[wght].ttf",
+      "family_licence": "fonts/licences/cormorantgaramond-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "b20b7d9626dd956b2c5e558692ad328b1f19e3275e2782db4fa07670d83f35e0"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Fraunces-Liquid-72-900-Soft.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/fraunces/Fraunces[SOFT,WONK,opsz,wght].ttf",
+      "family_licence": "fonts/licences/fraunces-OFL.txt",
       "licence": "OFL-1.1",
-      "how": "static instance SOFT 100, WONK 0, opsz 72, wght 900 (fontTools instancer), the face the liquid film names",
+      "how": "static instance SOFT 100, WONK 0, opsz 72, wght 900 (fontTools instancer)",
       "sha256": "dba6893f246e88dfcfbacb30a17dc8f850f2374dcc5d94212cfb05a7b071b284"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Fredoka-VF.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/fredoka/Fredoka[wdth,wght].ttf",
+      "family_licence": "fonts/licences/fredoka-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "2ba02e68b152868aef9ba28e24b3648c7d457fe6f25c761f2c2c53fb61a73fc8"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/FusionPixel12-zh_hans.subset.ttf",
+      "from": "TakWolf/fusion-pixel-font release 2026.11.10 (fusion-pixel-font-12px-proportional-ttf-v2026.11.10.zip):fusion-pixel-12px-proportional-zh_hans.ttf",
+      "family_licence": "fonts/licences/fusionpixel-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "subset to the characters of the bundled films plus Latin, Latin-1 and Latin Extended-A (pyftsubset, fontTools 4.60.1)",
+      "sha256": "792f49a484bc90e73cb0aacd4f67aeb6435d272466fc25d25c3d2e1be9e0110e"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/IBMPlexMono-Medium.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/ibmplexmono/IBMPlexMono-Medium.ttf",
+      "family_licence": "fonts/licences/ibmplexmono-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "a9b4c49bb299e05b5f6c481e7fb5e78943d2793249a0c8874ab574a2d1ea6755"
@@ -341,6 +576,7 @@
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/InstrumentSerif-Italic.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/instrumentserif/InstrumentSerif-Italic.ttf",
+      "family_licence": "fonts/licences/instrumentserif-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "08939b8bdf534afec24ae0ef5e03f948940cd9a8fe08e7fecbad040e62327385"
@@ -348,6 +584,7 @@
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/InstrumentSerif-Regular.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/instrumentserif/InstrumentSerif-Regular.ttf",
+      "family_licence": "fonts/licences/instrumentserif-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "498efd461f6ddfcb7a111bf9a565709d2085d48201d501ead960d93e84ffbb88"
@@ -355,27 +592,39 @@
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Inter-VF.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/inter/Inter[opsz,wght].ttf",
+      "family_licence": "fonts/licences/inter-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "29160a80ff49ddcab2c97711247e08b1fab27a484a329ce8b813d820dc559031"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/JetBrainsMono-VF.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/jetbrainsmono/JetBrainsMono[wght].ttf",
+      "family_licence": "fonts/licences/jetbrainsmono-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "48715a42ec242c21e9f02692891e147d022299a52e48d5e413e1a942193ffeda"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/LXGWMarkerGothic-Regular.subset.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/lxgwmarkergothic/LXGWMarkerGothic-Regular.ttf",
+      "family_licence": "fonts/licences/lxgwmarkergothic-OFL.txt",
       "licence": "OFL-1.1",
       "how": "subset to the characters of the bundled films plus Latin, Latin-1 and Latin Extended-A (pyftsubset, fontTools 4.60.1)",
-      "sha256": "52be61083426890c1e0f154591573394eb2062a4689b5cee031a9ea94c482150"
+      "sha256": "e63e782ba67b03b8a0d23df794cf430f7e9162985ea8e3aa5d2eb3c1c8ad3efb"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/LongCang-Regular.subset.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/longcang/LongCang-Regular.ttf",
+      "family_licence": "fonts/licences/longcang-OFL.txt",
       "licence": "OFL-1.1",
-      "how": "subset as above",
-      "sha256": "f0d2b9e98ae6b71a2ebf7573e01d541920053be52cea7cf0c9d7ab9099621347"
+      "how": "subset to the characters of the bundled films plus Latin, Latin-1 and Latin Extended-A (pyftsubset, fontTools 4.60.1)",
+      "sha256": "e32fc0beb25a6ba36e9e2b6f3a1c8ba72f8c8a3117c0732e6545023e9e3a8051"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Michroma-Regular.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/michroma/Michroma-Regular.ttf",
+      "family_licence": "fonts/licences/michroma-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "b62301163788bc5b7f8fcac0b74b184e34e1827e577b499ecb724da065098f87"
@@ -383,132 +632,285 @@
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/MrDafoe-Regular.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/mrdafoe/MrDafoe-Regular.ttf",
+      "family_licence": "fonts/licences/mrdafoe-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "a42a3c66a709927f358243fdfcbc437bd8eb188e2ee6a680c52f5be12c670fd2"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/NotoSansSC-Black.subset.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/notosanssc/NotoSansSC[wght].ttf",
+      "family_licence": "fonts/licences/notosanssc-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "the subset above as a static wght 900 instance; stand-in for the Alimama ShuHeiTi file the isometric film outlines with opentype.js",
+      "sha256": "6058ccf2666ff9d149cd1c1758860ec7d0a044424fd10d2b164ba51a2c9220b5"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/NotoSansSC-VF.subset.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/notosanssc/NotoSansSC[wght].ttf",
+      "family_licence": "fonts/licences/notosanssc-OFL.txt",
       "licence": "OFL-1.1",
-      "how": "subset as above; stand-in for HarmonyOS Sans SC, Alimama ShuHeiTi, Douyin Sans and Alibaba PuHuiTi, which are not open fonts",
-      "sha256": "0671388145357f3fe22794e5bc3cf1715ba89a2572c1a35e70e1b13b2bd64b1d"
+      "how": "subset to the characters of the bundled films plus Latin, Latin-1 and Latin Extended-A (pyftsubset, fontTools 4.60.1); stand-in for HarmonyOS Sans SC, Alimama ShuHeiTi, Douyin Sans, Alibaba PuHuiTi and Resource Han Rounded",
+      "sha256": "30ef0894e4645193a4e1fd46a1a4ea3c011ce4b965341aa7bcbf9cfddd57bac2"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/NotoSerifSC-VF.subset.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/notoserifsc/NotoSerifSC[wght].ttf",
+      "family_licence": "fonts/licences/notoserifsc-OFL.txt",
       "licence": "OFL-1.1",
-      "how": "subset as above",
-      "sha256": "52967b23666d69719c3aac3c26f036e941d49cfc173b7ea19d83998a09d8b28e"
+      "how": "subset to the characters of the bundled films plus Latin, Latin-1 and Latin Extended-A (pyftsubset, fontTools 4.60.1)",
+      "sha256": "db1793ff4ad141514e2873e0613ff79595e513fb031fe9c9ad4b629d84665b98"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Outfit-SemiBold.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/outfit/Outfit[wght].ttf",
+      "family_licence": "fonts/licences/outfit-OFL.txt",
       "licence": "OFL-1.1",
-      "how": "static instance wght 600 (fontTools instancer)",
+      "how": "static instance wght 600",
       "sha256": "9b8289bcbb9c65a283c616e5ab555ee663895295058b89b498cd4d0d4a96ed88"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Poppins-Black.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/poppins/Poppins-Black.ttf",
+      "family_licence": "fonts/licences/poppins-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "d82aaaf98a9283f9a8edd24e51173337d8eaf09e25cd3d98831f8ec8461748a1"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Poppins-SemiBold.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/poppins/Poppins-SemiBold.ttf",
+      "family_licence": "fonts/licences/poppins-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "d3bf1bdaf0550e83da9ac0b1d1d9fe6db086835a83aa28578e609a394b9a0286"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/PressStart2P-Regular.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/pressstart2p/PressStart2P-Regular.ttf",
+      "family_licence": "fonts/licences/pressstart2p-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "034c77f1f05ec89421e4a63f0e3a4ca1ecf852cc6d2bf611f126f275728e017d"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Rajdhani-Bold.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/rajdhani/Rajdhani-Bold.ttf",
+      "family_licence": "fonts/licences/rajdhani-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "691470dd3286a14e9677940d0bf75796179841ba5215cbda1a2c8910a3226afd"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Rajdhani-SemiBold.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/rajdhani/Rajdhani-SemiBold.ttf",
+      "family_licence": "fonts/licences/rajdhani-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "94bbd25a18ca665999feb05a537de9fd2b860dcfb78bbe9ca00270825bf235da"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Unbounded-800-static.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/unbounded/Unbounded[wght].ttf",
+      "family_licence": "fonts/licences/unbounded-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "static instance wght 800",
+      "sha256": "9b9580b81b344e1ce7fefb510330210f91c715f523f8ab9831c52c305fe3ef62"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/Unbounded-VF.ttf",
+      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/unbounded/Unbounded[wght].ttf",
+      "family_licence": "fonts/licences/unbounded-OFL.txt",
+      "licence": "OFL-1.1",
+      "how": "unchanged",
+      "sha256": "323b511be380c8d474ef030686b71aedde501f8d9cd46da558b7c40454372c3f"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/VT323-Regular.ttf",
       "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/vt323/VT323-Regular.ttf",
+      "family_licence": "fonts/licences/vt323-OFL.txt",
       "licence": "OFL-1.1",
       "how": "unchanged",
       "sha256": "cf4de751ada78ceac033dbe16a687742939995b77bc2a052ae17a4957958594d"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/archivo-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/archivo/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "108b4e57c9c796d3d38d0428ca7ee39de47ad93187302718d9b2d8864b9b716b"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/caveat-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/caveat/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "1f9d81d094273d82f3898a1ee8b598a717d050ecbf5ff7bede105b704880157b"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/chakrapetch-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "13831d02389d917d22fcfa6c79f98f8acbf61d230add0e73a4d4dc5f3bfb9e56"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/cormorantgaramond-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "60700d351cac4650c51f3f9db318d2a420f8b45052dba2715eb5fec41f0f6956"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/fraunces-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/fraunces/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "bdf4c22802eaf804f998195871c6b8938aac2ac14b2d78a8bd66a6f1eced833b"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/fredoka-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "5c9e7eee5c6b25f4b05b8d53b2e470ea4962f9ced742d044a98f7d95d1375bab"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/fusionpixel-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "bc518cf64b8032c07690f33cc270c35c179255a6ac8efa7c165ebae7e8f76a63"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/fusionpixel-ark-pixel-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "3ab41567e68e3988ba1ef16dd2644eca95ca5648ea12e7d46e6287fc0bbe5aee"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/fusionpixel-cubic-11-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "2b6e5938e5cffa0b9e183bd05f8c363e174e7ebed1a0556e2855fd1707fa2188"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/fusionpixel-galmuri-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "86a3ee9495f942f0243f18c103da9faca27adb88142613edb8bb852e56c892c1"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/ibmplexmono-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/ibmplexmono/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/instrumentserif-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/instrumentserif/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "129ed7618959716959f2941fdd5b49e0ad6e6c1d78726761786a00253d865521"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/inter-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/inter/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/jetbrainsmono-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/longcang-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/longcang/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "603546b7219a94bb59bf8294458194a5010119486354092b66a09a3fd61aeacc"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/lxgwmarkergothic-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/lxgwmarkergothic/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "58e494ff4a5177d593a97ffc482f4069f59f54a0d4049fd29e531d3b1009e8b4"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/michroma-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/michroma/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "33c39ce59a45bfb0dae3280e98bdb46be59d6d68efc62d4dc5fae90a26d2f393"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/mrdafoe-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/mrdafoe/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "0da6a3e5b24a9fa04085c20a2a1d3101eeb1e0bff56a2291f407187e1b2adcf2"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/notosanssc-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/notosanssc/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "1c05c68c34f9708415aada51f17e1b0092d2cea709bf4a94cd38114f9e73d7d9"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/notoserifsc-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/notoserifsc/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "5e0da210fb04058a8c0087985d2d456b931c2579811a49655721d3cf0c36b6d6"
     },
     {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/outfit-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/outfit/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "c676351bf8576b9aba743cd5eaa8c0e7ee0d51f805d720447b4df4ddb6a2e416"
     },
     {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/poppins-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "6be04893d770899a015649c7aa3b582f871b272f8747a92b78b17c3e5c8b2573"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/pressstart2p-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "705960c3281a5765ecc0b59bd4ed7ca59eed165748076bc2fc3e8fdbfeb944b0"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/rajdhani-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "f62ef357d3a1c3d27edd35a6e1ba350e8a8d13499797964eeadefbf0b3b15d1f"
+    },
+    {
+      "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/unbounded-OFL.txt",
+      "from": "the font source above, its OFL text",
+      "licence": "OFL-1.1 text",
+      "how": "unchanged",
+      "sha256": "31e5d4e83955e7103c34570dd49b0570ef490800bd65b42923c0dd02445263b3"
+    },
+    {
       "file": "../../skills/framemotion/assets/mg-styles-engine/fonts/licences/vt323-OFL.txt",
-      "from": "google/fonts@869789e84da92782c144d83d69b64cec54905b5f:ofl/vt323/OFL.txt",
+      "from": "the font source above, its OFL text",
       "licence": "OFL-1.1 text",
       "how": "unchanged",
       "sha256": "27d9af34210253e7ca1251fbace86c6f65b40031d6ce1a75493a1b2093631298"

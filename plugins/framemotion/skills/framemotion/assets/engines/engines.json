@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-engines/1",
-  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes.",
+  "note": "Every engine FrameMotion can render. Own engines have a page (relative to this folder) that sets window.__framemotion. Bundled engines have a build (a builder in kit/builders.mjs makes their page in a temporary folder) and adapter renderFrame. sources name entries of integrations/sources.json; blocks are modules other engines may import. params declares each engine setting (type, default, min, max); width and height are always allowed and the renderer refuses anything else. optional lists files a page may ask for that are allowed to be missing (a film's music in a silent render); any other missing file fails the render. A param marked timing changes the engine's duration or frame rate, so the renderer then takes those from the page instead of the registry. group, about, good_for and inputs feed the welcome menu (scripts/engine_menu.py) and the per-scene engine choice: group names one of groups, about is one plain sentence for the user, good_for and inputs name what the engine is good for and what it takes. method_of names the engine an entry is a second way of animating (the same look by another method, Kamil 2026-11-20: duplicates improve an engine, never a second one); the menu lists it under that engine, not on its own.",
   "groups": [
     {
       "id": "text-titles-logos",
@@ -3388,6 +3388,202 @@
       ],
       "status": "ready",
       "title": "MG style film, aurora gradient and glassmorphism: soft colour light behind frosted glass cards (16:9)"
+    },
+    {
+      "about": "A second way: one bouncing dot builds a whole flat-colour world around your name.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "01-flat-vector"
+      },
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "logo",
+        "title"
+      ],
+      "group": "text-titles-logos",
+      "id": "mg-flat-vector",
+      "inputs": [
+        "text"
+      ],
+      "kind": "svg",
+      "method_of": "launch-shapes",
+      "readme": "../mg-styles-engine/README.md",
+      "screenshot": "#S",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, flat vector: one dot that bounces, splits and builds a flat-colour brand world (16:9)"
+    },
+    {
+      "about": "A second way: one fine ink line draws every scene and then your title.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "02-line-art"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "group": "handmade-looks",
+      "id": "mg-line-art",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-one-line",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, line art: one ink line that draws the scenes and the title (16:9)"
+    },
+    {
+      "about": "A second way: a small 2.5D city builds itself block by block while the camera glides.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "03-isometric"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "explainer"
+      ],
+      "group": "explainers",
+      "id": "mg-isometric",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-iso-infographic",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, isometric 2.5D city: blocks rise, roads light up, the camera glides (16:9)"
+    },
+    {
+      "about": "A second way: circles, squares and bars in strong primary colours move on the beat.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "09-bauhaus"
+      },
+      "capture": "#out",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title"
+      ],
+      "group": "era-film-moods",
+      "id": "mg-bauhaus",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-swiss-motion",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, geometric Bauhaus: circles, squares and bars in primary colours on a beat grid (16:9)"
+    },
+    {
+      "about": "A second way: a little pixel hero runs a short level and lands on your title.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "20-pixel"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "story",
+        "title"
+      ],
+      "group": "old-game-look",
+      "id": "mg-pixel",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "launch-pixel",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, pixel art quest: a sprite hero, tiles, coins and a bitmap title (16:9)"
+    },
+    {
+      "about": "A second way: a glowing sci-fi screen with a 3D globe, a target lock and readouts.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "22-hud"
+      },
+      "capture": "body > canvas",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "product",
+        "title"
+      ],
+      "group": "era-film-moods",
+      "id": "mg-hud",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "method_of": "lemo-hologram-hud",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, cyberpunk HUD: a 3D globe, target lock and readouts in neon (16:9)"
     }
   ]
 }

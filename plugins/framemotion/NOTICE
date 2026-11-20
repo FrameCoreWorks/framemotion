@@ -145,12 +145,14 @@ a source-manifest.json with the pinned commit):
   Not bundled: media/, README.md, scripts/capture.ts and the Vite setup. Hashes in
   integrations/line-art-animation/source-manifest.json; the builder (kit/builders.mjs, lineart) is FrameCore Works' own.
 - MG styles engine (skills/framemotion/assets/mg-styles-engine): Vincentwei1021/mg-styles-15 (commit
-  8fab7eb49cc60590c518d1a932dfff753697fce7, MIT, Copyright (c) 2026 Vincentwei1021): five style films (demos/05-cel-boil,
-  07-liquid, 08-morph, 10-synthwave, 12-aurora-glass) and the 15 style prompts bundled unchanged with upstream's LICENSE;
-  ambientCG Paper001 (CC0). Fonts from google/fonts commit 869789e84da92782c144d83d69b64cec54905b5f, SIL Open Font
+  8fab7eb49cc60590c518d1a932dfff753697fce7, MIT, Copyright (c) 2026 Vincentwei1021): eleven style films (demos/01, 02,
+  03, 05, 07, 08, 09, 10, 12, 20, 22) and the 15 style prompts bundled unchanged with upstream's LICENSE; ambientCG
+  Paper001 (CC0); Natural Earth land outlines in the HUD film (public domain). Fusion Pixel 12 (TakWolf/fusion-pixel-font
+  2026.11.10, OFL 1.1, with its Ark Pixel, Cubic 11 and Galmuri OFL texts), subset. Fonts from google/fonts commit 869789e84da92782c144d83d69b64cec54905b5f, SIL Open Font
   License 1.1 (texts in mg-styles-engine/fonts/licences/): Caveat, Long Cang, LXGW Marker Gothic, Noto Sans SC and Noto
   Serif SC (subset), Fraunces and Outfit (static instances), Michroma, Archivo, Mr Dafoe, Instrument Serif, IBM Plex Mono,
-  Inter, VT323. Not bundled: the photo-based films, videos, site, harness and audio samples. Hashes in
+  Inter, VT323, Fredoka, Cormorant Garamond, Unbounded (also a static 800 instance), Poppins, Press Start 2P, Chakra
+  Petch, JetBrains Mono, Rajdhani. Not bundled: the photo-based films, videos, site, harness and audio samples. Hashes in
   integrations/mg-styles-15/source-manifest.json; the builder (kit/builders.mjs, mgstyles), README, grain plate and
   tools/make_grain.py are FrameCore Works' own.
 - rea-video (skills/framemotion/assets/reference-breakdown/rea-video): JuneYaooo/rea-video 0.1.0 (commit

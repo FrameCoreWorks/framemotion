@@ -45,10 +45,20 @@ class EngineMenuTest(unittest.TestCase):
     def test_menu_equals_registry(self):
         full = menu()
         self.assertEqual([g['id'] for g in full], [g['id'] for g in REGISTRY['groups']])
-        listed = [e['id'] for g in full for e in g['engines']]
+        listed = [e['id'] for g in full for e in g['engines']] + [w['id'] for g in full for e in g['engines'] for w in e['ways']]
         self.assertEqual(sorted(listed), sorted(e['id'] for e in REGISTRY['engines']))
         self.assertEqual(len(listed), len(set(listed)), 'an engine sits in two groups')
         self.assertEqual(menu('2'), menu(full[1]['id']))
+
+    def test_ways_belong_to_an_engine_of_the_same_group(self):
+        by_id = {e['id']: e for e in REGISTRY['engines']}
+        for e in REGISTRY['engines']:
+            if 'method_of' in e:
+                with self.subTest(e['id']):
+                    parent = by_id[e['method_of']]
+                    self.assertNotIn('method_of', parent, 'a way of a way')
+                    self.assertEqual(e['group'], parent['group'])
+                    self.assertTrue(e['about'].startswith('A second way: '))
 
     def test_skill_uses_the_menu(self):
         skill = (ROOT / 'skills/framemotion/SKILL.md').read_text()

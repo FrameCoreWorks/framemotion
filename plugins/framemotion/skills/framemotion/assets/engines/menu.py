@@ -23,12 +23,16 @@ def aspect(size):
 
 
 def groups():
+    """Groups with their engines. An entry with method_of is another way of animating that engine's look: it is
+    listed under that engine as one of its ways, not as an engine of its own."""
     out = []
     for n, g in enumerate(REGISTRY['groups'], 1):
-        engines = [e for e in REGISTRY['engines'] if e['group'] == g['id']]
+        engines = [e for e in REGISTRY['engines'] if e['group'] == g['id'] and not e.get('method_of')]
         out.append({'number': n, **g, 'engines': [
             {'number': k, 'id': e['id'], 'about': e['about'], 'format': aspect(e['size']),
-             'good_for': e['good_for'], 'inputs': e['inputs'], 'slow': bool(e.get('gpu_recommended'))}
+             'good_for': e['good_for'], 'inputs': e['inputs'], 'slow': bool(e.get('gpu_recommended')),
+             'ways': [{'id': m['id'], 'about': m['about'], 'format': aspect(m['size'])}
+                      for m in REGISTRY['engines'] if m.get('method_of') == e['id']]}
             for k, e in enumerate(engines, 1)]})
     return out
 
@@ -53,6 +57,8 @@ def main(argv):
         for e in g['engines']:
             slow = ', slower render' if e['slow'] else ''
             print(f"{e['number']}. {e['about']} ({e['format']}{slow})  [{e['id']}]")
+            for w in e['ways']:
+                print(f"   - {w['about']} ({w['format']})  [{w['id']}]")
         return
     if as_json:
         print(json.dumps(menu, indent=2, ensure_ascii=False))

@@ -11,7 +11,12 @@ INTEGRATION = ROOT / 'integrations/mg-styles-15'
 MANIFEST = json.loads((INTEGRATION / 'source-manifest.json').read_text())
 REGISTRY = json.loads((ROOT / 'skills/framemotion/assets/engines/engines.json').read_text())
 FILMS = {'mg-cel-boil': '05-cel-boil', 'mg-liquid': '07-liquid', 'mg-morph': '08-morph',
-         'mg-synthwave': '10-synthwave', 'mg-aurora-glass': '12-aurora-glass'}
+         'mg-synthwave': '10-synthwave', 'mg-aurora-glass': '12-aurora-glass',
+         'mg-flat-vector': '01-flat-vector', 'mg-line-art': '02-line-art', 'mg-isometric': '03-isometric',
+         'mg-bauhaus': '09-bauhaus', 'mg-pixel': '20-pixel', 'mg-hud': '22-hud'}
+# Looks FrameMotion already had: these films are a second way of animating that engine (method_of), not new engines.
+WAYS = {'mg-flat-vector': 'launch-shapes', 'mg-line-art': 'lemo-one-line', 'mg-isometric': 'lemo-iso-infographic',
+        'mg-bauhaus': 'lemo-swiss-motion', 'mg-pixel': 'launch-pixel', 'mg-hud': 'lemo-hologram-hud'}
 
 
 def sha(path):
@@ -47,10 +52,11 @@ class MgStylesEngineTest(unittest.TestCase):
         self.assertEqual([p for p in ENGINE.rglob('*') if p.suffix in ('.mp4', '.flac', '.wav')], [])
 
     def test_every_font_has_its_licence_text(self):
-        texts = {p.name.split('-OFL')[0] for p in (ENGINE / 'fonts/licences').glob('*-OFL.txt')}
         for f in MANIFEST['added_fonts']:
-            family = f['from'].split(':ofl/')[1].split('/')[0]
-            self.assertIn(family, texts, f['file'])
+            if f['file'].endswith('.ttf'):
+                with self.subTest(f['file']):
+                    self.assertTrue((ENGINE / f['family_licence']).is_file(), f['family_licence'])
+                    self.assertIn('Open Font License', (ENGINE / f['family_licence']).read_text(encoding='utf-8'))
 
     def test_licence_and_credit(self):
         self.assertEqual(sha(ENGINE / 'LICENSE'), sha(INTEGRATION / 'LICENSE'))
@@ -74,6 +80,7 @@ class MgStylesEngineTest(unittest.TestCase):
                 self.assertTrue((ENGINE / 'upstream/demos' / e['build']['film'] / 'index.html').exists())
                 self.assertEqual(e['sources'], ['mg-styles-15'])
                 self.assertEqual(e['adapter'], 'renderFrame')
+                self.assertEqual(e.get('method_of'), WAYS.get(e['id']))
 
 
 if __name__ == '__main__':
