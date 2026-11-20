@@ -35,8 +35,9 @@ const steps = (env: Parameters<typeof raster>[0]): Step[] => STEPS ??= (() => {
     if (sz >= 18 && (depth(s) > 0.45 || areaOf(s) > 0.06 * W * H) && lumOf(s) < 0.75) {
       // a far or broad mass: one or two very wet washes in diluted ink filling it, its upper edge found
       // again with a pressed line of darker ink, as distant hills are painted
-      const wbr = Math.min(220, Math.max(30, (y1 - y0) * 0.75, sz * 0.5));
-      hatchRuns({ x0, y0, x1, y1 }, 0.02, wbr * 0.6, (x, y) => idAt(r0, x, y) === s.i, 2, 5 + s.i).forEach((run, k) => { if (run.length < 2) return; const a: P = run[0], b: P = run[run.length - 1]; out.push({ kind: "far", dur: 6, clip: s, tight: true, b: { ctrl: [a, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], b], w: wbr, press: [[0, 0.9], [0.1, 1], [1, 0.8]], ink: clamp(ink * 0.5), load: 1, dry: 0.02, bleed: 1, wet: 1, seed: 250 + s.i * 37 + k } }); });
+      // as few strokes as the brush allows: one broad stroke when the brush is wide enough to cover it
+      const wbr = Math.min(260, Math.max(30, (y1 - y0) * 1.1)), gapW = Math.max(wbr * 0.85, (y1 - y0) / Math.max(1, Math.ceil((y1 - y0) / 240)));
+      hatchRuns({ x0, y0: y0 + Math.min(gapW, y1 - y0) / 2 - 1, x1, y1 }, 0.02, gapW, (x, y) => idAt(r0, x, y) === s.i, 2, 5 + s.i).forEach((run, k) => { if (run.length < 2) return; const a: P = run[0], b: P = run[run.length - 1]; out.push({ kind: "far", dur: 6, clip: s, tight: true, b: { ctrl: [a, [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], b], w: wbr, press: [[0, 0.9], [0.1, 1], [1, 0.8]], ink: clamp(ink * 0.5), load: 1, dry: 0.02, bleed: 1, wet: 1, seed: 250 + s.i * 37 + k } }); });
       const bins = 24, top: (P | null)[] = Array(bins).fill(null); outlineOf(s).forEach(([x, y]) => { const i = Math.min(bins - 1, Math.max(0, Math.floor(((x - x0) / Math.max(1, x1 - x0)) * bins))); if (!top[i] || y < top[i]![1]) top[i] = [x, y]; });
       const ridge = top.filter((q): q is P => !!q && q[1] < y1 - 2); if (ridge.length > 2) out.push({ kind: "ridge", dur: 8, b: { ctrl: ridge, w: Math.max(4, Math.min(12, sz * 0.03)), press: [[0, 0.5], [0.2, 1], [0.7, 0.8], [1, 0.2]], ink: clamp(ink + 0.25), load: 1, dry: 0.5, split: 0.35, slow: [[0.4, 0.5]], seed: 270 + s.i } });
     } else if (lumOf(s) < 0.55 || sz < 18) {
@@ -46,7 +47,7 @@ const steps = (env: Parameters<typeof raster>[0]): Step[] => STEPS ??= (() => {
     } else {
       // a light thing: the paper itself, a pressed-and-lifted contour, a clear wash on the shade side
       visibleRuns(env, s).forEach((run, j) => { const step = Math.max(6, Math.round(run.length / Math.max(1, Math.round(run.length / 30)))); for (let a = 0; a < run.length - 2; a += step) { const seg = run.slice(a, Math.min(run.length, a + step + 1)); if (seg.length < 2) continue; out.push({ kind: "line", dur: 4, b: { ctrl: [seg[0], seg[seg.length >> 1], seg[seg.length - 1]], w: Math.max(3, Math.min(9, sz * 0.04)), press: [[0, 0.7], [0.3, 1], [1, 0.3]], ink: clamp(ink + 0.4), load: 1, dry: 0.8, split: 0.3, slow: [[0, 0.5]], seed: 300 + s.i * 41 + j * 7 + a } }); } });
-      const c: P = [x0 + (x1 - x0) * 0.68, y0 + (y1 - y0) * 0.62]; out.push({ kind: "wash", dur: 6, b: { ctrl: [[c[0] - (x1 - x0) * 0.2, c[1] - (y1 - y0) * 0.15], c, [c[0] + (x1 - x0) * 0.1, c[1] + (y1 - y0) * 0.25]], w: Math.max(10, sz * 0.35), press: [[0, 0.8], [1, 0.8]], ink: QING, load: 1, dry: 0.1, bleed: 1, wet: 1, seed: 350 + s.i } });
+      const c: P = [x0 + (x1 - x0) * 0.68, y0 + (y1 - y0) * 0.62]; if (sz > 90) out.push({ kind: "wash", dur: 6, b: { ctrl: [[c[0] - (x1 - x0) * 0.2, c[1] - (y1 - y0) * 0.15], c, [c[0] + (x1 - x0) * 0.1, c[1] + (y1 - y0) * 0.25]], w: Math.max(10, sz * 0.22), press: [[0, 0.8], [1, 0.8]], ink: QING * 0.55, load: 1, dry: 0.1, bleed: 1, wet: 1, seed: 350 + s.i } });
     }
   });
   // thin things: one stroke each; then dry accents along the near things' shade edges

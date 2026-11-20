@@ -172,8 +172,12 @@ export const areaOf = (s: Shape) => Math.max(1, (s.box[2] - s.box[0]) * (s.box[3
 // darker, a lit spot lifted), its cast shadow thrown down-right onto what is behind it, a hair of dark where
 // one thing meets another, then stretched to the full range, so a night scene still has paper in its moon
 // and a pale scene still has darks.
+// how much the figure-ground halo moved each pixel's tone (negative = lighter), for the styles that do not
+// draw from tone but from colour (risograph knocks its inks back there)
+let HALO: Float32Array | null = null;
+export const haloField = (env: Env): Float32Array => { toneField(env); return HALO!; };
 export const toneField = (env: Env): Float32Array => once("tone", () => {
-  const r = raster(env), list = scene(), w = r.w, h = r.h, T = new Float32Array(w * h), L = list.map((s) => lit(s));
+  const r = raster(env), list = scene(), w = r.w, h = r.h, T = new Float32Array(w * h), L = list.map((s) => lit(s)), HA = (HALO = new Float32Array(w * h));
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
     const p = y * w + x, id = r.id[p], X = x / r.R, Y = y / r.R; let t = 1 - (0.299 * r.rgb[p * 4] + 0.587 * r.rgb[p * 4 + 1] + 0.114 * r.rgb[p * 4 + 2]) / 255;
     if (id >= 0 && !list[id].big) { const sd = L[id].side(X, Y); t += 0.22 * Math.max(0, Math.min(1, sd)) - 0.08 * Math.max(0, -sd); if (L[id].hi(X, Y) && areaOf(list[id]) < 0.05 * W * H) t -= 0.18; }
@@ -185,6 +189,35 @@ export const toneField = (env: Env): Float32Array => once("tone", () => {
     if (!s.fill || s.big) return; const k = Math.max(4, Math.min(30, sizeOf(s) * 0.08)), dx = k * 0.7, dy = k;
     const [x0, y0, x1, y1] = s.box;
     for (let y = Math.max(0, Math.floor(y0 + dy)); y < Math.min(h, Math.ceil(y1 + dy)); y++) for (let x = Math.max(0, Math.floor(x0 + dx)); x < Math.min(w, Math.ceil(x1 + dx)); x++) { const q = y * w + x, from = r.id[Math.floor(y - dy) * w + Math.floor(x - dx)]; if (from === s.i && r.id[q] < s.i) T[q] += 0.16; }
+  });
+  // figure and ground: a thing whose tone is close to what lies round it gets the illustrator's halo, a
+  // glow of light behind a dark thing (a back light) or a soft shade behind a light one, fading over a
+  // short distance, plus a thin rim of the opposite tone inside its lit edge, so it reads in light and dark
+  list.forEach((s) => {
+    if (!s.fill || s.big || areaOf(s) < 0.0015 * W * H) return;
+    const k = Math.max(16, Math.min(52, sizeOf(s) * 0.3)), [bx0, by0, bx1, by1] = s.box;
+    const x0 = Math.max(0, Math.floor(bx0 - k)), y0 = Math.max(0, Math.floor(by0 - k)), x1 = Math.min(w - 1, Math.ceil(bx1 + k)), y1 = Math.min(h - 1, Math.ceil(by1 + k)), bw = x1 - x0 + 1, bh = y1 - y0 + 1;
+    // distance (in pixels) from the thing, outside it, and from the edge, inside it: a two-pass chamfer
+    const dOut = new Float32Array(bw * bh).fill(1e9), dIn = new Float32Array(bw * bh).fill(1e9);
+    for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) { const own = r.id[(y + y0) * w + x + x0] === s.i; if (own) dOut[y * bw + x] = 0; else dIn[y * bw + x] = 0; }
+    for (const D of [dOut, dIn]) {
+      for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) { const q = y * bw + x; if (x) D[q] = Math.min(D[q], D[q - 1] + 1); if (y) D[q] = Math.min(D[q], D[q - bw] + 1); if (x && y) D[q] = Math.min(D[q], D[q - bw - 1] + 1.414); if (y && x < bw - 1) D[q] = Math.min(D[q], D[q - bw + 1] + 1.414); }
+      for (let y = bh - 1; y >= 0; y--) for (let x = bw - 1; x >= 0; x--) { const q = y * bw + x; if (x < bw - 1) D[q] = Math.min(D[q], D[q + 1] + 1); if (y < bh - 1) D[q] = Math.min(D[q], D[q + bw] + 1); if (x < bw - 1 && y < bh - 1) D[q] = Math.min(D[q], D[q + bw + 1] + 1.414); if (y < bh - 1 && x) D[q] = Math.min(D[q], D[q + bw - 1] + 1.414); }
+    }
+    let ti = 0, ni = 0, to = 0, no = 0;   // the thing's mean tone, and its surroundings'
+    for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) { const q = y * bw + x, p = (y + y0) * w + x + x0; if (dOut[q] === 0) { ti += T[p]; ni++; } else if (dOut[q] < k && r.id[p] < s.i) { to += T[p]; no++; } }
+    if (!ni || !no) return; ti /= ni; to /= no;
+    // measured where it touches each neighbour, not on average: a dark cat against dark houses and a light
+    // roof gets the glow on the houses' side only. Near things get it fully, far things a breath of it.
+    const maxL = Math.max(1, ...list.map((o) => o.layer)), near = 0.3 + 0.7 * (s.layer / maxL), dir = ti >= 0.5 ? -1 : 1;   // a dark thing gets light behind it, a light thing shade
+    const close = (t: number) => Math.max(0, Math.min(1, (0.3 - Math.abs(t - ti)) / 0.3)) * near;
+    let edge = 0, en = 0; for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) { const q = y * bw + x, p = (y + y0) * w + x + x0; if (dOut[q] > 0 && dOut[q] < 2 && r.id[p] < s.i) { edge += close(T[p]); en++; } }
+    const amt = en ? edge / en : 0; if (amt < 0.05) return;
+    for (let y = 0; y < bh; y++) for (let x = 0; x < bw; x++) {
+      const q = y * bw + x, p = (y + y0) * w + x + x0;
+      if (dOut[q] > 0 && dOut[q] < k && r.id[p] < s.i) { const f = 1 - dOut[q] / k, d = dir * 0.55 * close(T[p]) * f * f; T[p] += d; HA[p] += d; }
+      else if (dOut[q] === 0 && dIn[q] < 4.5 && L[s.i].side(x + x0, y + y0) < 0.1) { T[p] += dir * 0.4 * amt; HA[p] += dir * 0.4 * amt; }
+    }
   });
   // where one thing meets another, the line the eye reads
   for (let y = 1; y < h; y++) for (let x = 1; x < w; x++) { const p = y * w + x; if (r.id[p] !== r.id[p - 1] || r.id[p] !== r.id[p - w]) T[p] += 0.12; }
