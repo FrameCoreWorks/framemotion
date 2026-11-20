@@ -8,7 +8,7 @@
 import { Gfx, displace, fractal, rng, type Ctx, type Env, type Medium, type P } from "../core";
 import { clamp, mix } from "../gallery";
 import { streakClip, streaks } from "../koiDrawKit";
-import { W, H, N, scene, lit, fillOf, hex, sizeOf, outlineOf, areaOf, shown, drawOn, type Clock, type Shape } from "../sceneKit";
+import { W, H, N, scene, lit, fillOf, hex, sizeOf, outlineOf, areaOf, shown, drawOn, visibleRuns, type Clock, type Shape } from "../sceneKit";
 
 const C = { board: "#f1e1b8", ink: "#2a2420" };
 const PALETTE = ["#f1e1b8", "#fbf2dc", "#98c1ad", "#4f8f86", "#a6a340", "#4c8c52", "#356a3e", "#f5e8c8", "#e8a296", "#e2a73a", "#56aba2", "#f7efdc", "#d2462a", "#244e4a", "#7a4a33", "#2b2a33", "#3e5f8a", "#8a6f9e", "#c98a5a"];
@@ -60,8 +60,8 @@ const picture = (ctx: Ctx, env: Env, clk: Clock) => {
   g.group("plain", () => list.forEach((s) => {
     if (s.big) return;
     if (!s.fill) { const q = clk.p("line", 20); if (q > 0) s.poly.forEach((p, j) => g.pen(p.filter((_, i, a) => i % 2 === 0 || i === a.length - 1), { w: Math.max(1.2, Math.min(4, s.sw * 0.5)), color: C.ink, seed: 700 + s.i * 5 + j, wobble: 0.9, opacity: 0.92, progress: q })); return; }
-    const L = lit(s), e = outlineOf(s).filter((_, i, a) => i % 2 === 0 || i === a.length - 1), segs: P[][] = []; let cur: P[] = [];
-    e.forEach((p) => { if (L.side(p[0], p[1]) > -0.45) cur.push(p); else { if (cur.length > 2) segs.push(cur); cur = []; } }); if (cur.length > 2) segs.push(cur);
+    const L = lit(s), segs: P[][] = [];
+    visibleRuns(env, s).forEach((run) => { let cur: P[] = []; run.filter((_, i, a) => i % 2 === 0 || i === a.length - 1).forEach((p) => { if (L.side(p[0], p[1]) > -0.45) cur.push(p); else { if (cur.length > 2) segs.push(cur); cur = []; } }); if (cur.length > 2) segs.push(cur); });
     segs.forEach((sg, j) => { const q = clk.p("line", sg.length * 0.4 + 6); if (q > 0) g.pen(sg, { w: sizeOf(s) > 60 ? 1.8 : 1.3, color: C.ink, seed: 600 + s.i * 9 + j, wobble: 0.9, opacity: 0.92, progress: q }); });
   }));
   g.pop();

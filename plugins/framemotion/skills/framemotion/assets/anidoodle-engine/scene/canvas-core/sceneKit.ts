@@ -192,3 +192,11 @@ export const toneField = (env: Env): Float32Array => once("tone", () => {
   return T;
 });
 export const toneAt = (env: Env, x: number, y: number) => { const r = raster(env), T = toneField(env); return T[at(r, x, y)]; };
+// The parts of a thing's outline that show: a stretch is dropped where a thing in front of it covers it
+// (a hand does not draw what it cannot see). Returns the visible runs, in order along the outline.
+export const visibleRuns = (env: Env, s: Shape, pts: P[] = outlineOf(s), minLen = 3): P[][] => {
+  const r = raster(env), out: P[][] = []; let cur: P[] = [];
+  for (const p of pts) { const id = idAt(r, p[0], p[1]); if (id > s.i) { if (cur.length >= minLen) out.push(cur); cur = []; } else cur.push(p); }
+  if (cur.length >= minLen) out.push(cur);
+  return out;
+};

@@ -8,7 +8,7 @@
 import { Gfx, PENCIL, fractal, type Ctx, type Env, type Layer } from "../core";
 import { Sheet, contour, edgeDist, hatch, smoothstep, type Mark, type Pass } from "../colouredPencilKit";
 import { mix } from "../gallery";
-import { W, H, scene, shown, lit, fillOf, hex, sizeOf, outlineOf, areaOf, type Shape } from "../sceneKit";
+import { W, H, scene, shown, lit, fillOf, hex, sizeOf, outlineOf, areaOf, visibleRuns, type Shape } from "../sceneKit";
 
 const ANG = -1.02, X2 = 0.22, PAPER = "#f3ecdc", LAY = "#8e8894", SEPIA = "#3e3134", INDIGO = "#3d467f", WARM = "#f1c47a";
 // the original sheet is seen at 1.34x: strokes, gaps and lengths at that size
@@ -46,7 +46,7 @@ const build = (env: Env): Sheet => {
   });
   // 6 · contours in sepia, broken, heavier on the shade side, lost where the light eats the edge; thin things as lines
   S.pass("line", 1);
-  things.forEach((s) => { const L = lit(s); contour(S, outlineOf(s), { w: (areaOf(s) > 0.01 * W * H ? 1.5 : 1.2) * Z, col: SEPIA, a: 0.85, seed: 500 + s.i, closed: true, keep: (x, y) => L.side(x, y) > -0.55 }); });
+  things.forEach((s) => { const L = lit(s); visibleRuns(env, s).forEach((run) => contour(S, run, { w: (areaOf(s) > 0.01 * W * H ? 1.5 : 1.2) * Z, col: SEPIA, a: 0.85, seed: 500 + s.i, closed: false, keep: (x, y) => L.side(x, y) > -0.55 })); });
   list.filter((s) => !s.fill).forEach((s) => s.poly.forEach((sub, j) => contour(S, sub, { w: Math.max(1.1, Math.min(4, s.sw * 0.4)), col: mix(hex(s.stroke!), SEPIA, 0.25), a: 0.9, seed: 600 + s.i * 7 + j, smooth: false })));
   return S;
 };

@@ -6,7 +6,7 @@
 // only their edge and a rubbed-in haze, as a teacher would draw them.
 import { Gfx, rng, type Ctx, type Env, type Medium, type P } from "../core";
 import { blob, fillShape, hatchRuns, mix } from "../gallery";
-import { W, H, N, scene, shown, lit, fillOf, hex, outlineOf, drawOn, lenOf, areaOf, type Clock, type Region, type Shape } from "../sceneKit";
+import { W, H, N, scene, shown, lit, fillOf, hex, outlineOf, drawOn, lenOf, areaOf, visibleRuns, type Clock, type Region, type Shape } from "../sceneKit";
 
 const CHALK_M: Medium = { nib: 2.1, taper: 0.55, pressure: 0.95, retrace: true, wobble: 1.4, rough: 1.2 };
 const CHALK = "#f4f0e6";
@@ -77,9 +77,9 @@ const picture = (ctx: Ctx, env: Env, clk: Clock) => {
       scumble(g, dust, reg, key, col, { angle: -0.9 + (s.i % 5) * 0.12, gap: big ? 5.5 : 3, w: big ? 4 : 4.4, alpha: big ? 0.12 + 0.3 * lum : 0.1 + 0.55 * Math.pow(lum, 0.8), seed: seed + 2, progress: face });
       if (!big) {
         scumble(g, dust, reg, key, col, { angle: 0.75 + (s.i % 3) * 0.1, gap: 3.2, w: 4.2, alpha: 0.2 + 0.35 * lum, seed: seed + 8, keep: (x, y) => L.side(x, y) < 0.1, progress: again });   // the lit side gone over again
-        const e = outlineOf(s).filter((_, i, a) => i % 3 === 0 || i === a.length - 1), n = e.length;
-        let cur: P[] = []; const pieces: [P[], boolean][] = [];
-        e.forEach((q, i) => { const litSide = L.side(q[0], q[1]) < 0.15; cur.push(q); if (i === n - 1 || (L.side(e[i + 1][0], e[i + 1][1]) < 0.15) !== litSide) { pieces.push([cur, litSide]); cur = [q]; } });
+        const pieces: [P[], boolean][] = [];
+        visibleRuns(env, s).forEach((run) => { const e = run.filter((_, i, a) => i % 3 === 0 || i === a.length - 1), n = e.length; let cur: P[] = [];
+        e.forEach((q, i) => { const litSide = L.side(q[0], q[1]) < 0.15; cur.push(q); if (i === n - 1 || (L.side(e[i + 1][0], e[i + 1][1]) < 0.15) !== litSide) { pieces.push([cur, litSide]); cur = [q]; } }); });
         pieces.forEach(([pts, litSide], j) => pts.length > 1 && line(g, dust, pts, litSide ? 2.3 : 1.4, lum < 0.3 ? CHALK : col, seed + 5 + j, litSide ? 0.95 : 0.5, edge));   // the lit edge firm, the shade edge barely
       }
     }));
