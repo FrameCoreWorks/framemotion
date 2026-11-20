@@ -968,9 +968,9 @@
     },
     {
       "id": "quarks-3d-effects",
-      "title": "three.quarks: 3D fire, smoke, sparks and magic, stepped on the clock",
+      "title": "three.quarks: layered fire, lit smoke, sparks and a magic ring in a 3D scene",
       "group": "transitions-effects-backgrounds",
-      "about": "Fire, smoke, flying sparks and a magic swirl, with real depth.",
+      "about": "Fire, smoke, flying sparks and a magic ring in a small 3D scene: the camera circles them and stone pillars pass in front.",
       "good_for": [
         "effect",
         "background"
@@ -1048,6 +1048,45 @@
           "min": 20,
           "max": 300,
           "about": "camera distance from the effect (smaller is closer)"
+        },
+        "scale": {
+          "type": "number",
+          "default": 1,
+          "min": 0.3,
+          "max": 3,
+          "about": "effect size (1 is about a third of the frame height)"
+        },
+        "at": {
+          "type": "array",
+          "default": [
+            0,
+            0
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": "number",
+          "about": "where the effect sits: [x, y] from the frame centre, -0.5 to 0.5"
+        },
+        "move": {
+          "type": "string",
+          "default": "orbit",
+          "enum": [
+            "orbit",
+            "still"
+          ],
+          "about": "orbit: the camera circles the effect and closes in; still: a fixed camera"
+        },
+        "stage": {
+          "type": "boolean",
+          "default": true,
+          "about": "a dark floor and stone pillars lit by the effect (off for a transparent overlay)"
+        },
+        "prewarm": {
+          "type": "number",
+          "default": 2,
+          "min": 0,
+          "max": 10,
+          "about": "seconds simulated before frame 0, so fire, smoke and magic are already running (the sparks burst always starts at frame 0)"
         }
       }
     },
