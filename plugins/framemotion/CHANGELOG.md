@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.1 (2026-11-20)
+
+- **Real scans first** (`references/workshop/3d.md`): every 3D scene, Blender or three.js and any subject, first checks Poly Haven's CC0 HDRIs, textures and models through Open Assets, and builds in code only what scans cannot give. Owner request 2026-11-20 after a code-only Blender film that used Poly Haven scans.
+- Evidence: `tools/check.py` in the Claude cloud sandbox. No render; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.7.0 (2026-11-20)
 
 Anidoodle improvements the owner approved ("Ok", 2026-11-20) after looking at frames of every style.
