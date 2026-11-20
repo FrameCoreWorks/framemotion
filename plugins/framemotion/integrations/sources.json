@@ -699,6 +699,22 @@
         "no GSAP runtime and no paid image, video or voice route"
       ],
       "bundled_commit": "8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c"
+    },
+    {
+      "name": "cinetic",
+      "repo": "Leonxlnx/cinetic",
+      "commit": "f4bbfc844877891fe92279d47b7874fb44d485ae",
+      "bundled_commit": "f4bbfc844877891fe92279d47b7874fb44d485ae",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Leonxlnx",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "bundled",
+      "conditions": [
+        "merged into the launch films, no new engine: the device book (27 library files and its index), copy, update-film, timing and token references, and the HyperFrames starter's motion.js, timeline.js, music.js and index.html, all unchanged in skills/framemotion/assets/cinetic-kit/",
+        "the copy check is FrameMotion's own launch-copy/copy_check.py; no upstream script is bundled or run",
+        "left out: Remotion starter, kit and templates (Remotion company licence), logos.mjs and brand marks, music search and download, GSAP (the user's HyperFrames project provides it)"
+      ]
     }
   ]
 }
