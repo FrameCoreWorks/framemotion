@@ -11,9 +11,9 @@ import { clamp, hatchRuns, lerp, lerpP, mix, smooth } from "../gallery";
 import { W, H, scene, shown, lit, fillOf, hex, sizeOf, outlineOf, areaOf, type Shape } from "../sceneKit";
 
 const EMB_M: Medium = { nib: 1, taper: 0, pressure: 1, retrace: false, wobble: 0, rough: 0 };
-const HC: P = [W / 2, H / 2], RX = W * 0.445, RY = H * 0.445, TH = Math.min(W, H) * 0.022, K = 0.9;   // the hoop (an oval one for a tall frame) and how much the scene is drawn in to sit inside it
+const TALL = H > W * 1.4, HC: P = [W / 2, TALL ? H * 0.45 : H / 2], RX = W * 0.445, RY = TALL ? H * 0.34 : H * 0.445, TH = Math.min(W, H) * 0.022, K = 0.9;   // the hoop (an oval one for a tall frame, kept inside the 9:16 safe area: 10% top, 20% bottom) and how much the scene is drawn in to sit inside it
 const inHoop = (x: number, y: number, pad = 0) => ((x - HC[0]) / (RX - TH - pad)) ** 2 + ((y - HC[1]) / (RY - TH - pad)) ** 2 < 1;
-const toHoop = ([x, y]: P): P => [HC[0] + (x - HC[0]) * K, HC[1] + (y - HC[1]) * K];
+const toHoop = ([x, y]: P): P => [HC[0] + (x - W / 2) * K, HC[1] + (y - H / 2) * K];
 const floss = (c: [number, number, number]) => { const l = 0.299 * c[0] + 0.587 * c[1] + 0.114 * c[2]; return hex(c.map((v) => l + (v - l) * 1.1) as [number, number, number]); };
 type Timed = St & { f0: number; f1: number };
 
@@ -25,7 +25,7 @@ const build = (env: Env): St[] => {
     const col = floss(fillOf(s)), L = lit(s), reg = shown(env, s), sz = sizeOf(s) * K;
     if (!s.big && sz < 26) {   // small round things: a packed bed of French knots
       const [x0, y0, x1, y1] = s.box, c = toHoop([(x0 + x1) / 2, (y0 + y1) / 2]);
-      knotsAll.push(...knots(c[0], c[1], Math.max(2.4, (x1 - x0) * K / 2), Math.max(2.4, (y1 - y0) * K / 2), Math.max(1.4, Math.min(2.6, sz / 8)), (u, v) => (u + v < 0 ? mix(col, "#ffffff", 0.25) : col), 900 + s.i).filter((k) => reg.has(HC[0] + (k.a[0] - HC[0]) / K, HC[1] + (k.a[1] - HC[1]) / K)));
+      knotsAll.push(...knots(c[0], c[1], Math.max(2.4, (x1 - x0) * K / 2), Math.max(2.4, (y1 - y0) * K / 2), Math.max(1.4, Math.min(2.6, sz / 8)), (u, v) => (u + v < 0 ? mix(col, "#ffffff", 0.25) : col), 900 + s.i).filter((k) => reg.has(W / 2 + (k.a[0] - HC[0]) / K, H / 2 + (k.a[1] - HC[1]) / K)));
       return;
     }
     if (!s.big) outl.push(...splitStitch(outlineOf(s).map(toHoop), 5.5, 1.9, mix(col, "#1a120c", 0.45), true));
