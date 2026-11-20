@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.8.0 (2026-11-20)
+
+Owner request 2026-11-20: "the engine should draw any scene from a description in each of the 32 styles".
+
+- **A scene from words** (anidoodle setting `scene`): the model writes a layered SVG from the description (back to front, flat colours, one shape per thing; rules in the engine README), and each of the 32 styles draws it with its own film's tools and in its own film's order: the crayon film's wax, the woodcut kit's cut and printed blocks with the key block last, the embroidery kit's stitches in a hoop, the oil film's brush on toned canvas, the sumi-e brush that spends its ink, the scrapbook burin on a torn card with a typed caption, the toy-brick kit building it brick by brick, the isometric kit standing it up as a diorama, the pixel-art draft laying it in cells, and so on for every style. Light from the upper left, lit and shade sides, near things stronger than far ones, hidden outlines left out. Drawn over about 8.9 s with a hold to 10 s (`length` fits a reel), at the frame size asked for; in 9:16 the framed styles stay inside the safe area. No paid service.
+- Built as `scene/canvas-core/sceneKit.ts` (the shared reading of the SVG: shapes, layers, raster, light, tone, visible outlines), one look per style in `scene/canvas-core/looks/` (each ports from that style's Apache-2.0 upstream kit, credited in the file) and `sceneDraw.ts` mapping each style to its look. A new style adds a look file or a `scene` entry in its `styles.json` row that picks a generic technique. The 32 showcase films and `motif` are unchanged. Three example scenes in `scene/examples/`.
+- The SVG is embedded as data: scripts, links, images, styles and event attributes are removed.
+- Tests: the scene setting resolves to the scene film at the asked size and refuses `motif`; five styles render the same frame in two orders, not blank, with the file kept as data; every bundled style has a scene look.
+- Evidence: on the Mac, three scenes (a cat on a roof at night, a sailboat at sunset, a cup of coffee by a rainy window) in all 32 styles at 2, 4.5, 7 and 9 s, and the cat in 9:16 in woodblock, crayon, toy-brick and embroidery every 0.5 s with the safe-area lines; low-poly, risograph, oil and stipple were reworked after the first look. Known limits: one technique per style (simpler than the showcase films); stipple and the spiral lose a dark subject on a dark ground; risograph prints muddy on dark scenes. Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.7.2 (2026-11-20)
 
 Fixes found by the frame check of the FrameCore logo drawn in all five media on the Mac.

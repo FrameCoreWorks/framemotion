@@ -3737,14 +3737,15 @@
       "id": "anidoodle",
       "title": "Anidoodle: hand-drawn animation in 32 styles (crayon, ink, chalk, embroidery, woodblock, pixel and more), drawn on stroke by stroke",
       "group": "handmade-looks",
-      "about": "Hand-drawn animation in 32 styles, from crayon and chalk to embroidery, or your own logo or picture drawn by hand (style motif).",
+      "about": "Hand-drawn animation in 32 styles, from crayon to embroidery: their own films, your logo (motif) or any scene you describe (scene).",
       "good_for": [
         "story",
         "background"
       ],
       "inputs": [
         "none",
-        "image"
+        "image",
+        "text"
       ],
       "status": "ready",
       "kind": "canvas",
@@ -3811,6 +3812,11 @@
           "type": "string",
           "default": "",
           "about": "for the style \"motif\": the path to your SVG (a logo, an icon or line art, drawn line by line and coloured in) or PNG/JPG (revealed by hand strokes)"
+        },
+        "scene": {
+          "type": "string",
+          "default": "",
+          "about": "a scene of your own, drawn in the chosen style's way: the path to a layered SVG written from a description (back to front, flat colours, at the frame's shape; see the README, A scene from words). Any style but motif."
         },
         "medium": {
           "type": "string",

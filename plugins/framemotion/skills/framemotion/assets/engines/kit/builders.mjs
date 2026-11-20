@@ -815,6 +815,7 @@ ${code}
    */
   async anidoodle(entry, enginesRoot, params = {}) {
     const motif = entry.build.film === 'motifDraw' ? readMotif(entry, params) : null;
+    const scene = entry.build.film === 'sceneDraw' ? readScene(entry, params) : null;
     const engineSrc = path.join(sibling(enginesRoot, 'anidoodle-engine'), 'upstream/engine/src');
     const film = String(entry.build.film ?? '');
     if (!/^[A-Za-z][A-Za-z0-9]*$/.test(film)) throw new Error(`${entry.id}: build.film must be a film's export name`);
@@ -861,7 +862,7 @@ ${code}
     // and centred, over a soft, darkened, blurred copy of itself that fills the frame.
     fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html><head><meta charset="utf-8">
 <style>html,body{margin:0;height:100%;overflow:hidden;background:#000}#film{display:none}#frame{display:block;width:100vw;height:100vh}</style></head>
-<body><canvas id="film"></canvas><canvas id="frame"></canvas><script>window.__ASSETS__=${motif ? JSON.stringify(motif.assets).replace(/</g, '\\u003c') : '{}'};window.__BAKE_SRC__={};window.__MOTIF__=${motif ? JSON.stringify(motif.spec).replace(/</g, '\\u003c') : 'undefined'};</script>
+<body><canvas id="film"></canvas><canvas id="frame"></canvas><script>window.__ASSETS__=${motif ? JSON.stringify(motif.assets).replace(/</g, '\\u003c') : '{}'};window.__BAKE_SRC__={};window.__MOTIF__=${motif ? JSON.stringify(motif.spec).replace(/</g, '\\u003c') : 'undefined'};window.__SCENE__=${scene ? JSON.stringify(scene).replace(/</g, '\\u003c') : 'undefined'};</script>
 <script>${code}</script>
 <script>(() => {
   const q = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
@@ -907,6 +908,19 @@ function readMotif(entry, params) {
   const type = {'.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg'}[ext];
   if (!type) throw new RangeError(`${entry.id}: the motif must be .svg, .png or .jpg (got ${ext || 'no extension'}).`);
   return {assets: {motif: `data:${type};base64,${fs.readFileSync(file).toString('base64')}`}, spec: {kind: 'image', medium}};
+}
+
+/**
+ * A scene for the anidoodle styles: `scene` is the path to a layered SVG (the model writes it from a description;
+ * see the engine README, "A scene from words"). It is read here and embedded in the page as data, with the style
+ * whose way it is drawn in and the frame size; nothing else of the user's folder is copied.
+ */
+function readScene(entry, params) {
+  const file = path.resolve(String(params.scene));
+  if (!fs.existsSync(file) || !fs.statSync(file).isFile()) throw new RangeError(`${entry.id}: no scene file ${file}.`);
+  if (path.extname(file).toLowerCase() !== '.svg') throw new RangeError(`${entry.id}: a scene is an .svg file (got ${path.basename(file)}).`);
+  if (fs.statSync(file).size > 4 * 1024 * 1024) throw new RangeError(`${entry.id}: ${file} is over 4 MB; a scene is a few dozen flat shapes.`);
+  return {svg: fs.readFileSync(file, 'utf8'), style: entry.build.sceneStyle, ...(entry.build.sceneLook ? {look: entry.build.sceneLook} : {}), W: entry.size.width, H: entry.size.height};
 }
 
 export async function buildEntry(entry, enginesRoot, params = {}) {

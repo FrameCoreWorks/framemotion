@@ -173,3 +173,50 @@ test('a square film fits whole into a 9:16 frame', {skip: browserSkip, timeout: 
   assert.deepEqual(r.blocked, []);
   assert.ok(!r.frames[0].flat);
 });
+
+// A scene from words (2026-11-20): a layered SVG drawn in any of the 32 styles, at the frame size asked for.
+const SCENE = path.resolve(import.meta.dirname, '../skills/framemotion/assets/anidoodle-engine/scene/examples/cat-on-roof.svg');
+test('scene: any style draws the scene film at the size asked for; motif and unknown looks are refused', () => {
+  const s = kit.resolveStyle(engine, {style: 'woodblock', scene: SCENE, width: 1080, height: 1920, length: 6}, ENGINES, '');
+  assert.equal(s.build.film, 'sceneDraw');
+  assert.equal(s.build.sceneStyle, 'woodblock');
+  assert.deepEqual(s.size, {width: 1080, height: 1920});
+  assert.equal(s.duration, 6);
+  assert.throws(() => kit.resolveStyle(engine, {style: 'motif', scene: SCENE}, ENGINES, ''), /not in "motif"/);
+  assert.throws(() => kit.resolveStyle(engine, {style: 'own-example', scene: SCENE}, ENGINES, ''), /no scene look|no style/);
+});
+
+test('scene: drawn thing after thing, the same frame in any order, the file stays data', {skip: browserSkip, timeout: 900000}, async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-scene-'));
+  const svg = path.join(dir, 'scene.svg');
+  fs.writeFileSync(svg, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" onload="window.__xss=1"><rect width="100" height="100" fill="#1b2a4a"/><circle cx="50" cy="50" r="25" fill="#f2d24b"/><script>window.__xss=2</script></svg>');
+  try {
+    for (const style of ['crayon', 'woodblock', 'stipple', 'pixel-art', 'embroidery']) {
+      const seen = new Map();
+      for (const frames of [[150], [280, 150]]) {
+        const r = await kit.renderFrames('anidoodle', {frames, once: true, params: {style, scene: svg}});
+        assert.deepEqual(r.blocked, []);
+        for (const f of r.frames) {
+          if (seen.has(f.frame)) assert.equal(f.hash, seen.get(f.frame), `${style}: frame ${f.frame} after ${frames.join(', ')}`);
+          else seen.set(f.frame, f.hash);
+          assert.ok(!f.flat, `${style}: frame ${f.frame} is not empty`);
+        }
+      }
+    }
+    const e = kit.resolveStyle(engine, {style: 'flat-vector', scene: svg}, ENGINES, '');
+    const built = await BUILDERS.anidoodle(e, ENGINES, {style: 'flat-vector', scene: svg});
+    const {chromium} = await kit.loadPlaywright();
+    const browser = await chromium.launch();
+    try {
+      const page = await browser.newPage({viewport: {width: 540, height: 540}});
+      await page.goto('file://' + path.join(built.dir, built.page) + '?adapter=framemotion');
+      const out = await page.evaluate(async () => {
+        const g = document.getElementById('frame').getContext('2d');
+        await window.renderFrame(9.5); return {mid: Array.from(g.getImageData(540, 540, 1, 1).data), corner: Array.from(g.getImageData(40, 40, 1, 1).data), xss: window.__xss ?? null};
+      });
+      assert.equal(out.xss, null);
+      assert.ok(out.mid[0] > 200 && out.mid[2] < 120, `the yellow circle is in the middle at the end, got ${out.mid}`);
+      assert.ok(out.corner[2] > out.corner[0], `the dark blue backdrop is in the corner, got ${out.corner}`);
+    } finally { await browser.close(); fs.rmSync(built.dir, {recursive: true, force: true}); }
+  } finally { fs.rmSync(dir, {recursive: true, force: true}); }
+});
