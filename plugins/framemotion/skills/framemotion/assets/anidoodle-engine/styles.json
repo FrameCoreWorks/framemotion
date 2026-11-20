@@ -9,6 +9,7 @@
       },
       "duration": 15.0,
       "fps": 30,
+      "start": 0.4,
       "about": "A crayon picture drawn on stroke by stroke, then it comes alive (a hot-air balloon)."
     },
     "cyanotype": {
@@ -19,6 +20,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.4,
       "about": "A cyanotype drafting sheet where a machine is drawn, measured and set going (a train)."
     },
     "paper-collage": {
@@ -29,6 +31,7 @@
       },
       "duration": 16.0,
       "fps": 30,
+      "start": 0.2,
       "about": "Cut-paper pieces laid down one by one into a picture (a fox at dusk)."
     },
     "toy-theatre": {
@@ -39,6 +42,7 @@
       },
       "duration": 13.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A paper toy theatre with flats that slide and bob, animated on twos (a seaside town)."
     },
     "oil": {
@@ -49,7 +53,9 @@
       },
       "duration": 18.0,
       "fps": 30,
-      "about": "An oil still life painted stroke by stroke (pears and a copper pot)."
+      "start": 0.4,
+      "about": "An oil still life painted stroke by stroke (pears and a copper pot).",
+      "brightness": 1.25
     },
     "woodblock": {
       "film": "woodcut",
@@ -59,6 +65,7 @@
       },
       "duration": 14.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A woodblock print pressed one colour block after another (herons on a bridge in rain)."
     },
     "scratchboard": {
@@ -69,6 +76,7 @@
       },
       "duration": 16.0,
       "fps": 30,
+      "start": 1.0,
       "about": "White lines scratched out of a black board (a lynx in moonlight)."
     },
     "single-line-engraving": {
@@ -79,6 +87,7 @@
       },
       "duration": 8.0,
       "fps": 30,
+      "start": 0.4,
       "about": "One spiral line whose thickness makes the picture, unspooling (a Mellan engraving)."
     },
     "stipple": {
@@ -89,7 +98,10 @@
       },
       "duration": 15.0,
       "fps": 30,
-      "about": "A pen-and-ink picture built from dots (a nautilus shell)."
+      "start": 0.2,
+      "about": "A pen-and-ink picture built from dots (a nautilus shell).",
+      "contrast": 1.2,
+      "brightness": 0.92
     },
     "pixel-art": {
       "film": "pixelArt",
@@ -99,6 +111,7 @@
       },
       "duration": 15.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A pixel-art scene with a little character action (a cat's pounce)."
     },
     "flat-vector": {
@@ -109,6 +122,7 @@
       },
       "duration": 17.5,
       "fps": 30,
+      "start": 0.2,
       "about": "A flat vector illustration whose shapes move together (a sailing regatta)."
     },
     "isometric": {
@@ -119,6 +133,7 @@
       },
       "duration": 16.0,
       "fps": 30,
+      "start": 1.4,
       "about": "A cutaway seen from an angle, where a small process runs inside (a night bakery)."
     },
     "coloured-pencil": {
@@ -129,6 +144,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 2.4,
       "about": "A coloured-pencil drawing with a small story in it (a tin repairman)."
     },
     "pencil-watercolour": {
@@ -139,6 +155,7 @@
       },
       "duration": 15.0,
       "fps": 30,
+      "start": 2.8,
       "about": "A pencil drawing that gets its watercolour washes (a ranunculus flower)."
     },
     "risograph": {
@@ -149,6 +166,7 @@
       },
       "duration": 11.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A small-press print built up one ink at a time (a lighthouse at sunset)."
     },
     "ink-wash": {
@@ -159,6 +177,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.6,
       "about": "An ink line drawing that washes in its tones (a wren on a twig)."
     },
     "mid-century": {
@@ -169,6 +188,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A 1950s gouache illustration with flat textured colour (a kite)."
     },
     "rubber-hose": {
@@ -179,6 +199,7 @@
       },
       "duration": 14.5,
       "fps": 30,
+      "start": 0.6,
       "about": "A 1930s rubber-hose cartoon loop (a dancing coffee pot)."
     },
     "low-poly": {
@@ -189,6 +210,7 @@
       },
       "duration": 15.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A flat low-poly picture whose facets shift with the light (a mountain lake at dawn)."
     },
     "broken-colour": {
@@ -199,6 +221,7 @@
       },
       "duration": 15.0,
       "fps": 30,
+      "start": 0.2,
       "about": "Impressionist dabs of pure colour side by side that shimmer, like a harbour at sunrise."
     },
     "charcoal": {
@@ -209,6 +232,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.2,
       "about": "A charcoal drawing that is rubbed out and drawn again, so one picture changes through time (a tree in four seasons)."
     },
     "dream-glaze": {
@@ -219,6 +243,7 @@
       },
       "duration": 27.0,
       "fps": 30,
+      "start": 0.8,
       "about": "Soft translucent glazes laid over each other until a dreamy painting appears."
     },
     "embroidery": {
@@ -229,6 +254,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.6,
       "about": "A picture stitched in thread on linen, stitch by stitch (a wreath and a bee)."
     },
     "folk-tale": {
@@ -239,6 +265,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 1.2,
       "about": "A folk-tale picture book: a drawn hero walks through a decorated scene (a boy with a rooster)."
     },
     "halftone": {
@@ -249,6 +276,7 @@
       },
       "duration": 14.0,
       "fps": 30,
+      "start": 0.6,
       "about": "A picture printed in newspaper dots, with the dots moving as the light changes (a viaduct at golden hour)."
     },
     "scrapbook": {
@@ -259,6 +287,7 @@
       },
       "duration": 17.0,
       "fps": 30,
+      "start": 0.4,
       "about": "An old scrapbook page: clippings, engravings and notes taped in to explain a subject (how a honeybee finds flowers)."
     },
     "storybook": {
@@ -269,6 +298,7 @@
       },
       "duration": 15.0,
       "fps": 30,
+      "start": 0.4,
       "about": "A children's-book character in pencil and soft watercolour, drawn before your eyes."
     },
     "toy-brick": {
@@ -279,6 +309,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.4,
       "about": "A scene built from plastic toy bricks with a small action in it (a tug boat)."
     },
     "sumi-e": {
@@ -289,6 +320,7 @@
       },
       "duration": 17.0,
       "fps": 30,
+      "start": 0.6,
       "about": "Japanese ink painting with a brush: bamboo bending in the wind."
     },
     "marker-comic": {
@@ -299,6 +331,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.6,
       "about": "A comic panel drawn with markers, line then colour (koi fish)."
     },
     "chalkboard": {
@@ -309,6 +342,7 @@
       },
       "duration": 18.0,
       "fps": 30,
+      "start": 0.6,
       "about": "A lesson written and drawn in chalk on a blackboard (the phases of the moon)."
     },
     "ballpoint": {
@@ -319,7 +353,10 @@
       },
       "duration": 15.0,
       "fps": 30,
-      "about": "A ballpoint-pen sketch drawn line by line (a pocket watch)."
+      "start": 1.4,
+      "about": "A ballpoint-pen sketch drawn line by line (a pocket watch).",
+      "contrast": 1.2,
+      "brightness": 0.92
     },
     "own-example": {
       "film": "ownExample",
@@ -330,8 +367,21 @@
       },
       "duration": 5.0,
       "fps": 30,
+      "start": 0,
       "about": "The template for a new style: a circle drawn on, then a dot, in FrameMotion's own film file.",
       "template": true
+    },
+    "motif": {
+      "film": "motifDraw",
+      "folder": "../anidoodle-engine/motif",
+      "size": {
+        "width": 1080,
+        "height": 1080
+      },
+      "duration": 8.0,
+      "fps": 30,
+      "start": 0,
+      "about": "Your own picture drawn by hand: an SVG drawn line by line and coloured in, or a PNG/JPG revealed by hand strokes, in pencil, ink, crayon, chalk or marker (settings motif and medium)."
     }
   }
 }

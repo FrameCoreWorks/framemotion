@@ -58,6 +58,15 @@ test('one anidoodle engine: the setting "style" picks a film and its size, and a
   const own = kit.resolveStyle(engine, {style: 'own-example'}, ENGINES);
   assert.deepEqual([own.build.film, own.build.folder], ['ownExample', '../anidoodle-engine/examples']);
   assert.equal(entries.filter((e) => e.method_of === 'anidoodle' || e.id.startsWith('ad-')).length, 0);
+  // Timing and tone: the render opens at the style's first mark, `length` fits the drawing, tone multiplies.
+  const crayon = kit.resolveStyle(engine, {style: 'crayon'}, ENGINES, '');
+  assert.ok(crayon.build.from > 0 && crayon.build.rate === 1 && crayon.duration === 15 - crayon.build.from);
+  const reel = kit.resolveStyle(engine, {style: 'crayon', length: 6, from: 1}, ENGINES, '');
+  assert.equal(reel.duration, 6);
+  assert.equal(reel.build.rate, (15 - crayon.build.from - 1) / 6);
+  assert.equal(kit.resolveStyle(engine, {style: 'crayon', blank_start: true}, ENGINES, '').build.from, 0);
+  assert.throws(() => kit.resolveStyle(engine, {style: 'crayon', from: 30}, ENGINES, ''), /nothing is left/);
+  assert.equal(kit.resolveStyle(engine, {style: 'oil', brightness: 1.2}, ENGINES, '').build.brightness, 1.25 * 1.2);
   // A user's own styles file (FRAMEMOTION_STYLES) adds rows; its folder is read from that file's folder.
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-styles-'));
   try {
@@ -88,6 +97,32 @@ test('a new film in the user\'s own folder builds against the bundled kits and r
     assert.deepEqual(out.px.slice(0, 3), [0x1f, 0x3a, 0x5f]);
     fs.rmSync(again.dir, {recursive: true, force: true});
   } finally { await browser.close(); }
+});
+
+test('the motif style draws the user\'s own SVG by hand, and the file stays data', {skip: browserSkip, timeout: 300000}, async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-motif-'));
+  const svg = path.join(dir, 'logo.svg');
+  fs.writeFileSync(svg, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" onload="window.__xss=1"><rect x="10" y="10" width="80" height="80" fill="#e4572e"/><script>window.__xss=2</script></svg>');
+  const motif = kit.resolveStyle(engine, {style: 'motif'}, ENGINES, '');
+  assert.equal(motif.build.film, 'motifDraw');
+  await assert.rejects(BUILDERS.anidoodle(motif, ENGINES, {}), /needs "motif"/);
+  await assert.rejects(BUILDERS.anidoodle(motif, ENGINES, {motif: path.join(dir, 'a.gif')}), /not found/);
+  const built = await BUILDERS.anidoodle(motif, ENGINES, {motif: svg, medium: 'marker'});
+  const {chromium} = await kit.loadPlaywright();
+  const browser = await chromium.launch();
+  try {
+    const page = await browser.newPage({viewport: {width: 540, height: 540}});
+    await page.goto('file://' + path.join(built.dir, built.page) + '?adapter=framemotion');
+    const out = await page.evaluate(async () => {
+      const g = document.getElementById('frame').getContext('2d');
+      await window.renderFrame(0); const first = Array.from(g.getImageData(540, 540, 1, 1).data);
+      await window.renderFrame(7.9); const last = Array.from(g.getImageData(540, 540, 1, 1).data);
+      return {first, last, xss: window.__xss ?? null};
+    });
+    assert.equal(out.xss, null);
+    assert.ok(out.first[0] > 240 && out.first[1] > 240, `frame 0 is paper in the middle, got ${out.first}`);
+    assert.ok(out.last[0] > 180 && out.last[1] < 130, `the end is coloured in, got ${out.last}`);
+  } finally { await browser.close(); fs.rmSync(built.dir, {recursive: true, force: true}); fs.rmSync(dir, {recursive: true, force: true}); }
 });
 
 // The scrapbook style drew frame 200 differently after frame 230 until the builder's AD_FIXES (2026-11-20 review).

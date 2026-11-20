@@ -43,6 +43,40 @@ node ../engines/kit/render-engine.mjs --engine anidoodle --params '{"style":"cha
 | `chalkboard` | `moonPhasesDraw` | A lesson written and drawn in chalk on a blackboard (the phases of the moon). (1080×1080, 18 s) |
 | `ballpoint` | `pocketWatchDraw` | A ballpoint-pen sketch drawn line by line (a pocket watch). (1080×1080, 15 s) |
 
+| `motif` | `motifDraw` | Your own picture drawn by hand (FrameMotion's own film, below). (1080×1080, 8 s) |
+
+## Settings
+
+| Setting | Default | What it does |
+| --- | --- | --- |
+| `style` | `embroidery` | the look (table above) |
+| `from` | 0 | seconds to skip after the style's own start; each style opens at its first mark (`start` in `styles.json`, measured 2026-11-20), so a reel never opens on blank paper |
+| `blank_start` | false | open on the blank page (the film's frame 0) instead |
+| `length` | 0 | render length in seconds; the drawing is fitted into it (faster or slower). 0 keeps the film's pace. A reel: `"length": 6` |
+| `brightness`, `contrast` | 1 | on top of the style's own tone: `oil` is lifted (1.25) and `ballpoint` and `stipple` are firmer (brightness 0.92, contrast 1.2) so they read on a phone; the paper keeps its tone |
+| `motif`, `medium` | `""`, `pencil` | the style `motif` only: your picture and what it is drawn with |
+| `width`, `height` | the style's | any frame size (see Formats) |
+
+```bash
+node ../engines/kit/render-engine.mjs --engine anidoodle \
+  --params '{"style":"crayon","length":6,"width":1080,"height":1920}' \
+  --frames 0,90,179 --out frames
+```
+
+## Your own picture (style `motif`)
+
+`motif` is the path to an SVG (a logo, an icon, line art: every shape's outline is drawn on in the file's order, then each filled shape is coloured in, then the picture holds) or a PNG or JPG (a photo or a scan: revealed by hand strokes). `medium` is `pencil` (graphite outline, coloured-pencil scribble), `ink` (ink line, flooded wash), `crayon` (wax line and scribble), `chalk` (chalk on a dark board; dark colours are lifted so they show) or `marker` (bold line, flat marker fill). The film is 8 s at 30 fps; `length` changes it.
+
+```bash
+node ../engines/kit/render-engine.mjs --engine anidoodle \
+  --params '{"style":"motif","motif":"/path/logo.svg","medium":"crayon"}' \
+  --frames 0,120,239 --out frames
+```
+
+- Text in an SVG is drawn only when it is converted to outlines (paths); a `<text>` element is skipped. Strokes and fills come from the file's own colours.
+- The file is read as data and embedded in the page: scripts, foreign HTML, links and event attributes are removed before it is drawn, and the page makes no requests.
+- The picture is fitted into the middle 76% (SVG) or 80% (image) of the frame.
+
 ## Make a new style
 
 A style is one film plus one row in [`styles.json`](styles.json); the engine core, the registry and the bundled films stay unchanged.
@@ -88,6 +122,8 @@ FrameMotion's fix (`AD_FIXES` in the builder, applied while bundling; the bundle
 - `assets/refs/` (a painting reference), `assets/brand`, `assets/narration`, the engine fonts and `vendor/` (three.js): not used by these films.
 
 ## Notes from the QA pass
+
+- `rubber-hose` shows three peg holes at the top of the drawing paper (slot, hole, slot): the punched animation bond the film depicts, not a fault. They go when the drawing becomes the film print.
 
 - Every film was rendered at three frames, and 30 of them in two frame orders, with identical frames (the order sweep, 2026-11-20).
 - `oil` is dark and `ballpoint` and `stipple` are pale: check them on a phone screen before choosing.

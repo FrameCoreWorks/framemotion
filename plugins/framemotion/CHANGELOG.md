@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.7.0 (2026-11-20)
+
+Anidoodle improvements the owner approved ("Ok", 2026-11-20) after looking at frames of every style.
+
+- **Your own picture** (style `motif`, FrameMotion's own film): an SVG logo, icon or line art is drawn line by line and coloured in; a PNG or JPG is revealed by hand strokes; in pencil, ink, crayon, chalk or marker (settings `motif` and `medium`). The file is embedded as data with scripts and event attributes removed.
+- **No blank opening**: each style opens at its first mark (`start`, measured for all 32 styles); `blank_start` keeps the blank page, `from` skips more.
+- **Reel length**: `length` fits the drawing into the given seconds (for example a 6 s reel).
+- **Tone**: `brightness` and `contrast`; `oil` is lifted and `ballpoint` and `stipple` are firmer by default, keeping the paper's tone. The peg holes at the top of `rubber-hose` are the drawn animation paper, documented as intended.
+- Evidence: `tools/check.py --fast` and the anidoodle Node tests in the Claude cloud sandbox; first-mark sweep of every style (21 frames each); frame sheets of the motif film in five media and of the timing and tone changes looked at. Full renders on the Mac and listening `NOT_RUN`. Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.6.0 (2026-11-20)
 
 Seven reviewed candidates from the owner's X list ("Startujemy wszystkie 7", 2026-11-20), with the owner's rule that a candidate duplicating an engine improves it or adds another way of animating inside it, never a second engine.
