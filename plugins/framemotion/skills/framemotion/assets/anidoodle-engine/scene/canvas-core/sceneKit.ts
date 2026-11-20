@@ -8,6 +8,8 @@ export type Grad = { x1: number; y1: number; x2: number; y2: number; stops: [num
 export type Shape = { i: number; subs: P[][]; poly: P[][]; fill: RGB | null; grad: Grad | null; stroke: RGB | null; sw: number; alpha: number; rule: CanvasFillRule; layer: number; box: [number, number, number, number]; big: boolean };
 export type Spec = { svg: string; style: string; look?: Record<string, unknown>; W: number; H: number };
 export const SPEC: Spec = (globalThis as unknown as { __SCENE__?: Spec }).__SCENE__ ?? { svg: "<svg/>", style: "crayon", W: 1080, H: 1080 };
+// the scene's own name, from its <title>, for the styles that letter a caption (plain text, at most 60 characters)
+export const title = (): string => { const m = /<title[^>]*>([^<]{1,200})<\/title>/i.exec(SPEC.svg); return m ? m[1].replace(/&[a-z#0-9]+;/gi, " ").replace(/\s+/g, " ").trim().slice(0, 60) : ""; };
 export const W = SPEC.W, H = SPEC.H, FPS = 30, N = 10 * FPS;
 export const rgbOf = (c: string | null): RGB | null => {
   if (!c) return null;

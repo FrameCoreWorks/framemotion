@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080">
+  <title>A sailboat at sunset</title>
   <!-- "a sailboat on a lake at sunset" -->
   <defs><linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4a05a"/><stop offset="0.7" stop-color="#f7d08a"/><stop offset="1" stop-color="#fbe3b0"/></linearGradient></defs>
   <g id="sky"><rect x="0" y="0" width="1080" height="640" fill="url(#sky)"/><circle cx="560" cy="470" r="120" fill="#fff1c9"/></g>
