@@ -10,6 +10,8 @@ Small, original pages and one contract that reproduce the defects of a reviewed 
 | `fitted-text-pass.html` | PASS: Polish diacritics and long phrases, all complete |
 | `transition-mask-pass.html` | PASS: a reveal with `clip-path` and a slide-in cut words at 0.4 s (transitional); the hold at 2 s is complete |
 | `declared-exception.html` | PASS with one exception: `data-text-clip-ok` gives the reason, and the exception asks for a pixel review |
+| `page-chrome-flagged.html` | PASS with five `page-chrome` warnings (C1 corner label, C2 tracked caps, C3 counter, C4 timecode, C6 header bar); the headline is not flagged. Static page, no timeline |
+| `page-chrome-intended.html` | PASS with no warnings: the same page with `data-chrome="intended"` on the root |
 | `search-to-cta.motion.json` | A 20 s, 1080 x 1920, 30 FPS silent proof contract with a recorded `strategy` (hook and payoff, CTA closing the shown action, an unknown claim kept out of the copy, three concepts weighed). It checks the tools, not taste: its picture is text only, because no product photographs were authorised |
 
 ```sh

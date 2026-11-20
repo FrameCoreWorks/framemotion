@@ -28,7 +28,9 @@ a source-manifest.json with the pinned commit):
 - Fonts in skills/framemotion/assets/fonts/ (Anton, Archivo, Bricolage Grotesque, Fraunces, Inter, Source Serif 4):
   SIL Open Font License 1.1; each family folder keeps its OFL.txt with the copyright notice.
 - Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:
-  the page-chrome review idea only, restated in skills/framemotion/SKILL.md; no code, media or text is copied.
+  references/slop.md, references/motion.md and library/moments.jsonl unchanged in
+  skills/framemotion/assets/motionmaxxing-qa/ (its LICENSE and NOTICE there); its gates G2, G3 and G5 rewritten in
+  FrameMotion's own motion_activity.py and text-audit.browser.js; no upstream code is copied or run.
 - alchaincyf/huashu-art-motion 1.2.0, commit 8a0d7d72ca65fcce6f8ba82c4a6c8dfe35b8422c, Copyright (c) 2026 alchaincyf,
   MIT: the reference breakdown script adapted in skills/framemotion/assets/reference-breakdown/breakdown.py (licence in
   LICENSE.upstream there) and its direction method restated in references/art-and-explainer-motion-direction.md.

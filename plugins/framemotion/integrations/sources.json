@@ -683,6 +683,22 @@
       ],
       "package": "three.quarks",
       "version": "0.18.0"
+    },
+    {
+      "name": "motionmaxxing",
+      "repo": "Tejashmakwana/motionmaxxing",
+      "commit": "8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright Tejas Makwana",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "bundled",
+      "conditions": [
+        "slop.md, motion.md and moments.jsonl bundled unchanged as review references in skills/framemotion/assets/motionmaxxing-qa/",
+        "no upstream script is bundled or run; gates G2, G3 and G5 (C1-C4, C6) rewritten in FrameMotion's own motion_activity.py and text-audit.browser.js",
+        "no GSAP runtime and no paid image, video or voice route"
+      ],
+      "bundled_commit": "8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c"
     }
   ]
 }

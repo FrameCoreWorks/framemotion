@@ -1560,3 +1560,22 @@ test('text-audit plan selects a format ID while binding original contract bytes'
     assert.throws(() => plan(input, {format: 'missing'}), /Unknown format/);
   } finally {fs.rmSync(tmp, {recursive: true, force: true});}
 });
+
+// Opt-in: page-chrome warnings (our rewrite of motionmaxxing's page-chrome rules) in a real headless browser.
+test('the visible-text audit warns about page chrome unless the look is intended', {skip: !process.env.MOTION_REVIEW_BROWSER}, async () => {
+  const {runAudit} = await import('../skills/framemotion/assets/motion-review/text-audit.mjs');
+  const fixtures = path.join(root, 'skills/framemotion/assets/motion-review/fixtures');
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'studio-page-chrome-'));
+  const audit = name => runAudit(path.join(fixtures, name), {out: path.join(tmp, name), browser: process.env.MOTION_REVIEW_BROWSER, screenshots: false, times: [1], holds: [[0.5, 7.5]]});
+  const chrome = result => result.samples.flatMap(s => s.issues).filter(i => i.check === 'page-chrome');
+  try {
+    const flagged = audit('page-chrome-flagged.html');
+    assert.equal(flagged.verdict, 'pass', 'page chrome is a warning, never an error');
+    for (const rule of ['C1', 'C2', 'C3', 'C4', 'C6']) assert.ok(chrome(flagged).some(i => i.detail.startsWith(rule)), rule);
+    assert.ok(!chrome(flagged).some(i => i.text.includes('Fresh bread')), 'the headline is copy, not chrome');
+    assert.equal(chrome(audit('page-chrome-intended.html')).length, 0);
+    assert.equal(chrome(audit('fitted-text-pass.html')).length, 0);
+  } finally {
+    fs.rmSync(tmp, {recursive: true, force: true});
+  }
+});
