@@ -19,10 +19,11 @@ import { embroideryLook } from "./looks/embroidery";
 import { collageLook } from "./looks/collage";
 import { theatreLook } from "./looks/theatre";
 import { scrapbookLook } from "./looks/scrapbook";
+import { folkTaleLook } from "./looks/folkTale";
 import { pencilWatercolourLook, storybookLook, inkWashLook } from "./looks/watercolour";
 // The styles drawn with their own film's tools (looks/*.ts); the rest use the techniques below.
 const OWN: Record<string, (ctx: Ctx, f: number, env: Env) => void> = { "crayon": crayonLook, "coloured-pencil": colouredPencilLook,
-  "pencil-watercolour": pencilWatercolourLook, "storybook": storybookLook, "ink-wash": inkWashLook, "chalkboard": chalkboardLook, "woodblock": woodblockLook, "embroidery": embroideryLook, "paper-collage": collageLook, "toy-theatre": theatreLook, "scrapbook": scrapbookLook };
+  "pencil-watercolour": pencilWatercolourLook, "storybook": storybookLook, "ink-wash": inkWashLook, "chalkboard": chalkboardLook, "woodblock": woodblockLook, "embroidery": embroideryLook, "paper-collage": collageLook, "toy-theatre": theatreLook, "scrapbook": scrapbookLook, "folk-tale": folkTaleLook };
 
 export type Look = {
   tech: "sketch" | "flat" | "cut" | "theatre" | "stipple" | "halftone" | "riso" | "pixel" | "brick" | "lowpoly" | "dabs" | "oil" | "spiral" | "hatch" | "scratch" | "blueprint" | "block" | "stitch";
