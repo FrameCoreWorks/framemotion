@@ -14,10 +14,12 @@ const END = 0.8;
 import { crayonLook } from "./looks/crayon";
 import { colouredPencilLook } from "./looks/colouredPencil";
 import { chalkboardLook } from "./looks/chalkboard";
+import { woodblockLook } from "./looks/woodblock";
+import { embroideryLook } from "./looks/embroidery";
 import { pencilWatercolourLook, storybookLook, inkWashLook } from "./looks/watercolour";
 // The styles drawn with their own film's tools (looks/*.ts); the rest use the techniques below.
 const OWN: Record<string, (ctx: Ctx, f: number, env: Env) => void> = { "crayon": crayonLook, "coloured-pencil": colouredPencilLook,
-  "pencil-watercolour": pencilWatercolourLook, "storybook": storybookLook, "ink-wash": inkWashLook, "chalkboard": chalkboardLook };
+  "pencil-watercolour": pencilWatercolourLook, "storybook": storybookLook, "ink-wash": inkWashLook, "chalkboard": chalkboardLook, "woodblock": woodblockLook, "embroidery": embroideryLook };
 
 export type Look = {
   tech: "sketch" | "flat" | "cut" | "theatre" | "stipple" | "halftone" | "riso" | "pixel" | "brick" | "lowpoly" | "dabs" | "oil" | "spiral" | "hatch" | "scratch" | "blueprint" | "block" | "stitch";

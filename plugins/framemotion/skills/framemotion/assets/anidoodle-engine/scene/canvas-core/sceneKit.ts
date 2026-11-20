@@ -104,6 +104,8 @@ export const raster = (env: Env): Raster => once("raster", () => {
   for (const s of list) { const v = s.i + 1; trace(d, s); if (s.fill) { d.fillStyle = `rgb(${v >> 8},${v & 255},0)`; d.fill(s.rule); } if (s.stroke && s.sw > 0) { d.strokeStyle = `rgb(${v >> 8},${v & 255},0)`; d.lineWidth = Math.max(1.5, s.sw); d.stroke(); } }
   const raw = d.getImageData(0, 0, w, h).data, id = new Int16Array(w * h);
   for (let p = 0; p < w * h; p++) id[p] = Math.min(list.length, (raw[p * 4] << 8) | raw[p * 4 + 1]) - 1;
+  // an edge pixel blends two ids into a third: where the id read is a thing that cannot be there, take the neighbour's
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const p = y * w + x, k = id[p]; if (k < 0) continue; const b = list[k].box, X = x / R, Y = y / R; if (X < b[0] - 3 || X > b[2] + 3 || Y < b[1] - 3 || Y > b[3] + 3) id[p] = x ? id[p - 1] : y ? id[p - w] : -1; }
   return { rgb, id, w, h, R };
 });
 export const at = (r: Raster, x: number, y: number) => Math.max(0, Math.min(r.h - 1, Math.floor(y * r.R))) * r.w + Math.max(0, Math.min(r.w - 1, Math.floor(x * r.R)));
