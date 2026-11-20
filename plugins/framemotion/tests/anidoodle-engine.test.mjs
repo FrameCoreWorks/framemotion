@@ -125,6 +125,37 @@ test('the motif style draws the user\'s own SVG by hand, and the file stays data
   } finally { await browser.close(); fs.rmSync(built.dir, {recursive: true, force: true}); fs.rmSync(dir, {recursive: true, force: true}); }
 });
 
+// FrameCore logo check on the Mac (2026-11-20): a black fill was read as "none" ("rgb(0, 0, 0)" ends in ", 0)")
+// and chalk turned its hex line colour into NaN, so a black logo showed outlines only and vanished on the board.
+test('motif: a black fill is coloured in, and on chalk it is lifted to show on the board', {skip: browserSkip, timeout: 300000}, async () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-motif-black-'));
+  const svg = path.join(dir, 'black.svg');
+  fs.writeFileSync(svg, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" fill="#000000"/></svg>');
+  const motif = kit.resolveStyle(engine, {style: 'motif'}, ENGINES, '');
+  const {chromium} = await kit.loadPlaywright();
+  const centre = async (medium) => {
+    const built = await BUILDERS.anidoodle(motif, ENGINES, {motif: svg, medium});
+    const browser = await chromium.launch();
+    try {
+      const page = await browser.newPage({viewport: {width: 540, height: 540}});
+      await page.goto('file://' + path.join(built.dir, built.page) + '?adapter=framemotion');
+      return await page.evaluate(async () => {
+        const g = document.getElementById('frame').getContext('2d');
+        await window.renderFrame(7.9);
+        const d = g.getImageData(440, 440, 200, 200).data; let sum = 0;
+        for (let i = 0; i < d.length; i += 4) sum += (d[i] + d[i + 1] + d[i + 2]) / 3;
+        return sum / (d.length / 4);
+      });
+    } finally { await browser.close(); fs.rmSync(built.dir, {recursive: true, force: true}); }
+  };
+  try {
+    const marker = await centre('marker');
+    assert.ok(marker < 110, `a black square in marker is filled dark, mean ${marker}`);
+    const chalk = await centre('chalk');
+    assert.ok(chalk > 75, `a black square on the chalk board is lifted above the board (about 45), mean ${chalk}`);
+  } finally { fs.rmSync(dir, {recursive: true, force: true}); }
+});
+
 // The scrapbook style drew frame 200 differently after frame 230 until the builder's AD_FIXES (2026-11-20 review).
 test('anidoodle scrapbook: going back to an earlier step gives the same frame', {skip: browserSkip, timeout: 900000}, async () => {
   const seen = new Map();

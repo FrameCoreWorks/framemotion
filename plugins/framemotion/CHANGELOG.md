@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.7.2 (2026-11-20)
+
+Fixes found by the frame check of the FrameCore logo drawn in all five media on the Mac.
+
+- **A black fill is coloured in.** The motif film read `rgb(0, 0, 0)` as transparent (the check for an empty colour matched any colour ending in `, 0)`), so a black logo was drawn as outlines only. Only `none`, `transparent` and a zero-alpha `rgba()` count as empty now.
+- **Chalk shows a dark logo.** The chalk board lifts dark colours toward the chalk, but hex colours (the chalk line `#f1efe6`, a file's `#000000`) were parsed into `NaN`, so the line and black fills vanished on the board. Hex and `rgb()` colours are both read now.
+- Test: `anidoodle-engine.test.mjs` renders a black square in marker (filled dark) and in chalk (lifted above the board); it fails on 0.7.0 and 0.7.1.
+- Evidence: the FrameCore logo (one black path) rendered in full (240 frames each) in pencil, ink, crayon, chalk and marker on the Mac, contact sheets every 0.5 s looked at before and after the fix; `tools/check.py` on the Mac. Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.7.1 (2026-11-20)
 
 - **Real scans first** (`references/workshop/3d.md`): every 3D scene, Blender or three.js and any subject, first checks Poly Haven's CC0 HDRIs, textures and models through Open Assets, and builds in code only what scans cannot give. Owner request 2026-11-20 after a code-only Blender film that used Poly Haven scans.

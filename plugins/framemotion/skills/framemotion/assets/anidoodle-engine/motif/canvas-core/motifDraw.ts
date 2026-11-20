@@ -28,9 +28,16 @@ const LOOK = LOOKS[SPEC.medium] ?? LOOKS.pencil;
 const W = 1080, H = 1080, FPS = 30, N = 8 * FPS;
 const LINES: [number, number] = [-0.03, 0.5], FILLS: [number, number] = [0.42, 0.85];
 
-const colourOf = (v: string | null): string | null => (!v || v === "none" || /rgba?\([^)]*,\s*0\)$/.test(v) ? null : v);
+// Only a fully transparent colour counts as none: "rgb(0, 0, 0)" (black) ends in ", 0)" too and is a real fill.
+const colourOf = (v: string | null): string | null => (!v || v === "none" || v === "transparent" || /^rgba\([^)]*,\s*0(\.0+)?\)$/.test(v) ? null : v);
 // Chalk on a dark board: a dark colour from the file would vanish, so it is lifted toward the chalk.
-const forBoard = (c: string) => { const m = c.match(/\d+(\.\d+)?/g); if (!m || !LOOK.light) return c; const [r, g, b] = m.map(Number); const k = 0.55; return `rgb(${Math.round(r + (255 - r) * k)},${Math.round(g + (255 - g) * k)},${Math.round(b + (255 - b) * k)})`; };
+const rgbOf = (c: string): number[] | null => {
+  const h = c.trim().match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+  if (h) { const x = h[1].length === 3 ? h[1].replace(/./g, "$&$&") : h[1]; return [0, 2, 4].map((i) => parseInt(x.slice(i, i + 2), 16)); }
+  const m = c.match(/\d+(\.\d+)?/g);
+  return m && m.length >= 3 ? m.slice(0, 3).map(Number) : null;
+};
+const forBoard = (c: string) => { const m = rgbOf(c); if (!m || !LOOK.light) return c; const [r, g, b] = m; const k = 0.55; return `rgb(${Math.round(r + (255 - r) * k)},${Math.round(g + (255 - g) * k)},${Math.round(b + (255 - b) * k)})`; };
 
 let shapes: Shape[] | null = null;
 const parse = (): Shape[] => {
