@@ -163,3 +163,32 @@ export const drawOn = (key: string, f: number, phases: Record<string, [number, n
 };
 export const lenOf = (pts: P[]) => pts.reduce((a, p, i) => (i ? a + Math.hypot(p[0] - pts[i - 1][0], p[1] - pts[i - 1][1]) : 0), 0);
 export const areaOf = (s: Shape) => Math.max(1, (s.box[2] - s.box[0]) * (s.box[3] - s.box[1]));
+
+// ---------------------------------------------------------------- the scene as a tone field
+// For the styles that draw tone only (dots, one spiral line, hatching, scratching): how much ink belongs at
+// each pixel, 0 paper to 1 solid. The scene's value, each thing turned toward the light (its shade side
+// darker, a lit spot lifted), its cast shadow thrown down-right onto what is behind it, a hair of dark where
+// one thing meets another, then stretched to the full range, so a night scene still has paper in its moon
+// and a pale scene still has darks.
+export const toneField = (env: Env): Float32Array => once("tone", () => {
+  const r = raster(env), list = scene(), w = r.w, h = r.h, T = new Float32Array(w * h), L = list.map((s) => lit(s));
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const p = y * w + x, id = r.id[p], X = x / r.R, Y = y / r.R; let t = 1 - (0.299 * r.rgb[p * 4] + 0.587 * r.rgb[p * 4 + 1] + 0.114 * r.rgb[p * 4 + 2]) / 255;
+    if (id >= 0 && !list[id].big) { const sd = L[id].side(X, Y); t += 0.22 * Math.max(0, Math.min(1, sd)) - 0.08 * Math.max(0, -sd); if (L[id].hi(X, Y) && areaOf(list[id]) < 0.05 * W * H) t -= 0.18; }
+    else if (id >= 0) t += 0.1 * Math.max(-1, Math.min(1, L[id].side(X, Y)));
+    T[p] = t;
+  }
+  // cast shadows: each thing's silhouette pushed down-right darkens what lies behind it
+  list.forEach((s) => {
+    if (!s.fill || s.big) return; const k = Math.max(4, Math.min(30, sizeOf(s) * 0.08)), dx = k * 0.7, dy = k;
+    const [x0, y0, x1, y1] = s.box;
+    for (let y = Math.max(0, Math.floor(y0 + dy)); y < Math.min(h, Math.ceil(y1 + dy)); y++) for (let x = Math.max(0, Math.floor(x0 + dx)); x < Math.min(w, Math.ceil(x1 + dx)); x++) { const q = y * w + x, from = r.id[Math.floor(y - dy) * w + Math.floor(x - dx)]; if (from === s.i && r.id[q] < s.i) T[q] += 0.16; }
+  });
+  // where one thing meets another, the line the eye reads
+  for (let y = 1; y < h; y++) for (let x = 1; x < w; x++) { const p = y * w + x; if (r.id[p] !== r.id[p - 1] || r.id[p] !== r.id[p - w]) T[p] += 0.12; }
+  // stretch to the full range (2nd to 98th percentile)
+  const sorted = Float32Array.from(T).sort(), lo = sorted[Math.floor(sorted.length * 0.02)], hi = sorted[Math.floor(sorted.length * 0.98)], span = Math.max(0.2, hi - lo);
+  for (let p = 0; p < T.length; p++) T[p] = clamp((T[p] - lo) / span);
+  return T;
+});
+export const toneAt = (env: Env, x: number, y: number) => { const r = raster(env), T = toneField(env); return T[at(r, x, y)]; };
