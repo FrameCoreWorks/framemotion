@@ -15,7 +15,8 @@ let playwright = true;
 try { await kit.loadPlaywright(); } catch { playwright = false; }
 const buildSkip = hasEsbuild ? false : 'engines: npm ci in assets/engines first';
 const browserSkip = buildSkip || (playwright ? false : 'engines: Playwright is not installed');
-const embroidery = entries.find((e) => e.id === 'ad-embroidery');
+const engine = entries.find((e) => e.id === 'anidoodle');
+const embroidery = kit.resolveStyle(engine, {style: 'embroidery'}, ENGINES);
 
 test('the build refuses a bad, missing or three.js film and bundles one offline page', {skip: buildSkip}, async () => {
   await assert.rejects(BUILDERS.anidoodle({...embroidery, build: {tool: 'anidoodle', film: '../x'}}, ENGINES), /export name/);
@@ -36,10 +37,10 @@ test('the build refuses a bad, missing or three.js film and bundles one offline 
   } finally { fs.rmSync(built.dir, {recursive: true, force: true}); }
 });
 
-test('ad-embroidery: a frame does not depend on the frames drawn before it', {skip: browserSkip, timeout: 900000}, async () => {
+test('anidoodle embroidery: a frame does not depend on the frames drawn before it', {skip: browserSkip, timeout: 900000}, async () => {
   const seen = new Map();
   for (const frames of [[400, 60, 250], [250, 400, 60], [250]]) {
-    const r = await kit.renderFrames('ad-embroidery', {frames, once: true});
+    const r = await kit.renderFrames('anidoodle', {frames, once: true, params: {style: 'embroidery'}});
     assert.deepEqual(r.blocked, []);
     for (const f of r.frames) {
       assert.ok(!f.flat, `frame ${f.frame} is flat`);
@@ -49,14 +50,14 @@ test('ad-embroidery: a frame does not depend on the frames drawn before it', {sk
   }
 });
 
-test('an engine renders its ways with the setting "way"', () => {
-  const {entry, params} = kit.resolveWay(entries, 'lemo-ukiyoe', {way: 'ad-woodblock', width: 540});
-  assert.equal(entry.id, 'ad-woodblock');
-  assert.deepEqual(params, {width: 540});
-  assert.equal(kit.resolveWay(entries, 'lemo-ukiyoe', {way: 'default'}).entry.id, 'lemo-ukiyoe');
-  assert.equal(kit.resolveWay(entries, 'lemo-ukiyoe', {}).entry.id, 'lemo-ukiyoe');
-  assert.throws(() => kit.resolveWay(entries, 'lemo-ukiyoe', {way: 'ad-embroidery'}), /no way "ad-embroidery"/);
-  for (const way of entries.filter((e) => e.method_of)) assert.equal(kit.resolveWay(entries, way.method_of, {way: way.id}).entry, way);
+test('one anidoodle engine: the setting "style" picks a film and its size, and a new style is one row', () => {
+  const folk = kit.resolveStyle(engine, {style: 'folk-tale'}, ENGINES);
+  assert.deepEqual([folk.build.film, folk.size.width, folk.size.height], ['folkTale', 1920, 1080]);
+  assert.equal(kit.resolveStyle(engine, {}, ENGINES).build.film, 'embroidery');
+  assert.throws(() => kit.resolveStyle(engine, {style: 'nope'}, ENGINES), /no style "nope"/);
+  const own = kit.resolveStyle(engine, {style: 'own-example'}, ENGINES);
+  assert.deepEqual([own.build.film, own.build.folder], ['ownExample', '../anidoodle-engine/examples']);
+  assert.equal(entries.filter((e) => e.method_of === 'anidoodle' || e.id.startsWith('ad-')).length, 0);
 });
 
 test('a new film in the user\'s own folder builds against the bundled kits and renders', {skip: browserSkip, timeout: 300000}, async () => {
@@ -77,11 +78,11 @@ test('a new film in the user\'s own folder builds against the bundled kits and r
   } finally { await browser.close(); }
 });
 
-// ad-scrapbook drew frame 200 differently after frame 230 until the builder's AD_FIXES (2026-11-20 review).
-test('ad-scrapbook: going back to an earlier step gives the same frame', {skip: browserSkip, timeout: 900000}, async () => {
+// The scrapbook style drew frame 200 differently after frame 230 until the builder's AD_FIXES (2026-11-20 review).
+test('anidoodle scrapbook: going back to an earlier step gives the same frame', {skip: browserSkip, timeout: 900000}, async () => {
   const seen = new Map();
   for (const frames of [[200], [230, 200], [400, 60, 200]]) {
-    const r = await kit.renderFrames('ad-scrapbook', {frames, once: true});
+    const r = await kit.renderFrames('anidoodle', {frames, once: true, params: {style: 'scrapbook'}});
     for (const f of r.frames) {
       if (seen.has(f.frame)) assert.equal(f.hash, seen.get(f.frame), `frame ${f.frame} after ${frames.join(', ')}`);
       else seen.set(f.frame, f.hash);
@@ -90,7 +91,7 @@ test('ad-scrapbook: going back to an earlier step gives the same frame', {skip: 
 });
 
 test('a square film fits whole into a 9:16 frame', {skip: browserSkip, timeout: 300000}, async () => {
-  const r = await kit.renderFrames('ad-embroidery', {frames: [400], once: true, params: {width: 1080, height: 1920}});
+  const r = await kit.renderFrames('anidoodle', {frames: [400], once: true, params: {style: 'embroidery', width: 1080, height: 1920}});
   assert.deepEqual(r.blocked, []);
   assert.ok(!r.frames[0].flat);
 });

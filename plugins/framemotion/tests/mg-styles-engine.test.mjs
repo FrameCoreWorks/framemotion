@@ -80,3 +80,14 @@ test('every default replacement in the registry still matches its film', async (
     fs.rmSync(built.dir, {recursive: true, force: true});
   }
 });
+
+test('an engine renders its ways with the setting "way"', () => {
+  const all = JSON.parse(fs.readFileSync(path.join(path.resolve(import.meta.dirname, '../skills/framemotion/assets/engines'), 'engines.json'), 'utf8')).engines;
+  const {entry, params} = kit.resolveWay(all, 'launch-pixel', {way: 'mg-pixel', width: 540});
+  assert.equal(entry.id, 'mg-pixel');
+  assert.deepEqual(params, {width: 540});
+  assert.equal(kit.resolveWay(all, 'launch-pixel', {way: 'default'}).entry.id, 'launch-pixel');
+  assert.equal(kit.resolveWay(all, 'launch-pixel', {}).entry.id, 'launch-pixel');
+  assert.throws(() => kit.resolveWay(all, 'launch-pixel', {way: 'mg-hud'}), /no way "mg-hud"/);
+  for (const way of all.filter((e) => e.method_of)) assert.equal(kit.resolveWay(all, way.method_of, {way: way.id}).entry, way);
+});

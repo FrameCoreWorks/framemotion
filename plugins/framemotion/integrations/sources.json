@@ -665,7 +665,7 @@
       "conditions": [
         "the 74 source files the 32 two-dimensional style films need, bundled unchanged in skills/framemotion/assets/anidoodle-engine/upstream/engine/ with LICENSE and NOTICE",
         "bundled by FrameMotion's own esbuild; anidoodle's Node tools, three.js films, narration (ElevenLabs) and the sound pack (OpenAIR rooms, CC BY) are not bundled",
-        "21 styles registered as ways of existing engines (method_of, rendered by the engine with the setting way), 11 as new engines"
+        "one engine of its own, anidoodle, with the 32 styles picked by the setting style (styles.json); never split into other engines' ways (owner decision 2026-11-20); new styles are added as a film and one styles.json row"
       ]
     },
     {

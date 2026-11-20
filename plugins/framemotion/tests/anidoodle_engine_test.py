@@ -12,6 +12,7 @@ MANIFEST = json.loads((INTEGRATION / 'source-manifest.json').read_text())
 REGISTRY = json.loads((ROOT / 'skills/framemotion/assets/engines/engines.json').read_text())
 BY_ID = {e['id']: e for e in REGISTRY['engines']}
 FILMS = [e for e in REGISTRY['engines'] if e.get('build', {}).get('tool') == 'anidoodle']
+STYLES = json.loads((ENGINE / 'styles.json').read_text())['styles']
 
 
 def sha(path):
@@ -53,18 +54,25 @@ class AnidoodleEngineTest(unittest.TestCase):
             text = re.sub(r'/\*.*?\*/|//[^\n]*', '', path.read_text(encoding='utf-8'), flags=re.S)
             self.assertIsNone(bad.search(text), path.relative_to(ENGINE))
 
-    def test_registered_films(self):
-        self.assertEqual(len(FILMS), 32)
-        self.assertEqual(sorted(e['build']['film'] for e in FILMS), MANIFEST['bundled_films'])
-        self.assertEqual({e['id']: e['method_of'] for e in FILMS if 'method_of' in e}, MANIFEST['ways_of_existing_engines'])
-        self.assertEqual(len(MANIFEST['ways_of_existing_engines']), 21)
-        for e in FILMS:
-            with self.subTest(e['id']):
-                self.assertTrue((ENGINE / 'upstream/engine/src/canvas-core' / (e['build']['film'] + '.ts')).is_file())
-                self.assertEqual(e['sources'], ['anidoodle'])
-                self.assertEqual((e['adapter'], e['capture']), ('renderFrame', '#frame'))
-                if 'method_of' in e:
-                    self.assertEqual(e['group'], BY_ID[e['method_of']]['group'])
+    def test_one_engine_with_its_styles(self):
+        # Owner decision 2026-11-20: anidoodle is one hand-drawn engine of its own, never split into other engines' ways.
+        self.assertEqual([e['id'] for e in FILMS], ['anidoodle'])
+        engine = FILMS[0]
+        self.assertEqual((engine['adapter'], engine['capture'], engine['sources']), ('renderFrame', '#frame', ['anidoodle']))
+        self.assertNotIn('method_of', engine)
+        self.assertFalse([e['id'] for e in REGISTRY['engines'] if e['id'].startswith('ad-')])
+        self.assertEqual((ENGINE.parent / 'engines' / engine['styles']).resolve(), (ENGINE / 'styles.json').resolve())
+        self.assertIn(engine['params']['style']['default'], STYLES)
+        bundled = {n: r for n, r in STYLES.items() if not r.get('template')}
+        self.assertEqual(len(bundled), 32)
+        self.assertEqual({n: r['film'] for n, r in bundled.items()}, MANIFEST['styles'])
+        self.assertEqual(sorted(r['film'] for r in bundled.values()), MANIFEST['bundled_films'])
+        for name, row in STYLES.items():
+            with self.subTest(name):
+                base = (ENGINE.parent / 'engines' / row['folder']) if 'folder' in row else ENGINE / 'upstream/engine/src'
+                self.assertTrue((base / 'canvas-core' / (row['film'] + '.ts')).is_file())
+                self.assertEqual(set(row['size']), {'width', 'height'})
+                self.assertTrue(row['about'] and row['duration'] > 0 and row['fps'] > 0)
 
 
 if __name__ == '__main__':

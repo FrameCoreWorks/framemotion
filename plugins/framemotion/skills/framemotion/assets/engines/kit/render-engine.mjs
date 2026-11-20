@@ -127,9 +127,26 @@ export function resolveWay(engines, id, params = {}) {
   return {entry: chosen, params: rest};
 }
 
+/**
+ * An engine with a style table ("styles": a JSON file from the engines folder, as the anidoodle engine has) is one
+ * registry entry whose `style` setting picks a row: the row's film, folder, size, fps and duration replace the
+ * entry's for this render. A new style is one row in that file (and its film), with no change to the registry.
+ */
+export function resolveStyle(entry, params, root = ENGINES_ROOT) {
+  if (!entry.styles) return entry;
+  const table = JSON.parse(fs.readFileSync(path.resolve(root, entry.styles), 'utf8')).styles;
+  const name = params.style ?? entry.params?.style?.default;
+  const row = table[name];
+  if (!row) throw new RangeError(`${entry.id} has no style "${name}" (its styles: ${Object.keys(table).join(', ')}).`);
+  return {...entry, size: row.size ?? entry.size, fps: row.fps ?? entry.fps, duration: row.duration ?? entry.duration,
+    build: {...entry.build, film: row.film, ...(row.folder ? {folder: row.folder} : {})}};
+}
+
 export async function openEngine(id, {params: given = {}, gpu = false, root = ENGINES_ROOT} = {}) {
-  const {entry, params} = resolveWay(registry(root).engines, id, given);
-  validateParams(entry, params);
+  const resolved = resolveWay(registry(root).engines, id, given);
+  const params = resolved.params;
+  validateParams(resolved.entry, params);
+  const entry = resolveStyle(resolved.entry, params, root);
   // Build first: a failed build (a missing folder) must not leave a browser running.
   const built = entry.build ? await buildEntry(entry, root, params) : null;
   const {chromium} = await loadPlaywright();
