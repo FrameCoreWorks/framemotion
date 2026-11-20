@@ -58,6 +58,15 @@ test('one anidoodle engine: the setting "style" picks a film and its size, and a
   const own = kit.resolveStyle(engine, {style: 'own-example'}, ENGINES);
   assert.deepEqual([own.build.film, own.build.folder], ['ownExample', '../anidoodle-engine/examples']);
   assert.equal(entries.filter((e) => e.method_of === 'anidoodle' || e.id.startsWith('ad-')).length, 0);
+  // A user's own styles file (FRAMEMOTION_STYLES) adds rows; its folder is read from that file's folder.
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'fm-styles-'));
+  try {
+    const file = path.join(dir, 'styles.json');
+    fs.writeFileSync(file, JSON.stringify({styles: {'my-style': {film: 'myFilm', folder: '.', size: {width: 1080, height: 1920}, fps: 30, duration: 4}}}));
+    const mine = kit.resolveStyle(engine, {style: 'my-style'}, ENGINES, file);
+    assert.deepEqual([mine.build.film, mine.build.folder, mine.size.height], ['myFilm', dir, 1920]);
+    assert.equal(kit.resolveStyle(engine, {style: 'folk-tale'}, ENGINES, file).build.film, 'folkTale');
+  } finally { fs.rmSync(dir, {recursive: true, force: true}); }
 });
 
 test('a new film in the user\'s own folder builds against the bundled kits and renders', {skip: browserSkip, timeout: 300000}, async () => {
@@ -70,6 +79,9 @@ test('a new film in the user\'s own folder builds against the bundled kits and r
     const again = await BUILDERS.anidoodle({...embroidery, build: {tool: 'anidoodle', film: 'ownExample', folder}}, ENGINES);
     const page = await browser.newPage({viewport: {width: 540, height: 540}});
     await page.goto('file://' + path.join(again.dir, again.page) + '?adapter=framemotion');
+    // Frame 0 already shows the start of the line (no blank first frame).
+    const first = await page.evaluate(async () => { await window.renderFrame(0); const c = document.getElementById('frame'); return Array.from(c.getContext('2d').getImageData(548, 238, 1, 1).data); });
+    assert.ok(first[0] > 150 && first[1] < 120, `frame 0 should show red line, got ${first}`);
     const out = await page.evaluate(async () => { await window.renderFrame(4); const c = document.getElementById('frame'); return {w: c.width, title: window.FILM.meta.title, px: Array.from(c.getContext('2d').getImageData(540, 540, 1, 1).data)}; });
     assert.equal(out.w, 1080);
     assert.match(out.title, /FrameMotion example/);

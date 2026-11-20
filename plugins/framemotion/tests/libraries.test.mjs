@@ -77,6 +77,7 @@ const CASES = [
   ['quarks-3d-effects', {preset: 'sparks'}, [10, 60, 10]],
   ['quarks-3d-effects', {preset: 'smoke'}, [10, 60, 10]],
   ['quarks-3d-effects', {preset: 'magic'}, [10, 60, 10]],
+  ['quarks-3d-effects', {preset: 'fire', scale: 0.6, at: [0.2, -0.25], move: 'still', stage: false, background: 'transparent'}, [10, 60, 10]],
 ];
 for (const [id, params, frames] of CASES) {
   test(`${id} ${JSON.stringify(params)} draws repeatable frames in any order`, {skip: skip || (id === 'p5-brush' && process.env.CI ? 'KNOWN-CI-ONLY (owner-approved 2026-11-18): differs on the GitHub runner, passes locally; fix tracked in its own PR. Runs everywhere else.' : false), timeout: 300000}, async () => {

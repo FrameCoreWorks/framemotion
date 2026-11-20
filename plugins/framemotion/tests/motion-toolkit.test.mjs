@@ -1573,6 +1573,8 @@ test('the visible-text audit warns about page chrome unless the look is intended
     assert.equal(flagged.verdict, 'pass', 'page chrome is a warning, never an error');
     for (const rule of ['C1', 'C2', 'C3', 'C4', 'C6']) assert.ok(chrome(flagged).some(i => i.detail.startsWith(rule)), rule);
     assert.ok(!chrome(flagged).some(i => i.text.includes('Fresh bread')), 'the headline is copy, not chrome');
+    for (const content of ['Mon-Fri', 'ISO 9001', '500 MB', '24/7', '#1', 'Bakery', '+48']) assert.ok(!chrome(flagged).some(i => i.text.includes(content)), content + ' is content');
+    assert.deepEqual([...new Set(chrome(flagged).filter(i => i.detail.startsWith('C6')).map(i => i.element))], ['#topbar'], 'a ground band and a hidden rule are not bars');
     assert.equal(chrome(audit('page-chrome-intended.html')).length, 0);
     assert.equal(chrome(audit('fitted-text-pass.html')).length, 0);
   } finally {

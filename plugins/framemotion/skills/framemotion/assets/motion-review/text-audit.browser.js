@@ -17,8 +17,18 @@
   // our own rewrite of motionmaxxing's page-chrome list (Apache-2.0, see ../motionmaxxing-qa/NOTICE). They are
   // warnings for the reviewer, never errors. data-chrome-ok="<reason>" on an element, or data-chrome="intended" on
   // the root (a HUD or interface look chosen on purpose), records the choice instead.
-  const COUNTER = /^(\d{1,3}\s*[\/|]\s*\d{1,3}|0\d|no\.?\s*\d{1,3}|#\d{1,3})$/i;
-  const TIMECODE = /\b\d{1,2}:\d{2}(:\d{2}){0,2}\b|\b(rec|fps|iso|v\d+(\.\d+)+|\d+\s?(fps|mm|px|kb|mb))\b|\d+\.\d+\s*°\s*[ns]/i;
+  // Content is never chrome: the brief's copy (data-copy), a logo, brand, contact or offer, and text inside a recreated
+  // interface (a phone, an app screen, a chat) keep their place; so do opening hours, "24/7" and "#1".
+  const CONTENT = /(^|[\s_-])(brand|logo|contact|phone|tel|cta|price|offer|screen|device|app|ui|chat|bubble|status-?bar|keyboard|mock|card)/i;
+  const COUNTER = /^(\d{1,2}\s*[\/|]\s*\d{1,2}|0\d)$/;
+  const TIMECODE = /\b\d{1,2}:\d{2}:\d{2}([:;.]\d{2})?\b|\bREC\b|\b\d+(\.\d+)?\s?fps\b|\bv\d+\.\d+\.\d+\b|\d+\.\d+\s*°\s*[NS]\b/i;
+  function isContent(element, root) {
+    if (element.closest('[data-chrome-ok], [data-copy]')) return true;
+    for (let node = element; node && node !== root; node = node.parentElement) {
+      if (CONTENT.test((typeof node.className === 'string' ? node.className : '') + ' ' + node.id)) return true;
+    }
+    return false;
+  }
   function chromeRule(entry, style, width, height, scale) {
     const short = Math.min(width, height), small = entry.fontSize * scale <= short * 0.03, box = entry.box;
     if (!box) return null;
@@ -27,7 +37,7 @@
     const nearX = box.left < edge || box.right > width - edge, nearY = box.top < edge || box.bottom > height - edge;
     const spacing = parseFloat(style.letterSpacing) || 0;
     const caps = style.textTransform === 'uppercase' || (text === text.toUpperCase() && /[A-ZĄĆĘŁŃÓŚŹŻ]/.test(text));
-    if (COUNTER.test(text)) return 'C3 counter "' + text + '": a slide or step number reads as a template';
+    if (COUNTER.test(text) && text !== '24/7' && entry.fontSize * scale <= height * 0.06) return 'C3 counter "' + text + '": a slide or step number reads as a template';
     if (small && TIMECODE.test(text)) return 'C4 timecode or metadata "' + text + '": camera or file data the viewer does not need';
     if (small && nearX && nearY && words <= 6) return 'C1 small label in a corner: frames the film like a web page';
     if (small && caps && spacing >= entry.fontSize * 0.1 && words <= 5) return 'C2 tracked uppercase micro-label: decorative chrome, not copy';
@@ -37,15 +47,16 @@
     // C6: a thin strip spanning most of the frame width at the very top or bottom (header/footer bar or rule).
     const found = [];
     for (const element of root.querySelectorAll('*')) {
-      if (element.closest('[data-chrome-ok]')) continue;
+      if (isContent(element, root)) continue;
       const style = getComputedStyle(element);
-      if (style.visibility !== 'visible' || style.display === 'none' || Number(style.opacity) < 0.05) continue;
+      if (style.visibility !== 'visible' || style.display === 'none' || opacityOf(element, root) < 0.05) continue;
       const r = element.getBoundingClientRect();
       const top = r.top - frame.top, bottom = r.bottom - frame.top;
       if (r.width < width * 0.7 || r.height < 1 || r.height > height * 0.08) continue;
       if (top > height * 0.06 && bottom < height * 0.94) continue;
       const painted = (style.backgroundColor && !/rgba\(\d+, \d+, \d+, 0\)|transparent/.test(style.backgroundColor)) || parseFloat(style.borderTopWidth) > 0 || parseFloat(style.borderBottomWidth) > 0;
-      if (!painted) continue;
+      // a bar is a thin rule or a strip that carries text; a thicker plain band (the ground of an illustration) is not
+      if (!painted || (r.height > 6 && !element.textContent.trim())) continue;
       found.push(element.id ? '#' + element.id : element.tagName.toLowerCase());
       if (found.length >= 3) break;
     }
@@ -194,7 +205,7 @@
       if (flags.length) add('warning', 'ignore-flag', flags.join(', ') + ' hides this visible text from other layout audits; Studio audits it anyway');
       if (font.state === 'not_loaded' || font.state === 'error') add('error', 'font-not-loaded', `font ${font.family} is ${font.state.replace('_', ' ')}`);
       if (notes.length) add('note', 'unmeasured-clip', notes.join('; ') + ': inspect the pixels');
-      if (!chromeIntended && !element.closest('[data-chrome-ok]')) {
+      if (!chromeIntended && !isContent(element, root)) {
         const rule = chromeRule(entry, style, fw, fh, scale);
         if (rule) add('warning', 'page-chrome', rule + ' (keep only if the brief asks for it; mark with data-chrome-ok="<reason>")');
       }

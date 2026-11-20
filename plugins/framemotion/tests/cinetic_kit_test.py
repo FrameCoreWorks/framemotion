@@ -55,6 +55,10 @@ class CineticKitTest(unittest.TestCase):
         self.assertEqual((code, good['issues']), (0, []))
         code, pl = run('name: Kadr\nkind: update\n0.4 | Kadr 2.0 jest już dostępny.\n2 | Napisy po polsku.\n3.5 | Pobierz z kadr.pl\n')
         self.assertEqual(code, 0, pl['issues'])
+        # The closing line may hold the name and what to do; a question is a hook, so only a warning.
+        code, end = run('name: Kadr\n0.4 | Kadr robi rolki ze zdjęć.\n2 | Masz dziesięć zdjęć?\n4 | Kadr. Wypróbuj za darmo.\n')
+        self.assertEqual(code, 0, end['issues'])
+        self.assertEqual([(i['severity'], i['check']) for i in end['issues']], [('warning', 'slogan')])
         code, plbad = run('name: Kadr\n0.4 | Rewolucyjna aplikacja z supermocą.\n')
         self.assertEqual(code, 1)
         self.assertTrue({'vague', 'metaphor'} <= {i['check'] for i in plbad['issues']})

@@ -51,7 +51,15 @@ A style is one film plus one row in [`styles.json`](styles.json); the engine cor
 2. Add a row to `styles.json`: `"<style name>": {"film": "<export name>", "folder": "<folder, from the engines folder>", "size": {"width": …, "height": …}, "fps": …, "duration": …, "about": "<one sentence>"}`. Size, fps and duration must equal the film's own `meta`; the renderer stops when they differ.
 3. Render it with `--params '{"style":"<style name>"}'`, check frames in two orders (a frame must not depend on the frames drawn before it), and add the name to the `style` setting's description in `engines.json` when it is meant for everyone.
 
-A user's style lives in their own workspace folder; a style added to FrameMotion itself goes under `examples/` or a new folder here with its test.
+A user's style lives in their own workspace folder, never in the package: put the film in `<workspace>/my-styles/canvas-core/` and the rows in `<workspace>/my-styles/styles.json` (same shape, `"folder": "."`), then render with `FRAMEMOTION_STYLES=<workspace>/my-styles/styles.json`. Its rows are added to the bundled table (a row with a bundled name replaces it for that render), and each `folder` is read from that file's folder. A style added to FrameMotion itself goes under `examples/` or a new folder here with its test.
+
+```bash
+FRAMEMOTION_STYLES=~/work/my-styles/styles.json \
+  node ../engines/kit/render-engine.mjs --engine anidoodle \
+  --params '{"style":"my-style"}' --frames 0,60 --out frames
+```
+
+An unknown style or setting stops with one line naming the styles there are.
 
 ## Formats
 

@@ -13,8 +13,8 @@ A script is one line of the film per row, optionally timed in seconds: `0.4 | Ka
 | --- | --- | --- |
 | `long` | error | a line has more than 7 words |
 | `vague`, `metaphor` | error | fancy or figurative words a customer would not say ("unleash", "seamless", "superpower", "rewolucyjny", "supermoc") |
-| `slogan` | error | a slogan shape: "Meet X", "X meets Y", "Less X. More Y.", a question, an exclamation |
-| `claims` | error | two sentences in one line |
+| `slogan` | error | a slogan shape: "Meet X", "X meets Y", "Less X. More Y.", "Plan. Track. Win."; a question or an exclamation is a warning (keep it only as a deliberate hook) |
+| `claims` | error | two sentences in one line, except the closing line with the name or what to do ("Fakturka. Wypróbuj za darmo.") |
 | `name` | error | no line names the product (with a name given) |
 | `what-it-is` | error | nothing says what the product is by 3 s; an update film has no "Name version" line by 3 s |
 | `keyword`, `close`, `quantity` | warning | a one-word line; the film does not end on the name or what to do; "every", "always", "zawsze" that one example on screen cannot prove |

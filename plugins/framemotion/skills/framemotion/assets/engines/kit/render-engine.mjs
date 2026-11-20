@@ -131,10 +131,18 @@ export function resolveWay(engines, id, params = {}) {
  * An engine with a style table ("styles": a JSON file from the engines folder, as the anidoodle engine has) is one
  * registry entry whose `style` setting picks a row: the row's film, folder, size, fps and duration replace the
  * entry's for this render. A new style is one row in that file (and its film), with no change to the registry.
+ * A user's own styles live outside the package: FRAMEMOTION_STYLES names a JSON file of the same shape
+ * ({"styles": {...}}) whose rows are added to the table; their `folder` is read from that file's folder.
  */
-export function resolveStyle(entry, params, root = ENGINES_ROOT) {
+export function resolveStyle(entry, params, root = ENGINES_ROOT, own = process.env.FRAMEMOTION_STYLES) {
   if (!entry.styles) return entry;
-  const table = JSON.parse(fs.readFileSync(path.resolve(root, entry.styles), 'utf8')).styles;
+  const table = {...JSON.parse(fs.readFileSync(path.resolve(root, entry.styles), 'utf8')).styles};
+  if (own) {
+    const file = path.resolve(own);
+    for (const [name, row] of Object.entries(JSON.parse(fs.readFileSync(file, 'utf8')).styles ?? {})) {
+      table[name] = row.folder ? {...row, folder: path.resolve(path.dirname(file), row.folder)} : row;
+    }
+  }
   const name = params.style ?? entry.params?.style?.default;
   const row = table[name];
   if (!row) throw new RangeError(`${entry.id} has no style "${name}" (its styles: ${Object.keys(table).join(', ')}).`);
@@ -360,7 +368,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
     const entry = JSON.parse(fs.readFileSync(path.join(ENGINES_ROOT, 'engines.json'), 'utf8')).engines.find((e) => e.id === o.engine);
     if (entry?.gpu_recommended) console.error(`${o.engine} is heavy in software rendering (from about 30 s to minutes a frame); pass --gpu on a machine with a graphics card.`);
   }
-  const report = await renderFrames(o.engine, o);
+  // A wrong setting (an unknown style, way or value) is a short message, not a stack trace.
+  const report = await renderFrames(o.engine, o).catch((e) => {
+    if (e instanceof RangeError) { console.error(e.message); process.exit(2); }
+    throw e;
+  });
   console.log(JSON.stringify(report, null, 2));
   if (report.frames.some((f) => f.deterministic === false)) process.exit(3);
   // Registry "flat_frames" lists frames that are one colour by design (a drawing that starts on blank paper).

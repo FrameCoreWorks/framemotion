@@ -12,8 +12,8 @@ The script is a text file, one line of the film per row, optionally timed: `2.4 
 Or a JSON file: {"name": "...", "kind": "launch", "lines": [{"t": 0.4, "text": "..."}]}.
 
 Errors: long (over 7 words), vague (fancy words a customer would not say), metaphor, slogan, claims
-(two sentences in one line), name (no line names the product), what-it-is (no line says what it is by
-3 s; for an update, no "Name version" line by 3 s). Warnings: keyword (a one-word line other than the
+(two sentences in one line; the closing line "Name. Try it free." may hold two), name (no line names the product), what-it-is (no line says what it is by
+3 s; for an update, no "Name version" line by 3 s). Warnings: slogan (a question or an exclamation), keyword (a one-word line other than the
 name, a version or the close), close (the film does not end on the name or what to do), quantity
 ("every", "always", "zawsze"...: one example on screen never proves it). Exit code 0 pass, 1 errors.
 """
@@ -33,7 +33,8 @@ METAPHOR = r'''superpower\w*|second brain|rocket fuel|on autopilot|secret weapon
 supermoc\w*|drugi mózg|tajna broń|na autopilocie|szwajcarski scyzoryk'''
 SLOGAN = [r'^meet\b', r'^poznaj\b', r',\s*reimagined\b', r'\bmade (simple|easy)\b', r'\byour way\b', r'\blike never before\b',
           r'\bjak nigdy (dotąd|wcześniej)\b', r'\bpo twojemu\b', r'^less \w+\.\s*more \w+', r'^mniej \w+\.\s*więcej \w+',
-          r'\b\w+ meets \w+\b', r'\?$', r'!$', r'^(\w+\.\s*){3}$']
+          r'\b\w+ meets \w+\b', r'^(\w+\.\s*){3}$']
+MARKS = re.compile(r'[?!]$')   # a question or an exclamation: sometimes a deliberate hook, so a warning
 QUANTITY = r'\b(every|each|all|always|automatically|każd\w*|wszystk\w*|zawsze|automatyczn\w*)\b'
 CTA = re.compile(r'\b(out now|out today|available (now|today)|try it|get it|download|sign up|join|już (dziś|jest|dostępn\w*)|'
                  r'pobierz|wypróbuj|zapisz się|dołącz|sprawdź|zamów)\b|\b[\w-]+\.(com|app|dev|io|ai|pl|co|eu|studio)\b', re.I)
@@ -89,9 +90,12 @@ def check(lines, name=None, kind='launch'):
                 add('error', label, i, f'"{hit.group(0)}": say the concrete thing a customer would say')
         for pattern in SLOGAN:
             if re.search(pattern, text.strip(), re.I):
-                add('error', 'slogan', i, 'a slogan shape (Meet X, X meets Y, Less X. More Y., a question, an exclamation): state one plain fact')
+                add('error', 'slogan', i, 'a slogan shape (Meet X, X meets Y, Less X. More Y., Plan. Track. Win.): state one plain fact')
                 break
-        if len(re.findall(r'[.!?](\s|$)', text.strip())) >= 2 and not re.match(r'^(\w+\.\s*){3}$', text.strip()):
+        if MARKS.search(text.strip()):
+            add('warning', 'slogan', i, 'a question or an exclamation: keep it only as a deliberate hook, otherwise state one plain fact')
+        closing = i == len(lines) - 1 and (named(text) or CTA.search(text))
+        if len(re.findall(r'[.!?](\s|$)', text.strip())) >= 2 and not re.match(r'^(\w+\.\s*){3}$', text.strip()) and not closing:
             add('error', 'claims', i, 'two sentences in one line: one claim a line')
         hit = re.search(QUANTITY, text, re.I)
         if hit:

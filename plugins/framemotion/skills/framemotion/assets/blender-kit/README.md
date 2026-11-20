@@ -26,7 +26,7 @@ Blender is not part of FrameMotion and is not installed by it. Render on the use
 blender -b --factory-startup --python upstream/blender-rendering/scripts/render_batch.py -- --preset preview --frames 1-48 --out //render/preview
 ```
 
-Each script's own help (`-- --help`) lists its options; the guides give the calls. The scripts make no network requests and write only where they are told to. A cloud session without Blender cannot render or test this route: say so (NOT_RUN) instead of claiming a result. Render a preview (`--preset preview`, Workbench or EEVEE) and a contact sheet before a final Cycles render, which is slow.
+Each script's own help (`-- --help`) lists its options; the guides give the calls. The scripts make no network requests and write only where they are told to. Where a guide suggests downloading an HDRI or textures, fetch them only with the user's yes and a recorded licence (Open Assets does this), never from inside a script. A cloud session without Blender cannot render or test this route: say so (NOT_RUN) instead of claiming a result. Render a preview (`--preset preview`, Workbench or EEVEE) and a contact sheet before a final Cycles render, which is slow.
 
 ## Left out
 

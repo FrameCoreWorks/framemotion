@@ -19,7 +19,7 @@
 // height), at ([x, y] in frame fractions from the centre, -0.5..0.5), move ("orbit": the camera circles
 // and closes in, so the depth shows; "still"), camera (distance), stage (a dark floor and stone pillars
 // lit by the effect, which pass in front of it as the camera moves; on by default unless transparent),
-// prewarm (seconds simulated before frame 0, default 2; the sparks burst always starts at frame 0).
+// prewarm (seconds simulated before frame 0, default 2; the sparks burst opens just before frame 0).
 import * as THREE from 'three';
 import * as Q from 'three.quarks';
 import {defineEngine, createRng} from '../../kit/engine-kit.mjs';
@@ -84,12 +84,15 @@ function buildStage(scene) {
   light = new THREE.PointLight(effect.light, 0, 0, 1.4);
   light.position.set(0, floorY + 6 * k, 0).add(offset);
   scene.add(light);
+  const fill = new THREE.DirectionalLight(0xc8d0e0, 1.4);   // a soft light from the viewer's side, so near stones are not black holes
+  fill.position.set(0, 30, 120);
+  scene.add(fill);
   const stone = new THREE.MeshStandardMaterial({color: 0x3a342e, roughness: 0.92});
   const floor = new THREE.Mesh(new THREE.CircleGeometry(90, 64), new THREE.MeshStandardMaterial({color: 0x2a2420, roughness: 1}));
   floor.rotation.x = -Math.PI / 2;
   floor.position.set(0, floorY, 0).add(offset);
   scene.add(floor);
-  for (const [x, z, h, r] of [[4.5, 12, 13, 2.4], [20, -12, 42, 3], [-24, -22, 38, 3.2], [-30, 14, 30, 2.4]]) {
+  for (const [x, z, h, r] of [[-16, 16, 13, 2.4], [20, -12, 42, 3], [-24, -22, 38, 3.2], [-30, 14, 30, 2.4]]) {
     const pillar = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.9 * k, r * k, h * k, 18), stone);
     pillar.position.set(x * k, floorY + h * k / 2, z * k).add(offset);
     scene.add(pillar);
@@ -138,7 +141,7 @@ function place(t) {
   camera.lookAt(look);
 }
 // looping effects start already running (prewarm seconds simulated before frame 0), so no frame is empty
-const prewarm = effect.loops ? (params.prewarm ?? 2) : 0;
+const prewarm = effect.loops ? (params.prewarm ?? 2) : 0.12;   // the sparks burst is already open at frame 0
 async function seek(t) {
   const target = Math.round((t + prewarm) * fps * steps);
   if (scene === null || target < done) restart();

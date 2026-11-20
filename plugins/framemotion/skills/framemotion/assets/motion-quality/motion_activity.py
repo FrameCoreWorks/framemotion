@@ -33,7 +33,9 @@ MAX_STILL_SHARE = 0.40    # more than this share of undeclared still time fails
 MAX_STILL_SECONDS = 2.5   # an undeclared still longer than this fails
 FULL_SIZE = (96, 54)      # every frame, for the empty-frame and end-hold checks
 FLAT_STD, FLAT_RANGE, MAX_FLAT_RUN = 1.5, 8, 3
-HOLD_EPS, MAX_END_HOLD, SHORT_END_HOLD = 0.35, 1.4, 0.6
+# End hold: FrameMotion's end card holds 1.5-2.5 s (critique.py, the title recipes), so only a longer undeclared
+# end fails; motionmaxxing's own 1.4 s limit is for films without an end card.
+HOLD_EPS, MAX_END_HOLD, SHORT_END_HOLD = 0.35, 2.5, 0.6
 
 
 def samples(path, fps=SAMPLE_FPS, size=SIZE):
@@ -135,13 +137,17 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:                                   # an input problem exits 2, never 1, which means REVISE
         frames = samples(args.video)
-    except (subprocess.CalledProcessError, ValueError) as error:
+        fps = video_fps(args.video)
+    except FileNotFoundError as error:
+        print(f'FFmpeg or ffprobe is not installed: {error}', file=sys.stderr)
+        return 2
+    except (subprocess.CalledProcessError, ValueError, ZeroDivisionError) as error:
         print(f'cannot read video {args.video}: ' + (error.stderr.decode(errors='replace').strip().splitlines() or ['not a video'])[-1]
               if isinstance(error, subprocess.CalledProcessError) else str(error), file=sys.stderr)
         return 2
     report = measure(frames, holds=args.hold)
     try:
-        report.update(frame_checks(samples(args.video, fps=video_fps(args.video), size=FULL_SIZE), video_fps(args.video), args.hold))
+        report.update(frame_checks(samples(args.video, fps=fps, size=FULL_SIZE), fps, args.hold))
     except (subprocess.CalledProcessError, ValueError, ZeroDivisionError) as error:
         print(f'cannot read every frame of {args.video}: {error}', file=sys.stderr)
         return 2

@@ -968,9 +968,9 @@
     },
     {
       "id": "quarks-3d-effects",
-      "title": "three.quarks: layered fire, lit smoke, sparks and a magic ring in a 3D scene",
+      "title": "three.quarks: layered fire, lit smoke, sparks and a magic swirl in a 3D scene",
       "group": "transitions-effects-backgrounds",
-      "about": "Fire, smoke, flying sparks and a magic ring in a small 3D scene: the camera circles them and stone pillars pass in front.",
+      "about": "Fire, smoke, flying sparks and a magic swirl in a small 3D scene: the camera circles them and stone pillars pass in front.",
       "good_for": [
         "effect",
         "background"
