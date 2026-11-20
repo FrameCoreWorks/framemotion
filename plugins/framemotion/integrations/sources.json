@@ -635,6 +635,22 @@
       "references": [
         "references/motion-craft.md"
       ]
+    },
+    {
+      "name": "mg-styles-15",
+      "repo": "Vincentwei1021/mg-styles-15",
+      "commit": "8fab7eb49cc60590c518d1a932dfff753697fce7",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Vincentwei1021",
+      "kind": "engine",
+      "pack": "P12",
+      "status": "bundled",
+      "bundled_commit": "8fab7eb49cc60590c518d1a932dfff753697fce7",
+      "conditions": [
+        "five style films bundled unchanged in skills/framemotion/assets/mg-styles-engine/upstream/ with the 15 style prompts",
+        "photo-based films (06, 18, 19) left out: photo sources not recorded upstream",
+        "fonts from google/fonts (OFL), some subset or instanced; four brand CJK faces replaced by Noto Sans SC"
+      ]
     }
   ]
 }

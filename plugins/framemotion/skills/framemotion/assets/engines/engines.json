@@ -3226,6 +3226,168 @@
       "fps": 30,
       "duration": 20,
       "capture": "#fm-canvas"
+    },
+    {
+      "about": "Hand-drawn cel animation on paper: every drawing redrawn so the lines tremble, like a classic animation desk.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "05-cel-boil"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 24,
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "group": "handmade-looks",
+      "id": "mg-cel-boil",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, frame-by-frame cel animation: hand-drawn lines that boil on paper, drawn on twos (16:9)"
+    },
+    {
+      "about": "Liquid that drops, splashes and flows into your word, glossy and soft.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "07-liquid"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title",
+        "logo"
+      ],
+      "group": "transitions-effects-backgrounds",
+      "id": "mg-liquid",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, liquid motion: a drop that splashes, pools and flows into a word (16:9)"
+    },
+    {
+      "about": "One simple shape changes into one picture after another and ends as your name.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "08-morph"
+      },
+      "capture": "#c",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "logo",
+        "title",
+        "explainer"
+      ],
+      "group": "text-titles-logos",
+      "id": "mg-morph",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, shape morph: one shape turns into icon after icon and ends as the wordmark (16:9)"
+    },
+    {
+      "about": "The 1980s: a neon road into a sunset, chrome letters, glowing handwriting and a worn tape look.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "10-synthwave"
+      },
+      "capture": "#gl",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title",
+        "story"
+      ],
+      "group": "era-film-moods",
+      "id": "mg-synthwave",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, 1980s synthwave and VHS: a neon grid road, a chrome title and a glowing script (16:9)"
+    },
+    {
+      "about": "Soft moving colour light behind frosted glass panels, calm and modern.",
+      "adapter": "renderFrame",
+      "blocks": [],
+      "build": {
+        "tool": "mgstyles",
+        "film": "12-aurora-glass"
+      },
+      "capture": "#gl",
+      "duration": 10,
+      "fps": 30,
+      "good_for": [
+        "title",
+        "product",
+        "background"
+      ],
+      "group": "transitions-effects-backgrounds",
+      "id": "mg-aurora-glass",
+      "inputs": [
+        "text"
+      ],
+      "kind": "canvas",
+      "readme": "../mg-styles-engine/README.md",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "sources": [
+        "mg-styles-15"
+      ],
+      "status": "ready",
+      "title": "MG style film, aurora gradient and glassmorphism: soft colour light behind frosted glass cards (16:9)"
     }
   ]
 }

@@ -86,8 +86,8 @@ def main():
     for path in [*ROOT.glob('*.md'), *ROOT.glob('docs/*.md'), *PLUGIN.rglob('*.md')]:
         if 'node_modules' in path.parts:
             continue
-        if LIBRARY in path.parents and 'upstream' in path.relative_to(LIBRARY).parts:
-            continue   # byte-identical upstream copies keep their own links; their hashes are checked below
+        if LIBRARY.parent in path.parents and 'upstream' in path.relative_to(LIBRARY.parent).parts:
+            continue   # byte-identical upstream copies keep their own links; their hashes are checked by their manifests
         text = path.read_text(encoding='utf-8')
         for link in re.findall(r'\]\(([^)\s]+)\)', text):
             if '://' in link or link.startswith(('#', 'mailto:')):
