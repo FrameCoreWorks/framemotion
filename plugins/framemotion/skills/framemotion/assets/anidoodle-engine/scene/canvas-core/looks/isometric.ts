@@ -15,14 +15,14 @@ type Plane = { pts: P2[]; fill: string };
 type Piece = { faces: Plane[]; t0: number; t1: number; lines?: { a: P2; b: P2; c: string; w: number }[] };
 let PIECES: { pieces: Piece[]; grid: [P2, P2][]; iso: Iso | null; base: Plane[] } | null = null;
 const build = () => PIECES ??= (() => {
-  const list = scene(), layers = [...new Set(list.map((s) => s.layer))].sort((a, b) => a - b), k = 1, DL = Math.max(W, H) * 0.05;
+  const list = scene(), layers = [...new Set(list.map((s) => s.layer))].sort((a, b) => a - b), k = 1, DL = Math.max(W, H) * 0.16;
   // world: the scene's plane is x (right) and z (up); its groups stand at depth y, the first at the back
   const world = (s: Shape, sx: number, sy: number, y: number): [number, number, number] => [sx * k, y, (H - sy) * k];
   const depthOf = (s: Shape) => layers.indexOf(s.layer) * DL;
   // projection fitted to the frame: measure, then place
   const probe = new Iso(null as unknown as Ctx, 1, 0, 0), pts: P2[] = [];
   list.forEach((s) => (s.poly[0] ?? []).forEach(([x, y]) => { const w = world(s, x, y, depthOf(s)); pts.push(probe.p(...w), probe.p(w[0], w[1] + DL * 0.4, w[2])); }));
-  const zb = -Math.max(W, H) * 0.03; [[0, 0], [W * k, 0], [0, layers.length * DL + DL], [W * k, layers.length * DL + DL]].forEach(([x, y]) => pts.push(probe.p(x, y, zb)));
+  const zb = 0; [[0, 0], [W * k, 0], [0, layers.length * DL + DL], [W * k, layers.length * DL + DL]].forEach(([x, y]) => pts.push(probe.p(x, y, zb)));
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; pts.forEach(([x, y]) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); });
   const safeTop = H > W * 1.4 ? H * 0.12 : H * 0.06, safeBot = H > W * 1.4 ? H * 0.22 : H * 0.06, u = Math.min((W * 0.9) / (x1 - x0), (H - safeTop - safeBot) / (y1 - y0));
   const iso = new Iso(null as unknown as Ctx, u, W / 2 - ((x0 + x1) / 2) * u, safeTop + (H - safeTop - safeBot) / 2 - ((y0 + y1) / 2) * u);
