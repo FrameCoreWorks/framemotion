@@ -741,6 +741,56 @@ ${code}
     fs.writeFileSync(path.join(dir, page), html);
     return {dir, page, query: {}};
   },
+  /**
+   * Anidoodle engine (bundled agreenshpun/anidoodle, the 2-D style films): FrameMotion's own esbuild bundles
+   * one film with the upstream page host (src/hosts/page.ts) into a single page; none of anidoodle's Node
+   * tools run. build.film names an exported film of upstream/engine/src/canvas-core; build.folder (optional)
+   * is the user's own folder laid out like src/ (canvas-core/<film>.ts), looked up first, so a new film can
+   * import the bundled kits as "./core" or "./woodcutKit". The page's FILM.seek(frame) draws one frame
+   * synchronously; renderFrame(t) waits for FILM.ready (assets decoded), then seeks round(t * fps).
+   * Three.js films are not bundled: a film that imports "three" fails the build with a clear error.
+   */
+  async anidoodle(entry, enginesRoot) {
+    const engineSrc = path.join(sibling(enginesRoot, 'anidoodle-engine'), 'upstream/engine/src');
+    const film = String(entry.build.film ?? '');
+    if (!/^[A-Za-z][A-Za-z0-9]*$/.test(film)) throw new Error(`${entry.id}: build.film must be a film's export name`);
+    const roots = [...(entry.build.folder ? [path.resolve(enginesRoot, entry.build.folder)] : []), engineSrc];
+    const EXT = ['', '.ts', '.js', '/index.ts'];
+    const find = (p) => EXT.map((e) => p + e).find((f) => fs.existsSync(f) && fs.statSync(f).isFile()) ?? null;
+    if (!roots.some((r) => find(path.join(r, 'canvas-core', film)))) throw new Error(`${entry.id}: no film "${film}" in canvas-core`);
+    const overlay = {
+      name: 'framemotion-anidoodle',
+      setup(b) {
+        b.onResolve({filter: /^three$/}, () => ({errors: [{text: 'this film draws with three.js, which the FrameMotion anidoodle bundle leaves out: use a 2-D film'}]}));
+        b.onResolve({filter: /\.(ttf|otf|woff2)$/i}, (a) => ({errors: [{text: `font file ${a.path}: the FrameMotion anidoodle bundle carries no font files`}]}));
+        b.onResolve({filter: /^\.\.?\//}, (a) => {
+          const want = path.resolve(a.resolveDir, a.path);
+          const root = roots.find((r) => want === r || want.startsWith(r + path.sep));
+          if (!root) return undefined;
+          const rel = path.relative(root, want);
+          for (const r of roots) { const f = find(path.join(r, rel)); if (f) return {path: f}; }
+          return undefined;
+        });
+      },
+    };
+    const {build} = await import(pathToFileURL(path.join(enginesRoot, 'node_modules/esbuild/lib/main.js')).href);
+    const out = await build({
+      stdin: {contents: `import { ${film} } from "../canvas-core/${film}"; import { mountFilm } from "./page"; mountFilm(${film});`,
+        resolveDir: path.join(engineSrc, 'hosts'), loader: 'ts'},
+      bundle: true, write: false, format: 'iife', target: 'es2020', logLevel: 'silent', plugins: [overlay],
+    });
+    const code = out.outputFiles[0].text.replace(/<\/script/gi, '<\\/script');
+    const dir = temp(entry.id);
+    fs.writeFileSync(path.join(dir, 'index.html'), `<!doctype html><html><head><meta charset="utf-8">
+<style>html,body{margin:0;height:100%;overflow:hidden;background:#fff}canvas{display:block;width:100vw;height:100vh}</style></head>
+<body><canvas id="film"></canvas><script>window.__ASSETS__={};window.__BAKE_SRC__={};</script>
+<script>${code}</script>
+<script>window.renderFrame = async (t) => {
+  const F = window.FILM; await F.ready;
+  F.seek(Math.max(0, Math.min(F.meta.durationFrames - 1, Math.round(t * F.meta.fps))));
+};</script></body></html>`);
+    return {dir, page: 'index.html', query: {adapter: 'framemotion'}};
+  },
 };
 
 export async function buildEntry(entry, enginesRoot) {

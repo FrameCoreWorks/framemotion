@@ -651,6 +651,22 @@
         "photo-based films (06, 18, 19) left out: photo sources not recorded upstream",
         "fonts from google/fonts (OFL), some subset or instanced; four brand CJK faces replaced by Noto Sans SC"
       ]
+    },
+    {
+      "name": "anidoodle",
+      "repo": "alexgreensh/anidoodle",
+      "commit": "4ae27d2c281fcfd01bce87ab13dc5ad4df81a795",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright 2026 Alex Greenshpun",
+      "kind": "engine",
+      "pack": "P12",
+      "status": "bundled",
+      "bundled_commit": "4ae27d2c281fcfd01bce87ab13dc5ad4df81a795",
+      "conditions": [
+        "the 74 source files the 32 two-dimensional style films need, bundled unchanged in skills/framemotion/assets/anidoodle-engine/upstream/engine/ with LICENSE and NOTICE",
+        "bundled by FrameMotion's own esbuild; anidoodle's Node tools, three.js films, narration (ElevenLabs) and the sound pack (OpenAIR rooms, CC BY) are not bundled",
+        "19 styles registered as second ways of existing engines (method_of), 13 as new engines"
+      ]
     }
   ]
 }

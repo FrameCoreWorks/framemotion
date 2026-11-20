@@ -155,6 +155,11 @@ a source-manifest.json with the pinned commit):
   Petch, JetBrains Mono, Rajdhani. Not bundled: the photo-based films, videos, site, harness and audio samples. Hashes in
   integrations/mg-styles-15/source-manifest.json; the builder (kit/builders.mjs, mgstyles), README, grain plate and
   tools/make_grain.py are FrameCore Works' own.
+- Anidoodle engine (skills/framemotion/assets/anidoodle-engine): alexgreensh/anidoodle (commit
+  4ae27d2c281fcfd01bce87ab13dc5ad4df81a795, engine 0.10.1, Apache License 2.0, Copyright 2026 Alex Greenshpun): the 74
+  source files of its 32 two-dimensional style films and its style catalogue bundled unchanged, with upstream's LICENSE
+  and NOTICE. FrameMotion's own builder bundles them; anidoodle's tools, three.js films, narration and sound pack are
+  not included.
 - rea-video (skills/framemotion/assets/reference-breakdown/rea-video): JuneYaooo/rea-video 0.1.0 (commit
   751596967f58b8949124d291e59bdc40fc04486e, Apache License 2.0, Copyright 2026 JuneYaooo), "rea-video by JuneYaooo":
   the rea_video package with upstream's LICENSE and NOTICE. Seven files are changed and marked "FrameMotion:"
