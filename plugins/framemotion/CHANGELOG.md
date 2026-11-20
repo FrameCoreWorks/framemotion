@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.8.1 (2026-11-20)
+
+Owner request 2026-11-20: "analyse which styles fall behind and fix them".
+
+- Scenes: a thing whose tone is close to what lies round it now gets the illustrator's figure-ground halo (a glow behind a dark thing, a soft shade behind a light one, measured where it touches each neighbour, strongest for near things), plus a thin rim inside its lit edge. A dark cat on a night roof now reads in stipple, halftone, single-line engraving, scratchboard, charcoal and ballpoint; risograph knocks its inks back in the same halo.
+- toy-brick: colours chosen in CIE Lab from a larger table of real brick colours, taken from each thing's own colour (no antialias specks), a sky gradient mixed brick by brick, a thing never in the colour of what it stands against, a finer wall (80 studs wide).
+- sumi-e: far and broad masses in one or two broad wet strokes instead of many overlapping ones; the shade-side wash only on large light things and paler.
+
 ## 0.8.0 (2026-11-20)
 
 Owner request 2026-11-20: "the engine should draw any scene from a description in each of the 32 styles".

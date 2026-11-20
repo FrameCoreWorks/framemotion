@@ -4,6 +4,7 @@ The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/frame
 
 ## 2026-11-20
 
+- FrameMotion 0.8.1: anidoodle scenes keep a dark subject readable on a dark backdrop (figure-ground halo), toy-brick colours and sumi-e washes improved.
 - FrameMotion 0.8.0: anidoodle draws any described scene in any of its 32 styles, each with its own film's tools (setting `scene`, a layered SVG the model writes from the description).
 - FrameMotion 0.7.2: the motif film colours in black fills and shows dark pictures on the chalk board (found by the frame check of the FrameCore logo).
 - FrameMotion 0.7.1: 3D scenes check Poly Haven's CC0 scans through Open Assets before building everything in code.

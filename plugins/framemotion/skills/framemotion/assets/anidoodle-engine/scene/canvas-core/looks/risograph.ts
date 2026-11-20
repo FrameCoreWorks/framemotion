@@ -9,7 +9,7 @@
 import { Gfx, fractal, rng, type Ctx, type Env, type Layer, type P } from "../core";
 import { INK, LITHO, PAPER, REG, drum, screen } from "../riso";
 import { fillShape } from "../gallery";
-import { W, H, scene, lit, fillOf, sizeOf, areaOf, raster, visibleRuns, toneField, type Shape } from "../sceneKit";
+import { W, H, scene, lit, fillOf, sizeOf, areaOf, raster, visibleRuns, toneField, haloField, type Shape } from "../sceneKit";
 
 const PITCH = 6.2, ANG = { yellow: 0, pink: 75, blue: 15 };
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
@@ -17,11 +17,11 @@ const clamp = (v: number) => Math.max(0, Math.min(1, v));
 const sep = (c: number[]) => { const cy = 1 - c[0] / 255, mg = 1 - c[1] / 255, yl = 1 - c[2] / 255, k = Math.min(cy, mg, yl); return { yellow: clamp((yl - k * 0.55) * 1.05), pink: clamp((mg - k * 0.5) * 1.0), blue: clamp((cy - k * 0.8) * 0.95 + k * 0.38) }; };
 type Ink = "yellow" | "pink" | "blue";
 const plate = (ink: Ink) => (g: Gfx, env: Env) => drum(g, REG[ink], () => {
-  const r = raster(env), T = toneField(env), list = scene(), all = { x0: 0, y0: 0, x1: W, y1: H };
+  const r = raster(env), T = toneField(env), HL = haloField(env), list = scene(), all = { x0: 0, y0: 0, x1: W, y1: H };
   const at = (x: number, y: number) => Math.max(0, Math.min(r.h - 1, Math.floor(y * r.R))) * r.w + Math.max(0, Math.min(r.w - 1, Math.floor(x * r.R)));
   const solid = (s: Shape) => !s.big && sizeOf(s) < 46 && s.fill;
   // the screen over everything except the small flat solids; the blue plate deepens the shade side
-  screen(g, all, PITCH, ANG[ink], (x, y) => { const p = at(x, y), id = r.id[p]; if (id >= 0 && solid(list[id])) return 0; const c = [r.rgb[p * 4], r.rgb[p * 4 + 1], r.rgb[p * 4 + 2]], v = sep(c)[ink]; return ink === "blue" ? clamp(v + 0.35 * Math.max(0, T[p] - 0.55)) : v * (0.85 + 0.3 * fractal(17, x, y, 0.004, 0.004, 2)); }, INK[ink]);
+  screen(g, all, PITCH, ANG[ink], (x, y) => { const p = at(x, y), id = r.id[p]; if (id >= 0 && solid(list[id])) return 0; const c = [r.rgb[p * 4], r.rgb[p * 4 + 1], r.rgb[p * 4 + 2]], kb = 1 + 1.6 * Math.min(0, HL[p]), v = sep(c)[ink] * Math.max(0.05, kb); return ink === "blue" ? clamp(v + 0.35 * Math.max(0, T[p] - 0.55)) : v * (0.85 + 0.3 * fractal(17, x, y, 0.004, 0.004, 2)); }, INK[ink]);
   // small bright things: flat solids on the plates their colour needs
   list.filter(solid).forEach((s) => { const v = sep(fillOf(s))[ink]; if (v > 0.35) s.subs.forEach((sub) => fillShape(g, sub, INK[ink], Math.min(1, v * 1.2))); });
   if (ink !== "blue") return;
