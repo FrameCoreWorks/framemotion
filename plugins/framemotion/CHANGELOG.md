@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.6.0 (2026-11-20)
+
+Seven reviewed candidates from the owner's X list ("Startujemy wszystkie 7", 2026-11-20), with the owner's rule that a candidate duplicating an engine improves it or adds another way of animating inside it, never a second engine.
+
+- **mg-styles-15** (MIT): five new 16:9 style films (cel boil, liquid, morph, synthwave, aurora glass) through a new `mgstyles` builder, and six more as second ways of existing engines (registry field `method_of`, the setting `way`): flat vector, line art, isometric, Bauhaus, pixel and HUD. Their sample words can be replaced (`replace`). Photo-based films are left out (owner card: skip them).
+- **Anidoodle** (Apache-2.0): one hand-drawn animation engine, `anidoodle`, in 32 styles chosen with the setting `style` (owner decision 2026-11-20: its own engine, never merged into others). A new style is one film plus one row in `anidoodle-engine/styles.json`, explained in its README; any size renders, a square style fits whole into 9:16 over a blurred copy.
+- **three.quarks** (MIT): `quarks-3d-effects`, layered fire, lit smoke, sparks and a magic swirl in a small 3D scene with an orbiting camera and pillars that pass in front; or a transparent overlay placed anywhere (`scale`, `at`, `move`, `stage`, `prewarm`).
+- **motionmaxxing** (Apache-2.0): our own gates: `motion_activity.py` finds empty-frame runs and an undeclared end hold over 1.4 s; the visible-text audit warns about page chrome (corner labels, tracked caps, counters, timecodes, header and footer bars). Its review references are bundled unchanged.
+- **cinetic** (MIT): merged into the launch films, no new engine: a device book of 466 named devices, copy, update-film and timing references and a HyperFrames timing kit (`cinetic-kit/`), plus our own English and Polish copy check `launch-copy/copy_check.py`.
+- **blender-skills** (MIT): `blender-kit/`, 13 Blender 5 guides with their `bpy` scripts for the Blender route; rendering runs only where Blender is installed.
+- **reanimate** (MIT, method only) and **LottieFiles motion principles** (MIT, restated): `reference-breakdown/match.py` checks a rebuild against its reference (offset, motion timing within 0.08 s, activity shape, worst frames); section 9 of the motion compendium adds personality, distance and material scaling, choreography, thirds, staggers and overshoot numbers.
+- Fixes from the two review passes: synthwave, aurora glass and the scrapbook style now draw the same frame in any order; three.quarks frames repeat after a restart.
+- Evidence: `tools/check.py` (full, with the Node suites) in the Claude cloud sandbox: everything passes except `photoreal.test.mjs` hairline-spice-rack frame 0, the pre-existing sandbox failure recorded in 0.4.5 (it fails the same way on unchanged `main`); frame sheets of the new engines looked at; three Fable review passes on the packs, their points fixed (user styles through `FRAMEMOTION_STYLES`, closing-line copy rule, narrower page-chrome rules, 2.5 s end hold). Blender renders, real reference films and GPU renders `NOT_RUN`. Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.5.1 (2026-11-19)
 
 - **Text safe zone and product sound** (agreed 3 of 3 in the owner's three-project tuning session, 2026-11-19). `reel-workflow.md`: no text in the top 14% (269 px) or the bottom 35% (672 px) of a 9:16 frame, margins at least 90 px; other content keeps the engine's platform zone (top 240, bottom 420). The Animate engine's checker is a pinned upstream copy and stays unchanged; on that route the piece can pass `review.safe` with the text values. `motion-sound-design.md`: no decorative whooshes or drones when a realistic product is the hero; whooshes stay for graphic motion.
