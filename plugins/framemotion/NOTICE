@@ -27,6 +27,8 @@ a source-manifest.json with the pinned commit):
   listed in the technique atlas; no HyperFrames code is bundled.
 - Fonts in skills/framemotion/assets/fonts/ (Anton, Archivo, Bricolage Grotesque, Fraunces, Inter, Source Serif 4):
   SIL Open Font License 1.1; each family folder keeps its OFL.txt with the copyright notice.
+- EL4CTEO/blender-skills, commit 9e7e04a603c125a0d17447ab97112fa70a865067, Copyright (c) 2026 EL4CTEO, MIT: 13 Blender guides and
+  their bpy scripts, unchanged (SKILL.md renamed GUIDE.md) in skills/framemotion/assets/blender-kit/ (LICENSE there).
 - Leonxlnx/cinetic, commit f4bbfc844877891fe92279d47b7874fb44d485ae, Copyright (c) 2026 Leonxlnx, MIT: the device book, copy, update-film,
   timing and HyperFrames references and the HyperFrames starter's motion.js, timeline.js, music.js and index.html,
   unchanged in skills/framemotion/assets/cinetic-kit/ (LICENSE there); launch-copy/copy_check.py is our own code

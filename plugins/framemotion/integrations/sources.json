@@ -715,6 +715,22 @@
         "the copy check is FrameMotion's own launch-copy/copy_check.py; no upstream script is bundled or run",
         "left out: Remotion starter, kit and templates (Remotion company licence), logos.mjs and brand marks, music search and download, GSAP (the user's HyperFrames project provides it)"
       ]
+    },
+    {
+      "name": "blender-skills",
+      "repo": "EL4CTEO/blender-skills",
+      "commit": "9e7e04a603c125a0d17447ab97112fa70a865067",
+      "bundled_commit": "9e7e04a603c125a0d17447ab97112fa70a865067",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 EL4CTEO",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "bundled",
+      "conditions": [
+        "13 of 28 guides with their bpy scripts, unchanged in skills/framemotion/assets/blender-kit/; SKILL.md renamed GUIDE.md so FrameMotion keeps one skill",
+        "scripts make no network requests; Blender is not installed or bundled; renders run only where the user has Blender (the Mac), NOT_RUN in cloud sessions",
+        "no registry engine: the Blender route is documented in references/workshop/3d.md"
+      ]
     }
   ]
 }
