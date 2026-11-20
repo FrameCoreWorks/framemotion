@@ -18,7 +18,7 @@ const passes = (env: Env): Step[][] => {
   // 1 · the backdrop: side of the vine stick, by value, then the stump rubbed across it
   const backs = list.filter((s) => s.fill && s.big);
   const p1: Step[] = [
-    { o: VINE, m: backs.flatMap((s) => sideMarks(frame, { angle: 0.35, gap: 7, w: 9, alpha: 0.32, seed: 10 + s.i, test: (x, y) => idAt(r0, x, y) === s.i, keep: (x, y) => tone(x, y) > 0.12 })) },
+    { o: VINE, m: backs.flatMap((s) => sideMarks(frame, { angle: 0.35, gap: 7, w: 9, alpha: 0.24, seed: 10 + s.i, test: (x, y) => idAt(r0, x, y) === s.i, keep: (x, y) => tone(x, y) > 0.3 })) },
     { o: VINE, m: backs.flatMap((s) => sideMarks(frame, { angle: -0.5, gap: 9, w: 8, alpha: 0.28, seed: 20 + s.i, test: (x, y) => idAt(r0, x, y) === s.i, keep: (x, y) => tone(x, y) > 0.45 })) },
     { o: STUMP(7), m: zigzag({ x0: 0, y0: 0, x1: W, y1: H }, 38, 26, 30, 0.15).map((row) => rubMark(row, 30, 0.12)) },
   ];

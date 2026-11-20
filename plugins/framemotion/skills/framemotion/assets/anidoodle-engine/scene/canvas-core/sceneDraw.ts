@@ -28,10 +28,11 @@ import { ballpointLook } from "./looks/ballpoint";
 import { scratchboardLook } from "./looks/scratchboard";
 import { cyanotypeLook } from "./looks/cyanotype";
 import { charcoalLook } from "./looks/charcoal";
+import { halftoneLook } from "./looks/halftone";
 import { pencilWatercolourLook, storybookLook, inkWashLook } from "./looks/watercolour";
 // The styles drawn with their own film's tools (looks/*.ts); the rest use the techniques below.
 const OWN: Record<string, (ctx: Ctx, f: number, env: Env) => void> = { "crayon": crayonLook, "coloured-pencil": colouredPencilLook,
-  "pencil-watercolour": pencilWatercolourLook, "storybook": storybookLook, "ink-wash": inkWashLook, "chalkboard": chalkboardLook, "woodblock": woodblockLook, "embroidery": embroideryLook, "paper-collage": collageLook, "toy-theatre": theatreLook, "scrapbook": scrapbookLook, "folk-tale": folkTaleLook, "mid-century": midCenturyLook, "rubber-hose": rubberHoseLook, "stipple": stippleLook, "single-line-engraving": mellanLook, "ballpoint": ballpointLook, "scratchboard": scratchboardLook, "cyanotype": cyanotypeLook, "charcoal": charcoalLook };
+  "pencil-watercolour": pencilWatercolourLook, "storybook": storybookLook, "ink-wash": inkWashLook, "chalkboard": chalkboardLook, "woodblock": woodblockLook, "embroidery": embroideryLook, "paper-collage": collageLook, "toy-theatre": theatreLook, "scrapbook": scrapbookLook, "folk-tale": folkTaleLook, "mid-century": midCenturyLook, "rubber-hose": rubberHoseLook, "stipple": stippleLook, "single-line-engraving": mellanLook, "ballpoint": ballpointLook, "scratchboard": scratchboardLook, "cyanotype": cyanotypeLook, "charcoal": charcoalLook, "halftone": halftoneLook };
 
 export type Look = {
   tech: "sketch" | "flat" | "cut" | "theatre" | "stipple" | "halftone" | "riso" | "pixel" | "brick" | "lowpoly" | "dabs" | "oil" | "spiral" | "hatch" | "scratch" | "blueprint" | "block" | "stitch";
