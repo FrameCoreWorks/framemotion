@@ -4,7 +4,7 @@ The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/frame
 
 ## 2026-11-20
 
-- FrameMotion 0.8.0: anidoodle draws any described scene in any of its 32 styles (setting `scene`, a layered SVG the model writes from the description).
+- FrameMotion 0.8.0: anidoodle draws any described scene in any of its 32 styles, each with its own film's tools (setting `scene`, a layered SVG the model writes from the description).
 - FrameMotion 0.7.2: the motif film colours in black fills and shows dark pictures on the chalk board (found by the frame check of the FrameCore logo).
 - FrameMotion 0.7.1: 3D scenes check Poly Haven's CC0 scans through Open Assets before building everything in code.
 - FrameMotion 0.7.0: anidoodle draws the user's own logo or picture (style `motif`), opens at the first mark, fits a reel length, and has tone settings.
