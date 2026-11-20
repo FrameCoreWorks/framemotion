@@ -33,6 +33,10 @@ a source-manifest.json with the pinned commit):
   timing and HyperFrames references and the HyperFrames starter's motion.js, timeline.js, music.js and index.html,
   unchanged in skills/framemotion/assets/cinetic-kit/ (LICENSE there); launch-copy/copy_check.py is our own code
   after its copy formula.
+- NiazMorshed2007/reanimate, commit 3f7a55a2986a84ca2173e86ee9127eefe31d046d, Copyright (c) 2026 Niaz Morshed, MIT: its record, compare and
+  repeat method, restated in our own skills/framemotion/assets/reference-breakdown/match.py; no code is copied.
+- LottieFiles/motion-design-skill, commit d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb, Copyright (c) 2025 LottieFiles, MIT:
+  motion principles restated in references/motion-compendium.md section 9; no text is copied.
 - Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:
   references/slop.md, references/motion.md and library/moments.jsonl unchanged in
   skills/framemotion/assets/motionmaxxing-qa/ (its LICENSE and NOTICE there); its gates G2, G3 and G5 rewritten in

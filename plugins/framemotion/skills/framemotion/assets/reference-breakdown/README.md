@@ -22,6 +22,27 @@ Analyse only footage the user owns or may study. The output is for learning a me
 
 Verified on 2026-10-18 in a Linux container (`tests/reference_breakdown_test.py`): on a synthetic 30 fps clip with 8 shots of 20 frames, all 7 cuts were found at their first frame, the grid fitted a 20-frame step with 0.03-frame residual (90 BPM if the step is a quarter note), and every output was written. Real reference films were not run during preparation.
 
+## Checking a rebuild against the reference
+
+[`match.py`](match.py) is the second half of rebuilding a reference: after `breakdown.py` maps it and you build the motion in code, render the rebuild at the same size and frame rate and measure it against the reference. It is FrameMotion's own code (MIT), after the record, compare and repeat method of [reanimate](https://github.com/NiazMorshed2007/reanimate/tree/3f7a55a2986a84ca2173e86ee9127eefe31d046d) by Niaz Morshed (MIT); no upstream code is used.
+
+```sh
+python3 match.py --ref reference.mp4 --copy rebuild-r1.mp4 --out match-r1/
+python3 match.py --ref reference.mp4 --copy rebuild-r2.mp4 --out match-r2/ --region 0,300,1080,900 --mode pixel
+```
+
+| Output | Read it for |
+| --- | --- |
+| `match.json` | the offset (rebuild frame matched to reference frame 0), the motion window of both (start, end, peak, activity centre) and its timing errors, mismatch per frame, problems and the verdict |
+| `match.jpg` | the six worst frames: reference, rebuild and a red difference map, side by side, with the time and mismatch |
+| `activity.jpg` | the change per frame of both clips as bars: the same shape means the same easing and stagger; front-loaded bars against even ones mean a stronger ease-out |
+
+**Pass (mode `motion`, the default):** start, end, peak and activity centre within 0.08 s, no offset, nothing moving where the reference is still or still where it moves. Mode `pixel` adds a mean mismatch of at most 2 % and no frame above 5 %; use `--region` to compare only the part you rebuilt. Exit code 0 match, 1 not yet, 2 setup problem.
+
+**Rounds.** Fix the largest difference, render again into a new folder, compare again; keep every round's folder. Usual fixes: the whole curve shifted means the start delay; a short, front-loaded rebuild means too strong an ease-out; even bars against a spiky reference mean ease-in-out where the reference eases out; motion where the reference is still means a stray animation. After 5 rounds without progress, report what is left with its numbers and why (a font, a shader, physics approximated). Never loosen a threshold to pass. Rebuild to learn the motion and make it the user's own; never deliver a copy of someone else's work.
+
+Verified on 2026-11-20 in a Linux container (`tests/reference_match_test.py`) on synthetic clips: an identical rebuild matches; a linear rebuild started 0.2 s late is caught as late by 6 frames, with the end and activity centre off. Real reference films were not run.
+
 ## Shot-by-shot breakdown with rea-video
 
 [`rea-video/`](rea-video/) is [rea-video](https://github.com/JuneYaooo/rea-video) by JuneYaooo (Apache-2.0, commit `751596967f58b8949124d291e59bdc40fc04486e`, version 0.1.0), bundled as a Python package next to `breakdown.py`. Where `breakdown.py` measures cuts, a grid and motion, rea-video takes a reference apart shot by shot: how each shot was most likely made (live action, AI video, code render or mixed), camera, framing, light, grade and editing per shot, on-screen text with its timing (OCR), faces, transitions, the soundtrack split into voice, music and effects, a report (`report.html`) and a VIDEO.md pack a model can read, and for code-rendered shots a first remake plan. Use it when the user wants to know how a film was made or to rebuild a reference's structure; use `breakdown.py` when cuts and timing are enough.

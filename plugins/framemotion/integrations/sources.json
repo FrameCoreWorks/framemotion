@@ -731,6 +731,34 @@
         "scripts make no network requests; Blender is not installed or bundled; renders run only where the user has Blender (the Mac), NOT_RUN in cloud sessions",
         "no registry engine: the Blender route is documented in references/workshop/3d.md"
       ]
+    },
+    {
+      "name": "reanimate",
+      "repo": "NiazMorshed2007/reanimate",
+      "commit": "3f7a55a2986a84ca2173e86ee9127eefe31d046d",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2026 Niaz Morshed",
+      "kind": "technique",
+      "pack": "P12",
+      "status": "patterns",
+      "conditions": [
+        "method only (record, compare, repeat; timing pass thresholds) restated in FrameMotion's own reference-breakdown/match.py and its README",
+        "no upstream code, examples (third-party site widgets) or setup (static ffmpeg and browser download) bundled or run"
+      ]
+    },
+    {
+      "name": "motion-design-skill",
+      "repo": "LottieFiles/motion-design-skill",
+      "commit": "d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2025 LottieFiles",
+      "kind": "knowledge",
+      "pack": "P12",
+      "status": "patterns",
+      "conditions": [
+        "principles restated in references/motion-compendium.md section 9 (personality, distance and material scaling, choreography, thirds, staggers, overshoot)",
+        "no text copied; the Creator MCP (LottieFiles account) is not used"
+      ]
     }
   ]
 }
