@@ -2,6 +2,10 @@
 
 The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/framemotion/CHANGELOG.md).
 
+## 2026-11-25
+
+- FrameMotion 0.8.3: the reel quality loop checks the stage against the brief (format, length, logo, colours, what is forbidden) before the fresh reviewer.
+
 ## 2026-11-22
 
 - FrameMotion 0.8.2: After Effects craft gains a keyframe-type table (six interpolation types, frame spacing, CSS/GSAP/Remotion forms) and the owner's key rules.

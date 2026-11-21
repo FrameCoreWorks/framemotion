@@ -24,6 +24,12 @@ class ReelWorkflow(unittest.TestCase):
                      'The fresh reviewer', 'at most three passes', 'Below 8', 'Mono fold-down']:
             self.assertIn(part, TEXT)
 
+    def test_brief_check_before_fresh_reviewer(self):
+        self.assertIn('**The brief check**', TEXT)
+        self.assertLess(TEXT.index('**The brief check**'), TEXT.index('**The fresh reviewer**'))
+        for part in ['delivery format and size', 'everything the brief forbids', 'Any mismatch is a finding']:
+            self.assertIn(part, TEXT)
+
     def test_correction_rules_and_profile(self):
         for part in ['At most two rounds', 'go back to stage 1', 'apply from the next project', '## Music profile', '## Reel log']:
             self.assertIn(part, TEXT)
