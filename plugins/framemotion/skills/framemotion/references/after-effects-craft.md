@@ -103,6 +103,30 @@ Three consequences that research intake 2026-11-11 found easy to get wrong:
 - **Multi-key graphs** (anticipation dip, overshoot and settle) transfer as one GSAP `CustomEase` path with several `C` segments, for example `CustomEase.create("ae80", "M0,0 C0.8,0 0.2,1 1,1")`.
 - **Spatial vs temporal.** A curved path (spatial) with a bad speed curve (temporal) wobbles. Give a path its arc with separated X and Y eases (ease X out, Y in) or a motion path, and its feel with the speed curve.
 
+### Keyframe types: which one, and its code form
+
+Pick the interpolation per key from the job, not from habit. The spacing column is what a contact sheet of the element's position frame by frame shows: dots close together are slow frames, dots far apart are fast ones. Check a move that way when it feels wrong.
+
+| Type (After Effects) | Speed graph and spacing | Use it for | CSS | GSAP | Remotion |
+| --- | --- | --- | --- | --- | --- |
+| Linear | flat line; even spacing; starts and stops dead | constant processes only: a ticker, a progress bar, endless rotation, a scroll | `linear` | `ease: "none"` | `interpolate` default, `Easing.linear` |
+| Easy Ease (both sides) | one hump, slow at both ends; spacing tight, wide, tight | a move between two rests (a card sliding to its new place, a camera glide) | `cubic-bezier(0.65, 0, 0.35, 1)` | `power2.inOut` | `Easing.inOut(Easing.cubic)` |
+| Easy Ease In (into the key) | fast then slowing to zero; wide gaps first, shrinking | entrances and push-ins: the element lands softly and rests | `cubic-bezier(0.33, 1, 0.68, 1)` | `power2.out` to `expo.out` | `Easing.out(Easing.cubic)` |
+| Easy Ease Out (out of the key) | slow start, accelerating; tight gaps first, widening | exits: the element leaves with momentum, at 60 to 75% of its entrance time | `cubic-bezier(0.32, 0, 0.67, 0)` | `power2.in` | `Easing.in(Easing.cubic)` |
+| Toggle Hold | zero until the next key, then a jump; no in-between frames | cuts, instant state changes, a word swapped on the beat, a blink, stepped "on twos" texture | `steps(1, end)` | `tl.set()` or `ease: "steps(1)"` | `frame < f ? a : b`, or `Easing.step0` / `Easing.step1` |
+| Auto Bezier (and Continuous Bezier) | the speed does not drop to zero at a middle key; one smooth curve through several keys | a path or a value passing through intermediate points without stopping: a camera drift through two positions, a mark travelling along a route | none native; sample one eased progress (below) | one tween over all points: `keyframes: { x: [...], easeEach: "none" }, ease: "power2.inOut"`, or MotionPath with `curviness` | eased progress `p = interpolate(frame, [f0, f1], [0, 1], { easing })`, then a spline through the points at `p` |
+
+- **The naming trap again.** After Effects names the ease by the key (Easy Ease In slows *into* it); code names it by the move (`.out` ends slowly). An entrance is After Effects' Easy Ease In and code's ease-out.
+- **The Auto Bezier trap in code.** A multi-point move split into separate eased tweens stops at every middle point (the speed dips to zero between them) and reads as stutter. So does Remotion `interpolate` with several ranges and an easing, because the easing applies to each segment. Ease one progress value across the whole move and place the points along it.
+- **Defaults to tune.** These are starting points; [motion craft](motion-craft.md#easing-presets) holds the presets and durations, and the user's own rules win.
+
+**House rules for keys (owner rules).**
+
+- **Push-in and hold.** A push toward the subject is one ease-out move (Easy Ease In on the last key) of about 0.4 to 0.55 s, then a hold of 1 to 1.5 s with no drift. Never key a zoom-out in the middle of a push; a new framing is a new push or a cut.
+- **Entrances ease out, exits ease in, rests ease both ends.** No linear key on anything that starts or stops in frame.
+- **Cuts are holds.** A cut, a scene swap and a beat hit change state on a hold key: no easing across the cut and no in-between frame; motion inside the next shot starts from its own first key.
+- **Text rests before it is read.** The reading hold starts on the last key of the text's move, not on its first.
+
 ## Weight: anticipation, overshoot, overlap
 
 - **Anticipation:** a small move against the main action first (a button dips before it springs up, a word pulls back before it flies in). It tells the eye where to look. As a start, 4 to 6 frames at about 5 to 10% of the main distance (*rule of thumb*).
