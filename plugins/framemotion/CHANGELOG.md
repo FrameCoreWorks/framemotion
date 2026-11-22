@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.2 (2026-11-22)
+
+Owner request 2026-11-22: adapt keyframe-type knowledge (After Effects interpolation types) to FrameMotion.
+
+- After Effects craft: a new table of the six keyframe types (linear, Easy Ease, Easy Ease In, Easy Ease Out, Toggle Hold, Auto Bezier) with their speed graph, frame spacing, when to use each and the CSS, GSAP and Remotion code form; the Auto Bezier trap in code (a multi-point move split into eased tweens, or a multi-range Remotion `interpolate` with easing, stops at every middle point); the owner's key rules (push-in as one ease-out move then a 1 to 1.5 s hold, no zoom-out mid-push, ease-out entrances and ease-in exits, cuts on hold keys, reading holds from the last key). Written in FrameMotion's own words; no third-party text or graphics copied.
+- Evidence: `tools/check.py` passes. Behaviour in a fresh client `NOT_RUN`; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.8.1 (2026-11-20)
 
 Owner request 2026-11-20: "analyse which styles fall behind and fix them".

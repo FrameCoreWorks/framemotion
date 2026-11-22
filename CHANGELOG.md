@@ -2,6 +2,10 @@
 
 The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/framemotion/CHANGELOG.md).
 
+## 2026-11-22
+
+- FrameMotion 0.8.2: After Effects craft gains a keyframe-type table (six interpolation types, frame spacing, CSS/GSAP/Remotion forms) and the owner's key rules.
+
 ## 2026-11-20
 
 - FrameMotion 0.8.1: anidoodle scenes keep a dark subject readable on a dark backdrop (figure-ground halo), toy-brick colours and sumi-e washes improved.
