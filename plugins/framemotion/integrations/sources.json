@@ -759,6 +759,36 @@
         "principles restated in references/motion-compendium.md section 9 (personality, distance and material scaling, choreography, thirds, staggers, overshoot)",
         "no text copied; the Creator MCP (LottieFiles account) is not used"
       ]
+    },
+    {
+      "name": "reanimate-haskell",
+      "repo": "reanimate/reanimate",
+      "commit": "583ee9f426bb96ac15996772a6fd7ccf0caf08a7",
+      "licence": "Unlicense",
+      "copyright": "Public domain dedication by David Himmelstrup and contributors (Unlicense)",
+      "kind": "engine",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "583ee9f426bb96ac15996772a6fd7ccf0caf08a7",
+      "conditions": [
+        "the Haskell library rewritten as FrameMotion's own JavaScript engine in skills/framemotion/assets/engines/reanimate/ (owner request 2026-11-23: the same drawings, adapted to reels)",
+        "Reanimate's golden SVG files for the ported examples kept unchanged as test fixtures",
+        "LaTeX, POV-Ray and Blender bridges are not ported (they run external programs); later packs add objects, maps, maths and the films"
+      ]
+    },
+    {
+      "name": "reanimate-svg",
+      "repo": "reanimate/reanimate-svg",
+      "commit": "a595f61be54838e1be039c66b7d99b26d21fdbf9",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2013, Vincent Berthoux",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "a595f61be54838e1be039c66b7d99b26d21fdbf9",
+      "conditions": [
+        "its SVG printer rules and named-colour values restated in the Reanimate engine's core/svg.mjs; no Haskell code copied"
+      ]
     }
   ]
 }

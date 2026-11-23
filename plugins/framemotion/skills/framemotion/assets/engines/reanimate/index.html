@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reanimate engine</title>
+<style>
+  html, body { margin: 0; background: #fff; overflow: hidden; }
+  #stage { display: block; }
+  #stage > svg { display: block; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script type="module">
+// FrameCore Works' own engine inspired by the Haskell library Reanimate (public domain): settings
+// come as JSON in ?params (example, width, height, fps); the frame is SVG drawn by core/.
+import {createReanimateEngine} from './engine.mjs';
+import {EXAMPLES} from './examples/index.mjs';
+
+const params = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+const {width = 1920, height = 1080, fps = 30, example = 'drawCircle'} = params;
+const make = EXAMPLES[example];
+if (!make) throw new Error(`unknown example "${example}" (known: ${Object.keys(EXAMPLES).join(', ')})`);
+const stage = document.getElementById('stage');
+Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
+const engine = createReanimateEngine(make(), {id: 'reanimate', width, height, fps, mount: stage});
+engine.seek(0);
+window.__framemotion = {engine, element: '#stage', ready: true, checks: {examples: () => Object.keys(EXAMPLES)}};
+</script>
+</body>
+</html>

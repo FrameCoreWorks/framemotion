@@ -3831,6 +3831,115 @@
           "about": "for the style \"motif\": what it is drawn with (chalk draws on a dark board)"
         }
       }
+    },
+    {
+      "id": "reanimate",
+      "title": "Reanimate engine: vector drawings and maths animations on a 16:9 canvas (own engine inspired by Reanimate)",
+      "group": "explainers",
+      "about": "Lines that draw themselves, shapes and sprites timed by easing curves, in clean vector strokes.",
+      "good_for": [
+        "explainer",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
+      "status": "experimental",
+      "kind": "svg",
+      "page": "reanimate/index.html",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 2,
+      "readme": "reanimate/README.md",
+      "sources": [
+        "reanimate-haskell"
+      ],
+      "blocks": [
+        "reanimate/core/index.mjs",
+        "reanimate/engine.mjs"
+      ],
+      "params": {
+        "example": {
+          "type": "string",
+          "default": "drawCircle",
+          "timing": true,
+          "enum": [
+            "addStatic",
+            "andThen",
+            "drawBox",
+            "drawCircle",
+            "drawProgress",
+            "mapA",
+            "parA",
+            "parDropA",
+            "parLoopA",
+            "pause",
+            "pauseAround",
+            "pauseAtBeginning",
+            "pauseAtEnd",
+            "playThenReverseA",
+            "repeatA",
+            "reverseA",
+            "seqA",
+            "bellS",
+            "constantS",
+            "cubicBezierS",
+            "curveS",
+            "fromToS",
+            "oscillateS",
+            "powerS",
+            "reverseS",
+            "signalA",
+            "chainT",
+            "fadeT",
+            "overlapT",
+            "slideDownT",
+            "slideLeftT",
+            "slideUpT",
+            "pathify",
+            "mkBackground",
+            "withViewBox",
+            "mkText",
+            "applyVar",
+            "destroySprite",
+            "fork",
+            "newSprite",
+            "newSpriteA",
+            "newSpriteA'",
+            "newSpriteSVG",
+            "play",
+            "queryNow",
+            "signalS",
+            "simpleVar",
+            "spriteE",
+            "spriteMap",
+            "spriteScope",
+            "spriteTween",
+            "spriteVar",
+            "spriteZ",
+            "unVar",
+            "wait",
+            "waitOn",
+            "writeVar"
+          ],
+          "about": "a ported Reanimate example (its length sets the film's length)"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        }
+      },
+      "flat_frames": [
+        0
+      ]
     }
   ]
 }

@@ -35,6 +35,13 @@ a source-manifest.json with the pinned commit):
   after its copy formula.
 - NiazMorshed2007/reanimate, commit 3f7a55a2986a84ca2173e86ee9127eefe31d046d, Copyright (c) 2026 Niaz Morshed, MIT: its record, compare and
   repeat method, restated in our own skills/framemotion/assets/reference-breakdown/match.py; no code is copied.
+- reanimate/reanimate, commit 583ee9f426bb96ac15996772a6fd7ccf0caf08a7, by David Himmelstrup and contributors, released into the
+  public domain (Unlicense): the Haskell animation library rewritten as FrameMotion's own JavaScript engine in
+  skills/framemotion/assets/engines/reanimate/ (FrameCore Works code, an own engine inspired by Reanimate); Reanimate's golden SVG
+  files for the ported examples are kept unchanged in tests/fixtures/reanimate-golden/. See integrations/reanimate-haskell/.
+- reanimate/reanimate-svg (svg-tree), commit a595f61be54838e1be039c66b7d99b26d21fdbf9, Copyright (c) 2013, Vincent Berthoux,
+  BSD-3-Clause: its SVG printer rules and named-colour values restated in that engine's core/svg.mjs; no code is copied.
+  See integrations/reanimate-svg/.
 - LottieFiles/motion-design-skill, commit d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb, Copyright (c) 2025 LottieFiles, MIT:
   motion principles restated in references/motion-compendium.md section 9; no text is copied.
 - Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:
