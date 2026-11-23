@@ -4,7 +4,7 @@ The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/frame
 
 ## 2026-11-23
 
-- FrameMotion 0.9.0 (in progress): the Reanimate engine, ported from the Haskell library (pack 1 of 5, the core).
+- FrameMotion 0.9.0 (in progress): the Reanimate engine, ported from the Haskell library (packs 1 and 2 of 5: the core; objects, colours and TeX text).
 
 ## 2026-11-22
 

@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "repository": "https://hackage.haskell.org/package/colour-2.3.6",
+  "source_commit": null,
+  "source_archive_sha256": "2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871",
+  "retrieved_on": "2026-11-23",
+  "license": "MIT",
+  "attribution": "Copyright (c) 2008, 2009 Russell O'Connor",
+  "activation": "ported_to_javascript",
+  "ported": [
+    "Data.Colour.SRGB (transfer function, sRGB, toSRGB, toSRGBBounded, sRGB24), Data.Colour.CIE (cieXYZ, cieXYZView, lightness, cieLABView, cieLAB), Data.Colour.RGB and RGBSpace.HSV (hslsv, hsvView, hsv) and the rgb2xyz matrices of Data.Colour.RGB/Matrix in core/color.mjs"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "1f1db3ff571e88a62840f88706fb97cea9eca3c7d21852d8859a6ae5718c7622",
+      "meaning": "Unchanged MIT licence text."
+    }
+  ]
+}

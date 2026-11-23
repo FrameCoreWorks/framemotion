@@ -199,3 +199,44 @@ test('splitGlyphs picks glyphs by index and keeps their groups (lists reversed, 
   assert.equal(picked.children.length, 1);
   assert.equal(picked.children[0].children[0].children[0].kind, 'rect');
 });
+
+test('object lenses follow Reanimate.Scene.Object', () => {
+  let d = R.evalScene((s) => s.readVar(s.oNew(R.mkRect(2, 1)).data));
+  assert.deepEqual(d.bb, [-1, -0.5, 2, 1]);
+  assert.equal(R.oGet(d, 'leftX'), -1.5, 'box plus the 0.5 margin');
+  d = R.oSet(d, 'leftX', 0);
+  assert.deepEqual(d.translate, [1.5, 0]);
+  d = R.oSet(d, 'centerXY', [0, 2]);
+  assert.deepEqual(d.translate, [0, 2]);
+  d = R.oSet(d, 'scale', 2);
+  assert.deepEqual(d.bb, [-2, -1, 4, 2], 'scale recomputes the box');
+  assert.throws(() => R.oSet(d, 'bb', [0, 0, 0, 0]), /read-only/);
+  assert.throws(() => R.oGet(d, 'nope'), /unknown object property/);
+});
+
+test('objects show, tween and hide on the scene clock', () => {
+  const ani = R.scene((s) => {
+    const o = s.oNew(new R.Circle(1));
+    s.oShowWith(o, R.oFadeIn);
+    s.oTween(o, 1, (t, d) => R.oSet(d, 'translateX', 4 * t));
+    s.oHideWith(o, R.oFadeOut);
+  });
+  assert.equal(ani.duration, 3);
+  const at = (t) => R.renderSvg(R.frameAt(t, ani));
+  assert.match(at(1.5), /translate\(2, 0\)/, 'halfway along the eased move');
+  assert.ok(!at(3).includes('<circle'), 'hidden at the end');
+});
+
+test('without a TeX renderer latex falls back to mkText, as Reanimate does without LaTeX', () => {
+  assert.equal(R.hasTexRenderer(), false);
+  assert.equal(R.latex('oDraw').kind, 'group');
+  assert.ok(R.renderSvg(R.latex('oDraw')).includes('>oDraw</text>'));
+  assert.deepEqual(R.parseTransform('translate(1,2) scale(3) matrix(1 0 0 1 4 5)'),
+    [{t: 'translate', x: 1, y: 2}, {t: 'scale', x: 3, y: 3}, {t: 'matrix', m: [1, 0, 0, 1, 4, 5]}]);
+});
+
+test('oDraw and oScaleIn time each glyph as Reanimate does', () => {
+  const three = R.mkGroup([R.mkCircle(1), R.mkCircle(2), R.mkCircle(3)]);
+  assert.ok(Math.abs(R.oDraw(three).duration - (0.4 + 1 + 0.3 - 0.3)) < 1e-12, 'glyphs 0.2 s apart, each 1 s');
+  assert.ok(Math.abs(R.oScaleIn(three).duration - (0.1 + 0.3)) < 1e-12, 'glyphs 0.05 s apart, each 0.3 s');
+});

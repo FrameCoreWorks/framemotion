@@ -3836,7 +3836,7 @@
       "id": "reanimate",
       "title": "Reanimate engine: vector drawings and maths animations (own engine ported from Reanimate)",
       "group": "explainers",
-      "about": "Lines that draw themselves, shapes and sprites timed by easing curves, in clean vector strokes.",
+      "about": "Self-drawing lines and letters, shapes and objects on easing curves, a camera, colour maps and TeX formulas.",
       "good_for": [
         "explainer",
         "background"
@@ -3941,6 +3941,13 @@
             "lchComponents",
             "rgbComponents",
             "xyzComponents",
+            "oDraw",
+            "oGrow",
+            "oHideWith",
+            "oScaleIn",
+            "oScaleOut",
+            "latex",
+            "latexAlign",
             "signalO",
             "cameraAttach",
             "cameraFocus"

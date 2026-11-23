@@ -30,6 +30,7 @@
     "d3": "7.9.0",
     "esbuild": "0.28.1",
     "gsap": "3.15.0",
+    "mathjax": "3.2.2",
     "opentype.js": "2.0.0",
     "p5.brush": "3.0.0",
     "pixi-filters": "6.1.5",

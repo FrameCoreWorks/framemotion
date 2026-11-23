@@ -4,8 +4,40 @@
 import * as R from '../core/index.mjs';
 
 const doc = (make) => () => R.docEnv(make());
+/** The documentation's text objects: filled glyphs without outline, centred and scaled. */
+const word = (s, text, k) => s.oNew(R.withStrokeWidth(0, R.withFillOpacity(1, R.center(R.scale(k, R.latex(text))))));
 
 export const OBJECT_EXAMPLES = {
+  // Animators on LaTeX text (drawn with MathJax on the engine page)
+  oDraw: doc(() => R.scene((s) => {
+    const txt = word(s, 'oDraw', 4);
+    s.oSet(txt, 'easing', (t) => t);
+    s.oShowWith(txt, R.oDraw);
+    s.wait(1);
+    s.oHideWith(txt, R.oFadeOut);
+  })),
+  oGrow: doc(() => R.scene((s) => {
+    const txt = word(s, 'oGrow', 3);
+    s.oShowWith(txt, R.oGrow);
+    s.wait(1); s.oHideWith(txt, R.oFadeOut);
+  })),
+  oHideWith: doc(() => R.scene((s) => {
+    const txt = word(s, 'oScaleIn', 3);
+    s.oShowWith(txt, R.oFadeIn);
+  })),
+  oScaleIn: doc(() => R.scene((s) => {
+    const txt = word(s, 'oScaleIn', 3);
+    s.oShowWith(txt, (svg) => R.adjustDuration((d) => d * 2, R.oScaleIn(svg)));
+    s.wait(1); s.oHideWith(txt, R.oFadeOut);
+  })),
+  oScaleOut: doc(() => R.scene((s) => {
+    const txt = word(s, 'oScaleOut', 3);
+    s.oShowWith(txt, R.oFadeIn);
+    s.oHideWith(txt, (svg) => R.adjustDuration((d) => d * 2, R.oScaleOut(svg)));
+  })),
+  latex: doc(() => R.animate(() => R.withStrokeWidth(0, R.withFillOpacity(1, R.scale(3, R.center(R.latex('$e^{i\\pi}+1=0$'))))))),
+  latexAlign: doc(() => R.animate(() => R.withStrokeWidth(0, R.withFillOpacity(1, R.scale(3, R.center(R.latexAlign('R = \\frac{{\\Delta x}}{{kA}}'))))))),
+
   signalO: doc(() => R.scene((s) => {
     const objs = s.waitOn((w) => [0, 1, 2].map(() => w.run((r) => {
       const obj = r.newObject(R.mkCircle(1));

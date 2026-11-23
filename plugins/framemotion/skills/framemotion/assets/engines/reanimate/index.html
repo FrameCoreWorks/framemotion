@@ -11,6 +11,12 @@
 </head>
 <body>
 <div id="stage"></div>
+<script>
+  // MathJax draws TeX for latex/math/latexAlign: inline glyph paths, no menu or assistive output.
+  window.MathJax = {svg: {fontCache: 'none'}, startup: {typeset: false},
+    options: {enableMenu: false, enableAssistiveMml: false, enableEnrichment: false}};
+</script>
+<script src="../node_modules/mathjax/es5/tex-svg-full.js"></script>
 <script type="module">
 // FrameCore Works' own engine, ported from the Haskell library Reanimate (public domain): settings come
 // as JSON in ?params (example, width, height, fps, screen); the frame is SVG drawn by core/.
@@ -19,7 +25,9 @@
 // stretch the picture, so it is refused.
 import {createReanimateEngine} from './engine.mjs';
 import {EXAMPLES} from './examples/index.mjs';
+import {useMathJax} from './tex-mathjax.mjs';
 
+await useMathJax();
 const params = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
 const {width = 1920, height = 1080, fps = 30, example = 'drawCircle'} = params;
 if (!Object.hasOwn(EXAMPLES, example)) throw new Error(`unknown example "${example}" (known: ${Object.keys(EXAMPLES).join(', ')})`);

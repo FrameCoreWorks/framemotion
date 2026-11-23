@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-sources/1",
-  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is the commit the package's copy, adaptation or summary was made from. Knowledge summarised in references lists them in references (paths under skills/framemotion/) and keeps the source's licence text in integrations/<name>/. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag).",
+  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is the commit the package's copy, adaptation or summary was made from. Knowledge summarised in references lists them in references (paths under skills/framemotion/) and keeps the source's licence text in integrations/<name>/. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag). A Haskell package published only on Hackage has host hackage, repo hackage:<package>, version and archive_sha256 (the release archive) instead of a commit.",
   "sources": [
     {
       "name": "animate",
@@ -831,6 +831,36 @@
       "bundled_commit": "992c2cb8d4902cf19c8e00d045ca4b417dc2e668",
       "conditions": [
         "release 1.23; only the argument order of lerp (alpha weighs the first point), kept as linearLerp in the Reanimate engine's core/geom.mjs"
+      ]
+    },
+    {
+      "name": "colour-haskell",
+      "host": "hackage",
+      "repo": "hackage:colour",
+      "version": "2.3.6",
+      "archive_sha256": "2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2008, 2009 Russell O'Connor",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "sRGB transfer, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the Reanimate engine's core/color.mjs (the exact rational sRGB/D65 matrices rounded once to doubles)"
+      ]
+    },
+    {
+      "name": "mathjax",
+      "repo": "mathjax/MathJax",
+      "commit": "600692ad9d3552cc25f85510d5797bc942ecc9f7",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright (c) 2009-2022 The MathJax Consortium",
+      "kind": "library",
+      "pack": "P13",
+      "status": "dependency",
+      "version": "3.2.2",
+      "conditions": [
+        "npm dependency pinned exactly in assets/engines/package.json (tag 3.2.2 = this commit); installed by npm ci, never bundled",
+        "the Reanimate engine page loads es5/tex-svg-full.js to draw latex, math and latexAlign (Reanimate runs LaTeX and dvisvgm there); menu, speech and assistive output off"
       ]
     }
   ]

@@ -50,6 +50,11 @@ a source-manifest.json with the pinned commit):
   See integrations/xml-light-haskell/.
 - ekmett/linear 1.23, commit 992c2cb8d4902cf19c8e00d045ca4b417dc2e668, Copyright 2011-2015 Edward Kmett, BSD-3-Clause: the
   argument order of its `lerp`, kept in that engine's core/geom.mjs linearLerp. See integrations/linear-haskell/.
+- colour 2.3.6 (Haskell package on Hackage, archive sha256 2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871),
+  Copyright (c) 2008, 2009 Russell O'Connor, MIT: its sRGB, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the
+  Reanimate engine's core/color.mjs. See integrations/colour-haskell/.
+- mathjax/MathJax 3.2.2, commit 600692ad9d3552cc25f85510d5797bc942ecc9f7, Copyright (c) 2009-2022 The MathJax Consortium,
+  Apache-2.0: an npm dependency of the engines (never bundled) that the Reanimate engine page uses to draw TeX.
 - LottieFiles/motion-design-skill, commit d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb, Copyright (c) 2025 LottieFiles, MIT:
   motion principles restated in references/motion-compendium.md section 9; no text is copied.
 - Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:

@@ -25,3 +25,14 @@ test('the engine page draws reels and refuses a stretched screen', {skip: playwr
   await assert.rejects(kit.renderFrames('reanimate', {params: {width: 180, height: 320, screen: [16, 9], example: 'drawCircle'}, frames: [30]}));
   await assert.rejects(kit.renderFrames('reanimate', {params: {width: 320, height: 180, example: 'constructor'}, frames: [0]}));
 });
+
+test('the engine page draws LaTeX text as glyph outlines with MathJax', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 120000}, async () => {
+  const {page, close} = await kit.openEngine('reanimate', {params: {width: 320, height: 180, example: 'oDraw'}});
+  try {
+    const svg = await page.evaluate(() => { window.__framemotion.engine.seek(2); return document.querySelector('#stage').innerHTML; });
+    assert.ok(!svg.includes('<text'), 'no fallback text');
+    assert.ok((svg.match(/<path /g) ?? []).length >= 5, 'one outline per glyph of "oDraw"');
+  } finally { await close(); }
+  const r = await kit.renderFrames('reanimate', {params: {width: 320, height: 180, example: 'latexAlign'}, frames: [0]});
+  assert.ok(r.frames.every((f) => f.deterministic && !f.flat));
+});

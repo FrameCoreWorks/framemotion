@@ -19,8 +19,15 @@ class SourcesTest(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)), 'duplicate source names')
         for s in SOURCES:
             with self.subTest(s['name']):
-                self.assertRegex(s['repo'], r'^[\w.-]+/[\w.-]+$')
-                self.assertRegex(s['commit'], r'^[0-9a-f]{40}$')
+                if s.get('host') == 'hackage':
+                    # A Haskell package published only on Hackage (no Git repository): pinned by its release
+                    # version and the SHA-256 of that release's archive.
+                    self.assertRegex(s['repo'], r'^hackage:[\w.-]+$')
+                    self.assertRegex(s['version'], r'^\d+(\.\d+)+$')
+                    self.assertRegex(s['archive_sha256'], r'^[0-9a-f]{64}$')
+                else:
+                    self.assertRegex(s['repo'], r'^[\w.-]+/[\w.-]+$')
+                    self.assertRegex(s['commit'], r'^[0-9a-f]{40}$')
                 self.assertIn(s['licence'], LICENCES)
                 self.assertIn(s['status'], STATUSES)
                 self.assertIn(s['kind'], KINDS)
@@ -34,6 +41,10 @@ class SourcesTest(unittest.TestCase):
                 self.assertNotIn('bundled_commit', s, s['name'])
                 continue
             with self.subTest(s['name']):
+                if s.get('host') == 'hackage':
+                    self.assertIn(f"{s['repo'].split(':', 1)[1]} {s['version']}", NOTICE)
+                    self.assertIn(s['archive_sha256'], NOTICE)
+                    continue
                 self.assertRegex(s.get('bundled_commit', ''), r'^[0-9a-f]{40}$')
                 self.assertIn(s['repo'], NOTICE)
                 self.assertIn(s['bundled_commit'], NOTICE)
