@@ -1,7 +1,8 @@
 // Reanimate engine, map projections (pack 3): FrameMotion's port of Reanimate.GeoProjection redraws
 // Reanimate's smallEarth pixel by pixel through each projection's inverse, with Haskell's rounding.
-// Reanimate ships no golden file for these examples; the pinned pixel hashes below were checked against
-// its documentation GIFs (mean grey difference 0.7 to 2.0 on 0..255, the GIF palette and edges) and
+// Reanimate ships no golden file for these examples. The pinned pixel hashes below are a regression
+// test, not proof of agreement: they were taken from our output after it was compared with Reanimate's
+// documentation GIFs (mean grey difference 0.7 to 2.0 on 0..255, the GIF palette and edges), and they
 // keep later changes from moving a pixel unnoticed. No browser is needed.
 import test from 'node:test';
 import assert from 'node:assert/strict';
@@ -80,6 +81,22 @@ test('projection helpers follow Reanimate', () => {
   assert.deepEqual(R.mergeP(R.equirectangularP, R.lambertP, 0.5).inverse(5, 0.5), [NaN, NaN], 'outside both: NaN');
   assert.equal(R.bonneP(0), R.sinusoidalP);
   assert.deepEqual(R.lagrangeP.inverse(0.5, 1), [100, 100], 'the pole is outside, as in Reanimate');
+});
+
+test('smallEarth gives each caller its own copy', () => {
+  const a = R.smallEarth();
+  a.data.fill(0);
+  assert.equal(R.smallEarth().data[3], 255);
+});
+
+test('the examples fit Reanimate\'s 16 x 9 picture whole into another screen', () => {
+  const svg = R.renderSvg(R.frameAt(0, GEO_EXAMPLES.mercatorP({screen: [9, 16]})), {screen: [9, 16]});
+  assert.match(svg, /scale\(0\.5625\)/, 'scaled by 9 / 16 to the reel width');
+  assert.ok(!R.renderSvg(R.frameAt(0, GEO_EXAMPLES.mercatorP())).includes('scale(0.5625)'), 'unchanged on 16 x 9');
+});
+
+test('applyProjection refuses points that are not in radians', () => {
+  assert.throws(() => R.applyProjection(R.mollweideP, R.mkLinePath([[10, 45], [20, 50]])), /radians/);
 });
 
 test('GeoJSON geometry becomes line paths and applyProjection bends long segments', () => {

@@ -1,10 +1,14 @@
 // Reanimate's map-projection examples (examples/doc_*P.hs at commit 583ee9f): smallEarth redrawn in
-// each projection and stretched over the screen, one still frame for one second.
+// each projection and stretched over Reanimate's 16 x 9 screen, one still frame for one second.
+// On another screen (a [9, 16] reel) that 16 x 9 picture is scaled to fit whole, centred, so the
+// map keeps Reanimate's proportions instead of being cropped or stretched.
 import * as R from '../core/index.mjs';
 
 // These examples call `reanimate` directly, without docEnv.
-const still = (p) => () => {
-  const svg = R.scaleToSize(R.SCREEN_WIDTH, R.SCREEN_HEIGHT, R.embedImageRGBA(R.project(R.smallEarth(), p())));
+const still = (p) => ({screen = [R.SCREEN_WIDTH, R.SCREEN_HEIGHT]} = {}) => {
+  const k = Math.min(screen[0] / R.SCREEN_WIDTH, screen[1] / R.SCREEN_HEIGHT);
+  const map = R.scaleToSize(R.SCREEN_WIDTH, R.SCREEN_HEIGHT, R.embedImageRGBA(R.project(R.smallEarth(), p())));
+  const svg = k === 1 ? map : R.scale(k, map);
   return R.animate(() => svg);
 };
 const deg = (d) => d / 180 * Math.PI;

@@ -4,12 +4,12 @@ import {SMALL_EARTH_WIDTH, SMALL_EARTH_HEIGHT, SMALL_EARTH_RGB_BASE64} from './e
 import {imageFromRGB} from './geoprojection.mjs';
 
 let earth = null;
-/** smallEarth(): the image as {width, height, data} RGBA (opaque), decoded on first use. */
+/** smallEarth(): the image as {width, height, data} RGBA (opaque); decoded once, a fresh copy each call. */
 export function smallEarth() {
   if (!earth) {
     const bin = atob(SMALL_EARTH_RGB_BASE64);
     const rgb = Uint8Array.from(bin, (c) => c.charCodeAt(0));
     earth = imageFromRGB(SMALL_EARTH_WIDTH, SMALL_EARTH_HEIGHT, rgb);
   }
-  return earth;
+  return {width: earth.width, height: earth.height, data: earth.data.slice()};
 }

@@ -21,9 +21,11 @@ const MISSING = 'MathJax is not loaded, so TeX text cannot be drawn: install the
  */
 export async function useMathJax(win = globalThis) {
   const mj = win.MathJax;
-  if (mj?.startup?.promise) await mj.startup.promise;
-  if (typeof mj?.tex2svg !== 'function') {
-    setTexRenderer(() => { throw new Error(MISSING); });
+  let failure = null;
+  if (mj?.startup?.promise) await mj.startup.promise.catch((err) => { failure = err; });
+  if (failure || typeof mj?.tex2svg !== 'function') {
+    const message = failure ? `MathJax failed to start (${failure?.message ?? failure}), so TeX text cannot be drawn` : MISSING;
+    setTexRenderer(() => { throw new Error(message); });
     return false;
   }
   setTexRenderer((tex, {display}) => toElement(mj.tex2svg(tex, {display}).querySelector('svg')));

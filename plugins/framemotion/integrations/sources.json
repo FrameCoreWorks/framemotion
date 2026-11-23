@@ -773,6 +773,7 @@
       "conditions": [
         "the Haskell library ported module by module to FrameMotion's own JavaScript engine in skills/framemotion/assets/engines/reanimate/ (owner request 2026-11-23: the same drawings, adapted to reels)",
         "Reanimate's golden SVG files for the ported examples kept unchanged as test fixtures",
+        "the pixels of its data/small_earth.jpg (public domain with the repository; metadata points to a Natural Earth II source) decoded once into core/earth-data.mjs",
         "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; later packs add maps, maths and the films"
       ]
     },
@@ -846,21 +847,6 @@
       "status": "adapted",
       "conditions": [
         "sRGB transfer, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the Reanimate engine's core/color.mjs (the exact rational sRGB/D65 matrices rounded once to doubles)"
-      ]
-    },
-    {
-      "name": "d3-scale-chromatic",
-      "repo": "d3/d3-scale-chromatic",
-      "commit": "2c52792197299346b7bdb94322bb4dff8f554fea",
-      "bundled_commit": "2c52792197299346b7bdb94322bb4dff8f554fea",
-      "licence": "ISC",
-      "copyright": "Copyright 2010-2024 Mike Bostock",
-      "kind": "technique",
-      "pack": "P13",
-      "status": "adapted",
-      "conditions": [
-        "the turbo and cividis polynomials and the sinebow formula (release 3.1.0) reach core/color.mjs through Reanimate.ColorMap, which carries them; ISC notice in integrations/d3-scale-chromatic/LICENSE",
-        "turbo is Anton Mikhailov's colour scheme (Copyright 2019 Google LLC, Apache-2.0); d3 approximates it with these polynomials"
       ]
     },
     {

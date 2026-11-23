@@ -447,12 +447,20 @@ export const drawFeatureCollection = (geo, fn) => mkGroup(geo.features.map((f) =
 
 const dist = ([ax, ay], [bx, by]) => Math.hypot(ax - bx, ay - by);
 /**
- * applyProjection(p, svg, tolerance = 1e-2): every path point (lon/lat in radians) projected, with
+ * applyProjection(p, svg, tolerance = 1e-2): every path point (lon/lat in radians; a latitude beyond
+ * ±pi/2 throws) projected, with
  * straight segments split in halves until their projected ends are within `tolerance`.
  */
 export function applyProjection(p, svg, tolerance = 1e-2) {
   const lowTolerance = tolerance * tolerance;
-  const proj = ([lam, phi]) => p.forward(lam, phi);
+  const proj = ([lam, phi]) => {
+    // Reanimate draws NaN for a point outside the sphere; here such a point (usually GeoJSON still in
+    // degrees) is refused, since every projection expects radians.
+    if (!(Math.abs(phi) <= Math.PI / 2)) {
+      throw new RangeError(`applyProjection: latitude ${phi} is outside -pi/2..pi/2; give longitude and latitude in radians (degrees * pi / 180)`);
+    }
+    return p.forward(lam, phi);
+  };
   const mkChunks = (a, b) => {
     const midway = [a[0] + (b[0] - a[0]) * 0.5, a[1] + (b[1] - a[1]) * 0.5];
     if (dist(proj(a), proj(b)) < tolerance || dist(a, b) < lowTolerance) return [a, b];

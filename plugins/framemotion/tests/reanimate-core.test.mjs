@@ -265,7 +265,10 @@ test('every example (103) renders 10 frames with no NaN or undefined, at its pin
   for (const [name, make] of Object.entries(EXAMPLES)) {
     const ani = make();
     assert.ok(Math.abs(ani.duration - DURATIONS[name]) < 1e-9, `${name}: ${ani.duration} s`);
-    for (const frame of testFrames(ani)) assert.ok(!/NaN|undefined|Infinity/.test(frame), `${name}: ${frame.slice(0, 120)}`);
+    for (const frame of testFrames(ani)) {
+      const text = frame.replace(/data:[^"]*/g, 'data:');   // embedded images are base64, which may spell NaN
+      assert.ok(!/NaN|undefined|Infinity/.test(text), `${name}: ${text.slice(0, 120)}`);
+    }
   }
 });
 

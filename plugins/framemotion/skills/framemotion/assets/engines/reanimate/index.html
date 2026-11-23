@@ -40,7 +40,7 @@ if (Math.abs(screen[0] / screen[1] - width / height) > 0.01 * (width / height)) 
 }
 const stage = document.getElementById('stage');
 Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
-const engine = createReanimateEngine(EXAMPLES[example](), {id: 'reanimate', width, height, fps, screen, mount: stage});
+const engine = createReanimateEngine(EXAMPLES[example]({screen}), {id: 'reanimate', width, height, fps, screen, mount: stage});
 engine.seek(0);
 window.__framemotion = {engine, element: '#stage', ready: true, checks: {examples: () => Object.keys(EXAMPLES)}};
 </script>

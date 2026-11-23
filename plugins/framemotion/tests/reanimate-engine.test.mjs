@@ -70,4 +70,16 @@ test('the engine page draws a map projection as a still image, also in a reel', 
   assert.equal(wide.frames[0].hash, wide.frames[1].hash, 'a still');
   const reel = await kit.renderFrames('reanimate', {params: {width: 180, height: 320, example: 'orthoP'}, frames: [0]});
   assert.ok(reel.frames.every((f) => f.deterministic && !f.flat));
+  // In a 180 x 320 reel the 16 x 9 map is fitted whole: full width, 9/16 of it high, centred.
+  const {page, close} = await kit.openEngine('reanimate', {params: {width: 180, height: 320, example: 'equirectangularP'}});
+  try {
+    const box = await page.evaluate(() => {
+      window.__framemotion.engine.seek(0);
+      const stage = document.querySelector('#stage').getBoundingClientRect();
+      const r = document.querySelector('#stage image').getBoundingClientRect();
+      return {x: r.x - stage.x, y: r.y - stage.y, w: r.width, h: r.height};
+    });
+    assert.ok(Math.abs(box.x) < 0.5 && Math.abs(box.w - 180) < 0.5, `full width: ${JSON.stringify(box)}`);
+    assert.ok(Math.abs(box.h - 180 * 9 / 16) < 0.5 && Math.abs(box.y - (320 - box.h) / 2) < 0.5, `centred: ${JSON.stringify(box)}`);
+  } finally { await close(); }
 });

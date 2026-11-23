@@ -35,8 +35,6 @@ export function parseTransform(str) {
 
 const num = (v) => (v === undefined || v === null || v === '' ? 0 : parseFloat(v));
 
-const textOf = (el) => (el.name === '#text' ? el.text ?? '' : (el.children ?? []).map(textOf).join(''));
-
 /**
  * One renderer element as engine nodes (drawing attributes are dropped, as dvisvgm writes none).
  * MathJax writes a character its TeX fonts lack as <text> in a system font; LaTeX would stop on it, so
@@ -45,7 +43,6 @@ const textOf = (el) => (el.name === '#text' ? el.text ?? '' : (el.children ?? []
 function convert(el, missing) {
   const a = el.attrs ?? {};
   if (a['data-mml-node'] === 'merror') throw new Error(`TeX error: ${a['data-mjx-error'] ?? a.title ?? 'unknown'}`);
-  if (a['data-mml-node'] === 'mtext' && a.fill === 'red') throw new Error(`TeX error: undefined command in "${a['data-tex'] ?? 'the formula'}"`);
   if (a['data-mml-node'] === 'mlabeledtr' || 'data-labels' in a) throw new Error('TeX: equation tags (\\tag, numbered environments) are not supported; use align* without tags');
   if (el.name === 'text') { missing.push(a['data-c'] ?? el.text ?? '?'); return None; }
   const kids = () => (el.children ?? []).map((c) => convert(c, missing)).filter((n) => n !== None);
@@ -98,7 +95,8 @@ function render(tex, display, fallback) {
 
 // LaTeX reads accented letters as a letter plus an accent; MathJax's text mode knows the same accent
 // commands, so a letter that splits (NFD) into an ASCII letter and these marks is written that way.
-// This covers ó ś ć ń ź ż and the accents of other Latin alphabets; ą ę ł have no glyph and are reported.
+// This covers ó ś ć ń ź ż and the accents of other Latin alphabets. MathJax 3.2.2 has no \\l, \\k (ogonek)
+// or \\c (cedilla) in text mode, so ą ę ł ç and the like have no glyph and are reported.
 const ACCENTS = {'\u0300': '`', '\u0301': "'", '\u0302': '^', '\u0303': '~', '\u0304': '=', '\u0306': 'u',
   '\u0307': '.', '\u0308': '"', '\u030B': 'H', '\u030C': 'v'};
 /** textAccents: accented letters as TeX accent commands, other characters unchanged. */
