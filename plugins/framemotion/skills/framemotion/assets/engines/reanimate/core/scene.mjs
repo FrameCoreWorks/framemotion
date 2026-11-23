@@ -4,7 +4,7 @@
 // becomes a builder object passed to the script: `s.wait(d)`, `s.fork(fn)`, `s.newSprite(fn)`, ...
 // The script runs once, when the scene is made; frames are then pure functions of time.
 
-import {Animation, mkAnimation, dropA, getAnimationFrame, Sync, overlapT, delayE} from './animation.mjs';
+import {mkAnimation, dropA, getAnimationFrame, Sync, overlapT, delayE} from './animation.mjs';
 import {mkGroup, None} from './svg.mjs';
 
 // ---------------------------------------------------------------------------------------------
@@ -14,10 +14,26 @@ import {mkGroup, None} from './svg.mjs';
 const staticValue = (v) => ({kind: 'static', v});
 const tweenValue = (dur, f) => ({kind: 'tween', dur, f});
 
-const lookupLE = (tl, t) => { let hit = null; for (const e of tl) { if (e[0] <= t) hit = e; else break; } return hit; };
-const insertAt = (tl, t, m) => { const out = tl.filter((e) => e[0] !== t); out.push([t, m]); return out.sort((a, b) => a[0] - b[0]); };
+/** Data.Map.lookupLE: the last entry at or before `t`. */
+function lookupLE(tl, t) {
+  let hit = null;
+  for (const e of tl) {
+    if (e[0] > t) break;
+    hit = e;
+  }
+  return hit;
+}
+/** Data.Map.insert: replace or add the entry at `t`. */
+function insertAt(tl, t, m) {
+  const out = tl.filter((e) => e[0] !== t);
+  out.push([t, m]);
+  return out.sort((a, b) => a[0] - b[0]);
+}
 /** Data.Map.union: left-biased. */
-const union = (a, b) => { const keys = new Set(a.map((e) => e[0])); return [...a, ...b.filter((e) => !keys.has(e[0]))].sort((x, y) => x[0] - y[0]); };
+function union(a, b) {
+  const keys = new Set(a.map((e) => e[0]));
+  return [...a, ...b.filter((e) => !keys.has(e[0]))].sort((x, y) => x[0] - y[0]);
+}
 
 function readVarData(v, now) {
   if (v.lastTime === null) return v.def;
@@ -34,15 +50,21 @@ const maxMaybe = (a, b) => (a === null ? b : b === null ? a : Math.max(a, b));
 function keepFrom(st, v) {
   let tl = v.timeline.filter((e) => e[0] >= st);
   const hit = lookupLE(v.timeline, st);
-  if (hit && hit[1].kind === 'static' && hit[0] < st) tl = insertAt(tl, st, hit[1]);
-  else if (hit && hit[1].kind === 'tween' && hit[0] < st && hit[0] + hit[1].dur > st) tl = insertAt(tl, st, tweenValue(hit[0] + hit[1].dur - st, hit[1].f));
+  if (hit && hit[0] < st) {
+    const [at, m] = hit;
+    if (m.kind === 'static') tl = insertAt(tl, st, m);
+    else if (at + m.dur > st) tl = insertAt(tl, st, tweenValue(at + m.dur - st, m.f));
+  }
   return {def: v.def, timeline: tl, lastTime: maxMaybe(v.lastTime, st), lastValue: v.lastValue};
 }
 function keepBefore(nd, v) {
   let tl = v.timeline.filter((e) => e[0] < nd);
   const last = tl.length ? tl[tl.length - 1] : null;
-  if (last && last[1].kind === 'tween' && last[0] + last[1].dur > nd) tl = insertAt(tl, last[0], tweenValue(nd - last[0], last[1].f));
-  const lastTime = last && last[1].kind === 'tween' ? Math.min(nd, last[0] + last[1].dur) : v.lastTime === null ? null : Math.min(nd, v.lastTime);
+  const lastTween = last && last[1].kind === 'tween' ? last : null;
+  if (lastTween && lastTween[0] + lastTween[1].dur > nd) tl = insertAt(tl, lastTween[0], tweenValue(nd - lastTween[0], lastTween[1].f));
+  let lastTime;
+  if (lastTween) lastTime = Math.min(nd, lastTween[0] + lastTween[1].dur);
+  else lastTime = v.lastTime === null ? null : Math.min(nd, v.lastTime);
   return {def: v.def, timeline: tl, lastTime, lastValue: lastTime === null ? v.def : readVarData(v, lastTime)};
 }
 const keepInRange = (st, nd, v) => keepFrom(st, keepBefore(nd, v));
@@ -50,7 +72,9 @@ function elseVar(v1, v2) {
   if (v1.lastTime === null) return v2;
   const joinAt = v1.timeline.length ? v1.timeline[0][0] : v1.lastTime;
   const x = keepBefore(joinAt, v2);
-  const before = x.lastTime !== null && x.lastTime < joinAt ? insertAt(x.timeline, x.lastTime, staticValue(x.lastValue)) : x.timeline;
+  const before = x.lastTime !== null && x.lastTime < joinAt
+    ? insertAt(x.timeline, x.lastTime, staticValue(x.lastValue))
+    : x.timeline;
   return {...v1, timeline: union(v1.timeline, before)};
 }
 function writeVarData(now, x, v) {
@@ -59,7 +83,8 @@ function writeVarData(now, x, v) {
 function modifyVarData(now, fn, v) {
   const before = keepBefore(now, v);
   const after = keepFrom(now, v);
-  const tl = after.timeline.map(([t, m]) => [t, m.kind === 'static' ? staticValue(fn(m.v)) : tweenValue(m.dur, (a, tt) => fn(m.f(a, tt)))]);
+  const mapped = (m) => (m.kind === 'static' ? staticValue(fn(m.v)) : tweenValue(m.dur, (a, tt) => fn(m.f(a, tt))));
+  const tl = after.timeline.map(([t, m]) => [t, mapped(m)]);
   return elseVar({...after, timeline: tl, lastValue: fn(after.lastValue)}, before);
 }
 function tweenVarData(st, dur, fn, v) {
@@ -84,12 +109,14 @@ export class Var {
 // The scene builder (Scene.Core). Times are absolute seconds from the scene start; `maxEnd` is the
 // latest end of anything forked, so the scene lasts max(cursor, maxEnd) like Haskell's max s p.
 
-class SceneBuilder {
+export class SceneBuilder {
   constructor(start) { this.cursor = start; this.maxEnd = start; this.gens = []; }
 
   // --- time
   queryNow() { return this.cursor; }
-  wait(d) { this.cursor += d; }
+  /** wait: move the clock (back, too). The scene lasts at least to the latest time the clock reached, as
+   *  Haskell's bind keeps max p1 (s1 + p2) for every step. */
+  wait(d) { this.maxEnd = Math.max(this.maxEnd, this.cursor); this.cursor += d; }
   waitUntil(t) { this.wait(Math.max(0, t - this.cursor)); }
   /** Run `fn` on a branch: its time does not move this scene's clock, but the scene lasts at least as long. */
   fork(fn) { const child = new SceneBuilder(this.cursor); const v = fn(child); this.#absorb(child, false); return v; }
@@ -239,4 +266,3 @@ export function scene(script) {
 /** evalScene: run a script for its return value only. */
 export function evalScene(script) { return script(new SceneBuilder(0)); }
 
-export {Animation, Sync};

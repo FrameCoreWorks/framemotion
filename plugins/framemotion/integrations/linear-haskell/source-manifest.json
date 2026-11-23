@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/ekmett/linear",
+  "source_commit": "992c2cb8d4902cf19c8e00d045ca4b417dc2e668",
+  "retrieved_on": "2026-11-23",
+  "license": "BSD-3-Clause",
+  "attribution": "Copyright 2011-2015 Edward Kmett",
+  "activation": "ported_to_javascript",
+  "ported": [
+    "the argument order of Linear.Vector.lerp (alpha weighs the first point), kept as linearLerp in core/geom.mjs (release 1.23, tag v1.23)"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "d3c0d29afc5409a95a762dc22a0f343adcf9a9e431baf4e78648dcde69300d14",
+      "meaning": "Unchanged BSD-3-Clause text."
+    }
+  ]
+}

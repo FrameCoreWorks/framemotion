@@ -1,4 +1,4 @@
-// The SVG 1.1 named colours (the standard keyword list), as svg-tree's svgNamedColors maps them.
+// The SVG 1.1 named colours, ported from svg-tree's svgNamedColors (reanimate/reanimate-svg, BSD-3-Clause).
 export const NAMED_COLORS = Object.freeze({
   aliceblue: [240, 248, 255, 255],
   antiquewhite: [250, 235, 215, 255],

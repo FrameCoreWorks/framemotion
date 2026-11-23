@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.9.0 (in progress, 2026-11-23)
+
+Owner request 2026-11-23: port the Haskell library Reanimate (public domain) as FrameMotion's own engine, "a 1:1 base that draws the same pictures, adapted to our reels". Five packs; this entry grows with each one.
+
+- Pack 1, the core: a new engine `reanimate` (registry group `explainers`, `experimental`): SVG trees and Reanimate's SVG printer, paths and partial drawing, Bézier arc length, layout, time, signals, effects, transitions, scenes, variables and sprites, and 57 of Reanimate's documentation examples (setting `example`). The page takes `screen` (canvas in units; without it the short side is 9 units, so 1080x1920 gives a [9, 16] reel) and refuses a `screen` whose proportions differ from the frame.
+- Ported, with licences and pins in `integrations/`: Reanimate (Unlicense), svg-tree's printer and colour table (BSD-3-Clause), cubicbezier's Bézier code and arc length (BSD-3-Clause), Text.XML.Light's element printer (BSD-3-Clause) and linear's `lerp` order (BSD-3-Clause). AGENTS.md rule 6 names the accepted public-domain dedications as a closed list (Unlicense, CC0-1.0, 0BSD).
+- QA, pack 1: the 54 examples with a Reanimate golden file print byte-identical SVG (10 frames each). Against the documentation GIFs at 320x180, frame i at i/25 s, mean grey difference 0.0 to 0.4 on a 0 to 255 scale for all examples but three: `pathify` 3.69 (the GIF predates the current `gridLayout`), `mkText` 1.06 and `queryNow` 1.02 (fonts). Of the three examples without a golden file, `powerS` (0.01) and `spriteScope` (0.04, worst frame 0.18) match their GIFs; `signalS` has neither a golden file nor a GIF and is covered only by its duration and frame checks. `arcLength` is ported from cubicbezier's source; no golden file has an asymmetric curve drawn in part, so its agreement with Reanimate there is read from the code, not measured (a test pins it within 2e-5 of the true length of an asymmetric curve).
+- Evidence: `tools/check.py` passes apart from two failures that also happen on a clean `main` in the cloud container (the font-coverage refusal test and the hairline-spice-rack determinism test). Behaviour in a fresh client `NOT_RUN`; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.8.2 (2026-11-22)
 
 Owner request 2026-11-22: adapt keyframe-type knowledge (After Effects interpolation types) to FrameMotion.

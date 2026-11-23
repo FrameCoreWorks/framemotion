@@ -36,12 +36,20 @@ a source-manifest.json with the pinned commit):
 - NiazMorshed2007/reanimate, commit 3f7a55a2986a84ca2173e86ee9127eefe31d046d, Copyright (c) 2026 Niaz Morshed, MIT: its record, compare and
   repeat method, restated in our own skills/framemotion/assets/reference-breakdown/match.py; no code is copied.
 - reanimate/reanimate, commit 583ee9f426bb96ac15996772a6fd7ccf0caf08a7, by David Himmelstrup and contributors, released into the
-  public domain (Unlicense): the Haskell animation library rewritten as FrameMotion's own JavaScript engine in
-  skills/framemotion/assets/engines/reanimate/ (FrameCore Works code, an own engine inspired by Reanimate); Reanimate's golden SVG
-  files for the ported examples are kept unchanged in tests/fixtures/reanimate-golden/. See integrations/reanimate-haskell/.
+  public domain (Unlicense): the Haskell animation library ported module by module to FrameMotion's own JavaScript engine in
+  skills/framemotion/assets/engines/reanimate/ (FrameCore Works' translation); Reanimate's golden SVG files for the ported
+  examples are kept unchanged in tests/fixtures/reanimate-golden/. See integrations/reanimate-haskell/.
 - reanimate/reanimate-svg (svg-tree), commit a595f61be54838e1be039c66b7d99b26d21fdbf9, Copyright (c) 2013, Vincent Berthoux,
-  BSD-3-Clause: its SVG printer rules and named-colour values restated in that engine's core/svg.mjs; no code is copied.
-  See integrations/reanimate-svg/.
+  BSD-3-Clause: its SVG printer (drawAttributesList order, xmlOfTree, ppD), node model and mapTree ported to JavaScript in that
+  engine's core/svg.mjs, and its named-colour table ported to core/named-colors.mjs. See integrations/reanimate-svg/.
+- kuribas/cubicbezier 0.6.0.7, commit 70975dfead974a3b4f91d7f00af25b242cf57122, Copyright (c) 2013, Kristof Bastiaensen,
+  BSD-3-Clause: Bézier evaluation, splitting, subsegments, quadToCubic and arcLength (arcLengthEstimate) ported to JavaScript in
+  that engine's core/geom.mjs. See integrations/cubicbezier-haskell/.
+- GaloisInc/xml (Text.XML.Light 1.3.14), commit 004a2c07286d17f61237d1bf59ccc11a5122a57c, (c) 2007 Galois Inc., BSD-3-Clause:
+  its element printer (ppElement, used for text and nested SVG) ported to JavaScript in that engine's core/svg.mjs.
+  See integrations/xml-light-haskell/.
+- ekmett/linear 1.23, commit 992c2cb8d4902cf19c8e00d045ca4b417dc2e668, Copyright 2011-2015 Edward Kmett, BSD-3-Clause: the
+  argument order of its `lerp`, kept in that engine's core/geom.mjs linearLerp. See integrations/linear-haskell/.
 - LottieFiles/motion-design-skill, commit d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb, Copyright (c) 2025 LottieFiles, MIT:
   motion principles restated in references/motion-compendium.md section 9; no text is copied.
 - Tejashmakwana/motionmaxxing, commit 8c8ec0f2a6f6c9a0da15cd24f7b1298ab298368c, Copyright Tejas Makwana, Apache-2.0:

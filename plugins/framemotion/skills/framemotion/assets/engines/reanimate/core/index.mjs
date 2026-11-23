@@ -7,3 +7,5 @@ export * from './layout.mjs';
 export * from './animation.mjs';
 export * from './scene.mjs';
 export * from './builtin.mjs';
+export * from './color.mjs';
+export * from './object.mjs';

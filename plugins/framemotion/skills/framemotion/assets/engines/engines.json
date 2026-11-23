@@ -632,7 +632,7 @@
           "type": "number",
           "default": 0,
           "min": 0,
-          "max": 10000000.0,
+          "max": 10000000,
           "about": "shader time at frame 0, in ms (a different start is a different pattern)"
         },
         "fps": {
@@ -3764,7 +3764,7 @@
         "height": 1080
       },
       "fps": 30,
-      "duration": 18.0,
+      "duration": 18,
       "readme": "../anidoodle-engine/README.md",
       "params": {
         "style": {
@@ -3834,7 +3834,7 @@
     },
     {
       "id": "reanimate",
-      "title": "Reanimate engine: vector drawings and maths animations on a 16:9 canvas (own engine inspired by Reanimate)",
+      "title": "Reanimate engine: vector drawings and maths animations (own engine ported from Reanimate)",
       "group": "explainers",
       "about": "Lines that draw themselves, shapes and sprites timed by easing curves, in clean vector strokes.",
       "good_for": [
@@ -3924,7 +3924,26 @@
             "unVar",
             "wait",
             "waitOn",
-            "writeVar"
+            "writeVar",
+            "cividis",
+            "greyscale",
+            "hsv",
+            "hsvMatlab",
+            "inferno",
+            "jet",
+            "magma",
+            "plasma",
+            "sinebow",
+            "turbo",
+            "viridis",
+            "hsvComponents",
+            "labComponents",
+            "lchComponents",
+            "rgbComponents",
+            "xyzComponents",
+            "signalO",
+            "cameraAttach",
+            "cameraFocus"
           ],
           "about": "a ported Reanimate example (its length sets the film's length)"
         },
@@ -3935,6 +3954,17 @@
           "max": 120,
           "timing": true,
           "about": "frames per second"
+        },
+        "screen": {
+          "type": "array",
+          "default": [
+            16,
+            9
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": "number",
+          "about": "the canvas in units, [16, 9] as in Reanimate; left out, the short side is 9 units ([9, 16] for a 1080x1920 reel); it must have the frame's proportions"
         }
       },
       "flat_frames": [

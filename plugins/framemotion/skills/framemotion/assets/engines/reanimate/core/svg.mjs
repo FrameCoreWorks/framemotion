@@ -1,7 +1,8 @@
 // The SVG tree of the Reanimate engine: nodes, draw attributes, constructors and the printer.
 // FrameCore Works' JavaScript port of Reanimate.Svg.Constructors (reanimate/reanimate, public
-// domain) and of the node model and XML printer of reanimate-svg's svg-tree (BSD-3-Clause), so a
-// frame prints the same SVG text as Reanimate. Nodes are plain frozen-by-convention objects: every
+// domain), of the node model and XML printer of reanimate-svg's svg-tree (BSD-3-Clause) and of
+// Text.XML.Light's ppElement (GaloisInc/xml, BSD-3-Clause), so a frame prints the same SVG text as
+// Reanimate. Nodes are plain frozen-by-convention objects: every
 // function returns a new node and never changes its argument. No DOM, clock or network.
 
 import {NAMED_COLORS} from './named-colors.mjs';
@@ -69,10 +70,14 @@ export function setAttr(t, key, value) {
 }
 export const getAttr = (t, key) => (t && t.attrs ? t.attrs[key] : undefined);
 
-/** mkColor: a named SVG colour; "none" is no paint, an unknown name falls back to aliceblue. */
+/**
+ * mkColor: a named SVG colour; "none" is no paint (Reanimate's `mkColor "none" = FillNone`), an unknown
+ * name falls back to aliceblue (240, 248, 255) as in Reanimate.Svg.Constructors. Only the table's own
+ * keys count, so "constructor" or "__proto__" are unknown names, not prototype members.
+ */
 export function mkColor(name) {
   if (name === 'none') return 'none';
-  const c = NAMED_COLORS[name];
+  const c = Object.hasOwn(NAMED_COLORS, name) ? NAMED_COLORS[name] : null;
   return {rgba: c ? c.slice() : [240, 248, 255, 255]};
 }
 export const pixel = (r, g, b, a = 255) => ({rgba: [r, g, b, a].map((v) => Math.max(0, Math.min(255, Math.round(v))))});

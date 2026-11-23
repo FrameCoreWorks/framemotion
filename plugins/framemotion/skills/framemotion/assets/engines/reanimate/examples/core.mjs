@@ -148,13 +148,8 @@ function slide(transition) {
   return R.pauseAtEnd(1, R.signalT(R.curveS(2), transition)(left, right));
 }
 
-/** Haskell's `round`: halves go to the even neighbour. */
-export function haskellRound(x) {
-  const f = Math.floor(x), d = x - f;
-  if (d < 0.5) return f;
-  if (d > 0.5) return f + 1;
-  return f % 2 === 0 ? f : f + 1;
-}
+/** Haskell's `round` (halves to the even neighbour), now part of the core. */
+export const haskellRound = R.haskellRound;
 
 /** Haskell's `show` for a Double in the range scenes use (2.0, 0.5, 1.0e-2). */
 export function haskellShowDouble(x) {

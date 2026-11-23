@@ -1,7 +1,8 @@
 // Geometry for the Reanimate engine: points, Bézier curves of any degree and 2D affine matrices.
 // FrameCore Works' JavaScript port of the geometry Reanimate (reanimate/reanimate, public domain)
-// takes from the cubicbezier and linear Haskell packages: evalBezier, bezierSubsegment,
-// quadToCubic, arcLength (to a tolerance) and Reanimate.Transform. No DOM, clock or network.
+// takes from the Haskell packages cubicbezier 0.6.0.7 (BSD-3-Clause: evalBezier, splitBezier,
+// bezierSubsegment, quadToCubic, arcLength ported from Geom2D.CubicBezier.Basic) and linear 1.23
+// (BSD-3-Clause: the `lerp` argument order), plus Reanimate.Transform. No DOM, clock or network.
 
 /** A point is [x, y]. */
 export const add = (a, b) => [a[0] + b[0], a[1] + b[1]];
@@ -58,20 +59,50 @@ export const quadToCubic = ([a, b, c]) => [a, lerpP(2 / 3, a, b), lerpP(2 / 3, c
 const outline = (ps) => { let s = 0; for (let i = 0; i + 1 < ps.length; i++) s += distance(ps[i], ps[i + 1]); return s; };
 
 /**
- * Arc length of a cubic curve [c0, c1, c2, c3] from 0 to `t`, to the tolerance `eps`: the chord and
- * control-polygon estimate refined by halving until the two halves agree (as the cubicbezier package does).
+ * Arc length of a cubic curve [c0, c1, c2, c3] from 0 to `t`, within the tolerance `eps`: ported from
+ * cubicbezier 0.6.0.7 (Geom2D.CubicBezier.Basic.arcLength and arcLengthEstimate, BSD-3-Clause), which
+ * Reanimate calls with tolerance 0.0001. Each half's estimate is (4 * outline of its halves - its own
+ * outline) / 3; a curve whose halves' estimates agree with its own within `eps` takes their sum, otherwise
+ * both halves are measured the same way (with the same `eps`, as in the original).
+ * The original's other branch (Tanh-Sinh quadrature of |B'(t)|) runs only when eps / the longest control
+ * leg is at most 1e-10, i.e. legs over a million units long here; it is replaced by adaptive Simpson.
  */
 export function arcLength(cubic, t = 1, eps = 1e-4) {
-  const part = t >= 1 ? cubic : splitBezier(cubic, t)[0];
-  const estimate = (ps) => (2 * outline(ps) + distance(ps[0], ps[ps.length - 1])) / 3;
-  const go = (ps, tol, depth) => {
-    const whole = estimate(ps);
-    const [l, r] = splitBezier(ps, 0.5);
-    const halves = estimate(l) + estimate(r);
-    if (Math.abs(halves - whole) < tol || depth > 24) return halves;
-    return go(l, tol / 2, depth + 1) + go(r, tol / 2, depth + 1);
+  const longest = Math.max(distance(cubic[0], cubic[1]), distance(cubic[1], cubic[2]), distance(cubic[2], cubic[3]));
+  if (!(eps / longest > 1e-10)) return arcLengthQuad(cubic, t, eps);
+  return Math.sign(t) * arcLengthEstimate(splitBezier(cubic, t)[0], eps).arclen;
+}
+
+function arcLengthEstimate(b, eps, depth = 0) {
+  const [bl, br] = splitBezier(b, 0.5);
+  const ol = outline(b);
+  const olL = outline(bl), olR = outline(br);
+  const estimate = (4 * (olL + olR) - ol) / 3;
+  const halfEstimate = (h) => { const [l, r] = splitBezier(h, 0.5); return (4 * (outline(l) + outline(r)) - outline(h)) / 3; };
+  const estL = halfEstimate(bl), estR = halfEstimate(br);
+  // Haskell evaluates lazily and stops when the halves agree; the depth cap only guards degenerate input.
+  const arclen = Math.abs(estL + estR - estimate) < eps || depth > 20
+    ? estL + estR
+    : arcLengthEstimate(bl, eps, depth + 1).arclen + arcLengthEstimate(br, eps, depth + 1).arclen;
+  return {arclen, estimate, ol};
+}
+
+function arcLengthQuad(cubic, t, eps) {
+  const speed = (u) => {
+    const [a, b, c, d] = cubic, v = 1 - u;
+    return Math.hypot(3 * (v * v * (b[0] - a[0]) + 2 * v * u * (c[0] - b[0]) + u * u * (d[0] - c[0])),
+      3 * (v * v * (b[1] - a[1]) + 2 * v * u * (c[1] - b[1]) + u * u * (d[1] - c[1])));
   };
-  return go(part, eps, 0);
+  const simpson = (a, b, fa, fm, fb) => ((b - a) / 6) * (fa + 4 * fm + fb);
+  const go = (a, b, fa, fm, fb, whole, tol, depth) => {
+    const m = (a + b) / 2, lm = (a + m) / 2, rm = (m + b) / 2;
+    const flm = speed(lm), frm = speed(rm);
+    const left = simpson(a, m, fa, flm, fm), right = simpson(m, b, fm, frm, fb);
+    if (depth > 30 || Math.abs(left + right - whole) <= 15 * tol) return left + right + (left + right - whole) / 15;
+    return go(a, m, fa, flm, fm, left, tol / 2, depth + 1) + go(m, b, fm, frm, fb, right, tol / 2, depth + 1);
+  };
+  const fa = speed(0), fm = speed(t / 2), fb = speed(t);
+  return go(0, t, fa, fm, fb, simpson(0, t, fa, fm, fb), eps, 0);
 }
 
 // ---------------------------------------------------------------------------------------------

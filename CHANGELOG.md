@@ -2,6 +2,10 @@
 
 The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/framemotion/CHANGELOG.md).
 
+## 2026-11-23
+
+- FrameMotion 0.9.0 (in progress): the Reanimate engine, ported from the Haskell library (pack 1 of 5, the core).
+
 ## 2026-11-22
 
 - FrameMotion 0.8.2: After Effects craft gains a keyframe-type table (six interpolation types, frame spacing, CSS/GSAP/Remotion forms) and the owner's key rules.
