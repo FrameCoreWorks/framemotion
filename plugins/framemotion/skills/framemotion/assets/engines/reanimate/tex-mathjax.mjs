@@ -8,13 +8,24 @@ const toElement = (node) => ({
   name: node.nodeName.toLowerCase(),
   attrs: Object.fromEntries([...(node.attributes ?? [])].map((a) => [a.name, a.value])),
   children: [...node.childNodes].filter((c) => c.nodeType === 1).map(toElement),
+  text: node.nodeName.toLowerCase() === 'text' ? node.textContent : undefined,
 });
 
-/** Wait for MathJax and plug it in; resolves to true, or false when MathJax is not on the page. */
+const MISSING = 'MathJax is not loaded, so TeX text cannot be drawn: install the engines\' packages ' +
+  '(npm ci in assets/engines, which brings mathjax 3.2.2) and load ../node_modules/mathjax/es5/tex-svg-full.js';
+
+/**
+ * Wait for MathJax and plug it in; resolves to true. Without MathJax (its script missing or broken)
+ * it resolves to false and plugs in a renderer that throws MISSING, so only a frame that draws TeX
+ * fails, with that message, instead of silently drawing plain text.
+ */
 export async function useMathJax(win = globalThis) {
   const mj = win.MathJax;
-  if (!mj || !mj.startup) return false;
-  await mj.startup.promise;
+  if (mj?.startup?.promise) await mj.startup.promise;
+  if (typeof mj?.tex2svg !== 'function') {
+    setTexRenderer(() => { throw new Error(MISSING); });
+    return false;
+  }
   setTexRenderer((tex, {display}) => toElement(mj.tex2svg(tex, {display}).querySelector('svg')));
   return true;
 }

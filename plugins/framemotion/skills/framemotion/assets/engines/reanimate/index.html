@@ -13,7 +13,9 @@
 <div id="stage"></div>
 <script>
   // MathJax draws TeX for latex/math/latexAlign: inline glyph paths, no menu or assistive output.
+  // TeX errors and undefined commands throw instead of being drawn (noerrors/noundefined are removed).
   window.MathJax = {svg: {fontCache: 'none'}, startup: {typeset: false},
+    tex: {packages: {'[-]': ['noerrors', 'noundefined']}, formatError: (jax, err) => { throw err; }},
     options: {enableMenu: false, enableAssistiveMml: false, enableEnrichment: false}};
 </script>
 <script src="../node_modules/mathjax/es5/tex-svg-full.js"></script>

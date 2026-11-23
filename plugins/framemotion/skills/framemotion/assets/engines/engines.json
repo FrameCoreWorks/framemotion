@@ -3836,7 +3836,7 @@
       "id": "reanimate",
       "title": "Reanimate engine: vector drawings and maths animations (own engine ported from Reanimate)",
       "group": "explainers",
-      "about": "Self-drawing lines and letters, shapes and objects on easing curves, a camera, colour maps and TeX formulas.",
+      "about": "Self-drawing lines and letters, objects on easing curves, a camera, colour maps, TeX formulas and 20 map projections of the Earth.",
       "good_for": [
         "explainer",
         "background"
@@ -3950,7 +3950,27 @@
             "latexAlign",
             "signalO",
             "cameraAttach",
-            "cameraFocus"
+            "cameraFocus",
+            "augustP",
+            "bonneP",
+            "bottomleyP",
+            "cassiniP",
+            "collignonP",
+            "cylindricalEqualAreaP",
+            "eckert1P",
+            "eckert3P",
+            "eckert5P",
+            "equirectangularP",
+            "faheyP",
+            "foucautP",
+            "hammerP",
+            "lagrangeP",
+            "lambertP",
+            "mercatorP",
+            "mollweideP",
+            "orthoP",
+            "sinusoidalP",
+            "wernerP"
           ],
           "about": "a ported Reanimate example (its length sets the film's length)"
         },
@@ -3971,7 +3991,7 @@
           "minItems": 2,
           "maxItems": 2,
           "items": "number",
-          "about": "the canvas in units, [16, 9] as in Reanimate; left out, the short side is 9 units ([9, 16] for a 1080x1920 reel); it must have the frame's proportions"
+          "about": "the canvas in units; [16, 9] (Reanimate's) fits a 16:9 frame only; left out, the short side is 9 units, so a 1080x1920 reel gets [9, 16]; a value must have the frame's proportions"
         }
       },
       "flat_frames": [

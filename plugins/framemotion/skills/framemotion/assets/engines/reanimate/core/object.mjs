@@ -7,7 +7,7 @@
 // s.oModify(o, fn), s.oSet(o, key, v), s.oTween(o, dur, (t, data) => data), s.oShowWith(o, oDraw), ...
 // A value is an SVG tree, or a Circle, Rectangle or Camera (anything with toSVG()).
 
-import {SceneBuilder} from './scene.mjs';
+import {SceneBuilder, scene} from './scene.mjs';
 import {
   animate, mkAnimation, reverseA, signalA, applyE, overEnding, fadeLineOutE, curveS, fromToS,
   getAnimationFrame, Sync, mapA,
@@ -17,7 +17,6 @@ import {
   DEFAULT_STROKE_WIDTH,
 } from './svg.mjs';
 import {boundingBox, partialSvg, pathify, svgGlyphs} from './paths.mjs';
-import {scene} from './scene.mjs';
 import {linearLerp} from './geom.mjs';
 
 // ---------------------------------------------------------------------------------------------
@@ -111,20 +110,20 @@ export const oShrink = (svg) => reverseA(oGrow(svg));
 
 const svgOrigin = (svg, [ox, oy]) => { const [x, y, w, h] = boundingBox(svg); return [x + w * ox, y + h * oy]; };
 
+function staggerGlyphs(glyphs, delay, fn) {
+  // Reanimate fails here with a zero-length animation; say why instead.
+  if (glyphs.length === 0) throw new Error('nothing to animate: the picture has no glyphs (empty text or an empty group)');
+  return scene((s) => {
+    for (const [ctx, , node] of glyphs) {
+      s.fork((f) => f.newSpriteA_(Sync.Freeze, fn(ctx(node))));
+      s.wait(delay);
+    }
+  });
+}
 /** oStagger_: animate each glyph in parallel, each started `delay` seconds after the one before. */
-export const oStagger_ = (delay, fn) => (svg) => scene((s) => {
-  for (const [ctx, , node] of svgGlyphs(svg)) {
-    s.fork((f) => f.newSpriteA_(Sync.Freeze, fn(ctx(node))));
-    s.wait(delay);
-  }
-});
+export const oStagger_ = (delay, fn) => (svg) => staggerGlyphs(svgGlyphs(svg), delay, fn);
 /** oStaggerRev_: the same in reverse glyph order. */
-export const oStaggerRev_ = (delay, fn) => (svg) => scene((s) => {
-  for (const [ctx, , node] of svgGlyphs(svg).reverse()) {
-    s.fork((f) => f.newSpriteA_(Sync.Freeze, fn(ctx(node))));
-    s.wait(delay);
-  }
-});
+export const oStaggerRev_ = (delay, fn) => (svg) => staggerGlyphs(svgGlyphs(svg).reverse(), delay, fn);
 export const oSim = (fn) => oStagger_(0, fn);
 export const oStagger = (fn) => oStagger_(0.2, fn);
 export const oStaggerRev = (fn) => oStaggerRev_(0.2, fn);

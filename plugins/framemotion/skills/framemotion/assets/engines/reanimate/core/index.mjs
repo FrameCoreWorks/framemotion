@@ -10,3 +10,5 @@ export * from './builtin.mjs';
 export * from './color.mjs';
 export * from './object.mjs';
 export * from './latex.mjs';
+export * from './geoprojection.mjs';
+export * from './images.mjs';

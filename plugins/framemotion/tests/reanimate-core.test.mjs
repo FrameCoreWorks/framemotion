@@ -240,3 +240,90 @@ test('oDraw and oScaleIn time each glyph as Reanimate does', () => {
   assert.ok(Math.abs(R.oDraw(three).duration - (0.4 + 1 + 0.3 - 0.3)) < 1e-12, 'glyphs 0.2 s apart, each 1 s');
   assert.ok(Math.abs(R.oScaleIn(three).duration - (0.1 + 0.3)) < 1e-12, 'glyphs 0.05 s apart, each 0.3 s');
 });
+
+// Duration of every example in Node, where latex has no renderer and draws mkText (the engine page
+// draws TeX glyphs with MathJax, so its text examples are longer; reanimate-engine.test.mjs pins those).
+const DURATIONS = {
+  addStatic: 2, andThen: 4, drawBox: 2, drawCircle: 2, drawProgress: 2, mapA: 2, parA: 4, parDropA: 4, parLoopA: 4,
+  pause: 3, pauseAround: 4, pauseAtBeginning: 3, pauseAtEnd: 3, playThenReverseA: 4, repeatA: 3, reverseA: 2, seqA: 4,
+  bellS: 2, constantS: 2, cubicBezierS: 2, curveS: 2, fromToS: 2, oscillateS: 2, powerS: 2, reverseS: 2, signalA: 2,
+  chainT: 5, fadeT: 2, overlapT: 3.5, slideDownT: 3, slideLeftT: 3, slideUpT: 3, pathify: 1, mkBackground: 1,
+  withViewBox: 1, mkText: 2, applyVar: 2, destroySprite: 2, fork: 2, newSprite: 2, newSpriteA: 4, "newSpriteA'": 4,
+  newSpriteSVG: 2, play: 4, queryNow: 3, signalS: 4, simpleVar: 2, spriteE: 2, spriteMap: 2, spriteScope: 3,
+  spriteTween: 2, spriteVar: 2, spriteZ: 2, unVar: 2, wait: 3, waitOn: 4, writeVar: 3, cividis: 1, greyscale: 1,
+  hsv: 1, hsvMatlab: 1, inferno: 1, jet: 1, magma: 1, plasma: 1, sinebow: 1, turbo: 1, viridis: 1, hsvComponents: 1,
+  labComponents: 1, lchComponents: 1, rgbComponents: 1, xyzComponents: 1, oDraw: 3, oGrow: 3, oHideWith: 1,
+  oScaleIn: 2.6, oScaleOut: 1.6, latex: 1, latexAlign: 1, signalO: 3, cameraAttach: 4, cameraFocus: 8,
+  // pack 3: one-second stills of the map projections
+  augustP: 1, bonneP: 1, bottomleyP: 1, cassiniP: 1, collignonP: 1, cylindricalEqualAreaP: 1, eckert1P: 1, eckert3P: 1,
+  eckert5P: 1, equirectangularP: 1, faheyP: 1, foucautP: 1, hammerP: 1, lagrangeP: 1, lambertP: 1, mercatorP: 1,
+  mollweideP: 1, orthoP: 1, sinusoidalP: 1, wernerP: 1,
+};
+
+test('every example (103) renders 10 frames with no NaN or undefined, at its pinned duration', () => {
+  assert.deepEqual(Object.keys(EXAMPLES).sort(), Object.keys(DURATIONS).sort());
+  for (const [name, make] of Object.entries(EXAMPLES)) {
+    const ani = make();
+    assert.ok(Math.abs(ani.duration - DURATIONS[name]) < 1e-9, `${name}: ${ani.duration} s`);
+    for (const frame of testFrames(ani)) assert.ok(!/NaN|undefined|Infinity/.test(frame), `${name}: ${frame.slice(0, 120)}`);
+  }
+});
+
+test('signalO: three circles leave on an eased clock over 3 s', () => {
+  const ani = EXAMPLES.signalO();
+  assert.equal(ani.duration, 3);
+  assert.notEqual(R.renderSvg(R.frameAt(1, ani)), R.renderSvg(R.frameAt(2, ani)));
+});
+
+test('camera pan and zoom move the camera object', () => {
+  let end;
+  const ani = R.scene((s) => {
+    const cam = s.newObject(new R.Camera());
+    s.cameraSetPan(cam, [1, 2]);
+    assert.deepEqual(s.oRead(cam, 'translate'), [1, 2]);
+    s.cameraPan(cam, 2, [5, -2]);
+    s.cameraSetZoom(cam, 3);
+    end = [s.oRead(cam, 'translate'), s.oRead(cam, 'scale')];
+  });
+  assert.equal(ani.duration, 2);
+  assert.deepEqual(end, [[5, -2], 3]);
+});
+
+test('oShrink and oStaggerRev run their animators backwards and last glyph first', () => {
+  const shrink = R.oShrink(R.mkCircle(1));
+  assert.ok(R.renderSvg(R.frameAt(0, shrink)).includes('<g transform="scale(1)"><circle'));
+  assert.ok(R.renderSvg(R.frameAt(1, shrink)).includes('<g transform="scale(0)"><circle'), 'gone at the end');
+  const two = R.mkGroup([R.mkCircle(1), R.mkRect(1, 1)]);
+  const rev = R.oStaggerRev(R.oFadeIn)(two);
+  assert.ok(Math.abs(rev.duration - 1.2) < 1e-12);
+  const early = R.renderSvg(R.frameAt(0.1, rev));
+  assert.ok(early.includes('<rect') && !early.includes('<circle'), 'the last glyph starts first');
+  assert.throws(() => R.oStagger(R.oFadeIn)(R.mkGroup([])), /no glyphs/);
+});
+
+test('interpolateRGBA8 blends colour through the components and rounds alpha the Haskell way', () => {
+  const f = R.interpolateRGBA8(R.rgbComponents, [255, 0, 0, 0], [0, 0, 255, 255]);
+  assert.deepEqual(f(0), [255, 0, 0, 0]);
+  assert.deepEqual(f(1), [0, 0, 255, 255]);
+  assert.equal(f(0.5)[3], 128, '127.5 rounds to the even 128');
+  assert.equal(R.interpolateRGBA8(R.rgbComponents, [0, 0, 0, 0], [0, 0, 0, 5])(0.5)[3], 2, '2.5 rounds to 2');
+  const grey = R.interpolateRGB8(R.lchComponents, [128, 128, 128], [128, 128, 128])(0.5);
+  assert.ok(grey.every(Number.isInteger), 'a grey has no lch hue (NaN) and still quantizes');
+  assert.throws(() => R.encodePng(1, 1, () => [NaN, 0, 0]), /not three bytes/);
+});
+
+test('latex reports what MathJax could not draw instead of dropping it', () => {
+  const svg = (children) => ({name: 'svg', attrs: {}, children: [{name: 'g', attrs: {transform: 'scale(1,-1)'}, children}]});
+  const glyph = {name: 'path', attrs: {d: 'M 0 0 L 100 0 L 100 100 Z'}, children: []};
+  assert.equal(R.textAccents('żółć é'), "{\\.{z}}{\\'{o}}ł{\\'{c}} {\\'{e}}");
+  try {
+    R.setTexRenderer(() => svg([glyph, {name: 'text', attrs: {}, children: [], text: 'ł'}]));
+    assert.throws(() => R.latex('ł'), /no glyph for "ł"/);
+    R.setTexRenderer(() => svg([{name: 'g', attrs: {'data-mml-node': 'merror', 'data-mjx-error': 'Missing close brace'}, children: []}]));
+    assert.throws(() => R.math('\\frac{1}{'), /TeX error: Missing close brace/);
+    R.setTexRenderer(() => svg([{name: 'g', attrs: {'data-mml-node': 'mlabeledtr'}, children: []}]));
+    assert.throws(() => R.latexAlign('x \\tag{1}'), /tags/);
+    R.setTexRenderer(() => svg([glyph]));
+    assert.equal(R.renderSvg(R.latex('a')).match(/<path /g).length, 1);
+  } finally { R.setTexRenderer(null); }
+});

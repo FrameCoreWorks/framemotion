@@ -9,7 +9,7 @@ let playwright = true;
 try { await kit.loadPlaywright(); } catch { playwright = false; }
 
 test('the engine page renders deterministic frames for several examples', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 300000}, async () => {
-  assert.ok(Object.keys(EXAMPLES).length >= 57);
+  assert.equal(Object.keys(EXAMPLES).length, 103);
   for (const example of ['drawCircle', 'spriteZ', 'chainT']) {
     const r = await kit.renderFrames('reanimate', {params: {width: 320, height: 180, example}, frames: [10, 25, 40]});
     assert.ok(r.frames.every((f) => f.deterministic && !f.flat), example);
@@ -35,4 +35,39 @@ test('the engine page draws LaTeX text as glyph outlines with MathJax', {skip: p
   } finally { await close(); }
   const r = await kit.renderFrames('reanimate', {params: {width: 320, height: 180, example: 'latexAlign'}, frames: [0]});
   assert.ok(r.frames.every((f) => f.deterministic && !f.flat));
+});
+
+test('on the page, TeX examples have glyph-by-glyph durations and TeX problems throw', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 120000}, async () => {
+  const {page, close} = await kit.openEngine('reanimate', {params: {width: 320, height: 180, example: 'latex'}});
+  try {
+    const r = await page.evaluate(async () => {
+      const {EXAMPLES: ex} = await import('./examples/index.mjs');
+      const R = await import('./core/index.mjs');
+      const err = (f) => { try { f(); return null; } catch (e) { return e.message; } };
+      const durations = Object.fromEntries(['oDraw', 'oGrow', 'oHideWith', 'oScaleIn', 'oScaleOut', 'latex', 'latexAlign']
+        .map((k) => [k, ex[k]().duration]));
+      return {
+        durations,
+        accents: R.renderSvg(R.latex('źródło'.replace('ł', 'l'))).match(/<path /g).length,
+        missing: err(() => R.latex('zażółć')),
+        brace: err(() => R.math('\\frac{1}{')),
+        undefinedCommand: err(() => R.math('\\foo x')),
+        tag: err(() => R.latexAlign('x &= 1 \\tag{1}')),
+      };
+    });
+    assert.deepEqual(r.durations, {oDraw: 3.8, oGrow: 3, oHideWith: 1, oScaleIn: 3.3, oScaleOut: 2.4, latex: 1, latexAlign: 1});
+    assert.equal(r.accents, 8, 'six letters and the accents of ź and ó');
+    assert.match(r.missing, /no glyph for "ł"/);
+    assert.match(r.brace, /Missing close brace/);
+    assert.match(r.undefinedCommand, /Undefined control sequence/);
+    assert.match(r.tag, /tags/);
+  } finally { await close(); }
+});
+
+test('the engine page draws a map projection as a still image, also in a reel', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 120000}, async () => {
+  const wide = await kit.renderFrames('reanimate', {params: {width: 320, height: 180, example: 'mollweideP'}, frames: [0, 20]});
+  assert.ok(wide.frames.every((f) => f.deterministic && !f.flat));
+  assert.equal(wide.frames[0].hash, wide.frames[1].hash, 'a still');
+  const reel = await kit.renderFrames('reanimate', {params: {width: 180, height: 320, example: 'orthoP'}, frames: [0]});
+  assert.ok(reel.frames.every((f) => f.deterministic && !f.flat));
 });

@@ -38,7 +38,9 @@ a source-manifest.json with the pinned commit):
 - reanimate/reanimate, commit 583ee9f426bb96ac15996772a6fd7ccf0caf08a7, by David Himmelstrup and contributors, released into the
   public domain (Unlicense): the Haskell animation library ported module by module to FrameMotion's own JavaScript engine in
   skills/framemotion/assets/engines/reanimate/ (FrameCore Works' translation); Reanimate's golden SVG files for the ported
-  examples are kept unchanged in tests/fixtures/reanimate-golden/. See integrations/reanimate-haskell/.
+  examples are kept unchanged in tests/fixtures/reanimate-golden/, and the pixels of its data/small_earth.jpg (an Earth image
+  that its metadata ties to a 16200 x 8100 source, the size of Tom Patterson's public-domain Natural Earth II raster) are
+  kept decoded in that engine's core/earth-data.mjs. See integrations/reanimate-haskell/.
 - reanimate/reanimate-svg (svg-tree), commit a595f61be54838e1be039c66b7d99b26d21fdbf9, Copyright (c) 2013, Vincent Berthoux,
   BSD-3-Clause: its SVG printer (drawAttributesList order, xmlOfTree, ppD), node model and mapTree ported to JavaScript in that
   engine's core/svg.mjs, and its named-colour table ported to core/named-colors.mjs. See integrations/reanimate-svg/.
@@ -53,6 +55,10 @@ a source-manifest.json with the pinned commit):
 - colour 2.3.6 (Haskell package on Hackage, archive sha256 2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871),
   Copyright (c) 2008, 2009 Russell O'Connor, MIT: its sRGB, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the
   Reanimate engine's core/color.mjs. See integrations/colour-haskell/.
+- d3/d3-scale-chromatic 3.1.0, commit 2c52792197299346b7bdb94322bb4dff8f554fea, Copyright 2010-2024 Mike Bostock, ISC: the
+  turbo and cividis polynomials and the sinebow formula, carried by Reanimate.ColorMap and ported in the Reanimate engine's
+  core/color.mjs. The turbo colour scheme is by Anton Mikhailov, Copyright 2019 Google LLC, Apache-2.0; cividis is by
+  Jamie R. Nuñez, Christopher R. Anderton and Ryan S. Renslow (2018). See integrations/d3-scale-chromatic/.
 - mathjax/MathJax 3.2.2, commit 600692ad9d3552cc25f85510d5797bc942ecc9f7, Copyright (c) 2009-2022 The MathJax Consortium,
   Apache-2.0: an npm dependency of the engines (never bundled) that the Reanimate engine page uses to draw TeX.
 - LottieFiles/motion-design-skill, commit d77a9fc8cb371cab1ba5420df5bfd232cd14c9bb, Copyright (c) 2025 LottieFiles, MIT:

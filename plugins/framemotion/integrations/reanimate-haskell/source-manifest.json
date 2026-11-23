@@ -27,16 +27,18 @@
     "src/Reanimate/ColorMap.hs": "skills/framemotion/assets/engines/reanimate/core/color.mjs and core/colormap-data.mjs (parula left out: MathWorks design, unclear licence)",
     "src/Reanimate/Raster.hs (embedImage, embedPng)": "skills/framemotion/assets/engines/reanimate/core/color.mjs (PNG written with stored deflate blocks)",
     "src/Reanimate/Scene/Object.hs": "skills/framemotion/assets/engines/reanimate/core/object.mjs (oTransform and the Morph object follow with the morphs in pack 5)",
-    "examples/doc_*.hs (colour and object examples)": "skills/framemotion/assets/engines/reanimate/examples/color.mjs and examples/object.mjs"
+    "examples/doc_*.hs (colour and object examples)": "skills/framemotion/assets/engines/reanimate/examples/color.mjs and examples/object.mjs",
+    "src/Reanimate/GeoProjection.hs": "skills/framemotion/assets/engines/reanimate/core/geoprojection.mjs (GeoJSON is parsed by the caller; renderGeometry takes the parsed geometry)",
+    "src/Reanimate/Builtin/Images.hs (smallEarth)": "skills/framemotion/assets/engines/reanimate/core/images.mjs, its pixels decoded from data/small_earth.jpg into core/earth-data.mjs",
+    "examples/doc_*P.hs (20 map projection examples)": "skills/framemotion/assets/engines/reanimate/examples/geo.mjs"
   },
   "not_yet_ported": [
     "Scene/Object.hs oTransform and Morph (pack 5)",
-    "GeoProjection.hs and the map data (pack 3)",
-    "ColorSpace.hs (wavelength tables), Math/*, the rest of Raster.hs (packs 3 and 4)",
-    "Morph/* and the morph, showcase and map-projection films (pack 5)"
+    "ColorSpace.hs (wavelength tables), Math/*, the rest of Raster.hs (pack 4)",
+    "Morph/* and the morph, showcase and map-projection films with their country and land data (pack 5)"
   ],
   "not_ported": [
-    "LaTeX.hs, Povray.hs, Blender.hs, External.hs, Driver/*, Render.hs, Voice.hs, Cache.hs, Memo.hs: they call external programs (LaTeX, POV-Ray, Blender, ffmpeg) or are Reanimate's own command line; FrameMotion renders through its engine kit instead"
+    "Povray.hs, Blender.hs, External.hs, Driver/*, Render.hs, Voice.hs, Cache.hs, Memo.hs: they call external programs (POV-Ray, Blender, ffmpeg) or are Reanimate's own command line; FrameMotion renders through its engine kit instead. LaTeX.hs's latex, latexAlign and math are kept as functions in core/latex.mjs, drawn with MathJax instead of LaTeX and dvisvgm"
   ],
   "retained_files": [
     {

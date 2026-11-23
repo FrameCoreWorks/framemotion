@@ -13,6 +13,7 @@ import {lowerTransformations, simplify} from './paths.mjs';
 
 let renderer = null;
 const cache = new Map();
+const CACHE_LIMIT = 512;   // distinct TeX strings kept; the oldest is dropped first
 
 /** setTexRenderer(fn): fn(tex, {display}) -> {name, attrs, children} of the renderer's SVG, or null to unplug. */
 export function setTexRenderer(fn) { renderer = fn; cache.clear(); }
@@ -34,9 +35,20 @@ export function parseTransform(str) {
 
 const num = (v) => (v === undefined || v === null || v === '' ? 0 : parseFloat(v));
 
-/** One renderer element as engine nodes (drawing attributes are dropped, as dvisvgm writes none). */
-function convert(el) {
-  const kids = () => (el.children ?? []).map(convert).filter((n) => n !== None);
+const textOf = (el) => (el.name === '#text' ? el.text ?? '' : (el.children ?? []).map(textOf).join(''));
+
+/**
+ * One renderer element as engine nodes (drawing attributes are dropped, as dvisvgm writes none).
+ * MathJax writes a character its TeX fonts lack as <text> in a system font; LaTeX would stop on it, so
+ * it is collected in `missing` and reported rather than dropped. Errors and equation tags are refused.
+ */
+function convert(el, missing) {
+  const a = el.attrs ?? {};
+  if (a['data-mml-node'] === 'merror') throw new Error(`TeX error: ${a['data-mjx-error'] ?? a.title ?? 'unknown'}`);
+  if (a['data-mml-node'] === 'mtext' && a.fill === 'red') throw new Error(`TeX error: undefined command in "${a['data-tex'] ?? 'the formula'}"`);
+  if (a['data-mml-node'] === 'mlabeledtr' || 'data-labels' in a) throw new Error('TeX: equation tags (\\tag, numbered environments) are not supported; use align* without tags');
+  if (el.name === 'text') { missing.push(a['data-c'] ?? el.text ?? '?'); return None; }
+  const kids = () => (el.children ?? []).map((c) => convert(c, missing)).filter((n) => n !== None);
   let node;
   switch (el.name) {
     case 'svg': case 'g': case 'a': node = mkGroup(kids()); break;
@@ -59,25 +71,47 @@ function convert(el) {
  * Reanimate flips dvisvgm's SVG back with scaleXY 0.1 (-0.1); here the flip is dropped and 1000 font
  * units (one em) become 1 unit.
  */
-function toTree(root) {
+function toTree(root, tex) {
   const body = root.children ?? [];
-  return simplify(lowerTransformations(scaleXY(0.001, 0.001, mkGroup(body.map((c) => {
+  const missing = [];
+  const tree = simplify(lowerTransformations(scaleXY(0.001, 0.001, mkGroup(body.map((c) => {
     if (c.name === 'g' && /scale\(\s*1\s*,\s*-1\s*\)/.test(c.attrs.transform ?? '')) {
-      return mkGroup((c.children ?? []).map(convert).filter((n) => n !== None));
+      return mkGroup((c.children ?? []).map((k) => convert(k, missing)).filter((n) => n !== None));
     }
-    return scaleXY(1, -1, convert(c));
+    return scaleXY(1, -1, convert(c, missing));
   })))));
+  if (missing.length) {
+    throw new Error(`TeX fonts have no glyph for ${[...new Set(missing)].map((c) => `"${c}"`).join(', ')} in "${tex}"; draw that text with mkText instead`);
+  }
+  return tree;
 }
 
 function render(tex, display, fallback) {
   if (!renderer) return mkText(fallback);
   const key = `${display ? 'D' : 'I'}${tex}`;
-  if (!cache.has(key)) cache.set(key, toTree(renderer(tex, {display})));
+  if (!cache.has(key)) {
+    if (cache.size >= CACHE_LIMIT) cache.delete(cache.keys().next().value);
+    cache.set(key, toTree(renderer(tex, {display}), fallback));
+  }
   return cache.get(key);
 }
 
+// LaTeX reads accented letters as a letter plus an accent; MathJax's text mode knows the same accent
+// commands, so a letter that splits (NFD) into an ASCII letter and these marks is written that way.
+// This covers ó ś ć ń ź ż and the accents of other Latin alphabets; ą ę ł have no glyph and are reported.
+const ACCENTS = {'\u0300': '`', '\u0301': "'", '\u0302': '^', '\u0303': '~', '\u0304': '=', '\u0306': 'u',
+  '\u0307': '.', '\u0308': '"', '\u030B': 'H', '\u030C': 'v'};
+/** textAccents: accented letters as TeX accent commands, other characters unchanged. */
+export function textAccents(str) {
+  return [...String(str)].map((ch) => {
+    const [base, ...marks] = [...ch.normalize('NFD')];
+    if (!marks.length || !/^[A-Za-z]$/.test(base) || !marks.every((m) => Object.hasOwn(ACCENTS, m))) return ch;
+    return marks.reduce((acc, m) => `{\\${ACCENTS[m]}{${acc}}}`, base);
+  }).join('');
+}
+
 /** latex: LaTeX text mode (math between $ signs), as Reanimate's `latex`. */
-export const latex = (str) => render(`\\text{${str}}`, false, str);
+export const latex = (str) => render(`\\text{${textAccents(str)}}`, false, str);
 /** math: an inline formula, as Reanimate's `latex ("$" <> str <> "$")`. */
 export const math = (str) => render(str, false, `$${str}$`);
 /** latexAlign: lines in an align* environment, as Reanimate's `latexAlign`. */

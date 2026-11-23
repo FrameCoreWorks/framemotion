@@ -2,7 +2,9 @@
 // FrameCore Works' JavaScript port of Reanimate.ColorComponents, Reanimate.ColorMap and the image
 // parts of Reanimate.Raster and Reanimate.Builtin.Documentation (reanimate/reanimate, public domain),
 // with the colour arithmetic they rely on ported from the Haskell package colour 2.3.6
-// (Russell O'Connor, MIT): sRGB transfer, CIE XYZ, CIE L*a*b* and HSV. No DOM, clock or network.
+// (Russell O'Connor, MIT): sRGB transfer, CIE XYZ, CIE L*a*b* and HSV. The turbo and cividis
+// polynomials and the sinebow formula come, through Reanimate.ColorMap, from d3-scale-chromatic 3.1.0
+// (Mike Bostock, ISC); turbo is Anton Mikhailov's scheme (Google LLC, Apache-2.0). No DOM, clock or network.
 //
 // A colour is linear sRGB [r, g, b] (Data.Colour stores the same). Matrices are the exact rational
 // results of colour's rgb2xyz for sRGB primaries and D65, rounded once to doubles, as fromRational does.
@@ -18,6 +20,11 @@ export function haskellRound(x) {
   if (d > 0.5) return f + 1;
   return f % 2 === 0 ? f : f + 1;
 }
+/**
+ * Haskell's `round` to a machine integer: GHC turns NaN into minBound, which is 0 as a Word8 and 0
+ * after clamping to 0..255, so a NaN component (an lch hue of grey) quantizes to 0 as in Reanimate.
+ */
+const roundW = (x) => (Number.isNaN(x) ? 0 : haskellRound(x));
 /** fromIntegral to Word8: the integer taken modulo 256. */
 const word8 = (n) => ((n % 256) + 256) % 256;
 /** Data.Fixed.mod' */
@@ -47,7 +54,7 @@ export const sRGB = (r, g, b) => [invTransferFunction(r), invTransferFunction(g)
 /** toSRGB: gamma-encoded components. */
 export const toSRGB = (c) => c.map(transferFunction);
 /** quantize: clamp, then Haskell round. */
-const quantize = (x) => (x <= 0 ? 0 : 255 <= x ? 255 : haskellRound(x));
+const quantize = (x) => (x <= 0 ? 0 : 255 <= x ? 255 : roundW(x));
 /** toSRGBBounded (Word8): [r, g, b] in 0..255. */
 export const toSRGB24 = (c) => toSRGB(c).map((v) => quantize(255 * v));
 /** sRGB24: a colour from 0..255 components. */
@@ -130,40 +137,40 @@ export const interpolateRGB8 = (comps, from, to) => {
 /** interpolateRGBA8: RGB through the components, alpha by fromToS and round. */
 export const interpolateRGBA8 = (comps, from, to) => {
   const f = interpolateRGB8(comps, from.slice(0, 3), to.slice(0, 3));
-  return (t) => [...f(t), haskellRound(from[3] + (to[3] - from[3]) * t)];
+  return (t) => [...f(t), roundW(from[3] + (to[3] - from[3]) * t)];
 };
 
 // --- Reanimate.ColorMap: t in [0, 1] -> [r, g, b] in 0..255
 const hexTable = (s) => Array.from({length: s.length / 6}, (_, i) => [0, 2, 4].map((k) => parseInt(s.slice(6 * i + k, 6 * i + k + 2), 16)));
-const ramp = (table) => (t) => table[Math.max(0, Math.min(table.length - 1, haskellRound(t * (table.length - 1))))];
+const ramp = (table) => (t) => table[Math.max(0, Math.min(table.length - 1, roundW(t * (table.length - 1))))];
 const clampTrunc = (n) => Math.min(255, Math.max(0, n));
 export const viridis = ramp(hexTable(VIRIDIS));
 export const magma = ramp(hexTable(MAGMA));
 export const inferno = ramp(hexTable(INFERNO));
 export const plasma = ramp(hexTable(PLASMA));
 export const turbo = (t) => [
-  clampTrunc(haskellRound(34.61 + t * (1172.33 - t * (10793.56 - t * (33300.12 - t * (38394.49 - t * 14825.05)))))),
-  clampTrunc(haskellRound(23.31 + t * (557.33 + t * (1225.33 - t * (3574.96 - t * (1073.77 + t * 707.56)))))),
-  clampTrunc(haskellRound(27.2 + t * (3211.1 - t * (15327.97 - t * (27814 - t * (22569.18 - t * 6838.66)))))),
+  clampTrunc(roundW(34.61 + t * (1172.33 - t * (10793.56 - t * (33300.12 - t * (38394.49 - t * 14825.05)))))),
+  clampTrunc(roundW(23.31 + t * (557.33 + t * (1225.33 - t * (3574.96 - t * (1073.77 + t * 707.56)))))),
+  clampTrunc(roundW(27.2 + t * (3211.1 - t * (15327.97 - t * (27814 - t * (22569.18 - t * 6838.66)))))),
 ];
 export function sinebow(t) {
   const x = (0.5 - t) * Math.PI;
   const piThird = Math.PI / 3, twoPiThirds = (Math.PI * 2) / 3;
-  return [x, x + piThird, x + twoPiThirds].map((v) => word8(haskellRound(255 * Math.sin(v) ** 2)));
+  return [x, x + piThird, x + twoPiThirds].map((v) => word8(roundW(255 * Math.sin(v) ** 2)));
 }
 export const cividis = (t) => [
-  clampTrunc(haskellRound(-4.54 - t * (35.34 - t * (2381.73 - t * (6402.7 - t * (7024.72 - t * 2710.57)))))),
-  clampTrunc(haskellRound(32.49 + t * (170.73 + t * (52.82 - t * (131.46 - t * (176.58 - t * 67.37)))))),
-  clampTrunc(haskellRound(81.24 + t * (442.36 - t * (2482.43 - t * (6167.24 - t * (6614.94 - t * 2475.67)))))),
+  clampTrunc(roundW(-4.54 - t * (35.34 - t * (2381.73 - t * (6402.7 - t * (7024.72 - t * 2710.57)))))),
+  clampTrunc(roundW(32.49 + t * (170.73 + t * (52.82 - t * (131.46 - t * (176.58 - t * 67.37)))))),
+  clampTrunc(roundW(81.24 + t * (442.36 - t * (2482.43 - t * (6167.24 - t * (6614.94 - t * 2475.67)))))),
 ];
 export function jet(t) {
-  const trunc = (v) => word8(haskellRound(Math.min(255, Math.max(0, v * 255))));
+  const trunc = (v) => word8(roundW(Math.min(255, Math.max(0, v * 255))));
   return [trunc(Math.min(4 * t - 1.5, -4 * t + 4.5)), trunc(Math.min(4 * t - 0.5, -4 * t + 3.5)), trunc(Math.min(4 * t + 0.5, -4 * t + 2.5))];
 }
-const hsvMap = (deg) => (t) => hsv(t * deg, 1, 1).map((v) => word8(haskellRound(v * 255)));
+const hsvMap = (deg) => (t) => hsv(t * deg, 1, 1).map((v) => word8(roundW(v * 255)));
 export const hsvColorMap = hsvMap(360);
 export const hsvMatlab = hsvMap(330);
-export const greyscale = (t) => { const v = word8(haskellRound(t * 255)); return [v, v, v]; };
+export const greyscale = (t) => { const v = word8(roundW(t * 255)); return [v, v, v]; };
 
 // --- Raster images: a PNG (8-bit RGB) as a data URI, the way Reanimate.Raster.embedImage embeds one.
 // Reanimate's PNGs come from JuicyPixels and zlib; this encoder writes the same image with stored
@@ -199,14 +206,20 @@ function zlibStored(raw) {
   }
   return [...out, ...u32(adler32(raw))];
 }
-/** encodePng(width, height, pixel(x, y) -> [r, g, b]): PNG bytes. */
-export function encodePng(width, height, pixel) {
+/** encodePng: an 8-bit RGB PNG (or RGBA with channels = 4) from a pixel function (x, y) -> bytes. */
+export function encodePng(width, height, pixel, channels = 3) {
   const raw = [];
   for (let y = 0; y < height; y++) {
     raw.push(0);
-    for (let x = 0; x < width; x++) raw.push(...pixel(x, y));
+    for (let x = 0; x < width; x++) {
+      const px = pixel(x, y);
+      if (px.length !== channels || !px.every((v) => Number.isInteger(v) && v >= 0 && v <= 255)) {
+        throw new Error(`encodePng: pixel (${x}, ${y}) is [${px}], not ${channels === 4 ? 'four' : 'three'} bytes 0..255`);
+      }
+      for (const v of px) raw.push(v);
+    }
   }
-  const ihdr = [...u32(width), ...u32(height), 8, 2, 0, 0, 0];
+  const ihdr = [...u32(width), ...u32(height), 8, channels === 4 ? 6 : 2, 0, 0, 0];
   return [137, 80, 78, 71, 13, 10, 26, 10, ...chunk('IHDR', ihdr), ...chunk('IDAT', zlibStored(raw)), ...chunk('IEND', [])];
 }
 const base64 = (bytes) => {
@@ -219,6 +232,9 @@ export const embedPng = (w, h, bytes) =>
   flipYAxis(mkImage({x: -w / 2, y: -h / 2, width: w, height: h, href: `data:image/png;base64,${base64(bytes)}`}));
 /** embedImage: an RGB image given by its pixel function. */
 export const embedImage = (width, height, pixel) => embedPng(width, height, encodePng(width, height, pixel));
+/** embedImageRGBA: an RGBA image {width, height, data} (JuicyPixels' Image PixelRGBA8), one unit per pixel. */
+export const embedImageRGBA = (img) => embedPng(img.width, img.height,
+  encodePng(img.width, img.height, (x, y) => Array.from(img.data.subarray((y * img.width + x) * 4, (y * img.width + x) * 4 + 4)), 4));
 
 /** showColorMap (Reanimate.Builtin.Documentation): a colour map as a 256 x 1 image filling the screen. */
 export const showColorMap = (f) => center(scaleToSize(SCREEN_WIDTH, SCREEN_HEIGHT, embedImage(256, 1, (x) => f(x / 255))));
