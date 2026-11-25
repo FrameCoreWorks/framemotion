@@ -72,6 +72,8 @@ Before showing any stage, run the loop:
 3. Fix only what did not pass.
 4. Repeat, at most three passes.
 
+Run the checks in this order: the automatic checks with their thresholds first, then the [brief check](#quality-loop), then the fresh reviewer.
+
 If something still fails after three passes, show the stage and name the weak spot plainly. When showing a stage, add one sentence: what the loop fixed and what the weakest spot is.
 
 **The motion designer checks**
@@ -95,6 +97,10 @@ If something still fails after three passes, show the stage and name the weak sp
 - Bass and treble balance (the spectrum from `listen.py measure`).
 - Mono fold-down, as on a phone: downmix (`ffmpeg -i in.mp4 -af "pan=mono|c0=0.5*c0+0.5*c1" mono.wav`) and measure again; wide effects that vanish or a level drop of more than about 3 dB are findings.
 - Comparison with the reference and with the user's music profile.
+
+**The brief check** (after the automatic checks, before the fresh reviewer)
+
+A pass that reads only the brief and the stage, as the client would: delivery format and size, length, logo, brand colours, required lines and everything the brief forbids. Any mismatch is a finding, however good the craft (a 9:16 reel for a brief that asked for 16:9 in 4K fails here). Show the stage only when the automatic checks and this check pass.
 
 **The fresh reviewer** (at the end of each pass)
 

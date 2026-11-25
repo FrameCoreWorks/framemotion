@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.8.3 (2026-11-25)
+
+Lesson from client work (shared knowledge base, 2026-11-19; prepared 2026-11-21 and renumbered from 0.8.2, which the keyframe-type release took): a reel can pass every craft check and still miss the brief.
+
+- Reel workflow, quality loop: a brief check between the automatic checks and the fresh reviewer. It reads only the brief and the stage and compares delivery format and size, length, logo, brand colours, required lines and what the brief forbids; any mismatch is a finding. The order of the three checks is now stated.
+- Evidence: `tools/check.py` passes. Behaviour in a fresh client `NOT_RUN`; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.8.2 (2026-11-22)
 
 Owner request 2026-11-22: adapt keyframe-type knowledge (After Effects interpolation types) to FrameMotion.
