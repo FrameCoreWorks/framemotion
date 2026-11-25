@@ -775,7 +775,7 @@
         "Reanimate's golden SVG files for the ported examples kept unchanged as test fixtures",
         "the pixels of its data/small_earth.jpg (public domain with the repository; metadata points to a Natural Earth II source) decoded once into core/earth-data.mjs",
         "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; later packs add the films",
-        "the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and data/cone_sensitivity_lms.csv (public domain with the repository; no source stated) kept in core/colorspace-data.mjs"
+        "the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and data/cone_sensitivity_lms.csv kept in core/colorspace-data.mjs; Reanimate names no source, but they are copies of tables from the Colour & Vision Research Laboratory (cvrl.org): lin2012xyz2e_1_7sf.csv (CIE 2012 2-degree XYZ colour-matching functions), cc2012xyz2_1_5dp.csv (their chromaticity coordinates) and linss2_10e_1.csv (Stockman & Sharpe 2-degree cone fundamentals); CVRL states no licence for them, so Reanimate's Unlicense does not cover them"
       ]
     },
     {
@@ -803,7 +803,7 @@
       "status": "adapted",
       "bundled_commit": "70975dfead974a3b4f91d7f00af25b242cf57122",
       "conditions": [
-        "release 0.6.0.7 (Reanimate's dependency); evalBezier, splitBezier, bezierSubsegment, quadToCubic and arcLength ported to JavaScript in the Reanimate engine's core/geom.mjs; the Bernstein evaluation (evalBezierDeriv), colinear, closest and Bézier-clipping intersection (bezierIntersection) in core/cubicbezier.mjs"
+        "release 0.6.0.7 (Reanimate's resolver lts-18.15 pins 0.6.0.6; the ported code is the same in both, 0.6.0.7 changes only comments and the cabal file); evalBezier, splitBezier, bezierSubsegment, quadToCubic and arcLength ported to JavaScript in the Reanimate engine's core/geom.mjs; the Bernstein evaluation (evalBezierDeriv), colinear, closest and Bézier-clipping intersection (bezierIntersection) in core/cubicbezier.mjs"
       ]
     },
     {
@@ -832,7 +832,7 @@
       "status": "adapted",
       "bundled_commit": "992c2cb8d4902cf19c8e00d045ca4b417dc2e668",
       "conditions": [
-        "release 1.23; the argument order of lerp (alpha weighs the first point), kept as linearLerp in the Reanimate engine's core/geom.mjs, and normalize's nearZero rule (1e-12), restated in examples/math.mjs"
+        "release 1.23 (Reanimate's resolver lts-18.15 pins 1.21.6; lerp's argument order and normalize's nearZero rule are the same in both); the argument order of lerp (alpha weighs the first point), kept as linearLerp in the Reanimate engine's core/geom.mjs, and normalize's nearZero rule (1e-12), restated in examples/math.mjs"
       ]
     },
     {

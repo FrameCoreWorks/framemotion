@@ -41,18 +41,21 @@ a source-manifest.json with the pinned commit):
   examples are kept unchanged in tests/fixtures/reanimate-golden/, and the pixels of its data/small_earth.jpg (an Earth image
   that its metadata ties to a 16200 x 8100 source, the size of Tom Patterson's public-domain Natural Earth II raster) are
   kept decoded in that engine's core/earth-data.mjs; the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and
-  data/cone_sensitivity_lms.csv are kept in core/colorspace-data.mjs. See integrations/reanimate-haskell/.
+  data/cone_sensitivity_lms.csv are kept in core/colorspace-data.mjs. Those three tables are measurement data from the
+  Colour & Vision Research Laboratory (cvrl.org): the CIE 2012 2-degree colour-matching functions (lin2012xyz2e_1_7sf.csv),
+  their chromaticity coordinates (cc2012xyz2_1_5dp.csv) and the Stockman & Sharpe 2-degree cone fundamentals
+  (linss2_10e_1.csv). CVRL states no licence for them. See integrations/reanimate-haskell/.
 - reanimate/reanimate-svg (svg-tree), commit a595f61be54838e1be039c66b7d99b26d21fdbf9, Copyright (c) 2013, Vincent Berthoux,
   BSD-3-Clause: its SVG printer (drawAttributesList order, xmlOfTree, ppD), node model and mapTree ported to JavaScript in that
   engine's core/svg.mjs, and its named-colour table ported to core/named-colors.mjs. See integrations/reanimate-svg/.
-- kuribas/cubicbezier 0.6.0.7, commit 70975dfead974a3b4f91d7f00af25b242cf57122, Copyright (c) 2013, Kristof Bastiaensen,
+- kuribas/cubicbezier 0.6.0.7 (Reanimate's resolver pins 0.6.0.6; the ported code is the same), commit 70975dfead974a3b4f91d7f00af25b242cf57122, Copyright (c) 2013, Kristof Bastiaensen,
   BSD-3-Clause: Bézier evaluation, splitting, subsegments, quadToCubic and arcLength (arcLengthEstimate) ported to JavaScript in
   that engine's core/geom.mjs, and the Bernstein evaluation, colinear, closest and Bézier-clipping intersection in
   core/cubicbezier.mjs. See integrations/cubicbezier-haskell/.
 - GaloisInc/xml (Text.XML.Light 1.3.14), commit 004a2c07286d17f61237d1bf59ccc11a5122a57c, (c) 2007 Galois Inc., BSD-3-Clause:
   its element printer (ppElement, used for text and nested SVG) ported to JavaScript in that engine's core/svg.mjs.
   See integrations/xml-light-haskell/.
-- ekmett/linear 1.23, commit 992c2cb8d4902cf19c8e00d045ca4b417dc2e668, Copyright 2011-2015 Edward Kmett, BSD-3-Clause: the
+- ekmett/linear 1.23 (Reanimate's resolver pins 1.21.6; the ported rules are the same), commit 992c2cb8d4902cf19c8e00d045ca4b417dc2e668, Copyright 2011-2015 Edward Kmett, BSD-3-Clause: the
   argument order of its `lerp`, kept in that engine's core/geom.mjs linearLerp, and its `normalize` rule, restated in
   examples/math.mjs. See integrations/linear-haskell/.
 - colour 2.3.6 (Haskell package on Hackage, archive sha256 2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871),

@@ -267,6 +267,9 @@ function trails(trailDur, raw) {
     const idx = R.haskellRound(t * nFrames);
     let svg = R.mkGroup([]);
     for (let x = idx - trailFrames; x <= idx; x++) svg = R.mkGroup([R.withGroupOpacity(trailFrames / (trailFrames + 1), svg), getFrame(x)]);
+    // keep only this trail's source frames: memory stays flat over a long render
+    const keep = new Set(Array.from({length: trailFrames + 1}, (_, j) => (((idx - trailFrames + j) % nFrames) + nFrames) % nFrames));
+    for (const i of frames.keys()) if (!keep.has(i)) frames.delete(i);
     return svg;
   });
 }

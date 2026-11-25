@@ -5,8 +5,11 @@
 //
 // One difference: Reanimate triangulates with the hgeometry library; this port triangulates by ear
 // clipping. The shortest-path tree (SSSP) that Reanimate builds on the triangulation is the same for
-// any triangulation of a simple polygon; only polygons with three or more collinear vertices on a
-// shortest path can tie differently.
+// any correct triangulation. Outlines with holes are joined to them by a cut, so they touch
+// themselves: a vertex repeated on the cut blocks an ear when one of its edges enters the ear, any
+// other vertex on the ear's boundary blocks it, the new diagonal may not cross an edge, and the ears'
+// areas must add up to the polygon's area exactly (an error otherwise). Coordinates within 1e-9 are
+// made equal for these tests (snapNearCopies).
 import * as Q from './rational.mjs';
 
 // --- exact turn tests on integer coordinates (a polygon's points over a common denominator)
@@ -48,36 +51,61 @@ function triangulate(ring) {
   let area2 = 0n;
   for (let i = 0; i < n; i++) { const [x1, y1] = ring[i], [x2, y2] = ring[(i + 1) % n]; area2 += x1 * y2 - x2 * y1; }
   const ccw = area2 > 0n ? 1 : -1;
+  // twice the triangle's area, positive when it turns the polygon's way
+  const triArea2 = (a, b, c) => ((b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])) * BigInt(ccw);
   const convex = (a, b, c) => -dirSign(a, b, c) * ccw;   // > 0: a left turn for a CCW polygon
-  const inTriangle = (p, a, b, c) => {
-    const s1 = convex(a, b, p), s2 = convex(b, c, p), s3 = convex(c, a, p);
-    return s1 >= 0 && s2 >= 0 && s3 >= 0;
-  };
   const same = (p, q) => p[0] === q[0] && p[1] === q[1];
   const idx = [...Array(n).keys()];
+  // u lies strictly inside the triangle's angle at corner c (the other corners x and y, in order)
+  const inWedge = (u, c, x, y) => convex(c, x, u) > 0 && convex(y, c, u) > 0;
   const isEar = (k, allowFlat) => {
     const m = idx.length;
     const a = idx[(k + m - 1) % m], i = idx[k], b = idx[(k + 1) % m];
     const turn = convex(ring[a], ring[i], ring[b]);
     if (turn < 0 || (turn === 0 && !allowFlat)) return false;
-    for (const j of idx) {
+    if (turn === 0) return true;
+    const A = ring[a], I = ring[i], B = ring[b];
+    const sides = (p) => [convex(A, I, p), convex(I, B, p), convex(B, A, p)];
+    for (let q = 0; q < m; q++) {
+      const j = idx[q];
       if (j === a || j === i || j === b) continue;
-      const p = ring[j];
-      if (same(p, ring[a]) || same(p, ring[i]) || same(p, ring[b])) continue;
-      if (turn > 0 ? inTriangle(p, ring[a], ring[i], ring[b]) : false) return false;
+      const p = ring[j], s = sides(p);
+      if (s.some((v) => v < 0)) continue;
+      if (s.every((v) => v > 0)) return false;
+      // on the boundary: a copy of a corner (a cut's end point repeats) blocks the ear when one of its
+      // edges enters the triangle there; any other vertex on the boundary blocks it
+      const u = ring[idx[(q + m - 1) % m]], w = ring[idx[(q + 1) % m]];
+      const enters = (v) => {
+        if (same(p, A)) return inWedge(v, A, I, B);
+        if (same(p, I)) return inWedge(v, I, B, A);
+        if (same(p, B)) return inWedge(v, B, A, I);
+        return true;   // any other vertex on the triangle's boundary blocks the ear
+      };
+      if (enters(u) || enters(w)) return false;
+    }
+    // a safety net for outlines that pass a rounding error beside a cut: the new diagonal crosses no edge
+    for (let q = 0; q < m; q++) {
+      const j = idx[q], j2 = idx[(q + 1) % m];
+      if (j === a || j === b || j2 === a || j2 === b) continue;
+      const c = ring[j], d = ring[j2];
+      if (dirSign(A, B, c) * dirSign(A, B, d) < 0 && dirSign(c, d, A) * dirSign(c, d, B) < 0) return false;
     }
     return true;
   };
+  let earArea2 = 0n;
   while (idx.length > 3) {
     let k = idx.findIndex((_, k2) => isEar(k2, false));
     if (k < 0) k = idx.findIndex((_, k2) => isEar(k2, true));
-    if (k < 0) k = 0;   // not a simple polygon; keep going so every edge still gets a triangle
+    if (k < 0) throw new Error('triangulate: no ear left (the outline crosses itself)');
     const m = idx.length;
     const a = idx[(k + m - 1) % m], b = idx[(k + 1) % m];
+    earArea2 += triArea2(ring[a], ring[idx[k]], ring[b]);
     adj[a].add(b);
     adj[b].add(a);
     idx.splice(k, 1);
   }
+  earArea2 += triArea2(ring[idx[0]], ring[idx[1]], ring[idx[2]]);
+  if (earArea2 !== area2 * BigInt(ccw)) throw new Error('triangulate: the triangles do not cover the polygon exactly');
   const next = (x) => (x + 1) % n, prev = (x) => (x + n - 1) % n;
   return adj.map((s, v) => [...s].filter((w) => w !== next(v) && w !== prev(v)).sort((x, y) => x - y));
 }
@@ -162,7 +190,27 @@ export function mkPolygon(points) {
   const base = {points, trig: null, ints: null, trees: new Map()};
   return {base, points, offset: 0};
 }
-const ints = (base) => (base.ints ??= integerRing(base.points));
+// Outlines with a hole carry the cut's end points twice, and curve splitting can leave the copies, or a
+// cut and an outline edge that should line up, a rounding error apart. The triangulation and the
+// shortest-path turns use the points with coordinates closer than 1e-9 on each axis made equal, so the
+// cut is a clean double edge; distances keep the original points.
+const SNAP = 1e-9;
+function snapAxis(values) {
+  const order = values.map((v, i) => i).sort((i, j) => values[i][0] - values[j][0]);
+  const out = new Array(values.length);
+  let head = null;
+  for (const i of order) {
+    if (!head || values[i][0] - head[0] >= SNAP) head = values[i];   // chains of close values share their first
+    out[i] = head[1];
+  }
+  return out;
+}
+function snapNearCopies(points) {
+  const xs = snapAxis(points.map(([x]) => [Q.toDouble(x), x]));
+  const ys = snapAxis(points.map(([, y]) => [Q.toDouble(y), y]));
+  return points.map((_, i) => [xs[i], ys[i]]);
+}
+const ints = (base) => (base.ints ??= integerRing(snapNearCopies(base.points)));
 function tree(base, root) {
   if (!base.trees.has(root)) {
     base.trig ??= triangulate(ints(base));

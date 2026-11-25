@@ -6,7 +6,7 @@ import {toLineCommands, extractPath, svgGlyphs, lowerTransformations, pathify} f
 import {SCREEN_WIDTH} from './svg.mjs';
 import {bezierIntersection, closest, colinear, evalBezier, interpolateVector, quadToCubic, splitBezier, vectorDistance} from './cubicbezier.mjs';
 import {mkPolygon, pIsCCW} from './polygon.mjs';
-import {fromDouble} from './rational.mjs';
+import {fromDouble, v2Eq} from './rational.mjs';
 
 const polyShapeTolerance = SCREEN_WIDTH / 25600;
 const ptEq = (a, b) => a[0] === b[0] && a[1] === b[1];
@@ -126,9 +126,25 @@ function plPolygonify(tol, curves) {
   curves.forEach(worker);
   return out;
 }
+/**
+ * dropHairs: repeated neighbours and zero-width hairs (the outline goes to a point and straight back)
+ * removed. They have no area, and the shortest-path tree on a triangulation cannot pass through them.
+ * Some MathJax outlines (the "8") have one; Reanimate keeps them, so this is a difference on purpose.
+ */
+function dropHairs(points) {
+  const out = points.slice();
+  for (let changed = true; changed;) {
+    changed = false;
+    for (let i = 0; out.length > 3 && i < out.length;) {
+      const n = out.length, prev = out[(i + n - 1) % n], next = out[(i + 1) % n];
+      if (v2Eq(out[i], next) || v2Eq(prev, next)) { out.splice(i, 1); changed = true; i = Math.max(0, i - 1); } else i++;
+    }
+  }
+  return out;
+}
 /** plToPolygon: the outline as an exact counter-clockwise polygon (the repeated last point dropped). */
 function plToPolygon(tol, curves) {
-  const pts = plPolygonify(tol, curves).slice(0, -1).map(([x, y]) => [fromDouble(x), fromDouble(y)]);
+  const pts = dropHairs(plPolygonify(tol, curves).slice(0, -1).map(([x, y]) => [fromDouble(x), fromDouble(y)]));
   const p = mkPolygon(pts);
   return pIsCCW(p) ? p : mkPolygon(pts.slice().reverse());
 }

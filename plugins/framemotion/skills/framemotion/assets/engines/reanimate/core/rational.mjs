@@ -45,7 +45,8 @@ export function toDouble({n, d}) {
   const den = k >= 0 ? d : d << BigInt(-k);
   let q = num / den;
   const rest = num % den;
-  let shift = bitLength(q) - 53;
+  // 53 bits kept, fewer below 2^-1022: the last kept bit is never smaller than 2^-1074 (subnormals)
+  const shift = Math.max(bitLength(q) - 53, k - 1074);
   let kept = q >> BigInt(shift);
   const dropped = q - (kept << BigInt(shift));
   const half = 1n << BigInt(shift - 1);

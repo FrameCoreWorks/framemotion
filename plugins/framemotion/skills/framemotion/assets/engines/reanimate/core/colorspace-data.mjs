@@ -1,8 +1,9 @@
 // Wavelength tables of Reanimate.ColorSpace: Reanimate's data/CIE_XYZ.csv, data/CIExyz.csv and
-// data/cone_sensitivity_lms.csv at commit 583ee9f (public domain with Reanimate), the rows up to 700 nm
-// that Reanimate keeps, with the spaces around fields removed. Reanimate gives no source for the
-// numbers; they look like CIE colour-matching functions and cone fundamentals as published by the
-// Colour & Vision Research Laboratory (cvrl.org), which is not verified here. Columns: nm, then three
+// data/cone_sensitivity_lms.csv at commit 583ee9f, the rows up to 700 nm that Reanimate keeps, with the
+// spaces around fields removed. Reanimate gives no source; they are tables from the Colour & Vision
+// Research Laboratory (cvrl.org): lin2012xyz2e_1_7sf.csv (CIE 2012 2-degree colour-matching functions),
+// cc2012xyz2_1_5dp.csv (their chromaticity coordinates) and linss2_10e_1.csv (Stockman & Sharpe
+// 2-degree cone fundamentals). CVRL states no licence for them; see NOTICE. Columns: nm, then three
 // values (an empty last cone value means none, read as 0 as in Reanimate).
 export const CIE_XYZ = `
 390,3.769647E-03,4.146161E-04,1.847260E-02

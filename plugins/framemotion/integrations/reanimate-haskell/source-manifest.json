@@ -36,7 +36,7 @@
     "src/Reanimate/Math/Common.hs (rayIntersect, direction and turn tests, distance')": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs and core/rational.mjs (Rational as BigInt fractions)",
     "src/Reanimate/Math/SSSP.hs (dual, dualTree, sssp)": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs",
     "src/Reanimate/Math/Polygon.hs (mkPolygon, pAccess, pNext, pParent, pCycles, pIsCCW and the offset model)": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs",
-    "src/Reanimate/Math/Triangulate.hs": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs: the diagonals come from ear clipping instead of hgeometry's triangulate'; the shortest-path tree built on them is the same for a simple polygon",
+    "src/Reanimate/Math/Triangulate.hs": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs: the diagonals come from ear clipping instead of hgeometry's triangulate', with the repeated points of a hole's cut handled and an exact area check; the shortest-path tree built on them is the same on any correct triangulation",
     "src/Reanimate/PolyShape.hs (cmdsToPolyShapes, plGroupShapes, mergePolyShapeHoles, plPolygonify, plToPolygon) and Morph/Common.hs (toShapes)": "skills/framemotion/assets/engines/reanimate/core/polyshape.mjs",
     "examples/fourier.hs, fourier_draw.hs, tut_glue_fourier.hs, demo_tangent.hs, demo_stars.hs, doc_balloon.hs": "skills/framemotion/assets/engines/reanimate/examples/math.mjs (tangent_and_normal.hs is commented out upstream and needs diagrams; not ported)"
   },

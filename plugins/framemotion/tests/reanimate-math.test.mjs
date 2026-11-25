@@ -13,7 +13,7 @@ import * as Q from '../skills/framemotion/assets/engines/reanimate/core/rational
 import {mkStdGen, nextWord64, randomRsDouble} from '../skills/framemotion/assets/engines/reanimate/core/random.mjs';
 import {cmul, csum, expTurn, cx, cneg} from '../skills/framemotion/assets/engines/reanimate/core/complex.mjs';
 import {bezierIntersection, closest, evalBezier} from '../skills/framemotion/assets/engines/reanimate/core/cubicbezier.mjs';
-import {mkPolygon, pParent, pCycles, pIsCCW} from '../skills/framemotion/assets/engines/reanimate/core/polygon.mjs';
+import {mkPolygon, pParent, pCycles, pIsCCW, polygonPoints, pAccess} from '../skills/framemotion/assets/engines/reanimate/core/polygon.mjs';
 import {toShapes} from '../skills/framemotion/assets/engines/reanimate/core/polyshape.mjs';
 import {MATH_EXAMPLES} from '../skills/framemotion/assets/engines/reanimate/examples/math.mjs';
 
@@ -51,6 +51,8 @@ test('Rational: exact from doubles, rounded to the nearest double, ties to even'
   assert.equal(Q.toDouble(Q.qFrac(2n ** 53n + 3n, 1)), 2 ** 53 + 4);
   assert.deepEqual(Q.fromDouble(Infinity), {n: 2n ** 1024n, d: 1n}, 'GHC\'s toRational of infinity');
   assert.ok(Q.eq(Q.fromDouble(0.5), Q.qFrac(1, 2)));
+  assert.equal(Q.toDouble(Q.qFrac(1n, 2n ** 1070n)), 2 ** -1070, 'subnormals keep their last bits, as GHC does');
+  assert.equal(Q.toDouble(Q.qFrac(3n, 2n ** 1075n)), 2 ** -1073, 'and round ties to even there');
 });
 
 test('atPartial gives the point and derivative at a share of the length', () => {
@@ -104,6 +106,40 @@ test('nmToColor reads the CIE table up to 700 nm', () => {
 
 test('a path command with no points ends the path data instead of writing invalid SVG', () => {
   assert.equal(R.serializeCommands([{c: 'M', abs: true, args: [[1, 2]]}, {c: 'L', abs: true, args: []}, {c: 'Z'}]), 'M1,2');
+});
+
+// shortest-path distances from each start, on the polygon and on its points rotated: they must agree
+// whatever vertex the ear clipping starts from
+function rotationSpread(poly) {
+  const pts = polygonPoints(poly), n = pts.length;
+  const dists = (p, root) => {
+    const d = new Array(n);
+    const get = (i) => d[i] ?? (d[i] = i === root ? 0 : get(pParent(p, root, i)) + Q.distanceD(pAccess(p, i), pAccess(p, pParent(p, root, i))));
+    for (let i = 0; i < n; i++) get(i);
+    return d;
+  };
+  let worst = 0;
+  for (const s of [1, 7, Math.floor(n / 3), Math.floor(n / 2)]) {
+    const rot = mkPolygon([...pts.slice(s), ...pts.slice(0, s)]);
+    for (const root of [0, Math.floor(n / 4), Math.floor((3 * n) / 4)]) {
+      const a = dists(poly, root), b = dists(rot, (root - s + n) % n);
+      for (let i = 0; i < n; i++) worst = Math.max(worst, Math.abs(a[i] - b[(i - s + n) % n]));
+    }
+  }
+  return worst;
+}
+
+test('a shape with a hole: the cut does not change the shortest paths', () => {
+  const ring = R.mkPath(R.parsePath('M-2,-2 L2,-2 L2,2 L-2,2 Z M-1,-1 L-1,1 L1,1 L1,-1 Z'));
+  const [[, poly]] = toShapes(0.01, ring);
+  assert.equal(rotationSpread(poly), 0);
+});
+
+test('letters with holes (e, 8, B, R, O, g) triangulate exactly and give the same shortest paths from any start', {...needsMathJax, timeout: 120000}, () => {
+  for (const ch of ['e', '8', 'B', 'R', 'O', 'g']) {
+    const shapes = toShapes(0.01, R.scale(8, R.center(R.latex(ch))));
+    for (const [, poly] of shapes) assert.ok(rotationSpread(poly) < 1e-9, ch);
+  }
 });
 
 const PINNED = {
