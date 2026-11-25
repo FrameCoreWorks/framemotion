@@ -4032,9 +4032,19 @@
           "enum": [
             "none",
             "contain",
+            "safe",
             "cover"
           ],
-          "about": "for a reel (9:16, 1:1, 4:5): 'contain' shows a 16:9 example whole with empty bands, 'cover' fills the frame and crops the sides, 'none' keeps unit sizes (the middle of the drawing)"
+          "about": "for a reel (9:16, 1:1, 4:5): 'contain' shows a 16:9 example whole on bands of its background, 'safe' does that inside the 9:16 safe area, 'cover' fills the frame and crops the sides (9:16 keeps the middle 32 %), 'none' keeps unit sizes"
+        },
+        "earth": {
+          "type": "string",
+          "default": "large",
+          "enum": [
+            "large",
+            "small"
+          ],
+          "about": "the Earth's picture in map_projection_distortion: 'large' is Natural Earth II at 1280x640, 'small' is Reanimate's built-in 300x150 smallEarth"
         }
       },
       "flat_frames": [

@@ -906,7 +906,7 @@
       "pack": "P13",
       "status": "adapted",
       "conditions": [
-        "the 1:110m Admin 0 countries and land layers as GeoJSON geometry (country NAME kept, coordinates rounded to 0.001 degree) in the Reanimate engine's core/natural-earth-data.mjs, for Reanimate's map-projection film, whose countries.json and land.geojson are not in its repository",
+        "the 1:110m Admin 0 countries and land layers as GeoJSON geometry (the country's NAME kept as `name`, coordinates rounded to 0.001 degree) in the Reanimate engine's core/natural-earth-data.mjs, for Reanimate's map-projection film, whose countries.json and land.geojson are not in its repository", "also Natural Earth II with shaded relief and water, 1:50m (naciscdn.org/naturalearth/50m/raster/NE2_50M_SR_W.zip, archive sha256 7e0e07089b699a3cccad98dd1b2446390d8e3f8c5006359d477a329cebcafaa9; not in this Git repository), resized with Pillow 12.3.0 (Lanczos) from 10800 x 5400 to 1280 x 640 and saved as JPEG quality 88 in the Reanimate engine's data/earth-ne2-1280.jpg (sha256 cf3cbf5ca9fc18cfe38ffd7666cb7b2d0b0769ac4773f593a701328fc6dac35f), the Earth's picture of the distortion film on the engine page",
         "admitted by owner decision 2026-11-25 (AGENTS.md rule 6 names Natural Earth's public-domain map data)"
       ]
     }

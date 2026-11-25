@@ -71,7 +71,9 @@ a source-manifest.json with the pinned commit):
 - Natural Earth (nvkelso/natural-earth-vector), commit ca96624a56bd078437bca8184e78163e5039ad19, public domain (Natural
   Earth terms of use; Tom Patterson, Nathaniel Vaughn Kelso and contributors): the 1:110m Admin 0 countries and land layers,
   geometry and country names with coordinates rounded to 0.001 degree, in the Reanimate engine's core/natural-earth-data.mjs
-  for Reanimate's map-projection film. Made with Natural Earth. See integrations/natural-earth-vector/.
+  for Reanimate's map-projection film; and Natural Earth II with shaded relief and water, 1:50m (NE2_50M_SR_W.zip from
+  naciscdn.org, archive sha256 7e0e07089b699a3cccad98dd1b2446390d8e3f8c5006359d477a329cebcafaa9), resized to 1280 x 640 in
+  the engine's data/earth-ne2-1280.jpg. Made with Natural Earth. See integrations/natural-earth-vector/.
 - d3/d3-scale-chromatic 3.1.0, commit 2c52792197299346b7bdb94322bb4dff8f554fea, Copyright 2010-2024 Mike Bostock, ISC: the
   turbo and cividis polynomials and the sinebow formula, carried by Reanimate.ColorMap and ported in the Reanimate engine's
   core/color.mjs. The turbo colour scheme is by Anton Mikhailov, Copyright 2019 Google LLC, Apache-2.0; cividis is by

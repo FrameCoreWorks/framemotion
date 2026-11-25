@@ -148,6 +148,15 @@ test('reel formats keep the short side at 9 units; fitScreenA scales a 16 x 9 dr
   assert.match(R.renderSvg(R.frameAt(0, R.fitScreenA(ani, [9, 16], 'cover'))), /scale\(1\.777778/);
   assert.equal(R.fitScreenA(ani, [9, 16], 'none'), ani);
   assert.throws(() => R.fitScreenA(ani, [9, 16], 'stretch'), /mode must be/);
+  // The bands around a contained film take its own background, frame by frame (here black, not the page's white).
+  const dark = R.fitScreenA(R.addStatic(R.mkBackground('black'), ani), [9, 16], 'contain');
+  assert.match(R.renderSvg(R.frameAt(0, dark), {screen: [9, 16]}), /^<svg[^>]*><g[^>]*><g><rect [^>]*fill="#000000"[^>]*width="9" height="16"/);
+  // 'safe' keeps the 16 x 9 picture inside the 9:16 safe area: below the top 10 %, above the bottom 20 %.
+  const safe = R.fitScreenA(R.staticFrame(1, R.mkRect(16, 8.99)), [9, 16], 'safe');   // not 16 x 9: that would be read as the background
+  const [x, y, w, h] = R.boundingBox(R.frameAt(0, safe));
+  assert.ok(x >= -4.5 - 1e-9 && x + w <= 4.5 + 1e-9);
+  assert.ok(y >= -8 + 0.2 * 16 - 1e-9 && y + h <= 8 - 0.1 * 16 + 1e-9, `${y} .. ${y + h}`);
+  assert.equal(R.fitScreenA(ani, [9, 9], 'safe').duration, 1, 'no safe area outside 9:16: same as contain');
 });
 
 test('renderSphere: an opaque texture shows its colour on the disc only; the back shows through a transparent front', () => {
@@ -155,12 +164,21 @@ test('renderSphere: an opaque texture shows its colour on the disc only; the bac
   assert.equal(img.width, 20);
   assert.deepEqual([...img.data.slice((10 + 10 * 20) * 4, (10 + 10 * 20) * 4 + 4)], [10, 20, 30, 255], 'centre');
   assert.equal(img.data[3], 0, 'corner outside the disc');
-  // u = 0 faces the camera and u = 0.5 is behind: a clear front lets the back's red through.
-  const back = R.renderSphere({texture: (u) => (Math.abs(u - 0.5) < 0.1 ? [255, 0, 0, 255] : [0, 0, 255, 0]), radius: 1, pxPerUnit: 10});
+  // POV-Ray's uv: u counts from +x towards +z, so the camera (at -z) sees u = 0.75 and u = 0.25 is behind.
+  // A clear front lets the back's red through.
+  const back = R.renderSphere({texture: (u) => (Math.abs(u - 0.25) < 0.1 ? [255, 0, 0, 255] : [0, 0, 255, 0]), radius: 1, pxPerUnit: 10});
   assert.deepEqual([...back.data.slice((10 + 10 * 20) * 4, (10 + 10 * 20) * 4 + 4)], [255, 0, 0, 255]);
-  const lines = R.sphereLines({lines: [[[0.5, 0.1], [0.5, 0.9]], [[0, 0.1], [0, 0.9]]], radius: 1});
+  const lines = R.sphereLines({lines: [[[0.25, 0.1], [0.25, 0.9]], [[0.75, 0.1], [0.75, 0.9]]], radius: 1});
   assert.equal(lines.length, 1, 'the meridian behind the sphere is hidden');
-  assert.ok(lines[0].every(([x]) => Math.abs(x) < 1e-12), 'the front meridian (u = 0) runs down the middle');
+  assert.ok(lines[0].every(([x]) => Math.abs(x) < 1e-12), 'the front meridian (u = 0.75) runs down the middle');
+  // u = 0 at +x: a texture red only near u = 0 colours the right edge, not the left.
+  const right = R.renderSphere({texture: (u) => (u < 0.05 || u > 0.95 ? [255, 0, 0, 255] : [0, 0, 255, 255]), radius: 1, pxPerUnit: 10, samples: 1});
+  const px = (i, j) => [...right.data.slice((i + j * 20) * 4, (i + j * 20) * 4 + 3)];
+  assert.deepEqual(px(19, 10), [255, 0, 0]);
+  assert.deepEqual(px(0, 10), [0, 0, 255]);
+  // Supersampling: an edge pixel is partly covered.
+  const edge = R.renderSphere({texture: () => [255, 255, 255, 255], radius: 1, pxPerUnit: 10, samples: 3});
+  assert.ok(edge.data.some((v, k) => k % 4 === 3 && v > 0 && v < 255), 'antialiased rim');
 });
 
 test('the films: the map projection borders bend with the projection and the showcase sphere turns', async () => {

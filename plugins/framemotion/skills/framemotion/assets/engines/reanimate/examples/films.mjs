@@ -6,8 +6,9 @@
 //
 // Reanimate reads countries.json, land.geojson and earth-extreme.jpg from the working directory and
 // its repository holds none of them. Here the borders and land are Natural Earth's 1:110m layers
-// (public domain, core/natural-earth-data.mjs) and the picture is Reanimate's built-in smallEarth
-// (300 x 150), or any equirectangular {width, height, data} RGBA image passed as `earth`.
+// (public domain, core/natural-earth-data.mjs). The picture is any equirectangular {width, height, data}
+// RGBA image passed as `earth`: the engine page passes Natural Earth II at 1280 x 640 (data/earth-ne2-1280.jpg,
+// public domain); without one it is Reanimate's built-in smallEarth (300 x 150).
 import * as R from '../core/index.mjs';
 import {haskellRound} from './core.mjs';
 import {NE_110M_COUNTRIES, NE_110M_LAND} from '../core/natural-earth-data.mjs';
@@ -150,5 +151,5 @@ function mapProjectionDistortion({earth} = {}) {
 
 export const FILM_EXAMPLES = {
   map_projection_gif: mapProjectionGif,
-  map_projection_distortion: mapProjectionDistortion,
+  map_projection_distortion: Object.assign(mapProjectionDistortion, {usesEarth: true}),
 };

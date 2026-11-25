@@ -51,8 +51,9 @@ const povAngle = (t) => haskellRound((t * 360 / 10) / 0.1) * 0.1;
 const rotateWireSphere = () => R.animate((t) => R.withStrokeColor('white', R.withStrokeWidth(0.01, R.withFillOpacity(0,
   R.mkGroup(sphereLines({lines: OUTLINES, rotY: povAngle(t), rotX: -30}).map(R.mkLinePath))))));
 
+// 160 pixels per unit, as the film's POV-Ray render (2560 pixels over 16 units), 2 x 2 samples for +A.
 const rotateSphere = () => R.animate((t) => R.scaleToSize(4, 4,
-  R.embedImageRGBA(renderSphere({texture: checkerTexture, rotY: povAngle(t), rotX: -30, pxPerUnit: 80}))));
+  R.embedImageRGBA(renderSphere({texture: checkerTexture, rotY: povAngle(t), rotX: -30, pxPerUnit: 160, samples: 2}))));
 
 // --- sphereIntro
 

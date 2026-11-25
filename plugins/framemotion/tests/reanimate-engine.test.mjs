@@ -83,3 +83,24 @@ test('the engine page draws a map projection as a still image, also in a reel', 
     assert.ok(Math.abs(box.h - 180 * 9 / 16) < 0.5 && Math.abs(box.y - (320 - box.h) / 2) < 0.5, `centred: ${JSON.stringify(box)}`);
   } finally { await close(); }
 });
+
+test('on the page, map_projection_distortion redraws Natural Earth II at 1280 x 640, and a contained reel has bands of the film\'s colour', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 120000}, async () => {
+  const sizeOf = async (earth) => {
+    const {page, close} = await kit.openEngine('reanimate', {params: {width: 320, height: 180, example: 'map_projection_distortion', ...(earth ? {earth} : {})}});
+    try {
+      return await page.evaluate(() => {
+        window.__framemotion.engine.seek(0.2);
+        const img = new Image();
+        img.src = document.querySelector('#stage image').getAttribute('xlink:href') ?? document.querySelector('#stage image').getAttribute('href');
+        return img.decode().then(() => [img.naturalWidth, img.naturalHeight]);
+      });
+    } finally { await close(); }
+  };
+  assert.deepEqual(await sizeOf(), [1280, 640]);
+  assert.deepEqual(await sizeOf('small'), [300, 150]);
+  const {page, close} = await kit.openEngine('reanimate', {params: {width: 180, height: 320, example: 'showcase', fit: 'contain'}});
+  try {
+    const fill = await page.evaluate(() => { window.__framemotion.engine.seek(5); return document.querySelector('#stage svg rect').getAttribute('fill'); });
+    assert.equal(fill, '#000000', 'the band behind the picture is the film\'s black');
+  } finally { await close(); }
+});
