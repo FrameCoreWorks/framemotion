@@ -36,9 +36,9 @@ const normalisePng = (svg) => svg.replace(/data:image\/png;base64,([^"]+)/g, (_,
 
 test('every example with a Reanimate golden file prints the same SVG (byte for byte; PNGs pixel for pixel)', () => {
   const goldens = fs.readdirSync(GOLDEN).filter((f) => f.endsWith('.golden'));
-  assert.equal(goldens.length, 70);
+  assert.equal(goldens.length, 78);
   for (const file of goldens) {
-    const name = file.slice('doc_'.length, -'.golden'.length);
+    const name = file.replace(/^doc_/, '').slice(0, -'.golden'.length);
     assert.ok(EXAMPLES[name], `no port of ${name}`);
     const expected = fs.readFileSync(path.join(GOLDEN, file), 'utf8').split('\n').filter(Boolean);
     const got = testFrames(EXAMPLES[name]());
@@ -260,9 +260,18 @@ const DURATIONS = {
   mollweideP: 1, orthoP: 1, sinusoidalP: 1, wernerP: 1,
   // pack 4: mathematics (fourier_draw, tut_glue_fourier, demo_tangent and balloon need TeX outlines; see reanimate-math)
   fourier: 48, fourier_draw: 52, tut_glue_fourier: 30, demo_tangent: 30, demo_stars: 10, balloon: 6,
+  // pack 5: morphing (the glyph morphs need TeX outlines; see reanimate-morph)
+  linear: 8, rawLinear: 8, rotationalTrajectory: 8, morphology_intro: 8, morphology_color: 5, morphology_linear: 36,
+  morphology_closest: 36, morphology_rotational: 36, morphology_object_correspondence: 12,
+  morphology_point_correspondence: 32, morphology_rotational_intro: 12,
+  // pack 5: the remaining examples with a golden file (four draw TeX)
+  bug_play1: 2, bug_play2: 2, bug_play3: 2, bug_quad: 1, counter: 2, goo: 10, intro_hello: 1, raster: 5,
+  intro_canvas: 37, intro_canvas_square: 36, latex_basic: 4, fe_morph: 12,
+  // pack 5: films
+  map_projection_gif: 6, map_projection_distortion: 59, showcase: 23, showcase_latex: 20,
 };
 
-test('every example (109) renders 10 frames with no NaN or undefined, at its pinned duration', () => {
+test('every example (136) renders 10 frames with no NaN or undefined, at its pinned duration', () => {
   assert.deepEqual(Object.keys(EXAMPLES).sort(), Object.keys(DURATIONS).sort());
   for (const [name, make] of Object.entries(EXAMPLES)) {
     if (make.needsTex) {   // computes with glyph outlines: without a TeX renderer it says so

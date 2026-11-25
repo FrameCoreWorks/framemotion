@@ -9,7 +9,7 @@ let playwright = true;
 try { await kit.loadPlaywright(); } catch { playwright = false; }
 
 test('the engine page renders deterministic frames for several examples', {skip: playwright ? false : 'engines: Playwright is not installed', timeout: 300000}, async () => {
-  assert.equal(Object.keys(EXAMPLES).length, 109);
+  assert.equal(Object.keys(EXAMPLES).length, 136);
   for (const example of ['drawCircle', 'spriteZ', 'chainT']) {
     const r = await kit.renderFrames('reanimate', {params: {width: 320, height: 180, example}, frames: [10, 25, 40]});
     assert.ok(r.frames.every((f) => f.deterministic && !f.flat), example);

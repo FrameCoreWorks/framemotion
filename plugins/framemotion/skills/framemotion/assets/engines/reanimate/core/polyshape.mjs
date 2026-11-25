@@ -129,9 +129,10 @@ function plPolygonify(tol, curves) {
 /**
  * dropHairs: repeated neighbours and zero-width hairs (the outline goes to a point and straight back)
  * removed. They have no area, and the shortest-path tree on a triangulation cannot pass through them.
- * Some MathJax outlines (the "8") have one; Reanimate keeps them, so this is a difference on purpose.
+ * Some MathJax outlines (the "8") have one. Reanimate keeps them; balloon drops them (a difference on
+ * purpose), morph keeps them as Reanimate does.
  */
-function dropHairs(points) {
+export function dropHairs(points) {
   const out = points.slice();
   for (let changed = true; changed;) {
     changed = false;
@@ -144,7 +145,7 @@ function dropHairs(points) {
 }
 /** plToPolygon: the outline as an exact counter-clockwise polygon (the repeated last point dropped). */
 function plToPolygon(tol, curves) {
-  const pts = dropHairs(plPolygonify(tol, curves).slice(0, -1).map(([x, y]) => [fromDouble(x), fromDouble(y)]));
+  const pts = plPolygonify(tol, curves).slice(0, -1).map(([x, y]) => [fromDouble(x), fromDouble(y)]);
   const p = mkPolygon(pts);
   return pIsCCW(p) ? p : mkPolygon(pts.slice().reverse());
 }

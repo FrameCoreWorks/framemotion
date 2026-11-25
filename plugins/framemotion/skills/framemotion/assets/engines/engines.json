@@ -3836,7 +3836,7 @@
       "id": "reanimate",
       "title": "Reanimate engine: vector drawings and maths animations (own engine ported from Reanimate)",
       "group": "explainers",
-      "about": "Self-drawing lines and letters, objects on easing curves, colour maps, TeX, 20 map projections, Fourier circles and balloon shapes.",
+      "about": "Self-drawing lines, TeX, colour maps, 20 map projections, Fourier circles, shape morphs and two films; 16:9, 9:16, 1:1, 4:5.",
       "good_for": [
         "explainer",
         "background"
@@ -3976,7 +3976,34 @@
             "tut_glue_fourier",
             "demo_tangent",
             "demo_stars",
-            "balloon"
+            "balloon",
+            "linear",
+            "rawLinear",
+            "rotationalTrajectory",
+            "morphology_intro",
+            "morphology_color",
+            "morphology_linear",
+            "morphology_closest",
+            "morphology_rotational",
+            "morphology_object_correspondence",
+            "morphology_point_correspondence",
+            "morphology_rotational_intro",
+            "bug_play1",
+            "bug_play2",
+            "bug_play3",
+            "bug_quad",
+            "counter",
+            "goo",
+            "intro_hello",
+            "raster",
+            "intro_canvas",
+            "intro_canvas_square",
+            "latex_basic",
+            "fe_morph",
+            "map_projection_gif",
+            "map_projection_distortion",
+            "showcase",
+            "showcase_latex"
           ],
           "about": "a ported Reanimate example (its length sets the film's length)"
         },
@@ -3998,6 +4025,16 @@
           "maxItems": 2,
           "items": "number",
           "about": "the canvas in units; [16, 9] (Reanimate's) fits a 16:9 frame only; left out, the short side is 9 units, so a 1080x1920 reel gets [9, 16]; a value must have the frame's proportions"
+        },
+        "fit": {
+          "type": "string",
+          "default": "none",
+          "enum": [
+            "none",
+            "contain",
+            "cover"
+          ],
+          "about": "for a reel (9:16, 1:1, 4:5): 'contain' shows a 16:9 example whole with empty bands, 'cover' fills the frame and crops the sides, 'none' keeps unit sizes (the middle of the drawing)"
         }
       },
       "flat_frames": [

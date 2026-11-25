@@ -4,7 +4,7 @@
 // longest such path are pulled back onto the circle of that length, as in Reanimate.
 import * as Q from './rational.mjs';
 import {mkGroup, mkLinePathClosed} from './svg.mjs';
-import {toShapes} from './polyshape.mjs';
+import {toShapes, dropHairs} from './polyshape.mjs';
 import {mkPolygon, polygonPoints, pSize, pNext, pAccess, pParent, pCycles, rayIntersect} from './polygon.mjs';
 
 /** ssspDistances: each vertex's shortest-path distance from vertex 0 (doubles, as distance' gives). */
@@ -127,7 +127,7 @@ function balloonP(p) {
 export function balloonWith(tol, svg) {
   let shapes = null;
   return (t) => {
-    shapes ??= toShapes(tol, svg).map(([attrs, poly]) => [attrs, balloonP(shiftLongestDiameter(poly))]);
+    shapes ??= toShapes(tol, svg).map(([attrs, poly]) => [attrs, balloonP(shiftLongestDiameter(mkPolygon(dropHairs(polygonPoints(poly)))))]);
     return mkGroup(shapes.map(([attrs, gen]) => ({...mkLinePathClosed(polygonPoints(gen(t)).map(Q.v2ToDouble)), attrs: {...attrs}})));
   };
 }

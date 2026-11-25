@@ -14,7 +14,7 @@ import {mkStdGen, nextWord64, randomRsDouble} from '../skills/framemotion/assets
 import {cmul, csum, expTurn, cx, cneg} from '../skills/framemotion/assets/engines/reanimate/core/complex.mjs';
 import {bezierIntersection, closest, evalBezier} from '../skills/framemotion/assets/engines/reanimate/core/cubicbezier.mjs';
 import {mkPolygon, pParent, pCycles, pIsCCW, polygonPoints, pAccess} from '../skills/framemotion/assets/engines/reanimate/core/polygon.mjs';
-import {toShapes} from '../skills/framemotion/assets/engines/reanimate/core/polyshape.mjs';
+import {toShapes, dropHairs} from '../skills/framemotion/assets/engines/reanimate/core/polyshape.mjs';
 import {MATH_EXAMPLES} from '../skills/framemotion/assets/engines/reanimate/examples/math.mjs';
 
 let mathjax = false;
@@ -138,7 +138,7 @@ test('a shape with a hole: the cut does not change the shortest paths', () => {
 test('letters with holes (e, 8, B, R, O, g) triangulate exactly and give the same shortest paths from any start', {...needsMathJax, timeout: 120000}, () => {
   for (const ch of ['e', '8', 'B', 'R', 'O', 'g']) {
     const shapes = toShapes(0.01, R.scale(8, R.center(R.latex(ch))));
-    for (const [, poly] of shapes) assert.ok(rotationSpread(poly) < 1e-9, ch);
+    for (const [, poly] of shapes) assert.ok(rotationSpread(mkPolygon(dropHairs(polygonPoints(poly)))) < 1e-9, ch);   // as balloon uses them
   }
 });
 

@@ -20,7 +20,7 @@ export const DEFAULT_STROKE_WIDTH = 0.05;
 // Nodes
 
 export const None = Object.freeze({kind: 'none'});
-const KINDS_WITH_ATTRS = new Set(['group', 'defs', 'path', 'circle', 'ellipse', 'rect', 'line', 'polyline', 'polygon', 'text', 'image', 'use', 'clipPath']);
+const KINDS_WITH_ATTRS = new Set(['group', 'defs', 'path', 'circle', 'ellipse', 'rect', 'line', 'polyline', 'polygon', 'text', 'image', 'use', 'clipPath', 'filter', 'fe']);
 export const isNone = (t) => !t || t.kind === 'none';
 
 export const mkGroup = (children) => ({kind: 'group', attrs: {}, children: children.slice()});
@@ -35,6 +35,29 @@ export const mkUse = (name) => ({kind: 'use', attrs: {}, name});
 export const mkClipPath = (id, children) => withId(id, {kind: 'clipPath', attrs: {}, children: children.slice()});
 export const mkPolyline = (points) => ({kind: 'polyline', attrs: {}, points: points.map((p) => [p[0], p[1]])});
 export const mkPolygon = (points) => ({kind: 'polygon', attrs: {}, points: points.map((p) => [p[0], p[1]])});
+
+// Filters (svg-tree's Filter and the filter elements Reanimate's examples use). A length is a number
+// (svg-tree's Num) or {percent: p} (Percent p, printed as floor (100 p) %). Attributes equal to
+// svg-tree's defaults are left out, as its printer does.
+export const ppNumber = (n) => (typeof n === 'number' ? ppD(n) : `${Math.floor(100 * n.percent)}%`);
+const isDefaultNum = (n) => n === undefined || n === null || n === 0;
+/** mkFilter id elements {width, height, x, y}: a <filter> with its elements. */
+export const mkFilter = (id, elements, {width, height, x, y} = {}) =>
+  withId(id, {kind: 'filter', attrs: {}, self: {width, height, x, y}, children: elements.slice()});
+const fe = (tag, result, own) => ({kind: 'fe', attrs: {}, tag, result, own: own.filter(([, v]) => v !== undefined && v !== null)});
+/** feGaussianBlur {stdDeviation, stdDeviationY, in, edgeMode ('duplicate' by default), result} */
+export const feGaussianBlur = ({stdDeviation = 0, stdDeviationY = null, in: input, edgeMode = 'duplicate', result} = {}) => fe('feGaussianBlur', result, [
+  ['in', input],
+  ['stdDeviation', isDefaultNum(stdDeviation) && stdDeviationY === null ? null : [stdDeviation, ...(stdDeviationY === null ? [] : [stdDeviationY])].map(ppNumber).join(', ')],
+  ['edgeMode', edgeMode === 'duplicate' ? null : edgeMode]]);
+/** feColorMatrix {in, type ('matrix' by default), values, result} */
+export const feColorMatrix = ({in: input, type = 'matrix', values = '', result} = {}) => fe('feColorMatrix', result, [
+  ['in', input], ['type', type === 'matrix' ? null : type], ['values', values === '' ? null : values]]);
+/** feComposite {in, in2, operator ('over' by default), k1..k4, result} */
+export const feComposite = ({in: input, in2, operator = 'over', k1 = 0, k2 = 0, k3 = 0, k4 = 0, result} = {}) => fe('feComposite', result, [
+  ['in', input], ['in2', in2], ['operator', operator === 'over' ? null : operator],
+  ...[['k1', k1], ['k2', k2], ['k3', k3], ['k4', k4]].map(([k, v]) => [k, isDefaultNum(v) ? null : ppNumber(v)])]);
+export const withFilterRef = (ref, t) => setAttr(t, 'filter', ref);
 
 export function mkLinePath(points) {
   if (!points.length) return mkGroup([]);
@@ -274,6 +297,8 @@ function element(t) {
       ...(t.preserveAspectRatio ? [['preserveAspectRatio', t.preserveAspectRatio]] : [])], []];
     case 'text': return ['text', drawAttrs(t.attrs), null, {text: t.content.join(''), empty: t.content.length === 0}];
     case 'svg': return ['svg', documentAttrs(t.doc), null, {elements: t.doc.elements}];
+    case 'filter': return ['filter', [...drawAttrs(t.attrs), ...['width', 'height', 'x', 'y'].filter((k) => t.self[k] !== undefined && t.self[k] !== null).map((k) => [k, ppNumber(t.self[k])])], null, {elements: t.children}];
+    case 'fe': return [t.tag, [...(t.result ? [['result', t.result]] : []), ...drawAttrs(t.attrs), ...t.own], []];
     default: throw new Error(`cannot print a "${t.kind}" node`);
   }
 }

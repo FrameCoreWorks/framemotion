@@ -2,6 +2,10 @@
 
 The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/framemotion/CHANGELOG.md).
 
+## 2026-11-25
+
+- FrameMotion 0.9.0 (in progress): the Reanimate engine's packs 3 to 5 (map projections; mathematics; morphs, the map-projection and showcase films, reel formats 9:16, 1:1 and 4:5).
+
 ## 2026-11-23
 
 - FrameMotion 0.9.0 (in progress): the Reanimate engine, ported from the Haskell library (packs 1 and 2 of 5: the core; objects, colours and TeX text).

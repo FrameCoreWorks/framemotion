@@ -14,3 +14,6 @@ export * from './geoprojection.mjs';
 export * from './images.mjs';
 export * from './balloon.mjs';
 export * from './colorspace.mjs';
+export * from './morph.mjs';
+export * from './sphere.mjs';
+export * from './formats.mjs';

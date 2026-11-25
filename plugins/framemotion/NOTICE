@@ -68,6 +68,10 @@ a source-manifest.json with the pinned commit):
 - splitmix 0.1.0.4 (Haskell package on Hackage, archive sha256 6d065402394e7a9117093dbb4530a21342c9b1e2ec509516c8a8d0ffed98ecaa),
   Copyright (c) 2017, Oleg Grenrus, BSD-3-Clause: the SplitMix64 generator (mkSMGen, nextWord64, its mixers) ported to
   JavaScript in the Reanimate engine's core/random.mjs. See integrations/splitmix-haskell/.
+- Natural Earth (nvkelso/natural-earth-vector), commit ca96624a56bd078437bca8184e78163e5039ad19, public domain (Natural
+  Earth terms of use; Tom Patterson, Nathaniel Vaughn Kelso and contributors): the 1:110m Admin 0 countries and land layers,
+  geometry and country names with coordinates rounded to 0.001 degree, in the Reanimate engine's core/natural-earth-data.mjs
+  for Reanimate's map-projection film. Made with Natural Earth. See integrations/natural-earth-vector/.
 - d3/d3-scale-chromatic 3.1.0, commit 2c52792197299346b7bdb94322bb4dff8f554fea, Copyright 2010-2024 Mike Bostock, ISC: the
   turbo and cividis polynomials and the sinebow formula, carried by Reanimate.ColorMap and ported in the Reanimate engine's
   core/color.mjs. The turbo colour scheme is by Anton Mikhailov, Copyright 2019 Google LLC, Apache-2.0; cividis is by

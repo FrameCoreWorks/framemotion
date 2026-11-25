@@ -774,7 +774,7 @@
         "the Haskell library ported module by module to FrameMotion's own JavaScript engine in skills/framemotion/assets/engines/reanimate/ (owner request 2026-11-23: the same drawings, adapted to reels)",
         "Reanimate's golden SVG files for the ported examples kept unchanged as test fixtures",
         "the pixels of its data/small_earth.jpg (public domain with the repository; metadata points to a Natural Earth II source) decoded once into core/earth-data.mjs",
-        "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; later packs add the films",
+        "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; the films map-projection (gif.hs, distortion.hs) and showcase (sphereIntro, featLaTeX) are ported, the showcase sphere drawn by FrameMotion's own core/sphere.mjs instead of POV-Ray; sizes.hs (a Blender globe), introSVG and the GitHub, Haskell and SVG logo examples are not ported",
         "the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and data/cone_sensitivity_lms.csv kept in core/colorspace-data.mjs; Reanimate names no source, but they are copies of tables from the Colour & Vision Research Laboratory (cvrl.org): lin2012xyz2e_1_7sf.csv (CIE 2012 2-degree XYZ colour-matching functions), cc2012xyz2_1_5dp.csv (their chromaticity coordinates) and linss2_10e_1.csv (Stockman & Sharpe 2-degree cone fundamentals); CVRL states no licence for them, so Reanimate's Unlicense does not cover them"
       ]
     },
@@ -893,6 +893,21 @@
       "conditions": [
         "npm dependency pinned exactly in assets/engines/package.json (tag 3.2.2 = this commit); installed by npm ci, never bundled",
         "the Reanimate engine page loads es5/tex-svg-full.js to draw latex, math and latexAlign (Reanimate runs LaTeX and dvisvgm there); menu, speech and assistive output off"
+      ]
+    },
+    {
+      "name": "natural-earth-vector",
+      "repo": "nvkelso/natural-earth-vector",
+      "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+      "bundled_commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+      "licence": "Public-Domain-Natural-Earth",
+      "copyright": "Public domain (Natural Earth: Tom Patterson, Nathaniel Vaughn Kelso and contributors)",
+      "kind": "data",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "the 1:110m Admin 0 countries and land layers as GeoJSON geometry (country NAME kept, coordinates rounded to 0.001 degree) in the Reanimate engine's core/natural-earth-data.mjs, for Reanimate's map-projection film, whose countries.json and land.geojson are not in its repository",
+        "admitted by owner decision 2026-11-25 (AGENTS.md rule 6 names Natural Earth's public-domain map data)"
       ]
     }
   ]
