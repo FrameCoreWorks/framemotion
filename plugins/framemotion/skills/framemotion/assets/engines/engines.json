@@ -632,7 +632,7 @@
           "type": "number",
           "default": 0,
           "min": 0,
-          "max": 10000000.0,
+          "max": 10000000,
           "about": "shader time at frame 0, in ms (a different start is a different pattern)"
         },
         "fps": {
@@ -3764,7 +3764,7 @@
         "height": 1080
       },
       "fps": 30,
-      "duration": 18.0,
+      "duration": 18,
       "readme": "../anidoodle-engine/README.md",
       "params": {
         "style": {
@@ -3831,6 +3831,225 @@
           "about": "for the style \"motif\": what it is drawn with (chalk draws on a dark board)"
         }
       }
+    },
+    {
+      "id": "reanimate",
+      "title": "Reanimate engine: vector drawings and maths animations (own engine ported from Reanimate)",
+      "group": "explainers",
+      "about": "Self-drawing lines, TeX, colour maps, 20 map projections, Fourier circles, shape morphs and two films; 16:9, 9:16, 1:1, 4:5.",
+      "good_for": [
+        "explainer",
+        "background"
+      ],
+      "inputs": [
+        "none"
+      ],
+      "status": "experimental",
+      "kind": "svg",
+      "page": "reanimate/index.html",
+      "screenshot": "#stage",
+      "size": {
+        "width": 1920,
+        "height": 1080
+      },
+      "fps": 30,
+      "duration": 2,
+      "readme": "reanimate/README.md",
+      "sources": [
+        "reanimate-haskell"
+      ],
+      "blocks": [
+        "reanimate/core/index.mjs",
+        "reanimate/engine.mjs"
+      ],
+      "params": {
+        "example": {
+          "type": "string",
+          "default": "drawCircle",
+          "timing": true,
+          "enum": [
+            "addStatic",
+            "andThen",
+            "drawBox",
+            "drawCircle",
+            "drawProgress",
+            "mapA",
+            "parA",
+            "parDropA",
+            "parLoopA",
+            "pause",
+            "pauseAround",
+            "pauseAtBeginning",
+            "pauseAtEnd",
+            "playThenReverseA",
+            "repeatA",
+            "reverseA",
+            "seqA",
+            "bellS",
+            "constantS",
+            "cubicBezierS",
+            "curveS",
+            "fromToS",
+            "oscillateS",
+            "powerS",
+            "reverseS",
+            "signalA",
+            "chainT",
+            "fadeT",
+            "overlapT",
+            "slideDownT",
+            "slideLeftT",
+            "slideUpT",
+            "pathify",
+            "mkBackground",
+            "withViewBox",
+            "mkText",
+            "applyVar",
+            "destroySprite",
+            "fork",
+            "newSprite",
+            "newSpriteA",
+            "newSpriteA'",
+            "newSpriteSVG",
+            "play",
+            "queryNow",
+            "signalS",
+            "simpleVar",
+            "spriteE",
+            "spriteMap",
+            "spriteScope",
+            "spriteTween",
+            "spriteVar",
+            "spriteZ",
+            "unVar",
+            "wait",
+            "waitOn",
+            "writeVar",
+            "cividis",
+            "greyscale",
+            "hsv",
+            "hsvMatlab",
+            "inferno",
+            "jet",
+            "magma",
+            "plasma",
+            "sinebow",
+            "turbo",
+            "viridis",
+            "hsvComponents",
+            "labComponents",
+            "lchComponents",
+            "rgbComponents",
+            "xyzComponents",
+            "oDraw",
+            "oGrow",
+            "oHideWith",
+            "oScaleIn",
+            "oScaleOut",
+            "latex",
+            "latexAlign",
+            "signalO",
+            "cameraAttach",
+            "cameraFocus",
+            "augustP",
+            "bonneP",
+            "bottomleyP",
+            "cassiniP",
+            "collignonP",
+            "cylindricalEqualAreaP",
+            "eckert1P",
+            "eckert3P",
+            "eckert5P",
+            "equirectangularP",
+            "faheyP",
+            "foucautP",
+            "hammerP",
+            "lagrangeP",
+            "lambertP",
+            "mercatorP",
+            "mollweideP",
+            "orthoP",
+            "sinusoidalP",
+            "wernerP",
+            "fourier",
+            "fourier_draw",
+            "tut_glue_fourier",
+            "demo_tangent",
+            "demo_stars",
+            "balloon",
+            "linear",
+            "rawLinear",
+            "rotationalTrajectory",
+            "morphology_intro",
+            "morphology_color",
+            "morphology_linear",
+            "morphology_closest",
+            "morphology_rotational",
+            "morphology_object_correspondence",
+            "morphology_point_correspondence",
+            "morphology_rotational_intro",
+            "bug_play1",
+            "bug_play2",
+            "bug_play3",
+            "bug_quad",
+            "counter",
+            "goo",
+            "intro_hello",
+            "raster",
+            "intro_canvas",
+            "intro_canvas_square",
+            "latex_basic",
+            "fe_morph",
+            "map_projection_gif",
+            "map_projection_distortion",
+            "showcase",
+            "showcase_latex"
+          ],
+          "about": "a ported Reanimate example (its length sets the film's length)"
+        },
+        "fps": {
+          "type": "integer",
+          "default": 30,
+          "min": 1,
+          "max": 120,
+          "timing": true,
+          "about": "frames per second"
+        },
+        "screen": {
+          "type": "array",
+          "default": [
+            16,
+            9
+          ],
+          "minItems": 2,
+          "maxItems": 2,
+          "items": "number",
+          "about": "the canvas in units; [16, 9] (Reanimate's) fits a 16:9 frame only; left out, the short side is 9 units, so a 1080x1920 reel gets [9, 16]; a value must have the frame's proportions"
+        },
+        "fit": {
+          "type": "string",
+          "default": "none",
+          "enum": [
+            "none",
+            "contain",
+            "safe",
+            "cover"
+          ],
+          "about": "for a reel (9:16, 1:1, 4:5): 'contain' shows a 16:9 example whole on bands of its background, 'safe' does that inside the 9:16 safe area, 'cover' fills the frame and crops the sides (9:16 keeps the middle 32 %), 'none' keeps unit sizes"
+        },
+        "earth": {
+          "type": "string",
+          "default": "large",
+          "enum": [
+            "large",
+            "small"
+          ],
+          "about": "the Earth's picture in map_projection_distortion: 'large' is Natural Earth II at 1280x640, 'small' is Reanimate's built-in 300x150 smallEarth"
+        }
+      },
+      "flat_frames": [
+        0
+      ]
     }
   ]
 }

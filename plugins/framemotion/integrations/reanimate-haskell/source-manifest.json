@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/reanimate/reanimate",
+  "source_commit": "583ee9f426bb96ac15996772a6fd7ccf0caf08a7",
+  "retrieved_on": "2026-11-23",
+  "license": "Unlicense (public domain dedication, reanimate.cabal: PublicDomain)",
+  "attribution": "Reanimate by David Himmelstrup and contributors, released into the public domain",
+  "activation": "framecore_works_javascript_port_rendered_by_the_framemotion_engine_kit_no_haskell",
+  "ported_modules": {
+    "src/Reanimate/Ease.hs": "skills/framemotion/assets/engines/reanimate/core/animation.mjs (signals)",
+    "src/Reanimate/Animation.hs": "skills/framemotion/assets/engines/reanimate/core/animation.mjs",
+    "src/Reanimate/Effect.hs": "skills/framemotion/assets/engines/reanimate/core/animation.mjs (effects)",
+    "src/Reanimate/Transition.hs": "skills/framemotion/assets/engines/reanimate/core/animation.mjs (transitions)",
+    "src/Reanimate/Builtin/Slide.hs": "skills/framemotion/assets/engines/reanimate/core/animation.mjs (slide transitions)",
+    "src/Reanimate/Builtin/Documentation.hs": "skills/framemotion/assets/engines/reanimate/core/builtin.mjs and core/color.mjs (showColorMap)",
+    "src/Reanimate/Constants.hs": "skills/framemotion/assets/engines/reanimate/core/svg.mjs",
+    "src/Reanimate/Svg/Constructors.hs": "skills/framemotion/assets/engines/reanimate/core/svg.mjs and core/layout.mjs",
+    "src/Reanimate/Svg/LineCommand.hs": "skills/framemotion/assets/engines/reanimate/core/paths.mjs",
+    "src/Reanimate/Svg.hs": "skills/framemotion/assets/engines/reanimate/core/paths.mjs",
+    "src/Reanimate/Svg/BoundingBox.hs": "skills/framemotion/assets/engines/reanimate/core/paths.mjs",
+    "src/Reanimate/Transform.hs": "skills/framemotion/assets/engines/reanimate/core/geom.mjs",
+    "src/Reanimate/Scene/Core.hs": "skills/framemotion/assets/engines/reanimate/core/scene.mjs",
+    "src/Reanimate/Scene/Var.hs": "skills/framemotion/assets/engines/reanimate/core/scene.mjs",
+    "src/Reanimate/Scene/Sprite.hs": "skills/framemotion/assets/engines/reanimate/core/scene.mjs",
+    "examples/doc_*.hs (57 core examples)": "skills/framemotion/assets/engines/reanimate/examples/core.mjs",
+    "src/Reanimate/ColorComponents.hs": "skills/framemotion/assets/engines/reanimate/core/color.mjs",
+    "src/Reanimate/ColorMap.hs": "skills/framemotion/assets/engines/reanimate/core/color.mjs and core/colormap-data.mjs (parula left out: MathWorks design, unclear licence)",
+    "src/Reanimate/Raster.hs (embedImage, embedPng)": "skills/framemotion/assets/engines/reanimate/core/color.mjs (PNG written with stored deflate blocks)",
+    "src/Reanimate/Scene/Object.hs": "skills/framemotion/assets/engines/reanimate/core/object.mjs; the Morph object and oTransform in core/morph.mjs",
+    "examples/doc_*.hs (colour and object examples)": "skills/framemotion/assets/engines/reanimate/examples/color.mjs and examples/object.mjs",
+    "src/Reanimate/GeoProjection.hs": "skills/framemotion/assets/engines/reanimate/core/geoprojection.mjs (GeoJSON is parsed by the caller; renderGeometry takes the parsed geometry)",
+    "src/Reanimate/Builtin/Images.hs (smallEarth)": "skills/framemotion/assets/engines/reanimate/core/images.mjs, its pixels decoded from data/small_earth.jpg into core/earth-data.mjs",
+    "examples/doc_*P.hs (20 map projection examples)": "skills/framemotion/assets/engines/reanimate/examples/geo.mjs",
+    "src/Reanimate/ColorSpace.hs": "skills/framemotion/assets/engines/reanimate/core/colorspace.mjs, its tables (rows up to 700 nm) in core/colorspace-data.mjs",
+    "src/Reanimate/Math/Balloon.hs": "skills/framemotion/assets/engines/reanimate/core/balloon.mjs",
+    "src/Reanimate/Math/Common.hs (rayIntersect, direction and turn tests, distance')": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs and core/rational.mjs (Rational as BigInt fractions)",
+    "src/Reanimate/Math/SSSP.hs (dual, dualTree, sssp)": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs",
+    "src/Reanimate/Math/Polygon.hs (mkPolygon, pAccess, pNext, pParent, pCycles, pIsCCW and the offset model)": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs",
+    "src/Reanimate/Math/Triangulate.hs": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs: the diagonals come from ear clipping instead of hgeometry's triangulate', with the repeated points of a hole's cut handled and an exact area check; the shortest-path tree built on them is the same on any correct triangulation",
+    "src/Reanimate/PolyShape.hs (cmdsToPolyShapes, plGroupShapes, mergePolyShapeHoles, plPolygonify, plToPolygon) and Morph/Common.hs (toShapes)": "skills/framemotion/assets/engines/reanimate/core/polyshape.mjs",
+    "examples/fourier.hs, fourier_draw.hs, tut_glue_fourier.hs, demo_tangent.hs, demo_stars.hs, doc_balloon.hs": "skills/framemotion/assets/engines/reanimate/examples/math.mjs (tangent_and_normal.hs is commented out upstream and needs diagrams; not ported)",
+    "src/Reanimate/Morph/Common.hs, Morph/Linear.hs, Morph/Rotational.hs, Math/Polygon.hs (the parts morphing uses)": "skills/framemotion/assets/engines/reanimate/core/morph.mjs (Morph/Cache's on-disk cache is a per-run memo)",
+    "examples/morphology_*.hs, doc_linear.hs, doc_rawLinear.hs, doc_rotationalTrajectory.hs": "skills/framemotion/assets/engines/reanimate/examples/morph.mjs (parula replaced by viridis)",
+    "examples/bug_play1-3.hs, bug_quad.hs, counter.hs, goo.hs, intro_hello.hs, raster.hs, intro_canvas.hs, intro_canvas_square.hs, latex_basic.hs, fe_morph.hs": "skills/framemotion/assets/engines/reanimate/examples/misc.mjs",
+    "videos/map-projection/gif.hs, distortion.hs": "skills/framemotion/assets/engines/reanimate/examples/films.mjs (borders and land from Natural Earth, integrations/natural-earth-vector)",
+    "videos/showcase/showcase.hs (sphereIntro, featLaTeX)": "skills/framemotion/assets/engines/reanimate/examples/showcase.mjs; the POV-Ray sphere drawn by core/sphere.mjs"
+  },
+  "not_yet_ported": [
+    "Scene/Object.hs oTransform and Morph (pack 5)",
+    "Morph/* and the morph, showcase and map-projection films with their country and land data (pack 5)",
+    "Math/Polygon.hs beyond what balloon uses (cuts, overlap, winding, test shapes), SSSP.hs's naive and visibility variants, PolyShape.hs's union and decomposition (hgeometry and cubicbezier's union): ported with the morphs in pack 5 where they need them",
+    "the rest of Raster.hs (raster files and external converters)"
+  ],
+  "not_ported": [
+    "Povray.hs, Blender.hs, External.hs, Driver/*, Render.hs, Voice.hs, Cache.hs, Memo.hs: they call external programs (POV-Ray, Blender, ffmpeg) or are Reanimate's own command line; FrameMotion renders through its engine kit instead. LaTeX.hs's latex, latexAlign and math are kept as functions in core/latex.mjs, drawn with MathJax instead of LaTeX and dvisvgm"
+  ],
+  "retained_files": [
+    {
+      "source_path": "examples/golden/doc_addStatic.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_addStatic.golden",
+      "sha256": "4ed26c297757c4b68b1f495bfe4e3eee83abf60627675b7d99a073a2098a7730",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_andThen.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_andThen.golden",
+      "sha256": "d1e7a8d8c2b5d3d194d41d0ddd1a0a0e433ce5203df0a3dceebfbc87d2432d44",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_applyVar.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_applyVar.golden",
+      "sha256": "7b1f02bdf5388fcb3682d16db22b8339a751e71df3447f7293efdff360a3eee0",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_bellS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_bellS.golden",
+      "sha256": "65d55785cf81e2e37072165b7713383f30020a9be490276bd9fd94c8716ce23d",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_chainT.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_chainT.golden",
+      "sha256": "3aad575582dafdb1779b127206ee5b69e1067688a9c489ed82a091b6e6c2685b",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_constantS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_constantS.golden",
+      "sha256": "1e7f526d9c46ef58f69350130fe4488a689042d1a1c5e1769d2d6a142558a480",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_cubicBezierS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_cubicBezierS.golden",
+      "sha256": "a76b6ea0797723af563ef9e79200d8cbd7e74426931126972f793debb93e2783",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_curveS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_curveS.golden",
+      "sha256": "c979f1d43dec1b174a84ea0796eacf6632af6487ec9dd9959c5edd025f7fcd04",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_destroySprite.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_destroySprite.golden",
+      "sha256": "4a813cdbcce20427283942013c0d22d698d53af2ff0a233c71c8e189bcac0daf",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_drawBox.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_drawBox.golden",
+      "sha256": "115d7597a82e0efe5fe71e526f930f6f9ebf9d7dd6ae6aea9adde45940363351",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_drawCircle.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_drawCircle.golden",
+      "sha256": "f3602126ef8e7301f1059f4d315fe8c1cb1e6b5231da03ff143272cebaf6bd28",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_drawProgress.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_drawProgress.golden",
+      "sha256": "7ad8760c6f1154a0da8e5d4807ee8402aaf9424ef2eec12efaa6378fd2f39baa",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_fadeT.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_fadeT.golden",
+      "sha256": "e1268895c818ce451d8bff13f3c0b29d00d4a9114ef98ec535eeae980f435da6",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_fork.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_fork.golden",
+      "sha256": "a8743e41718a86e901204d2a334a991fc69d19b2fdd6b657173305a11b0cd1ba",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_fromToS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_fromToS.golden",
+      "sha256": "0121883c1995f41f57d4168c16a7bae0dda50c4ec023707f260cce743aacbc99",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_mapA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_mapA.golden",
+      "sha256": "5e1a90a72ea5992de04a1c3ed88da58c9b844b32fe3803ce1a09a09530ab6e9e",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_mkBackground.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_mkBackground.golden",
+      "sha256": "18c7a505e1e7b2864c6ffcc76d5067ad2e08de4610aa2c27b971d33bf667893c",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_mkText.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_mkText.golden",
+      "sha256": "152f7aaf3034596c6bd99f47fda01388945c7cebecfa6d03900067cc7fabf3d1",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_newSprite.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_newSprite.golden",
+      "sha256": "05a0a600b1dcd49e14cb0b424df06bb53d5f4d372979d6b463052561a531d7bf",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_newSpriteA'.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_newSpriteA'.golden",
+      "sha256": "eac3d677ed90aca420cbe21ad4a9071ea6bbdcc65b205eedeebe49fc7e8396b4",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_newSpriteA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_newSpriteA.golden",
+      "sha256": "f080271cc14e0eb2c8e05308b7e48c72d2debb58e065e0f81e0b5bd3aa1dfd46",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_newSpriteSVG.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_newSpriteSVG.golden",
+      "sha256": "4ed26c297757c4b68b1f495bfe4e3eee83abf60627675b7d99a073a2098a7730",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_oscillateS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_oscillateS.golden",
+      "sha256": "c36a607159c11442a740e5ed34bbec9ee3baa55da9b4a2c151dbcf197a8eb130",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_overlapT.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_overlapT.golden",
+      "sha256": "31f50a75c3040ca9c19695f0b4829a9ec369c8f80bb6bba0c190138675707bb8",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_parA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_parA.golden",
+      "sha256": "0d64d81d1af299a506f851a9ec7ebde83450d9c7c08b37851c4f346c6ad67804",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_parDropA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_parDropA.golden",
+      "sha256": "edd2ccbc93e9e85fc4cb60a089e85e443842b8ce624e40e2f1a98ccf44f711c0",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_parLoopA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_parLoopA.golden",
+      "sha256": "170c7dc3383915a9662b89fddb72047efc83647f75096086f9d6e66a94e7e364",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_pathify.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_pathify.golden",
+      "sha256": "60eb3aa57ba064fc450b0f263f2268fbb9a7ea47bbc593ac4c61385d24cf63fb",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_pause.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_pause.golden",
+      "sha256": "34552d8bc547f3fb8819cddeb6f88c59df63ae1601dd5fb440c47eaa64d58aca",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_pauseAround.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_pauseAround.golden",
+      "sha256": "d688f6d20520dddfc4a9e1e1b077b4337d4450f8407694d0119e2f5eaa96c86e",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_pauseAtBeginning.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_pauseAtBeginning.golden",
+      "sha256": "e548ac1148aceba7bfd401130c067548fe0a1bed9f12eecbecb40ec70f9573a5",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_pauseAtEnd.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_pauseAtEnd.golden",
+      "sha256": "617b6c71497986861c1b7a96d056736a459c1110543f37fa741a70fbbe8c6649",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_play.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_play.golden",
+      "sha256": "4542534e34f69fc998660ee741f884d378bf47ccd1f9706622aff632a1fa3a6a",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_playThenReverseA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_playThenReverseA.golden",
+      "sha256": "e990c2e79e77d4efe4e981864f9fb18303a0e04f58cf1a57f74691fd825e1733",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_queryNow.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_queryNow.golden",
+      "sha256": "7d0d5cac8447f0d0bcbcd9baa288132a4bef7dc788e7c13345f660887b86894d",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_repeatA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_repeatA.golden",
+      "sha256": "a560e864fefbb6f42d7ef5f5859a675dd1e7dca90c8e24e837baa712b66a4a18",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_reverseA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_reverseA.golden",
+      "sha256": "1d785e75f41091b4fe356612903e62092ef874beadaeca31e5139c62d8056a49",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_reverseS.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_reverseS.golden",
+      "sha256": "6bdca5c939f5fb0270cfebb31ec79394e3150eb700c1494e6cf4292cb646c620",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_seqA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_seqA.golden",
+      "sha256": "41fab53c9a2d432cf145699c8015c9fe6b2ca10447258cb032b3c711c1ac4837",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_signalA.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_signalA.golden",
+      "sha256": "0d0dfb1dfb4aee065f9b2d05532684c98a4f505ec2c372b76a4a0373f3b55626",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_simpleVar.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_simpleVar.golden",
+      "sha256": "b11d7d7aba8c4a9ae3cf90200067cf31fc806d2ef70af3fb6c0b47aa89290080",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_slideDownT.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_slideDownT.golden",
+      "sha256": "367b08d3ed332bcf4af1c6f1f596b7d5364f9341af060952eef263f0266595f0",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_slideLeftT.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_slideLeftT.golden",
+      "sha256": "943c4ef205c1ae97a3949eaffa63b04092b0c40ca0b9d17215771e7205033c43",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_slideUpT.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_slideUpT.golden",
+      "sha256": "c1973b0d968c3e4526ec56b2e5f9e1c4739a5d0706f6da50e1fa62ac464df550",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_spriteE.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_spriteE.golden",
+      "sha256": "5803db5323629b16a561b230067a69c13125c43413cbabca756e521e4d465d60",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_spriteMap.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_spriteMap.golden",
+      "sha256": "343e7644b40691d347b1c2e8db65da3bcaecdda0f6242919251d4a16faff570f",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_spriteTween.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_spriteTween.golden",
+      "sha256": "9d930bd21504885ee2a1f09de30999761b04f84626e2592fd00dc5932ef3a0bb",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_spriteVar.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_spriteVar.golden",
+      "sha256": "7b1f02bdf5388fcb3682d16db22b8339a751e71df3447f7293efdff360a3eee0",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_spriteZ.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_spriteZ.golden",
+      "sha256": "63dff219a408d6367dbc20a4e864ce0a6e405e6788cbc2427a79824475206f4a",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_unVar.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_unVar.golden",
+      "sha256": "84e1f0dc3837344d047ba62062f1c12635555f72256a9decafe6e01b40b26983",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_wait.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_wait.golden",
+      "sha256": "cdca93d239faf4c549389dbea8b82080933d848f7cdc1b1f7587f911a5a97603",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_waitOn.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_waitOn.golden",
+      "sha256": "4542534e34f69fc998660ee741f884d378bf47ccd1f9706622aff632a1fa3a6a",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_withViewBox.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_withViewBox.golden",
+      "sha256": "c4bf0af539769d3702a0c63ba6c16287355adab86cdfa3d73bc2faa8ba9689eb",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_writeVar.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_writeVar.golden",
+      "sha256": "cf5aa58ff42735377d4bbd72a836e74127a9f4aae02bc4f211a974b3436ee902",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "6b0382b16279f26ff69014300541967a356a666eb0b91b422f6862f6b7dad17e",
+      "meaning": "Unchanged Unlicense text."
+    },
+    {
+      "source_path": "examples/golden/doc_cividis.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_cividis.golden",
+      "sha256": "c1238d2fed1f5f9ddfab2cf94c63a11fcc87d5c1e06d0433ee78578bff66a639",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_greyscale.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_greyscale.golden",
+      "sha256": "d0dbae46cdbed4ef3eab1f181a46a5985f7a8a57e0ca002b84a3ca9e95a279d4",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_hsv.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_hsv.golden",
+      "sha256": "8f2dab65b412668034fd9091a8578772fae57376269a75e1bbfeaefe50bcaec4",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_hsvComponents.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_hsvComponents.golden",
+      "sha256": "783807cec881bb6fe0c788096e823978d27a14a3e0e3702746e8495523e1860e",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_hsvMatlab.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_hsvMatlab.golden",
+      "sha256": "c73e1a4dedc2f7aee9458018a0a77f8fc1cf5847844ec6772b2bb282681b987c",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_inferno.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_inferno.golden",
+      "sha256": "e99fbf52f7098931d7fb818e8d98d5acabf44280934bd47e80c4127848c85528",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_jet.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_jet.golden",
+      "sha256": "f6707eb511ed659c2ea62cee157d14e03b00fd3dda0d17390d3851a6d3c983c4",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_labComponents.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_labComponents.golden",
+      "sha256": "10e6855eae20ab6b4d89c5bccda75399a01fb4ac6b6e5a640bc88ee1c095acaa",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_lchComponents.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_lchComponents.golden",
+      "sha256": "8e88fbbfbca08b1fe1ee17def06571788789433c8734b289badc4b85353cfd63",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_magma.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_magma.golden",
+      "sha256": "c6a37be2b012a35eb6cf1c36ec235a364b0c3c051c3e8f2d31708a3cf3f261b3",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_plasma.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_plasma.golden",
+      "sha256": "b64211b51b24c4af1aa32749e15248965ef7e4df68d670049f1b12909d70f869",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_rgbComponents.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_rgbComponents.golden",
+      "sha256": "58ae7f73f7e18cfc65a42d420908bba4c1d2d380db47afe42d00f88f1d9e2ec9",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_sinebow.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_sinebow.golden",
+      "sha256": "ec81842e83e7cd7b17429a9931226bf1bee71e3e31f164263071b9b08d50fc45",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_turbo.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_turbo.golden",
+      "sha256": "731b447ccb992815cb1f74a61edcf7849adefc2c564b02a836c774c248d0ac81",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_viridis.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_viridis.golden",
+      "sha256": "5bbed6edae1e0495e0e073c4a6818d568447628665ce9a5723601c59b55aee0b",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/doc_xyzComponents.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/doc_xyzComponents.golden",
+      "sha256": "2cf4611bc2dc4a6b373e53dee71584694138d3be9011de16a8c058214375ee31",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/bug_play1.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/bug_play1.golden",
+      "sha256": "33570c575e25c842f7ad20a29ac5199b758967e7794171f41414b3e4399c1302",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/bug_play2.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/bug_play2.golden",
+      "sha256": "ec196aabfb024f3615d685f74b087bde23cd4ba428c816ca35293633fd96120e",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/bug_play3.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/bug_play3.golden",
+      "sha256": "ec196aabfb024f3615d685f74b087bde23cd4ba428c816ca35293633fd96120e",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/bug_quad.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/bug_quad.golden",
+      "sha256": "c99049552df1949983769e139dc75be52e93fa585737256a6eeb616936806f02",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/counter.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/counter.golden",
+      "sha256": "88cacbe2e5337585c1b0e2bcb0db4e0003f399b85beaf569fef63281c4a321a4",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/goo.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/goo.golden",
+      "sha256": "8741e7d1bcf1c9e98061414ee6ab3b58a55b2598ac33546378f2d47d64347df1",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/intro_hello.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/intro_hello.golden",
+      "sha256": "ca88de932c144ea1030aaf303850f9fc7a72a4a5c7dc49bcc9d9ab20afe307d2",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    },
+    {
+      "source_path": "examples/golden/raster.golden",
+      "destination_path": "../../tests/fixtures/reanimate-golden/raster.golden",
+      "sha256": "1870465428c5f636d5d944bd129cbfa7b916430100b4b7f2726deef1145f2194",
+      "meaning": "Reanimate's own expected SVG for 10 frames of the example, used unchanged as the test oracle"
+    }
+  ]
+}

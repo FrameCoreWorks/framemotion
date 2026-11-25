@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/nvkelso/natural-earth-vector",
+  "source_commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+  "retrieved_on": "2026-11-25",
+  "license": "Public domain (Natural Earth terms of use)",
+  "attribution": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com (Tom Patterson, Nathaniel Vaughn Kelso and contributors)",
+  "activation": "data_in_javascript",
+  "ported": [
+    "geojson/ne_110m_admin_0_countries.geojson (sha256 6866c877d39cba9c357620878839b336d569f8c662d3cfab4cb1dbe2d39c977f): each country's geometry and NAME (as `name`), coordinates rounded to 0.001 degree, in the Reanimate engine's core/natural-earth-data.mjs (NE_110M_COUNTRIES)",
+    "geojson/ne_110m_land.geojson (sha256 9e0729ee253ca7d7a5c4ae9395fb1902264c5377c52e224d13dd85010e2835d9): geometry only, same rounding (NE_110M_LAND)",
+    "Natural Earth II with shaded relief and water 1:50m (NE2_50M_SR_W.zip from naciscdn.org, archive sha256 7e0e07089b699a3cccad98dd1b2446390d8e3f8c5006359d477a329cebcafaa9, not part of the Git repository): resized with Pillow 12.3.0 (Lanczos) to 1280 x 640, JPEG quality 88, in skills/framemotion/assets/engines/reanimate/data/earth-ne2-1280.jpg (sha256 cf3cbf5ca9fc18cfe38ffd7666cb7b2d0b0769ac4773f593a701328fc6dac35f)"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE.md",
+      "destination_path": "LICENSE",
+      "sha256": "2631b5b39b6d1acc56de75235109b5af2dbb4b0ac5a127b6f06185977247fd4b",
+      "meaning": "Unchanged public-domain statement and credits."
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/reanimate/reanimate-svg",
+  "source_commit": "a595f61be54838e1be039c66b7d99b26d21fdbf9",
+  "retrieved_on": "2026-11-23",
+  "license": "BSD-3-Clause",
+  "attribution": "Copyright (c) 2013, Vincent Berthoux (svg-tree), maintained as reanimate-svg",
+  "activation": "ported_to_javascript",
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "9e0faeccbc600b451a4d39b790adf29377944ae483a90c46bad2402fe471ccf4",
+      "meaning": "Unchanged BSD-3-Clause text."
+    }
+  ],
+  "ported": [
+    "its XML printer (drawAttributesList order, xmlOfTree, ppDocument, ppD and ppF) in core/svg.mjs, so the engine prints the same SVG text as Reanimate",
+    "the node model of Graphics.SvgTree and its mapTree traversal (into groups and definitions, as the original; other nodes are left as they are)",
+    "the SVG named-colour table (svgNamedColors) in core/named-colors.mjs"
+  ]
+}

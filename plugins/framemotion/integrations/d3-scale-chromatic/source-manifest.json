@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/d3/d3-scale-chromatic",
+  "source_commit": "2c52792197299346b7bdb94322bb4dff8f554fea",
+  "retrieved_on": "2026-11-23",
+  "license": "ISC",
+  "attribution": "Copyright 2010-2024 Mike Bostock",
+  "activation": "ported_to_javascript",
+  "ported": [
+    "the turbo and cividis polynomial approximations and the sinebow formula (release 3.1.0, tag v3.1.0), which Reanimate.ColorMap carries and core/color.mjs ports; the turbo colour scheme itself is Anton Mikhailov's (Google LLC, Apache-2.0) and cividis is Nuñez, Anderton and Renslow's (2018)"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "0986d93944902cca9af86824b6a641b4b7c2d10602fc510c433a8bcd443919fe",
+      "meaning": "Unchanged licence text: ISC for d3-scale-chromatic, with the Apache-2.0 notice of its ColorBrewer schemes (not used here)."
+    }
+  ]
+}

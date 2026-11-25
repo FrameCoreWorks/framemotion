@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "repository": "https://github.com/kuribas/cubicbezier",
+  "source_commit": "70975dfead974a3b4f91d7f00af25b242cf57122",
+  "retrieved_on": "2026-11-23",
+  "license": "BSD-3-Clause",
+  "attribution": "Copyright (c) 2013, Kristof Bastiaensen",
+  "activation": "ported_to_javascript",
+  "ported": [
+    "Geom2D.CubicBezier.Basic: evalBezier, splitBezier, bezierSubsegment, quadToCubic, arcLength and arcLengthEstimate (release 0.6.0.7, tag v0.6.0.7) in core/geom.mjs; the quadrature branch of arcLength, reached only for control legs over a million units long, is replaced by adaptive Simpson",
+    "Geom2D.CubicBezier.Basic and Intersection: the Bernstein evaluation of evalBezierDeriv and evalBezier on any degree (bernsteinEval, bernsteinDeriv), evalBezierCubic, splitBezierCubic, bezierSubsegmentCubic, colinear, closest (closestBezierCurve, iter, fastVectorAngle), bezierParamTolerance, lineDistance and bezierIntersection (bezierClip, chopHull, makeHull) in core/cubicbezier.mjs and core/geom.mjs"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "7a15335eac8bf590db3f922bd72ce50cab5f41bac5f67ca2316f43103dc7f029",
+      "meaning": "Unchanged BSD-3-Clause text."
+    }
+  ]
+}

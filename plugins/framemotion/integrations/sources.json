@@ -1,6 +1,6 @@
 {
   "schema": "framemotion-sources/1",
-  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is the commit the package's copy, adaptation or summary was made from. Knowledge summarised in references lists them in references (paths under skills/framemotion/) and keeps the source's licence text in integrations/<name>/. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag).",
+  "note": "Every third-party source of the own-engines plan (2026-11-14). commit is the pin for its pack: recheck the licence at that commit when the pack starts. bundled_commit is the commit the package's copy, adaptation or summary was made from. Knowledge summarised in references lists them in references (paths under skills/framemotion/) and keeps the source's licence text in integrations/<name>/. Statuses: bundled (byte copy), adapted (rewritten or partial), patterns (techniques only, own code), planned (nothing in the package yet), dependency (installed by npm at the exact version, never bundled; commit is that release's tag). A Haskell package published only on Hackage has host hackage, repo hackage:<package>, version and archive_sha256 (the release archive) instead of a commit.",
   "sources": [
     {
       "name": "animate",
@@ -758,6 +758,156 @@
       "conditions": [
         "principles restated in references/motion-compendium.md section 9 (personality, distance and material scaling, choreography, thirds, staggers, overshoot)",
         "no text copied; the Creator MCP (LottieFiles account) is not used"
+      ]
+    },
+    {
+      "name": "reanimate-haskell",
+      "repo": "reanimate/reanimate",
+      "commit": "583ee9f426bb96ac15996772a6fd7ccf0caf08a7",
+      "licence": "Unlicense",
+      "copyright": "Public domain dedication by David Himmelstrup and contributors (Unlicense)",
+      "kind": "engine",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "583ee9f426bb96ac15996772a6fd7ccf0caf08a7",
+      "conditions": [
+        "the Haskell library ported module by module to FrameMotion's own JavaScript engine in skills/framemotion/assets/engines/reanimate/ (owner request 2026-11-23: the same drawings, adapted to reels)",
+        "Reanimate's golden SVG files for the ported examples kept unchanged as test fixtures",
+        "the pixels of its data/small_earth.jpg (public domain with the repository; metadata points to a Natural Earth II source) decoded once into core/earth-data.mjs",
+        "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; the films map-projection (gif.hs, distortion.hs) and showcase (sphereIntro, featLaTeX) are ported, the showcase sphere drawn by FrameMotion's own core/sphere.mjs instead of POV-Ray; sizes.hs (a Blender globe), introSVG and the GitHub, Haskell and SVG logo examples are not ported",
+        "the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and data/cone_sensitivity_lms.csv kept in core/colorspace-data.mjs; Reanimate names no source, but they are copies of tables from the Colour & Vision Research Laboratory (cvrl.org): lin2012xyz2e_1_7sf.csv (CIE 2012 2-degree XYZ colour-matching functions), cc2012xyz2_1_5dp.csv (their chromaticity coordinates) and linss2_10e_1.csv (Stockman & Sharpe 2-degree cone fundamentals); CVRL states no licence for them, so Reanimate's Unlicense does not cover them"
+      ]
+    },
+    {
+      "name": "reanimate-svg",
+      "repo": "reanimate/reanimate-svg",
+      "commit": "a595f61be54838e1be039c66b7d99b26d21fdbf9",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2013, Vincent Berthoux",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "a595f61be54838e1be039c66b7d99b26d21fdbf9",
+      "conditions": [
+        "its SVG printer, node model, mapTree and named-colour table ported to JavaScript in the Reanimate engine's core/svg.mjs and core/named-colors.mjs"
+      ]
+    },
+    {
+      "name": "cubicbezier-haskell",
+      "repo": "kuribas/cubicbezier",
+      "commit": "70975dfead974a3b4f91d7f00af25b242cf57122",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2013, Kristof Bastiaensen",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "70975dfead974a3b4f91d7f00af25b242cf57122",
+      "conditions": [
+        "release 0.6.0.7 (Reanimate's resolver lts-18.15 pins 0.6.0.6; the ported code is the same in both, 0.6.0.7 changes only comments and the cabal file); evalBezier, splitBezier, bezierSubsegment, quadToCubic and arcLength ported to JavaScript in the Reanimate engine's core/geom.mjs; the Bernstein evaluation (evalBezierDeriv), colinear, closest and Bézier-clipping intersection (bezierIntersection) in core/cubicbezier.mjs"
+      ]
+    },
+    {
+      "name": "xml-light-haskell",
+      "repo": "GaloisInc/xml",
+      "commit": "004a2c07286d17f61237d1bf59ccc11a5122a57c",
+      "licence": "BSD-3-Clause",
+      "copyright": "(c) 2007 Galois Inc.",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "004a2c07286d17f61237d1bf59ccc11a5122a57c",
+      "conditions": [
+        "the repository has no release tags; this commit's Text/XML/Light/Output.hs prints the same as the 1.3.14 release Reanimate builds with (only a comment typo differs)",
+        "ppElement ported to JavaScript in the Reanimate engine's core/svg.mjs (text and nested SVG)"
+      ]
+    },
+    {
+      "name": "linear-haskell",
+      "repo": "ekmett/linear",
+      "commit": "992c2cb8d4902cf19c8e00d045ca4b417dc2e668",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright 2011-2015 Edward Kmett",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "bundled_commit": "992c2cb8d4902cf19c8e00d045ca4b417dc2e668",
+      "conditions": [
+        "release 1.23 (Reanimate's resolver lts-18.15 pins 1.21.6; lerp's argument order and normalize's nearZero rule are the same in both); the argument order of lerp (alpha weighs the first point), kept as linearLerp in the Reanimate engine's core/geom.mjs, and normalize's nearZero rule (1e-12), restated in examples/math.mjs"
+      ]
+    },
+    {
+      "name": "colour-haskell",
+      "host": "hackage",
+      "repo": "hackage:colour",
+      "version": "2.3.6",
+      "archive_sha256": "2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871",
+      "licence": "MIT",
+      "copyright": "Copyright (c) 2008, 2009 Russell O'Connor",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "sRGB transfer, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the Reanimate engine's core/color.mjs (the exact rational sRGB/D65 matrices rounded once to doubles)"
+      ]
+    },
+    {
+      "name": "random-haskell",
+      "host": "hackage",
+      "repo": "hackage:random",
+      "version": "1.2.0",
+      "archive_sha256": "e4519cf7c058bfd5bdbe4acc782284acc9e25e74487208619ca83cbcd63fb9de",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright 2004, The University Court of the University of Glasgow",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "mkStdGen and randomR/randomRs for Double (uniformDouble01M, x*l + (1-x)*h) ported to JavaScript in the Reanimate engine's core/random.mjs, so demo_stars places its stars as in Reanimate"
+      ]
+    },
+    {
+      "name": "splitmix-haskell",
+      "host": "hackage",
+      "repo": "hackage:splitmix",
+      "version": "0.1.0.4",
+      "archive_sha256": "6d065402394e7a9117093dbb4530a21342c9b1e2ec509516c8a8d0ffed98ecaa",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2017, Oleg Grenrus",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "SplitMix64 (mkSMGen, nextWord64 and its mixers) ported to JavaScript with BigInt in the Reanimate engine's core/random.mjs"
+      ]
+    },
+    {
+      "name": "mathjax",
+      "repo": "mathjax/MathJax",
+      "commit": "600692ad9d3552cc25f85510d5797bc942ecc9f7",
+      "licence": "Apache-2.0",
+      "copyright": "Copyright (c) 2009-2022 The MathJax Consortium",
+      "kind": "library",
+      "pack": "P13",
+      "status": "dependency",
+      "version": "3.2.2",
+      "conditions": [
+        "npm dependency pinned exactly in assets/engines/package.json (tag 3.2.2 = this commit); installed by npm ci, never bundled",
+        "the Reanimate engine page loads es5/tex-svg-full.js to draw latex, math and latexAlign (Reanimate runs LaTeX and dvisvgm there); menu, speech and assistive output off"
+      ]
+    },
+    {
+      "name": "natural-earth-vector",
+      "repo": "nvkelso/natural-earth-vector",
+      "commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+      "bundled_commit": "ca96624a56bd078437bca8184e78163e5039ad19",
+      "licence": "Public-Domain-Natural-Earth",
+      "copyright": "Public domain (Natural Earth: Tom Patterson, Nathaniel Vaughn Kelso and contributors)",
+      "kind": "data",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "the 1:110m Admin 0 countries and land layers as GeoJSON geometry (the country's NAME kept as `name`, coordinates rounded to 0.001 degree) in the Reanimate engine's core/natural-earth-data.mjs, for Reanimate's map-projection film, whose countries.json and land.geojson are not in its repository", "also Natural Earth II with shaded relief and water, 1:50m (naciscdn.org/naturalearth/50m/raster/NE2_50M_SR_W.zip, archive sha256 7e0e07089b699a3cccad98dd1b2446390d8e3f8c5006359d477a329cebcafaa9; not in this Git repository), resized with Pillow 12.3.0 (Lanczos) from 10800 x 5400 to 1280 x 640 and saved as JPEG quality 88 in the Reanimate engine's data/earth-ne2-1280.jpg (sha256 cf3cbf5ca9fc18cfe38ffd7666cb7b2d0b0769ac4773f593a701328fc6dac35f), the Earth's picture of the distortion film on the engine page",
+        "admitted by owner decision 2026-11-25 (AGENTS.md rule 6 names Natural Earth's public-domain map data)"
       ]
     }
   ]

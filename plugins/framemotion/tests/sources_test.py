@@ -6,11 +6,12 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = json.loads((ROOT / 'integrations/sources.json').read_text())['sources']
 NOTICE = (ROOT / 'NOTICE').read_text()
-LICENCES = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause'}
+LICENCES = {'MIT', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', 'Unlicense',   # Unlicense: a public-domain dedication (Reanimate, owner 2026-11-23)
+            'Public-Domain-Natural-Earth'}   # Natural Earth's public-domain terms (map-projection film; owner decision 2026-11-25)
 STATUSES = {'bundled', 'adapted', 'patterns', 'planned', 'dependency'}
 ENGINES_PACKAGE = json.loads((ROOT / 'skills/framemotion/assets/engines/package.json').read_text())
-KINDS = {'engine', 'knowledge', 'library', 'technique'}
-PACKS = {f'P{n}' for n in range(1, 13)} | {'L1'}   # L1: the motion library moved from Toolbox in 0.4.0; P12: the 2026-11-20 X-list engines
+KINDS = {'engine', 'knowledge', 'library', 'technique', 'data'}   # data: map data used by an engine
+PACKS = {f'P{n}' for n in range(1, 14)} | {'L1'}   # L1: the motion library moved from Toolbox in 0.4.0; P12: the 2026-11-20 X-list engines; P13: the Reanimate engine
 
 
 class SourcesTest(unittest.TestCase):
@@ -19,8 +20,15 @@ class SourcesTest(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)), 'duplicate source names')
         for s in SOURCES:
             with self.subTest(s['name']):
-                self.assertRegex(s['repo'], r'^[\w.-]+/[\w.-]+$')
-                self.assertRegex(s['commit'], r'^[0-9a-f]{40}$')
+                if s.get('host') == 'hackage':
+                    # A Haskell package published only on Hackage (no Git repository): pinned by its release
+                    # version and the SHA-256 of that release's archive.
+                    self.assertRegex(s['repo'], r'^hackage:[\w.-]+$')
+                    self.assertRegex(s['version'], r'^\d+(\.\d+)+$')
+                    self.assertRegex(s['archive_sha256'], r'^[0-9a-f]{64}$')
+                else:
+                    self.assertRegex(s['repo'], r'^[\w.-]+/[\w.-]+$')
+                    self.assertRegex(s['commit'], r'^[0-9a-f]{40}$')
                 self.assertIn(s['licence'], LICENCES)
                 self.assertIn(s['status'], STATUSES)
                 self.assertIn(s['kind'], KINDS)
@@ -34,6 +42,10 @@ class SourcesTest(unittest.TestCase):
                 self.assertNotIn('bundled_commit', s, s['name'])
                 continue
             with self.subTest(s['name']):
+                if s.get('host') == 'hackage':
+                    self.assertIn(f"{s['repo'].split(':', 1)[1]} {s['version']}", NOTICE)
+                    self.assertIn(s['archive_sha256'], NOTICE)
+                    continue
                 self.assertRegex(s.get('bundled_commit', ''), r'^[0-9a-f]{40}$')
                 self.assertIn(s['repo'], NOTICE)
                 self.assertIn(s['bundled_commit'], NOTICE)

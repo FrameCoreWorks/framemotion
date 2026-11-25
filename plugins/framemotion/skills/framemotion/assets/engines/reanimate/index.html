@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Reanimate engine</title>
+<style>
+  html, body { margin: 0; background: #fff; overflow: hidden; }
+  #stage { display: block; }
+  #stage > svg { display: block; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script>
+  // MathJax draws TeX for latex/math/latexAlign: inline glyph paths, no menu or assistive output.
+  // TeX errors and undefined commands throw instead of being drawn (noerrors/noundefined are removed).
+  window.MathJax = {svg: {fontCache: 'none'}, startup: {typeset: false},
+    tex: {packages: {'[-]': ['noerrors', 'noundefined']}, formatError: (jax, err) => { throw err; }},
+    options: {enableMenu: false, enableAssistiveMml: false, enableEnrichment: false}};
+</script>
+<script src="../node_modules/mathjax/es5/tex-svg-full.js"></script>
+<script type="module">
+// FrameCore Works' own engine, ported from the Haskell library Reanimate (public domain): settings come
+// as JSON in ?params (example, width, height, fps, screen, fit, earth); the frame is SVG drawn by core/.
+// `screen` is the canvas in units, [16, 9] by Reanimate's default; without it the short side is 9 units
+// (1080x1920 gives [9, 16] for a reel). A `screen` whose proportions differ from width x height would
+// stretch the picture, so it is refused. `fit` ('contain' or 'cover') scales an example drawn for 16 x 9
+// to the canvas: all of it with empty bands, or filling the frame with the sides cropped.
+import {createReanimateEngine} from './engine.mjs';
+import {EXAMPLES} from './examples/index.mjs';
+import {useMathJax} from './tex-mathjax.mjs';
+import {fitScreenA} from './core/formats.mjs';
+
+await useMathJax();
+const params = JSON.parse(new URLSearchParams(location.search).get('params') || '{}');
+const {width = 1920, height = 1080, fps = 30, example = 'drawCircle'} = params;
+if (!Object.hasOwn(EXAMPLES, example)) throw new Error(`unknown example "${example}" (known: ${Object.keys(EXAMPLES).join(', ')})`);
+const screen = params.screen ?? (width >= height ? [9 * width / height, 9] : [9, 9 * height / width]);
+if (!Array.isArray(screen) || screen.length !== 2 || !(screen[0] > 0 && screen[1] > 0)) throw new Error('screen must be [width, height] in units');
+if (Math.abs(screen[0] / screen[1] - width / height) > 0.01 * (width / height)) {
+  throw new Error(`screen ${screen.join('x')} does not have the proportions of ${width}x${height}`);
+}
+const stage = document.getElementById('stage');
+Object.assign(stage.style, {width: `${width}px`, height: `${height}px`});
+// A film that redraws the Earth's picture (map_projection_distortion) gets Natural Earth II at 1280 x 640
+// (data/earth-ne2-1280.jpg, public domain) unless `earth` is 'small' (Reanimate's built-in 300 x 150 smallEarth).
+// same-origin only: the picture is this engine's own file, by a URL built from import.meta.url.
+async function loadImage(url) {
+  const bitmap = await createImageBitmap(await (await fetch(url)).blob());
+  const canvas = new OffscreenCanvas(bitmap.width, bitmap.height), ctx = canvas.getContext('2d');
+  ctx.drawImage(bitmap, 0, 0);
+  return {width: bitmap.width, height: bitmap.height, data: ctx.getImageData(0, 0, bitmap.width, bitmap.height).data};
+}
+const earth = EXAMPLES[example].usesEarth && (params.earth ?? 'large') === 'large' ? await loadImage(new URL('./data/earth-ne2-1280.jpg', import.meta.url)) : undefined;
+const fit = params.fit ?? 'none';
+const film = fit === 'none' ? EXAMPLES[example]({screen, earth}) : fitScreenA(EXAMPLES[example]({screen: [16, 9], earth}), screen, fit);
+const engine = createReanimateEngine(film, {id: 'reanimate', width, height, fps, screen, mount: stage});
+engine.seek(0);
+window.__framemotion = {engine, element: '#stage', ready: true, checks: {examples: () => Object.keys(EXAMPLES)}};
+</script>
+</body>
+</html>

@@ -87,8 +87,9 @@ class EnginesRegistryTest(unittest.TestCase):
                         self.assertGreaterEqual(spec['max'], spec['default'])
 
     def test_no_network_or_server_in_engine_code(self):
+        # The SVG and XLink namespace names are identifiers that SVG text must carry, never fetched.
         bad = re.compile(r"\b(fetch\(|XMLHttpRequest|WebSocket|EventSource|sendBeacon|new\s+(?:Shared)?Worker\(|"
-                         r"importScripts|RTCPeerConnection|child_process|createServer|http\.request|https?://(?!framemotion\.local))")
+                         r"importScripts|RTCPeerConnection|child_process|createServer|http\.request|https?://(?!framemotion\.local|www\.w3\.org/(?:2000/svg|1999/xlink)\b))")
         for path in ENGINES.rglob('*'):
             if path.suffix not in {'.mjs', '.js', '.html'} or 'node_modules' in path.parts:
                 continue

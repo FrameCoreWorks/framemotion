@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "repository": "https://hackage.haskell.org/package/splitmix-0.1.0.4",
+  "source_commit": null,
+  "source_archive_sha256": "6d065402394e7a9117093dbb4530a21342c9b1e2ec509516c8a8d0ffed98ecaa",
+  "retrieved_on": "2026-11-25",
+  "license": "BSD-3-Clause",
+  "attribution": "Copyright (c) 2017, Oleg Grenrus",
+  "activation": "ported_to_javascript",
+  "ported": [
+    "System.Random.SplitMix (mkSMGen, nextWord64, mix64, mix64variant13, mixGamma) in the Reanimate engine's core/random.mjs; the version Reanimate's Stackage resolver lts-18.15 pins"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "5f3facf95bb7d0de63aac65ff31e1c071cf37cfa28a56cadf236eac1bd9c9fa3",
+      "meaning": "Unchanged BSD-3-Clause text."
+    }
+  ]
+}
