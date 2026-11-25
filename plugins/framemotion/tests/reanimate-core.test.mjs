@@ -258,11 +258,17 @@ const DURATIONS = {
   augustP: 1, bonneP: 1, bottomleyP: 1, cassiniP: 1, collignonP: 1, cylindricalEqualAreaP: 1, eckert1P: 1, eckert3P: 1,
   eckert5P: 1, equirectangularP: 1, faheyP: 1, foucautP: 1, hammerP: 1, lagrangeP: 1, lambertP: 1, mercatorP: 1,
   mollweideP: 1, orthoP: 1, sinusoidalP: 1, wernerP: 1,
+  // pack 4: mathematics (fourier_draw, tut_glue_fourier, demo_tangent and balloon need TeX outlines; see reanimate-math)
+  fourier: 48, fourier_draw: 52, tut_glue_fourier: 30, demo_tangent: 30, demo_stars: 10, balloon: 6,
 };
 
-test('every example (103) renders 10 frames with no NaN or undefined, at its pinned duration', () => {
+test('every example (109) renders 10 frames with no NaN or undefined, at its pinned duration', () => {
   assert.deepEqual(Object.keys(EXAMPLES).sort(), Object.keys(DURATIONS).sort());
   for (const [name, make] of Object.entries(EXAMPLES)) {
+    if (make.needsTex) {   // computes with glyph outlines: without a TeX renderer it says so
+      assert.throws(make, /plug in a TeX renderer/, name);
+      continue;
+    }
     const ani = make();
     assert.ok(Math.abs(ani.duration - DURATIONS[name]) < 1e-9, `${name}: ${ani.duration} s`);
     for (const frame of testFrames(ani)) {

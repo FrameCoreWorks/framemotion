@@ -12,3 +12,5 @@ export * from './object.mjs';
 export * from './latex.mjs';
 export * from './geoprojection.mjs';
 export * from './images.mjs';
+export * from './balloon.mjs';
+export * from './colorspace.mjs';

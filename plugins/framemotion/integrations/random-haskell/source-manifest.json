@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "repository": "https://hackage.haskell.org/package/random-1.2.0",
+  "source_commit": null,
+  "source_archive_sha256": "e4519cf7c058bfd5bdbe4acc782284acc9e25e74487208619ca83cbcd63fb9de",
+  "retrieved_on": "2026-11-25",
+  "license": "BSD-3-Clause",
+  "attribution": "Copyright 2004, The University Court of the University of Glasgow (and the Haskell 98 Report licence it reproduces)",
+  "activation": "ported_to_javascript",
+  "ported": [
+    "System.Random (mkStdGen) and System.Random.Internal (uniformDouble01M and the Double uniformRM, through randomR and randomRs) in the Reanimate engine's core/random.mjs; the version Reanimate's Stackage resolver lts-18.15 pins"
+  ],
+  "retained_files": [
+    {
+      "source_path": "LICENSE",
+      "destination_path": "LICENSE",
+      "sha256": "e06262d9e31494d84bb3a2f3ef5805502deb7568cea6e677a81a28b69153f557",
+      "meaning": "Unchanged licence text (the GHC BSD-style licence and the Haskell 98 Report licence)."
+    }
+  ]
+}

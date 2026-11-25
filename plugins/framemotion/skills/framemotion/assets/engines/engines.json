@@ -3836,7 +3836,7 @@
       "id": "reanimate",
       "title": "Reanimate engine: vector drawings and maths animations (own engine ported from Reanimate)",
       "group": "explainers",
-      "about": "Self-drawing lines and letters, objects on easing curves, a camera, colour maps, TeX formulas and 20 map projections of the Earth.",
+      "about": "Self-drawing lines and letters, objects on easing curves, colour maps, TeX, 20 map projections, Fourier circles and balloon shapes.",
       "good_for": [
         "explainer",
         "background"
@@ -3970,7 +3970,13 @@
             "mollweideP",
             "orthoP",
             "sinusoidalP",
-            "wernerP"
+            "wernerP",
+            "fourier",
+            "fourier_draw",
+            "tut_glue_fourier",
+            "demo_tangent",
+            "demo_stars",
+            "balloon"
           ],
           "about": "a ported Reanimate example (its length sets the film's length)"
         },

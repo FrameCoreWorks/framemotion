@@ -5,6 +5,9 @@ import {mkAnimation, mapA} from './animation.mjs';
 import {mkGroup, mkBackground, withFillOpacity, withStrokeWidth, withStrokeColor, mkRect, mkCircle, mkLine, translate, SCREEN_WIDTH, SCREEN_HEIGHT} from './svg.mjs';
 import {partialSvg, pathify} from './paths.mjs';
 
+/** rtfdBackgroundColor: the light grey of Reanimate's documentation pages, PixelRGBA8 252 252 252 255. */
+export const RTFD_BACKGROUND = Object.freeze([252, 252, 252, 255]);
+
 /** docEnv: white background, black 0.1 strokes and no fill, as every documentation example is drawn. */
 export const docEnv = (ani) => mapA((svg) => mkGroup([
   mkBackground('white'),

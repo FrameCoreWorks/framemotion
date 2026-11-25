@@ -40,21 +40,31 @@ a source-manifest.json with the pinned commit):
   skills/framemotion/assets/engines/reanimate/ (FrameCore Works' translation); Reanimate's golden SVG files for the ported
   examples are kept unchanged in tests/fixtures/reanimate-golden/, and the pixels of its data/small_earth.jpg (an Earth image
   that its metadata ties to a 16200 x 8100 source, the size of Tom Patterson's public-domain Natural Earth II raster) are
-  kept decoded in that engine's core/earth-data.mjs. See integrations/reanimate-haskell/.
+  kept decoded in that engine's core/earth-data.mjs; the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and
+  data/cone_sensitivity_lms.csv are kept in core/colorspace-data.mjs. See integrations/reanimate-haskell/.
 - reanimate/reanimate-svg (svg-tree), commit a595f61be54838e1be039c66b7d99b26d21fdbf9, Copyright (c) 2013, Vincent Berthoux,
   BSD-3-Clause: its SVG printer (drawAttributesList order, xmlOfTree, ppD), node model and mapTree ported to JavaScript in that
   engine's core/svg.mjs, and its named-colour table ported to core/named-colors.mjs. See integrations/reanimate-svg/.
 - kuribas/cubicbezier 0.6.0.7, commit 70975dfead974a3b4f91d7f00af25b242cf57122, Copyright (c) 2013, Kristof Bastiaensen,
   BSD-3-Clause: Bézier evaluation, splitting, subsegments, quadToCubic and arcLength (arcLengthEstimate) ported to JavaScript in
-  that engine's core/geom.mjs. See integrations/cubicbezier-haskell/.
+  that engine's core/geom.mjs, and the Bernstein evaluation, colinear, closest and Bézier-clipping intersection in
+  core/cubicbezier.mjs. See integrations/cubicbezier-haskell/.
 - GaloisInc/xml (Text.XML.Light 1.3.14), commit 004a2c07286d17f61237d1bf59ccc11a5122a57c, (c) 2007 Galois Inc., BSD-3-Clause:
   its element printer (ppElement, used for text and nested SVG) ported to JavaScript in that engine's core/svg.mjs.
   See integrations/xml-light-haskell/.
 - ekmett/linear 1.23, commit 992c2cb8d4902cf19c8e00d045ca4b417dc2e668, Copyright 2011-2015 Edward Kmett, BSD-3-Clause: the
-  argument order of its `lerp`, kept in that engine's core/geom.mjs linearLerp. See integrations/linear-haskell/.
+  argument order of its `lerp`, kept in that engine's core/geom.mjs linearLerp, and its `normalize` rule, restated in
+  examples/math.mjs. See integrations/linear-haskell/.
 - colour 2.3.6 (Haskell package on Hackage, archive sha256 2cd35dcd6944a5abc9f108a5eb5ee564b6b1fa98a9ec79cefcc20b588991f871),
   Copyright (c) 2008, 2009 Russell O'Connor, MIT: its sRGB, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the
   Reanimate engine's core/color.mjs. See integrations/colour-haskell/.
+- random 1.2.0 (Haskell package on Hackage, archive sha256 e4519cf7c058bfd5bdbe4acc782284acc9e25e74487208619ca83cbcd63fb9de),
+  Copyright 2004, The University Court of the University of Glasgow, BSD-3-Clause (with the Haskell 98 Report licence its
+  LICENSE reproduces): mkStdGen and randomR/randomRs for Double ported to JavaScript in the Reanimate engine's core/random.mjs.
+  See integrations/random-haskell/.
+- splitmix 0.1.0.4 (Haskell package on Hackage, archive sha256 6d065402394e7a9117093dbb4530a21342c9b1e2ec509516c8a8d0ffed98ecaa),
+  Copyright (c) 2017, Oleg Grenrus, BSD-3-Clause: the SplitMix64 generator (mkSMGen, nextWord64, its mixers) ported to
+  JavaScript in the Reanimate engine's core/random.mjs. See integrations/splitmix-haskell/.
 - d3/d3-scale-chromatic 3.1.0, commit 2c52792197299346b7bdb94322bb4dff8f554fea, Copyright 2010-2024 Mike Bostock, ISC: the
   turbo and cividis polynomials and the sinebow formula, carried by Reanimate.ColorMap and ported in the Reanimate engine's
   core/color.mjs. The turbo colour scheme is by Anton Mikhailov, Copyright 2019 Google LLC, Apache-2.0; cividis is by

@@ -216,7 +216,15 @@ export function serializeCommand(cmd) {
     default: throw new Error(`unknown path command ${cmd.c}`);
   }
 }
-export const serializeCommands = (cmds) => cmds.map(serializeCommand).join(' ');
+/**
+ * serializeCommands: the path data. A command with no arguments (mkLinePathClosed of one point writes
+ * "L" with nothing after it) is invalid SVG; browsers draw the path up to it and log an error, so the
+ * path is written up to it instead, which draws the same without the error.
+ */
+export function serializeCommands(cmds) {
+  const end = cmds.findIndex((c) => c.c !== 'Z' && Array.isArray(c.args) && c.args.length === 0);
+  return (end < 0 ? cmds : cmds.slice(0, end)).map(serializeCommand).join(' ');
+}
 
 // The order of drawAttributesList in svg-tree; each prints only when set.
 const DRAW_ATTRIBUTES = [

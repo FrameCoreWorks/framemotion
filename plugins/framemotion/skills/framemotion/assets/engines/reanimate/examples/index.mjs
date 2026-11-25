@@ -3,5 +3,6 @@ import {CORE_EXAMPLES} from './core.mjs';
 import {COLOR_EXAMPLES} from './color.mjs';
 import {OBJECT_EXAMPLES} from './object.mjs';
 import {GEO_EXAMPLES} from './geo.mjs';
+import {MATH_EXAMPLES} from './math.mjs';
 
-export const EXAMPLES = Object.freeze({...CORE_EXAMPLES, ...COLOR_EXAMPLES, ...OBJECT_EXAMPLES, ...GEO_EXAMPLES});
+export const EXAMPLES = Object.freeze({...CORE_EXAMPLES, ...COLOR_EXAMPLES, ...OBJECT_EXAMPLES, ...GEO_EXAMPLES, ...MATH_EXAMPLES});

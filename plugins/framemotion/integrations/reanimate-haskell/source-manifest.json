@@ -30,12 +30,21 @@
     "examples/doc_*.hs (colour and object examples)": "skills/framemotion/assets/engines/reanimate/examples/color.mjs and examples/object.mjs",
     "src/Reanimate/GeoProjection.hs": "skills/framemotion/assets/engines/reanimate/core/geoprojection.mjs (GeoJSON is parsed by the caller; renderGeometry takes the parsed geometry)",
     "src/Reanimate/Builtin/Images.hs (smallEarth)": "skills/framemotion/assets/engines/reanimate/core/images.mjs, its pixels decoded from data/small_earth.jpg into core/earth-data.mjs",
-    "examples/doc_*P.hs (20 map projection examples)": "skills/framemotion/assets/engines/reanimate/examples/geo.mjs"
+    "examples/doc_*P.hs (20 map projection examples)": "skills/framemotion/assets/engines/reanimate/examples/geo.mjs",
+    "src/Reanimate/ColorSpace.hs": "skills/framemotion/assets/engines/reanimate/core/colorspace.mjs, its tables (rows up to 700 nm) in core/colorspace-data.mjs",
+    "src/Reanimate/Math/Balloon.hs": "skills/framemotion/assets/engines/reanimate/core/balloon.mjs",
+    "src/Reanimate/Math/Common.hs (rayIntersect, direction and turn tests, distance')": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs and core/rational.mjs (Rational as BigInt fractions)",
+    "src/Reanimate/Math/SSSP.hs (dual, dualTree, sssp)": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs",
+    "src/Reanimate/Math/Polygon.hs (mkPolygon, pAccess, pNext, pParent, pCycles, pIsCCW and the offset model)": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs",
+    "src/Reanimate/Math/Triangulate.hs": "skills/framemotion/assets/engines/reanimate/core/polygon.mjs: the diagonals come from ear clipping instead of hgeometry's triangulate'; the shortest-path tree built on them is the same for a simple polygon",
+    "src/Reanimate/PolyShape.hs (cmdsToPolyShapes, plGroupShapes, mergePolyShapeHoles, plPolygonify, plToPolygon) and Morph/Common.hs (toShapes)": "skills/framemotion/assets/engines/reanimate/core/polyshape.mjs",
+    "examples/fourier.hs, fourier_draw.hs, tut_glue_fourier.hs, demo_tangent.hs, demo_stars.hs, doc_balloon.hs": "skills/framemotion/assets/engines/reanimate/examples/math.mjs (tangent_and_normal.hs is commented out upstream and needs diagrams; not ported)"
   },
   "not_yet_ported": [
     "Scene/Object.hs oTransform and Morph (pack 5)",
-    "ColorSpace.hs (wavelength tables), Math/*, the rest of Raster.hs (pack 4)",
-    "Morph/* and the morph, showcase and map-projection films with their country and land data (pack 5)"
+    "Morph/* and the morph, showcase and map-projection films with their country and land data (pack 5)",
+    "Math/Polygon.hs beyond what balloon uses (cuts, overlap, winding, test shapes), SSSP.hs's naive and visibility variants, PolyShape.hs's union and decomposition (hgeometry and cubicbezier's union): ported with the morphs in pack 5 where they need them",
+    "the rest of Raster.hs (raster files and external converters)"
   ],
   "not_ported": [
     "Povray.hs, Blender.hs, External.hs, Driver/*, Render.hs, Voice.hs, Cache.hs, Memo.hs: they call external programs (POV-Ray, Blender, ffmpeg) or are Reanimate's own command line; FrameMotion renders through its engine kit instead. LaTeX.hs's latex, latexAlign and math are kept as functions in core/latex.mjs, drawn with MathJax instead of LaTeX and dvisvgm"

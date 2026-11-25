@@ -774,7 +774,8 @@
         "the Haskell library ported module by module to FrameMotion's own JavaScript engine in skills/framemotion/assets/engines/reanimate/ (owner request 2026-11-23: the same drawings, adapted to reels)",
         "Reanimate's golden SVG files for the ported examples kept unchanged as test fixtures",
         "the pixels of its data/small_earth.jpg (public domain with the repository; metadata points to a Natural Earth II source) decoded once into core/earth-data.mjs",
-        "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; later packs add maps, maths and the films"
+        "the POV-Ray and Blender bridges are not ported (they run external programs); LaTeX text is drawn with MathJax instead of LaTeX and dvisvgm; later packs add the films",
+        "the rows up to 700 nm of its data/CIE_XYZ.csv, data/CIExyz.csv and data/cone_sensitivity_lms.csv (public domain with the repository; no source stated) kept in core/colorspace-data.mjs"
       ]
     },
     {
@@ -802,7 +803,7 @@
       "status": "adapted",
       "bundled_commit": "70975dfead974a3b4f91d7f00af25b242cf57122",
       "conditions": [
-        "release 0.6.0.7 (Reanimate's dependency); evalBezier, splitBezier, bezierSubsegment, quadToCubic and arcLength ported to JavaScript in the Reanimate engine's core/geom.mjs"
+        "release 0.6.0.7 (Reanimate's dependency); evalBezier, splitBezier, bezierSubsegment, quadToCubic and arcLength ported to JavaScript in the Reanimate engine's core/geom.mjs; the Bernstein evaluation (evalBezierDeriv), colinear, closest and Bézier-clipping intersection (bezierIntersection) in core/cubicbezier.mjs"
       ]
     },
     {
@@ -831,7 +832,7 @@
       "status": "adapted",
       "bundled_commit": "992c2cb8d4902cf19c8e00d045ca4b417dc2e668",
       "conditions": [
-        "release 1.23; only the argument order of lerp (alpha weighs the first point), kept as linearLerp in the Reanimate engine's core/geom.mjs"
+        "release 1.23; the argument order of lerp (alpha weighs the first point), kept as linearLerp in the Reanimate engine's core/geom.mjs, and normalize's nearZero rule (1e-12), restated in examples/math.mjs"
       ]
     },
     {
@@ -847,6 +848,36 @@
       "status": "adapted",
       "conditions": [
         "sRGB transfer, CIE XYZ, CIE L*a*b* and HSV arithmetic ported to JavaScript in the Reanimate engine's core/color.mjs (the exact rational sRGB/D65 matrices rounded once to doubles)"
+      ]
+    },
+    {
+      "name": "random-haskell",
+      "host": "hackage",
+      "repo": "hackage:random",
+      "version": "1.2.0",
+      "archive_sha256": "e4519cf7c058bfd5bdbe4acc782284acc9e25e74487208619ca83cbcd63fb9de",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright 2004, The University Court of the University of Glasgow",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "mkStdGen and randomR/randomRs for Double (uniformDouble01M, x*l + (1-x)*h) ported to JavaScript in the Reanimate engine's core/random.mjs, so demo_stars places its stars as in Reanimate"
+      ]
+    },
+    {
+      "name": "splitmix-haskell",
+      "host": "hackage",
+      "repo": "hackage:splitmix",
+      "version": "0.1.0.4",
+      "archive_sha256": "6d065402394e7a9117093dbb4530a21342c9b1e2ec509516c8a8d0ffed98ecaa",
+      "licence": "BSD-3-Clause",
+      "copyright": "Copyright (c) 2017, Oleg Grenrus",
+      "kind": "technique",
+      "pack": "P13",
+      "status": "adapted",
+      "conditions": [
+        "SplitMix64 (mkSMGen, nextWord64 and its mixers) ported to JavaScript with BigInt in the Reanimate engine's core/random.mjs"
       ]
     },
     {

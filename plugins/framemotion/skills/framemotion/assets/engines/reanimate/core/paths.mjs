@@ -3,7 +3,7 @@
 // lowerTransformations, simplify, glyph helpers) and Reanimate.Svg.BoundingBox from
 // reanimate/reanimate (public domain). No DOM, clock or network.
 
-import {evalBezier, bezierSubsegment, quadToCubic, arcLength, distance, linearLerp, mkMatrix, mulMatrix, transformPoint, IDENTITY} from './geom.mjs';
+import {evalBezier, evalBezierDeriv, bezierSubsegment, quadToCubic, arcLength, distance, linearLerp, mkMatrix, mulMatrix, transformPoint, IDENTITY} from './geom.mjs';
 import {mkGroup, mapTree, None, isNone, DEFAULT_DPI} from './svg.mjs';
 
 // LineCommand: {k: 'move', p} | {k: 'bezier', ps: [1 to 3 points after the current point]} | {k: 'end', p}
@@ -198,6 +198,29 @@ export function partialLine(alpha, cmds) {
     break;
   }
   return out;
+}
+
+/**
+ * atPartial: the point at `alpha` of a path's length and the curve's derivative there, from Reanimate's
+ * demo_tangent (examples/demo_tangent.hs). A position that falls on a closing segment fails as in the
+ * original (lineCommandToBezier has no case for it); past the end it is [[0, 0], [0, 0]].
+ */
+export function atPartial(alpha, cmds) {
+  const lens = lineLengths(cmds);
+  const target = lens.reduce((a, b) => a + b, 0) * alpha;
+  let d = 0, from = [0, 0];
+  for (let i = 0; i < cmds.length; i++) {
+    const cmd = cmds[i], len = lens[i];
+    const frac = (target - d) / len;
+    if (len === 0 || frac >= 1) {
+      d += len;
+      from = cmd.k === 'bezier' ? cmd.ps[cmd.ps.length - 1] : cmd.p;
+      continue;
+    }
+    if (cmd.k !== 'bezier') throw new Error(`atPartial: no curve for a ${cmd.k} command`);
+    return evalBezierDeriv([from, ...cmd.ps], frac);
+  }
+  return [[0, 0], [0, 0]];
 }
 
 /** lineToPoints: `n` points spread evenly by length along the path (the end of each partial path). */

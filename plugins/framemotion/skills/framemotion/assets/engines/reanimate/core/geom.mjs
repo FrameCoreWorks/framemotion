@@ -53,6 +53,35 @@ export function bezierSubsegment(ps, a, b) {
   return local >= 1 ? tail : splitBezier(tail, local)[0];
 }
 
+/**
+ * Bernstein polynomial evaluation as cubicbezier 0.6.0.7's Math.BernsteinPoly.bernsteinEval (BSD-3-Clause),
+ * step for step, so values round as in Reanimate.
+ */
+function bernsteinEval(v, t) {
+  if (v.length === 0) return 0;
+  if (v.length === 1) return v[0];
+  const u = 1 - t, n = v.length - 1;
+  let tn = t, bc = n, tmp = v[0] * u;
+  for (let i = 1; i < n; i++) {
+    const next = (tmp + tn * bc * v[i]) * u;
+    tn *= t;
+    bc = (bc * (n - i)) / (i + 1);
+    tmp = next;
+  }
+  return tmp + tn * v[n];
+}
+const bernsteinDeriv = (v) => v.slice(1).map((x, i) => (x - v[i]) * (v.length - 1));
+/**
+ * evalBezierDeriv on cubicbezier's AnyBezier (control points of any degree): [point, derivative] at t,
+ * through the Bernstein polynomials of each coordinate, as Reanimate's demo_tangent evaluates it.
+ */
+export function evalBezierDeriv(ps, t) {
+  const xs = ps.map((p) => p[0]), ys = ps.map((p) => p[1]);
+  const one = (v) => (v.length <= 1 ? [v[0], 0] : [bernsteinEval(v, t), bernsteinEval(bernsteinDeriv(v), t)]);
+  const [x, dx] = one(xs), [y, dy] = one(ys);
+  return [[x, y], [dx, dy]];
+}
+
 /** Degree elevation of a quadratic curve [a, b, c] to a cubic (quadToCubic). */
 export const quadToCubic = ([a, b, c]) => [a, lerpP(2 / 3, a, b), lerpP(2 / 3, c, b), c];
 
