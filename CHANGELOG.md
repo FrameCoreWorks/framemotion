@@ -4,7 +4,8 @@ The plugin's own changes are in [plugins/framemotion/CHANGELOG.md](plugins/frame
 
 ## 2026-11-25
 
-- FrameMotion 0.9.0 (in progress): the Reanimate engine's packs 3 to 5 (map projections; mathematics; morphs, the map-projection and showcase films, reel formats 9:16, 1:1 and 4:5).
+- FrameMotion 0.9.0: the Reanimate engine's packs 3 to 5 (map projections; mathematics; morphs, the map-projection and showcase films, reel formats 9:16, 1:1 and 4:5).
+- FrameMotion 0.8.3: the reel quality loop checks the stage against the brief (format, length, logo, colours, what is forbidden) before the fresh reviewer.
 
 ## 2026-11-23
 

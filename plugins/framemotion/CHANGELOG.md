@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.9.0 (in progress, 2026-11-23)
+## 0.9.0 (2026-11-25)
 
 Owner request 2026-11-23: port the Haskell library Reanimate (public domain) as FrameMotion's own engine, "a 1:1 base that draws the same pictures, adapted to our reels". Five packs; this entry grows with each one.
 
@@ -20,6 +20,13 @@ Owner request 2026-11-23: port the Haskell library Reanimate (public domain) as 
 - QA, pack 5: the 8 new examples with golden files that draw no TeX match Reanimate byte for byte (78 golden files in all; `raster`'s PNG pixel for pixel). `linear`, `rawLinear` and `rotationalTrajectory` against Reanimate's documentation GIFs: mean grey difference about 8 of 255, 6.4 already on the still X (MathJax's X is not LaTeX's). The other morphs, the TeX pictures and the films have no golden file or GIF: checked by eye on contact sheets (the canvas introduction's grid, brackets and dot labels line up with its LaTeX golden file), three frames of each pinned, and the parts tested (sphere drawing, reel fitting, `oTransform` timing). Rendered through the engine kit in 9:16 (`fit: contain`), 4:5 (`cover`) and 1:1. Kept from Reanimate or fixed where it fails, all listed in the engine README: its `linear` serializes unrotated points (so here `linear` applies the closest rotation on purpose); `featLaTeX` fails there on `pause 0` (here it runs); Bottomley's pole line is 0/0 (left out instead of printing NaN). Natural Earth's public-domain map data is admitted by owner decision 2026-11-25 (AGENTS.md rule 6).
 - Review fixes, pack 5: a contained reel's bands take the film's own background colour, frame by frame (before, a black film had white bands on 9:16); a new `fit: "safe"` places the 16:9 picture inside the 9:16 safe area (top 10 %, bottom 20 %, `R.SAFE_AREAS`), and the README warns that `cover` on 9:16 keeps only the middle 32 % of the width; the sphere uses POV-Ray's uv mapping (u from +x towards +z; before it was mirrored and turned a quarter), is drawn at 160 pixels per unit like the film's POV-Ray render and averages 2 × 2 samples per pixel (`samples`, POV-Ray's `+A`); `map_projection_distortion` on the engine page redraws Natural Earth II at 1280 × 640 (`data/earth-ne2-1280.jpg`, 139 KB, public domain; page setting `earth`, `small` for Reanimate's 300 × 150 image), about 1.5 s per frame; README and records corrected (`fe_morph` has no golden file, Natural Earth's `NAME` is stored as `name`, rule 6 reworded).
 - Evidence: `tools/check.py` passes apart from two failures that also happen on a clean `main` in the cloud container (the font-coverage refusal test and the hairline-spice-rack determinism test). Behaviour in a fresh client `NOT_RUN`; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
+## 0.8.3 (2026-11-25)
+
+Lesson from client work (shared knowledge base, 2026-11-19; prepared 2026-11-21 and renumbered from 0.8.2, which the keyframe-type release took): a reel can pass every craft check and still miss the brief.
+
+- Reel workflow, quality loop: a brief check between the automatic checks and the fresh reviewer. It reads only the brief and the stage and compares delivery format and size, length, logo, brand colours, required lines and what the brief forbids; any mismatch is a finding. The order of the three checks is now stated.
+- Evidence: `tools/check.py` passes. Behaviour in a fresh client `NOT_RUN`; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
 
 ## 0.8.2 (2026-11-22)
 
