@@ -7,6 +7,7 @@ How Studio learns from a reference video the user brings ("make it like this one
 - **Technique, yes:** cut rhythm, shot lengths, how text enters and leaves, camera moves, transitions, layout grid, colour logic, sound cues.
 - **The work itself, no:** the creator's footage, artwork, exact on-screen text, music, logo, characters or a shot-by-shot copy of their film. A user who asks for an exact copy of someone else's video gets one short line and, in the same reply, the same technique carrying their own content; a named brand, game or mascot is a style to work in, see [brand-inspired requests](brand-inspired-requests.md).
 - **The user's own video:** may be rebuilt exactly (for an edit, a new language, a new format), because the user holds the rights.
+- **A client's reel rebuilt 1:1** (the client owns the reference or commissions the copy; own or fictional characters, generated start frames and clips, new voices, cut on the reference's times) is an edit: it follows FrameCut's [rebuilding a client's reel](https://github.com/FrameCoreWorks/framecut/blob/main/plugins/framecut/skills/framecut/references/reference-reel-rebuild.md) (FrameCut: `skills/framecut/references/reference-reel-rebuild.md`). FrameMotion adds only what is coded there: designed titles or caption layers, composited after any RIFE pass, never generated inside a clip. No real person's likeness and no logo copied 1:1; each paid generation only after the user's yes with its cost (owner's client handover 2026-11-27).
 
 ## Method
 
