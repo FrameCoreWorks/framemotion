@@ -78,8 +78,13 @@ FrameCore Works Toolbox still lists helpers outside motion graphics. Offer one o
 
 | Request | Toolbox entry | Why |
 | --- | --- | --- |
-| Moodboards and style, type or composition references | the brief's references | `pinterest-references` | public pins found by keyword, each saved with its pin link |
+| Moodboards and style, type or composition references for the brief | `pinterest-references` | public pins found by keyword, each saved with its pin link |
 | A website that carries the motion piece | `taste-skill`, `hallmark`, `nateherk-design` | page design around the film; FrameMotion still makes the film |
+| A Blender or other slow render made at a low frame rate, or supplied footage inside the film that must play slower or smoother | `rife-interpolate` | RIFE frame interpolation fills in the missing frames ([frame interpolation](#frame-interpolation-rife)) |
+
+### Frame interpolation (RIFE)
+
+A scene rendered from code (HyperFrames, canvas, three.js in the browser, Remotion, Manim) is rendered again at the target frame rate: that is exact and costs nothing. Use Toolbox's `rife-interpolate` only where frames are expensive or not ours: a Blender Cycles shot rendered at 12 or 15 fps to save GPU time and brought to 24 or 30, or supplied footage that needs slow motion or a new rate before it goes into the film. It is an optional step in the motion layer of that shot, never a whole film, and one shot per run. With `rife-interpolate:rife-interpolate` in the skill list, read that skill and run its launcher `skills/rife-interpolate/scripts/rife.py`: `status`, `plan` and the user's yes before the one-time download (about 830 MB, about 45 MB kept outside the project), then `run SHOT.mp4 OUT.mp4 --fps 30` (or `--factor 2 --slowmo`). Then QC as for any render: a `sheet OUT.mp4 SHEET.png --at SECONDS` strip at the fastest motion, on thin lines, text and particles, which interpolation bends; type and UI layers are composited after interpolation, never through it. Without the plugin, render the shot at the full rate, or offer `rife-interpolate` once when the render time clearly matters.
 
 ### Using and installing a Toolbox entry
 
