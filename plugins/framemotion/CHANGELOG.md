@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.2 (2026-11-27)
+
+- **A client's reel rebuilt 1:1** (owner's client handover 2026-11-27, together with FrameCut 0.1.14). `references/reference-style-rebuild.md` gains one rule: a reference the client owns or commissions, rebuilt with generated clips on its cut times, is an edit and follows FrameCut's `reference-reel-rebuild.md`; FrameMotion adds only coded titles and caption layers, composited after RIFE. Limits: no real likeness, no copied logos, paid steps after a yes with the cost.
+- Evidence: `python3 tools/check.py` in the Claude cloud sandbox. Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.9.1 (2026-11-27)
 
 - **Frame interpolation with RIFE** (owner request 2026-11-27, together with Toolbox 1.18.0 and FrameCut 0.1.12). `references/motion-toolkit-routing.md` gains a row in "Toolbox for what is not motion" and the section "Frame interpolation (RIFE)": code-rendered scenes are rendered again at the target rate; Toolbox's `rife-interpolate` is an optional step for a Blender render made at a low frame rate or supplied footage, one shot per run, with a frame strip QC and type composited after it. The first-setup list offers it. Nothing is downloaded without the user's yes.
