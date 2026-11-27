@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.9.1 (2026-11-27)
+
+- **Frame interpolation with RIFE** (owner request 2026-11-27, together with Toolbox 1.18.0 and FrameCut 0.1.12). `references/motion-toolkit-routing.md` gains a row in "Toolbox for what is not motion" and the section "Frame interpolation (RIFE)": code-rendered scenes are rendered again at the target rate; Toolbox's `rife-interpolate` is an optional step for a Blender render made at a low frame rate or supplied footage, one shot per run, with a frame strip QC and type composited after it. The first-setup list offers it. Nothing is downloaded without the user's yes.
+- **Fix:** the first row of that table had four cells under three headings.
+- Evidence: `python3 tools/check.py` in the Claude cloud sandbox. A RIFE run on a Blender render on the Mac `NOT_RUN` at release time; Codex and ChatGPT Work `NOT_TESTED (by policy)`.
+
 ## 0.9.0 (2026-11-25)
 
 Owner request 2026-11-23: port the Haskell library Reanimate (public domain) as FrameMotion's own engine, "a 1:1 base that draws the same pictures, adapted to our reels". Five packs; this entry grows with each one.

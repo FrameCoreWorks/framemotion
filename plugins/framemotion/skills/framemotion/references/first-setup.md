@@ -38,7 +38,7 @@ The workspace is `~/.framecore-studio/workspace` (or `FRAMECORE_STUDIO_WORKSPACE
 
 ## The list
 
-Grouped as the user sees it. Keep this list in step with the [motion library](motion-toolkit-routing.md#motion-library) and [Toolbox for what is not motion](motion-toolkit-routing.md#toolbox-for-what-is-not-motion), checked against Toolbox 1.17.0.
+Grouped as the user sees it. Keep this list in step with the [motion library](motion-toolkit-routing.md#motion-library) and [Toolbox for what is not motion](motion-toolkit-routing.md#toolbox-for-what-is-not-motion), checked against Toolbox 1.18.0.
 
 **Other FrameCore Works plugins:**
 - `framecut`: editing your own footage with a FrameMotion piece placed on its timeline, captions, subtitles and the mix.
@@ -48,6 +48,7 @@ Grouped as the user sees it. Keep this list in step with the [motion library](mo
 **From Toolbox** (not motion; FrameMotion has everything for motion built in):
 - `pinterest-references`: moodboards from public pins, each with its link.
 - `taste-skill`, `hallmark` or `nateherk-design`: a website around the film.
+- `rife-interpolate`: fills in frames of a slow Blender render or slows down supplied footage (RIFE; downloads its program once, after your yes).
 
 Built in, never offered as a plugin: the motion library (GSAP and three.js API pages, Manim explainers, the papercut pipeline, bang-motion starters, the Hairline web library, the varg, Claude Video and iart style packs), every engine and Earshot.
 
